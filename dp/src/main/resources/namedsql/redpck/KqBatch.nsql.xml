@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="KqBatch" longname="卡券交易sql" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <select cache="none" method="selectOne" type="sql" id="selKqCountByFilesq" longname="统计卡券记录数">
+        <sql><![CDATA[select count(1) from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt#]]></sql>
+        <sql type="oracle"><![CDATA[select count(1) from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt#]]></sql>
+        <sql type="mysql"><![CDATA[select count(1) from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="sourdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selDataidByFilesq" longname="查询文件批次作业号">
+        <sql><![CDATA[select distinct dataid from knb_kqjz_bach where filesq=#filesq#  and sourdt=#sourdt#]]></sql>
+        <sql type="oracle"><![CDATA[select distinct dataid from knb_kqjz_bach where filesq=#filesq#  and sourdt=#sourdt#]]></sql>
+        <sql type="mysql"><![CDATA[select distinct dataid from knb_kqjz_bach where filesq=#filesq#  and sourdt=#sourdt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="sourdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBatchDataByFilesq" longname="查询文件批量数据集">
+        <sql><![CDATA[select * from knb_kqjz_bach where filesq=#filesq# and dataid=#dataid# and sourdt=#sourdt# and transt <> '9']]></sql>
+        <sql type="oracle"><![CDATA[select * from knb_kqjz_bach where filesq=#filesq# and dataid=#dataid# and sourdt=#sourdt# and transt <> '9']]></sql>
+        <sql type="mysql"><![CDATA[select * from knb_kqjz_bach where filesq=#filesq# and dataid=#dataid# and sourdt=#sourdt# and transt <> '9']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="sourdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="dataid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR06" mode="in" longname="作业ID" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="RpMgr.KnbKqjzBach"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGroupCountByFilesq" longname="按交易状态统计记录数">
+        <sql><![CDATA[select transt,count(1) record from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt# group by transt]]></sql>
+        <sql type="oracle"><![CDATA[select transt,count(1) record from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt# group by transt]]></sql>
+        <sql type="mysql"><![CDATA[select transt,count(1) record from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt# group by transt]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="sourdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="transt" javaType="BaseEnumType.E_TRANST" column="transt"/>
+            <result property="record" javaType="BaseType.U_LONGIN" column="record"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBatchWriteData" longname="查询反盘文件数据集">
+        <sql><![CDATA[select * from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt#]]></sql>
+        <sql type="oracle"><![CDATA[select * from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt#]]></sql>
+        <sql type="mysql"><![CDATA[select * from knb_kqjz_bach where filesq=#filesq# and sourdt=#sourdt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="sourdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="批量交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="RpMgr.KnbKqjzBach"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selProdstWriteData" longname="查询产品状态数据集">
+        <sql><![CDATA[select * from knb_qery_bach where filesq=#filesq# ]]></sql>
+        <sql type="oracle"><![CDATA[select * from knb_qery_bach where filesq=#filesq# ]]></sql>
+        <sql type="mysql"><![CDATA[select * from knb_qery_bach where filesq=#filesq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="RpMgr.knbQeryBach"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selDrawDataIdByFilesq" longname="查询文件批次作业编号">
+        <sql><![CDATA[select distinct dataid from knb_qery_bach where filesq=#filesq#]]></sql>
+        <sql type="oracle"><![CDATA[select distinct dataid from knb_qery_bach where filesq=#filesq#]]></sql>
+        <sql type="mysql"><![CDATA[select distinct dataid from knb_qery_bach where filesq=#filesq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBarchDrawDataByFileSq" longname="查询提前支取数据集">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_qery_bach 
+    	where
+    	    	filesq=#filesq# and dataid=#dataid# 
+    	    	and transt <> '9'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_qery_bach 
+    	where
+    	    	filesq=#filesq# and dataid=#dataid# 
+    	    	and transt <> '9'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_qery_bach 
+    	where
+    	    	filesq=#filesq# and dataid=#dataid# 
+    	    	and transt <> '9'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="dataid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR06" mode="in" longname="作业ID" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="RpMgr.knbQeryBach"/>
+    </select>
+</sqls>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="AccChngbr" longname="电子账户变更机构相关sql" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <select cache="none" method="selectAll" type="sql" id="selKnaacctByUpbldt" longname="查询是否更新余额">
+        <sql type="db2"><![CDATA[select upbldt from kna_acct where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[select upbldt from kna_acct where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[select upbldt from kna_acct where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaAcct"/>
+    </select>
+    <update method="update" id="updKnaCustByCus" longname="电子账户表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_cust set corpno = #corpno#, tmstmp = #tmstmp#,brchno  = #brchno#, acctst = #acctst#,closdt = NULL,clossq = NULL where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_cust set corpno = #corpno#, tmstmp = #tmstmp#,brchno  = #brchno#, acctst = #acctst#,closdt = NULL,clossq = NULL where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_cust set corpno = #corpno#, tmstmp = #tmstmp#,brchno  = #brchno#, acctst = #acctst#,closdt = NULL,clossq = NULL where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctst" ref="CaDict.Eacct.acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTST" mode="in" longname="电子账户状态" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaaccsByCus" longname="负债账户客户账号对照表更新法人">
+        <sql type="db2"><![CDATA[update kna_accs set corpno = #corpno# ,tmstmp = #tmstmp#, acctst = #acctst# where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_accs set corpno = #corpno# ,tmstmp = #tmstmp#, acctst = #acctst# where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_accs set corpno = #corpno# ,tmstmp = #tmstmp#, acctst = #acctst# where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="子账号状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaacctByCus" longname="负债活期账户信息表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_acct set corpno = #corpno#, tmstmp = #tmstmp#,brchno = #brchno# , acctst = #acctst#,closdt = NULL,clossq = NULL where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct set corpno = #corpno#, tmstmp = #tmstmp#,brchno = #brchno# , acctst = #acctst#,closdt = NULL,clossq = NULL where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct set corpno = #corpno#, tmstmp = #tmstmp#,brchno = #brchno# , acctst = #acctst#,closdt = NULL,clossq = NULL where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="账户状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaacdcByCus" longname="卡客户账号对照表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_acdc set corpno = #corpno#, tmstmp = #tmstmp#,status = #status#  where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acdc set corpno = #corpno#, tmstmp = #tmstmp#,status = #status#  where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acdc set corpno = #corpno#, tmstmp = #tmstmp#,status = #status#  where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKcdcardByCus" longname="卡信息表更新法人代码">
+        <sql type="db2"><![CDATA[update kcd_card set corpno = #corpno#,tmstmp = #tmstmp#,dcmtst = #dcmtst#  where cardno in (select cardno from kna_acdc where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kcd_card set corpno = #corpno#,tmstmp = #tmstmp#,dcmtst = #dcmtst#  where cardno in (select cardno from kna_acdc where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kcd_card set corpno = #corpno#,tmstmp = #tmstmp#,dcmtst = #dcmtst#  where cardno in (select cardno from kna_acdc where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="dcmtst" jdbcType="VARCHAR" javaType="DpEnumType.E_DCMTST" mode="in" longname="凭证状态" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnasaveByCus" longname="负债活期账户存入控制更新法人代码">
+        <sql type="db2"><![CDATA[update kna_save set corpno = #corpno#,tmstmp = #tmstmp#  where acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kna_save set corpno = #corpno#,tmstmp = #tmstmp#  where acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kna_save set corpno = #corpno#,tmstmp = #tmstmp#  where acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnadrawByCus" longname="负债活期账户支取控制更新法人代码">
+        <sql type="db2"><![CDATA[update kna_draw a set a.corpno = #corpno#,tmstmp = #tmstmp# where a.acctno in( select b.acctno from kna_acct b where b.custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kna_draw a set a.corpno = #corpno#,tmstmp = #tmstmp# where a.acctno in( select b.acctno from kna_acct b where b.custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kna_draw a set a.corpno = #corpno#,tmstmp = #tmstmp# where a.acctno in( select b.acctno from kna_acct b where b.custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnbacinByCus" longname="负债账户计息信息更新法人代码">
+        <sql type="db2"><![CDATA[update knb_acin set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update knb_acin set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update knb_acin set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKubinrtByCus" longname="账户利率信息更新法人代码">
+        <sql type="db2"><![CDATA[update kub_inrt set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kub_inrt set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaacalByCus" longname="账户别名关系表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_acal set corpno = #corpno#,tmstmp = #tmstmp#,acalst = #acalst# where custac = #custac# and acalno = #acalno# and acaltp = #acaltp#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acal set corpno = #corpno#,tmstmp = #tmstmp#,acalst = #acalst# where custac = #custac# and acalno = #acalno# and acaltp = #acaltp#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acal set corpno = #corpno#,tmstmp = #tmstmp#,acalst = #acalst# where custac = #custac# and acalno = #acalno# and acaltp = #acaltp#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acalst" ref="CaDict.Eacct.acalst" jdbcType="VARCHAR" javaType="CaEnumType.E_ACALST" mode="in" longname="关联状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acalno" ref="CaDict.Eacct.acalno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户别名" parameterType="condition"/>
+            <parameter property="acaltp" ref="CaDict.Eacct.acaltp" jdbcType="VARCHAR" javaType="CaEnumType.E_ACALTP" mode="in" longname="账户别名类型" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnacacdByCus" longname="外部卡与客户账号对照表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_cacd set corpno = #corpno#,tmstmp = #tmstmp#  where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_cacd set corpno = #corpno#,tmstmp = #tmstmp#  where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_cacd set corpno = #corpno#,tmstmp = #tmstmp#  where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnasaveplanByCus" longname="负债活期账户存入计划表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_save_plan set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kna_save_plan set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kna_save_plan set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnadrawplanByCus" longname="负债活期账户支取计划表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_draw_plan set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kna_draw_plan set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kna_draw_plan set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaacctmatuByCus" longname="负债活期账户到期信息表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_acct_matu set corpno = #corpno#,tmstmp = #tmstmp#  where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct_matu set corpno = #corpno#,tmstmp = #tmstmp#  where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct_matu set corpno = #corpno#,tmstmp = #tmstmp#  where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaacctaddtByCus" longname="负债账户附加信息表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_acct_addt set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct_addt set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct_addt set corpno = #corpno#,tmstmp = #tmstmp# where  acctno in (select acctno from kna_accs where custac = #custac#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selKnbpromByCus" longname="查询是否发生过升级交易">
+        <sql type="db2"><![CDATA[select count(*) from knb_prom where custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from knb_prom where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from knb_prom where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbclacByCus" longname="查询销户登记簿">
+        <sql type="db2"><![CDATA[select * from knb_clac where custac = #custac# order by tmstmp desc]]></sql>
+        <sql type="oracle"><![CDATA[select * from knb_clac where custac = #custac# order by tmstmp desc]]></sql>
+        <sql type="mysql"><![CDATA[select * from knb_clac where custac = #custac# order by tmstmp desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTable.IoCaKnbClac"/>
+    </select>
+    <update method="update" id="updCifcustaccsByCustid" longname="更新客户信息关联表法人和状态">
+        <sql type="db2"><![CDATA[update cif_cust_accs set status = #status# where custid = #custid#]]></sql>
+        <sql type="oracle"><![CDATA[update cif_cust_accs set status = #status# where custid = #custid#]]></sql>
+        <sql type="mysql"><![CDATA[update cif_cust_accs set status = #status# where custid = #custid#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_STATUS" mode="in" longname="客户关联关系" parameterType="condition"/>
+            <parameter property="custid" ref="BaseDict.Comm.custid" jdbcType="VARCHAR" javaType="BaseType.U_CUSTID" mode="in" longname="用户ID" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectFirst" type="sql" id="selKnaacalByCus" longname="查询账户别名关系表">
+        <sql type="db2"><![CDATA[select * from kna_acal where custac = #custac# and acaltp = #acaltp# and acalst = #acalst# ]]></sql>
+        <sql type="oracle"><![CDATA[select * from kna_acal where custac = #custac# and acaltp = #acaltp# and acalst = #acalst# ]]></sql>
+        <sql type="mysql"><![CDATA[select * from kna_acal where custac = #custac# and acaltp = #acaltp# and acalst = #acalst# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acaltp" ref="CaDict.Eacct.acaltp" jdbcType="VARCHAR" javaType="CaEnumType.E_ACALTP" mode="in" longname="账户别名类型" parameterType="condition"/>
+            <parameter property="acalst" ref="CaDict.Eacct.acalst" jdbcType="VARCHAR" javaType="CaEnumType.E_ACALST" mode="in" longname="关联状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTable.IoCaKnaAcal"/>
+    </select>
+    <update method="update" id="updCifCustByCus" longname="客户信息表更新法人代码">
+        <sql type="db2"><![CDATA[update cif_cust set corpno = #corpno#,tmstmp = #tmstmp# where  custno = #custno#]]></sql>
+        <sql type="oracle"><![CDATA[update cif_cust set corpno = #corpno#,tmstmp = #tmstmp# where  custno = #custno#]]></sql>
+        <sql type="mysql"><![CDATA[update cif_cust set corpno = #corpno#,tmstmp = #tmstmp# where  custno = #custno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+            <parameter property="custno" ref="BaseDict.Comm.custno" jdbcType="VARCHAR" javaType="BaseType.U_CUSTNO" mode="in" longname="客户号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaacctprodByCus" longname="活期附加产品信息表更新法人代码">
+        <sql type="db2"><![CDATA[update kna_acct_prod set corpno = #corpno#,tmstmp = #tmstmp#  where  acctno in (select acctno from kna_accs where custac = #custac#)
+]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct_prod set corpno = #corpno#,tmstmp = #tmstmp#  where  acctno in (select acctno from kna_accs where custac = #custac#)
+]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct_prod set corpno = #corpno#,tmstmp = #tmstmp#  where  acctno in (select acctno from kna_accs where custac = #custac#)
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <insert id="insKnbcacqInfo" longname="插入绑定账户信息修改登记簿">
+        <sql type="db2"><![CDATA[INSERT INTO knb_cacq
+(CORPNO, CUSTAC, ODOPAC, CDOPAC, TRANDT, SERVTP, MANTWY, CLOSSQ ,tmstmp)
+VALUES(#corpno#, #custac#, #odopac#, #cdopac#, #trandt#, #servtp#, #mantwy#, #clossq#,#tmstmp#)]]></sql>
+        <sql type="oracle"><![CDATA[INSERT INTO knb_cacq
+(CORPNO, CUSTAC, ODOPAC, CDOPAC, TRANDT, SERVTP, MANTWY, CLOSSQ ,tmstmp)
+VALUES(#corpno#, #custac#, #odopac#, #cdopac#, #trandt#, #servtp#, #mantwy#, #clossq#,#tmstmp#)]]></sql>
+        <sql type="mysql"><![CDATA[INSERT INTO knb_cacq
+(CORPNO, CUSTAC, ODOPAC, CDOPAC, TRANDT, SERVTP, MANTWY, CLOSSQ ,tmstmp)
+VALUES(#corpno#, #custac#, #odopac#, #cdopac#, #trandt#, #servtp#, #mantwy#, #clossq#,#tmstmp#)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="odopac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="原绑定账户" parameterType="condition"/>
+            <parameter property="cdopac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="新绑定账户" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="交易渠道" parameterType="condition"/>
+            <parameter property="mantwy" ref="CaDict.Eacct.mantwy" jdbcType="VARCHAR" javaType="CaEnumType.E_MANTWY" mode="in" longname="维护方式" parameterType="condition"/>
+            <parameter property="clossq" ref="DpDict.Acct.clossq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="销户流水" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectOne" type="sql" id="selKnareltiInfo" longname="检查未关闭亲情钱包关系">
+        <sql type="db2"><![CDATA[select count(1) from kna_relt a where a.elacct = #custno# and a.reltst <> '2']]></sql>
+        <sql type="oracle"><![CDATA[select count(1) from kna_relt a where a.elacct = #custno# and a.reltst <> '2']]></sql>
+        <sql type="mysql"><![CDATA[select count(1) from kna_relt a where a.elacct = #custno# and a.reltst <> '2']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custno" ref="BaseDict.Comm.custno" jdbcType="VARCHAR" javaType="BaseType.U_CUSTNO" mode="in" longname="客户号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbcacqByClossq" longname="根据销户流水查询绑定信息修改登记簿">
+        <sql type="db2"><![CDATA[select * from knb_cacq where clossq = #clossq#]]></sql>
+        <sql type="oracle"><![CDATA[select * from knb_cacq where clossq = #clossq#]]></sql>
+        <sql type="mysql"><![CDATA[select * from knb_cacq where clossq = #clossq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="clossq" ref="DpDict.Acct.clossq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="销户流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTable.IoCaKnbCacq"/>
+    </select>
+    <update method="update" id="updKnacacdByCardno" longname="根据绑定卡号更新外部卡客户账户对照表">
+        <sql type="db2"><![CDATA[update kna_cacd set corpno = #corpno#, tmstmp = #tmstmp#,status = #status# where cardno = #cardno# and custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_cacd set corpno = #corpno#, tmstmp = #tmstmp#,status = #status# where cardno = #cardno# and custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_cacd set corpno = #corpno#, tmstmp = #tmstmp#,status = #status# where cardno = #cardno# and custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="状态" parameterType="condition"/>
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="BaseType.U_CARDNO" mode="in" longname="绑定卡号" parameterType="condition"/>
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selKnacacdByCardno" longname="根据绑定卡号法人号查询外部卡与客户账户对照表">
+        <sql type="db2"><![CDATA[select * from kna_cacd where cardno = #cardno# and custac = #custac# and corpno = #corpno#]]></sql>
+        <sql type="oracle"><![CDATA[select * from kna_cacd where cardno = #cardno# and custac = #custac# and corpno = #corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select * from kna_cacd where cardno = #cardno# and custac = #custac# and corpno = #corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="BaseType.U_CARDNO" mode="in" longname="绑定卡号" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTable.IoCaKnaCacd"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selClosInfo" longname="查询销户MQ发送所需信息">
+        <sql><![CDATA[select a.CUSTAC,a.CUSTNA,a.BRCHNO,b.CUSTID,c.IDTFNO,c.IDTFTP from kna_cust a
+inner join kna_cuad b on (a.CUSTAC = b.CUSTAC)
+inner join cif_cust c on (a.CUSTNO = c.CUSTNO)
+inner join kna_acdc d on (a.CUSTAC = d.CUSTAC)
+where d.cardno = #cardno#]]></sql>
+        <sql type="oracle"><![CDATA[select a.CUSTAC,a.CUSTNA,a.BRCHNO,b.CUSTID,c.IDTFNO,c.IDTFTP from kna_cust a
+inner join kna_cuad b on (a.CUSTAC = b.CUSTAC)
+inner join cif_cust c on (a.CUSTNO = c.CUSTNO)
+inner join kna_acdc d on (a.CUSTAC = d.CUSTAC)
+where d.cardno = #cardno#]]></sql>
+        <sql type="mysql"><![CDATA[select a.CUSTAC,a.CUSTNA,a.BRCHNO,b.CUSTID,c.IDTFNO,c.IDTFTP from kna_cust a
+inner join kna_cuad b on (a.CUSTAC = b.CUSTAC)
+inner join cif_cust c on (a.CUSTNO = c.CUSTNO)
+inner join kna_acdc d on (a.CUSTAC = d.CUSTAC)
+where d.cardno = #cardno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cardno" ref="BaseDict.Comm.cardno" jdbcType="VARCHAR" javaType="BaseType.U_CARDNO" mode="in" longname="交易卡号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaClAcctMesgInfo"/>
+    </select>
+</sqls>

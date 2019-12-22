@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="fxactf" longname="大额存单转让" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="oucuac" type="BaseType.U_CUSTAC" required="true" multi="false" array="false" longname="出让子账号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="incuac" type="BaseType.U_CUSTAC" required="true" multi="false" array="false" longname="受让电子账号"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="true" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="prodtx" type="BaseType.U_CHAR40" required="true" multi="false" array="false" longname="产品名称" ref="DpDict.Prod.prodtx"/>
+            <field id="oucuna" type="BaseType.U_ACCTNA" required="true" multi="false" array="false" longname="出让客户名"/>
+            <field id="incuna" type="BaseType.U_ACCTNA" required="true" multi="false" array="false" longname="受让客户名"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="incpno" type="BaseType.U_CORPNO" required="true" multi="false" array="false" longname="受让法人代码"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="oucuac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="出让账号"/>
+            <field id="incuac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="受让账号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="oucuna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="出让客户名称"/>
+            <field id="incuna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="受让客户名称"/>
+            <field id="feeamt" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="手续费金额" ref="PbDict.Charge.feeamt"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="checkBefore" longname="交易前检查"/>
+        <service serviceName="DpAcctSvcType.DealLaAmOderTranfer" id="dealLaAmOderTranfer" longname="大额存单转让">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="incpno" dest="incpno" by_interface="true" on_top="true"/>
+                <mapping src="incuac" dest="incuac" by_interface="true" on_top="true"/>
+                <mapping src="incuna" dest="incuna" by_interface="true" on_top="true"/>
+                <mapping src="oucuac" dest="oucuac" by_interface="true" on_top="true"/>
+                <mapping src="oucuna" dest="oucuna" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="prodcd" by_interface="true" on_top="true"/>
+                <mapping src="prodtx" dest="prodtx" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="feeamt" dest="feeamt" by_interface="true" on_top="true"/>
+                <mapping src="incuac" dest="incuac" by_interface="true" on_top="true"/>
+                <mapping src="incuna" dest="incuna" by_interface="true" on_top="true"/>
+                <mapping src="oucuac" dest="oucuac" by_interface="true" on_top="true"/>
+                <mapping src="oucuna" dest="oucuna" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

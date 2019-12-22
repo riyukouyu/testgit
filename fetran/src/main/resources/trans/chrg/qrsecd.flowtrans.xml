@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrsecd" longname="查询场景计费管理" kind="1" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="scencd" type="FeBaseType.U_SCENCD" required="false" multi="false" array="false" longname="场景代码" ref="FeDict.Chrg.scencd"/>
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="pinfos" type="IoFeChrgComplexType.IoCgSecd" required="false" multi="true" array="false" longname="场景收费定义明细"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qrsecd" id="qrsecd" longname="查询场景计费管理" desc="查询场景计费管理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

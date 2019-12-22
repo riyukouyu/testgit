@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdepr" longname="查询存款证明业务信息交易" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询存款证明业务信息交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="deprnm" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款证明书编号" ref="DpDict.Depr.deprnm"/>
+            <field id="deprtp" type="BaseEnumType.E_DEPRTP" required="false" multi="false" array="false" longname="存款证明书类型" ref="DpDict.Depr.deprtp"/>
+            <field id="deprbp" type="BaseEnumType.E_DEPRBP" required="false" multi="false" array="false" longname="存款证明交易类型" ref="DpDict.Depr.deprbp"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" />
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="deprtp" type="BaseEnumType.E_DEPRTP" required="false" multi="false" array="false" longname="存款证明书类型" ref="DpDict.Depr.deprtp"/>
+            <field id="deprnm" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款证明书编号" ref="DpDict.Depr.deprnm"/>
+            <field id="deprbp" type="BaseEnumType.E_DEPRBP" required="false" multi="false" array="false" longname="存款证明交易类型" ref="DpDict.Depr.deprbp"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custna" type="BaseType.U_CHINNA" required="false" multi="false" array="false" longname="客户名" ref="PbDict.Charge.custna"/>
+            <field id="depram" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="证明金额" ref="DpDict.Depr.depram"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="PbDict.Charge.crcycd"/>
+            <field id="number" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="份数"/>
+            <field id="undobr" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="撤销柜员"/>
+            <field id="begndt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期" ref="DpDict.Depr.begndt"/>
+            <field id="enddat" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期" ref="DpDict.Depr.enddat"/>
+            <field id="opna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人1姓名" ref="DpDict.Froz.opna01"/>
+            <field id="optp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="经办人1证件种类" ref="DpDict.Froz.optp01"/>
+            <field id="opno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人1证件号码" ref="DpDict.Froz.opno01"/>
+            <field id="tranbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="交易机构" ref="PbDict.Charge.tranbr"/>
+            <field id="tranus" type="PbBaseType.U_USERID" required="false" multi="false" array="false" longname="交易柜员" ref="PbDict.Charge.tranus"/>
+            <field id="undodt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="撤销日期" ref="DpDict.Froz.undodt"/>
+            <field id="undonb" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="回收份数"/>
+            <field id="undois" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="撤销机构"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoDpFrozSvcType.IoQueryDpSpecForDepr" id="queryDpSpecForDepr" longname="查询存款证明信息交易" desc="查询存款证明信息交易">
+            <in_mappings by_interface="true">
+                <mapping src="deprbp" dest="specInfoListForDeprIn.deprbp" by_interface="true" on_top="true"/>
+                <mapping src="deprnm" dest="specInfoListForDeprIn.deprnm" by_interface="true" on_top="true"/>
+                <mapping src="deprtp" dest="specInfoListForDeprIn.deprtp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="specInfoListForDeprOt.begndt" dest="begndt" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.depram" dest="depram" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.deprbp" dest="deprbp" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.deprnm" dest="deprnm" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.deprtp" dest="deprtp" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.enddat" dest="enddat" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.number" dest="number" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.opna01" dest="opna01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.opno01" dest="opno01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.optp01" dest="optp01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.tranbr" dest="tranbr" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.tranus" dest="tranus" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.undobr" dest="undobr" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.undodt" dest="undodt" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.undois" dest="undois" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForDeprOt.undonb" dest="undonb" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

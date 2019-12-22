@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="fnrgpb" longname="财务往来记账明细登记(公用)" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="commdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="录入日期"/>
+            <field id="inptsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="录入流水"/>
+            <field id="commsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套帐号" desc="同一套帐用一个套账号，首次传空，下次用核心返回值"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="记账日期" desc="同一套帐记账日期一致，首次传空，下次用核心返回值"/>
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="true" multi="false" array="false" longname="科目号"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="记账方向"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="true" multi="false" array="false" longname="记账金额"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种"/>
+            <field id="smrytx" type="BaseType.U_SMRYDS" required="false" multi="false" array="false" longname="摘要"/>
+            <field id="typecd" type="BaseType.U_SMRYCD" required="true" multi="false" array="false" longname="类型代码"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="commsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套帐号"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="记账日期"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="beforeRegister" id="beforeRegister" longname="登记前处理" desc="登记前处理"/>
+        <service serviceName="IoInFnsCmbk.FnsRegister" id="FnsRegister" longname="财务往来记账登记" desc="财务往来记账登记">
+            <in_mappings by_interface="true">
+                <mapping src="amntcd" dest="input.amntcd" by_interface="true" on_top="true"/>
+                <mapping src="commdt" dest="input.commdt" by_interface="true" on_top="true"/>
+                <mapping src="inptsq" dest="input.commnm" by_interface="true" on_top="true"/>
+                <mapping src="commsq" dest="input.commsq" by_interface="true" on_top="true"/>
+                <mapping src="commdt" dest="input.corrdt" by_interface="true" on_top="true"/>
+                <mapping src="inptsq" dest="input.corrsq" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="inptsq" dest="input.inptsq" by_interface="true" on_top="true"/>
+                <mapping src="itemcd" dest="input.itemcd" by_interface="true" on_top="true"/>
+                <mapping src="typecd+itemcd" dest="input.busino" desc="默认配置业务编码=类型代码+科目号" by_interface="true" on_top="true"/>
+                <mapping src="smrytx" dest="input.smrytx" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="input.tranam" by_interface="true" on_top="true"/>
+                <mapping src="trandt" dest="input.trandt" by_interface="true" on_top="true"/>
+                <mapping src="inptsq" dest="input.transq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="out.commsq" dest="commsq" by_interface="true" on_top="true"/>
+                <mapping src="out.trandt" dest="trandt" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

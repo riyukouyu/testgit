@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="AccountFlow" longname="交易流水信息查询" package="cn.sunline.edsp.busi.dp.namedsql.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selectKnlIoblCupsInfo" longname="查询收单交易流水信息表">
+        <parameterMap class="java.util.Map">
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR25" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="pameno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="支付商户号" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="DsEnumType.E_BUSITP" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="sbrand" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="pos品牌" parameterType="condition"/>
+            <parameter property="termtp" jdbcType="VARCHAR" javaType="DsEnumType.E_TERMLX" mode="in" longname="终端类型" parameterType="condition"/>
+            <parameter property="posnum" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="终端号码" parameterType="condition"/>
+            <parameter property="frteno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="来源手机号" parameterType="condition"/>
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="ordeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="订单号" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="JfDpEnumType.E_RETYPE" mode="in" longname="支付渠道" parameterType="condition"/>
+            <parameter property="tratbg" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期开始" parameterType="condition"/>
+            <parameter property="trated" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期结束" parameterType="condition"/>
+            <parameter property="pretbg" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="前置日期开始" parameterType="condition"/>
+            <parameter property="preted" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="前置日期结束" parameterType="condition"/>
+            <parameter property="unttbg" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="银联交易日期开始" parameterType="condition"/>
+            <parameter property="untted" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="银联交易日期开始" parameterType="condition"/>
+            <parameter property="refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+            <parameter property="svcode" jdbcType="VARCHAR" javaType="JfDpEnumType.E_SERVCD" mode="in" longname="服务编码" parameterType="condition"/>
+            <parameter property="finsty" jdbcType="VARCHAR" javaType="JfDpEnumType.E_FINSTY" mode="in" longname="结算类型" parameterType="condition"/>
+            <parameter property="idtfno" javaType="BaseType.U_CHAR80" mode="in" longname="证件号码" parameterType="condition"/>
+            <parameter property="mercfg" jdbcType="VARCHAR" javaType="JfDpEnumType.E_MERCFG" mode="in" parameterType="condition"/>
+            <parameter property="edanst" jdbcType="VARCHAR" javaType="DpEnumType.E_CUPSST" mode="in" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_CUPSST" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpAcctinIoblCups"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select
+							a.mntrsq,
+							a.trandt,
+							a.mntrtm,
+							a.prepsq,
+							a.prepdt,
+							a.preptm,
+							a.uniseq,
+							a.unkpdt,
+							a.untrdt,
+							a.untrtm,
+							a.agid01,
+							a.ad01na,
+							a.inmeid,
+							a.inmena,
+							a.frteno,
+							a.cardno,
+							a.tranam,
+							a.chrgam,
+							a.jnanam,
+							a.jnanam as totaam,
+							a.svcode,
+							a.sbrand,
+							a.orgaid,
+							a.toanam,
+							a.transt,
+							a.pabkno,
+							a.otbkna,
+							a.cardtp,
+							a.refeno,
+							a.ordeno,
+							a.buodno,
+							a.finsty,
+							a.voucfe,
+							a.markfe,
+							a.pamena,
+							a.pateid,
+							a.busitp,
+							a.servtp,
+							a.mercfg,
+							a.termtp,
+							a.cletip,
+							a.gprsps,
+							a.pameno,
+							a.fiel6201 as fiel02,
+							b.cardtp as recdtp,
+							b.rtcode,
+							b.retmsg,
+							b.tranam as edanam,
+							b.sacdno,
+							b.sabkna,
+							b.trandt as edandt,
+							b.mntrtm as edtrtm,
+							a.merate,
+							a.signim,
+							a.tmpabkno,
+							a.tmfrteno,
+							b.tmsacdno,
+							a.posnum,
+							a.psbhno,
+							b.transt as edanst from knl_iobl_cups a left join knl_iobl_edm b on a.mntrsq=b.retrsq]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[a.inmeid=#inmeid#]]></str>
+                    </if>
+                    <if test="pameno!=null&amp;&amp;pameno!=''" type="If">
+                        <str type="Str"><![CDATA[a.pameno=#pameno#]]></str>
+                    </if>
+                    <if test="busitp!=null" type="If">
+                        <str type="Str"><![CDATA[a.busitp=#busitp#]]></str>
+                    </if>
+                    <if test="orgaid!=null&amp;&amp;orgaid!=''" type="If">
+                        <str type="Str"><![CDATA[a.orgaid=#orgaid#]]></str>
+                    </if>
+                    <if test="sbrand!=null&amp;&amp;sbrand!=''" type="If">
+                        <str type="Str"><![CDATA[a.sbrand=#sbrand#]]></str>
+                    </if>
+                    <if test="termtp!=null" type="If">
+                        <str type="Str"><![CDATA[a.termtp=#termtp#]]></str>
+                    </if>
+                    <if test="posnum!=null&amp;&amp;posnum!=''" type="If">
+                        <str type="Str"><![CDATA[a.posnum=#posnum#]]></str>
+                    </if>
+                    <if test="frteno!=null&amp;&amp;frteno!=''" type="If">
+                        <str type="Str"><![CDATA[a.frteno=#frteno#]]></str>
+                    </if>
+                    <if test="cardno!=null&amp;&amp;cardno!=''" type="If">
+                        <str type="Str"><![CDATA[a.cardno=#cardno#]]></str>
+                    </if>
+                    <if test="ordeno!=null&amp;&amp;ordeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.ordeno=#ordeno#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[a.servtp=#servtp#]]></str>
+                    </if>
+                    <if test="tratbg!=null&amp;&amp;tratbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.trandt>=#tratbg#]]></str>
+                    </if>
+                    <if test="trated!=null&amp;&amp;trated!=''" type="If">
+                        <str type="Str"><![CDATA[a.trandt<=#trated#]]></str>
+                    </if>
+                    <if test="pretbg!=null&amp;&amp;pretbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.prepdt>=#pretbg#]]></str>
+                    </if>
+                    <if test="preted!=null&amp;&amp;preted!=''" type="If">
+                        <str type="Str"><![CDATA[a.prepdt<=#preted#]]></str>
+                    </if>
+                    <if test="unttbg!=null&amp;&amp;unttbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt>=#unttbg#]]></str>
+                    </if>
+                    <if test="untted!=null&amp;&amp;untted!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt<=#untted#]]></str>
+                    </if>
+                    <if test="refeno!=null&amp;&amp;refeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.refeno=#refeno#]]></str>
+                    </if>
+                    <if test="svcode!=null" type="If">
+                        <str type="Str"><![CDATA[a.svcode=#svcode#]]></str>
+                    </if>
+                    <if test="finsty!=null" type="If">
+                        <str type="Str"><![CDATA[a.finsty=#finsty#]]></str>
+                    </if>
+                    <if test="mercfg!=null" type="If">
+                        <str type="Str"><![CDATA[a.mercfg=#mercfg#]]></str>
+                    </if>
+                    <if test="transt!=null" type="If">
+                        <str type="Str"><![CDATA[a.transt=#transt#]]></str>
+                    </if>
+                    <if test="edanst!=null" type="If">
+                        <str type="Str"><![CDATA[b.transt=#edanst#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.unkpdt desc,a.mntrtm desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selectKnlCleaseInfo" longname="清结算流水查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="sbrand" jdbcType="VARCHAR" javaType="BaseType.U_CHAR20" mode="in" longname="品牌" parameterType="condition"/>
+            <parameter property="unttbg" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="银联清算日期开始" parameterType="condition"/>
+            <parameter property="untted" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="银联清算日期结束" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR05" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="商户号" parameterType="condition"/>
+            <parameter property="teleno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="手机号码" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="交易流水号" parameterType="condition"/>
+            <parameter property="untrst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR05" mode="in" longname="交易状态" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="BaseType.U_CHAR05" mode="in" longname="代发状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpKnlCleaseInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select
+							a.sbrand,
+							a.busitp,
+							a.inmeid,
+							a.teleno,
+							a.pamena,
+							a.ordeno,
+							a.mntrsq,
+							a.refeno,
+							a.prepdt,
+							a.preptm,
+							a.unkpdt,
+							a.cardtp,
+							a.jnanam,
+							a.servtp,
+							a.untrst,
+							a.finsty,
+							a.toanam,
+							a.voucfe,
+							a.tranam,
+							a.chrgam,
+							a.pabkno,
+							a.transt,
+							b.sacdno,
+							b.sacdna,
+							b.finsty as atfnsy,
+							b.rtcode from knl_iobl_cups a left join knl_iobl_edm b on a.mntrsq=b.retrsq]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="sbrand!=null&amp;&amp;sbrand!=''" type="If">
+                        <str type="Str"><![CDATA[a.sbrand=#sbrand#]]></str>
+                    </if>
+                    <if test="unttbg!=null&amp;&amp;unttbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt>=#unttbg#]]></str>
+                    </if>
+                    <if test="untted!=null&amp;&amp;untted!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt<=#untted#]]></str>
+                    </if>
+                    <if test="busitp!=null&amp;&amp;busitp!=''" type="If">
+                        <str type="Str"><![CDATA[a.busitp=#busitp#]]></str>
+                    </if>
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[a.inmeid=#inmeid#]]></str>
+                    </if>
+                    <if test="teleno!=null&amp;&amp;teleno!=''" type="If">
+                        <str type="Str"><![CDATA[a.teleno=#teleno#]]></str>
+                    </if>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[a.mntrsq=#mntrsq#]]></str>
+                    </if>
+                    <if test="untrst!=null&amp;&amp;untrst!=''" type="If">
+                        <str type="Str"><![CDATA[a.untrst=#untrst#]]></str>
+                    </if>
+                    <if test="transt!=null&amp;&amp;transt!=''" type="If">
+                        <str type="Str"><![CDATA[a.transt=#transt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.mntrsq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selectKnlIoblCupsByRefeno" longname="根据参考号查询交易流水">
+        <sql type="oracle"><![CDATA[select * from knl_iobl_cups where refeno = #refeno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblCups"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selectKnlIoblEdmContro" longname="查询代发防重控制表">
+        <parameterMap class="java.util.Map">
+            <parameter property="dfbgdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="代发开始日期" parameterType="condition"/>
+            <parameter property="dfeddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="代发结束日期" parameterType="condition"/>
+            <parameter property="edmflg" jdbcType="VARCHAR" javaType="JfDpEnumType.E_PASTAT" mode="in" longname="代发状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblEdmContro"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knl_iobl_edm_contro]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dfbgdt!=null&amp;&amp;dfeddt!=null" type="If">
+                        <str type="Str"><![CDATA[#dfbgdt#<=trandt and  #dfeddt#>=trandt]]></str>
+                    </if>
+                    <if test="edmflg!=null" type="If">
+                        <str type="Str"><![CDATA[#edmflg#=edmflg]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selectKnlIoblCups" longname="查询银联CUPS转账登记簿">
+        <parameterMap class="java.util.Map">
+            <parameter property="atsvna" jdbcType="VARCHAR" javaType="BaseType.U_CHAR200" mode="in" longname="服务商名称" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblCups"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knl_iobl_cups]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="atsvna!=null" type="If">
+                        <str type="Str"><![CDATA[atsvna=#atsvna#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[mntrsq=#mntrsq#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selectKubmothfr" longname="查询月分润函">
+        <parameterMap class="java.util.Map">
+            <parameter property="atsvna" jdbcType="VARCHAR" javaType="BaseType.U_CHAR200" mode="in" longname="服务商名称" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblCups"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knl_iobl_cups]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="atsvna!=null" type="If">
+                        <str type="Str"><![CDATA[atsvna=#atsvna#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[mntrsq=#mntrsq#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selectRiskKnlIoblCups" longname="查询未代发的收单交易">
+        <sql type="oracle"><![CDATA[select t.*,c.mntrsq as edmtrsq, c.edmflg, c.recdver as oldrecdver from knl_iobl_cups t
+left join knl_iobl_edm_contro c on t.mntrsq = c.retrsq and t.trandt = c.retrdt
+where instr(#acctno#,t.acctno)>0 and t.transt = '1' and t.proccd = 'acctin' and (t.frozam is null or t.frozam != t.toanam) and (c.mntrsq is null or c.edmflg in ('U','F'))
+order by t.prepdt, t.preptm]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="string" mode="in" longname="账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.KnlIoblCupsEdmContro"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selectRiskKnlIoblCupsByMntrsq" longname="查询收单交易和代发信息">
+        <sql type="oracle"><![CDATA[select t.*,c.mntrsq as edmtrsq, c.edmflg, c.recdver as oldrecdver from knl_iobl_cups t
+left join knl_iobl_edm_contro c on t.mntrsq = c.retrsq and t.trandt = c.retrdt
+where t.mntrsq = #mntrsq# and t.trandt = #trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易主流水" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.KnlIoblCupsEdmContro"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selectKnlIoblCupsInfoExp" longname="查询导出的交易流水信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR25" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="pameno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="支付商户号" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="DsEnumType.E_BUSITP" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="sbrand" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="pos品牌" parameterType="condition"/>
+            <parameter property="termtp" jdbcType="VARCHAR" javaType="DsEnumType.E_TERMLX" mode="in" longname="终端类型" parameterType="condition"/>
+            <parameter property="posnum" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="终端号码" parameterType="condition"/>
+            <parameter property="frteno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="来源手机号" parameterType="condition"/>
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="ordeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="订单号" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="JfDpEnumType.E_RETYPE" mode="in" longname="支付渠道" parameterType="condition"/>
+            <parameter property="tratbg" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期开始" parameterType="condition"/>
+            <parameter property="trated" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期结束" parameterType="condition"/>
+            <parameter property="pretbg" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="前置日期开始" parameterType="condition"/>
+            <parameter property="preted" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="前置日期结束" parameterType="condition"/>
+            <parameter property="unttbg" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="银联交易日期开始" parameterType="condition"/>
+            <parameter property="untted" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="银联交易日期开始" parameterType="condition"/>
+            <parameter property="refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+            <parameter property="svcode" jdbcType="VARCHAR" javaType="JfDpEnumType.E_SERVCD" mode="in" longname="服务编码" parameterType="condition"/>
+            <parameter property="finsty" jdbcType="VARCHAR" javaType="JfDpEnumType.E_FINSTY" mode="in" longname="结算类型" parameterType="condition"/>
+            <parameter property="idtfno" javaType="BaseType.U_CHAR80" mode="in" longname="证件号码" parameterType="condition"/>
+            <parameter property="mercfg" jdbcType="VARCHAR" javaType="JfDpEnumType.E_MERCFG" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpAcctinIoblCupsExp"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select
+								a.orgaid,
+    	    	a.sbrand,
+    	    	a.busitp,
+    	    	a.inmeid,
+    	    	a.inmena,
+    	    	a.mercfg,
+    	    	a.mntrsq,
+    	    	a.finsty,
+    	    	a.ordeno,
+    	   		a.tranam,
+    	    	a.toanam,
+    	    	a.chrgam,
+    	    	a.jnanam as totaam,
+    	    	a.voucfe,
+    	    	a.markfe,
+    	    	a.servtp,
+    	    	a.transt,
+    	    	a.uniseq,
+    	    	a.refeno,
+    	    	a.untrdt,
+				a.untrtm,
+    	    	a.agid01,
+    	    	a.cardno,
+    	    	a.cardtp,
+    	    	a.pabkno,
+    	    	a.tmpabkno,
+    	    	a.pameno,
+    	    	a.pamena,
+    	    	a.frteno,
+    	    	a.tmfrteno,
+    	    	a.otbkna,
+    	    	a.trandt,
+    	    	a.mntrtm,
+    	    	a.prepdt,
+    	    	a.termtp from knl_iobl_cups a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[a.inmeid=#inmeid#]]></str>
+                    </if>
+                    <if test="pameno!=null&amp;&amp;pameno!=''" type="If">
+                        <str type="Str"><![CDATA[a.pameno=#pameno#]]></str>
+                    </if>
+                    <if test="busitp!=null" type="If">
+                        <str type="Str"><![CDATA[a.busitp=#busitp#]]></str>
+                    </if>
+                    <if test="orgaid!=null&amp;&amp;orgaid!=''" type="If">
+                        <str type="Str"><![CDATA[a.orgaid=#orgaid#]]></str>
+                    </if>
+                    <if test="sbrand!=null&amp;&amp;sbrand!=''" type="If">
+                        <str type="Str"><![CDATA[a.sbrand=#sbrand#]]></str>
+                    </if>
+                    <if test="termtp!=null" type="If">
+                        <str type="Str"><![CDATA[a.termtp=#termtp#]]></str>
+                    </if>
+                    <if test="posnum!=null&amp;&amp;posnum!=''" type="If">
+                        <str type="Str"><![CDATA[a.posnum=#posnum#]]></str>
+                    </if>
+                    <if test="frteno!=null&amp;&amp;frteno!=''" type="If">
+                        <str type="Str"><![CDATA[a.frteno=#frteno#]]></str>
+                    </if>
+                    <if test="cardno!=null&amp;&amp;cardno!=''" type="If">
+                        <str type="Str"><![CDATA[a.cardno=#cardno#]]></str>
+                    </if>
+                    <if test="ordeno!=null&amp;&amp;ordeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.ordeno=#ordeno#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[a.servtp=#servtp#]]></str>
+                    </if>
+                    <if test="tratbg!=null&amp;&amp;tratbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.trandt>=#tratbg#]]></str>
+                    </if>
+                    <if test="trated!=null&amp;&amp;trated!=''" type="If">
+                        <str type="Str"><![CDATA[a.trandt<=#trated#]]></str>
+                    </if>
+                    <if test="pretbg!=null&amp;&amp;pretbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.prepdt>=#pretbg#]]></str>
+                    </if>
+                    <if test="preted!=null&amp;&amp;preted!=''" type="If">
+                        <str type="Str"><![CDATA[a.prepdt<=#preted#]]></str>
+                    </if>
+                    <if test="unttbg!=null&amp;&amp;unttbg!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt>=#unttbg#]]></str>
+                    </if>
+                    <if test="untted!=null&amp;&amp;untted!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt<=#untted#]]></str>
+                    </if>
+                    <if test="refeno!=null&amp;&amp;refeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.refeno=#refeno#]]></str>
+                    </if>
+                    <if test="svcode!=null" type="If">
+                        <str type="Str"><![CDATA[a.svcode=#svcode#]]></str>
+                    </if>
+                    <if test="finsty!=null" type="If">
+                        <str type="Str"><![CDATA[a.finsty=#finsty#]]></str>
+                    </if>
+                    <if test="mercfg!=null" type="If">
+                        <str type="Str"><![CDATA[a.mercfg=#mercfg#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.mntrsq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <update method="update" id="updateKnlIoblCupsSignim" longname="更新交易流水签购单url">
+        <sql type="oracle"><![CDATA[update knl_iobl_cups set signim = #signim# where mntrsq = #mntrsq# and trandt = #trandt#]]></sql>
+        <parameterMap class="DpDepoBusiMain.KnlIoblCups"/>
+    </update>
+</sqls>

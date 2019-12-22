@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="bathaw" longname="批量解冻" kind="2" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <field id="knbAply" type="DpRiskType.KnbAplyDto" required="false" multi="true" array="false" longname="批量解冻"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="sucessCount" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="成功笔数"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="DpRiskService.BatchThaw" id="BatchThaw" longname="批量解冻">
+            <in_mappings by_interface="true">
+                <mapping src="knbAply" dest="knbAply" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="sucessCount" dest="sucessCount" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

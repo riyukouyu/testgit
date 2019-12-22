@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="cltrfe" longname="销户转账(银联，本行)" kind="3" package="cn.sunline.ltts.busi.dptran.trans.close" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.close.intf">
+        <input packMode="true">
+            <field id="pyinsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="销户流水"/>
+            <field id="pyindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="销户日期"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="销户电子账号"/>
+            <field id="tracno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="收款人账号"/>
+            <field id="tracna" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="收款人户名"/>
+            <field id="trbkno" type="BaseType.U_CHAR16" required="false" multi="false" array="false" longname="收款人账户开户行号"/>
+            <field id="tractp" type="DpEnumType.E_CLSATP" required="false" multi="false" array="false" longname="收款人账户类型"/>
+            <field id="settbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户金额"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="BaseDict.Comm.smrycd"/>
+            <field id="chaglg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="收费标志"/>
+            <field id="tlcgam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="收费总额"/>
+            <field id="chckdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="对账日期"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="chrgpm" type="IoChrgComplexType.IoCgCalCenterReturn" required="false" multi="true" array="false" longname="收费参数"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="流水号"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="mntrtm" type="BaseType.U_TIME06" required="false" multi="false" array="false" longname="交易时间"/>
+        </output>
+        <property packMode="true">
+            <field id="tblKnaAcct" type="DpDepoBusiMain.KnaAcct" required="false" multi="false" array="false" longname="收款账号负债账户信息"/>
+            <field id="chgflg" type="PbEnumType.E_CHGFLG" required="false" multi="false" array="false" longname="记账标志"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="servsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="渠道流水" ref="DpDict.Acct.servsq"/>
+            <field id="servdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="渠道日期"/>
+            <field id="fromtp" type="DpEnumType.E_FROMTP" required="false" multi="false" array="false" longname="出入金方式"/>
+            <field id="capitp" type="DpEnumType.E_CAPITP" required="false" multi="false" array="false" longname="资金交易类型"/>
+            <field id="cuacno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="转入方电子账户"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入方子账号"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转入方账户所属机构"/>
+            <field id="incorp" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="转入方账户所属法人"/>
+            <field id="toscac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="转出方电子账户"/>
+            <field id="toacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转出方子账号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务编号"/>
+            <field id="ioflag" type="DpEnumType.E_IOFLAG" required="false" multi="false" array="false" longname="出入金标志"/>
+            <field id="prcscd" type="BaseType.U_PRCSCD" required="false" multi="false" array="false" longname="处理码" ref="InDict.inac.prcscd"/>
+            <field id="remark" type="BaseType.U_MIDDDS" required="false" multi="false" array="false" longname="备注信息"/>
+            <field id="drawwy" type="DpEnumType.E_CLSDTP" required="false" multi="false" array="false" longname="销户支取方式"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="手机号"/>
+            <field id="closbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="销户操作机构"/>
+            <field id="closus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="销户操作柜员"/>
+            <field id="clossv" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="销户渠道"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dealTransBefore" id="dealTransBefore" longname="交易前处理"/>
+        <service serviceName="IoCgChrgSvcType.IoCalCharge" id="IoCalCharge" test="chaglg == #dict.BaseEnumType.E_YES___().YES" longname="公共收费服务">
+            <in_mappings by_interface="true">
+                <mapping src="chrgpm" dest="in.calcenter" by_interface="true" on_top="true"/>
+                <mapping src="chgflg" dest="in.chgflg" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="in.chrgcy" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="in.csexfg" by_interface="true" on_top="true"/>
+                <mapping src="toscac" dest="in.custac" by_interface="true" on_top="true"/>
+                <mapping src="#dict.BaseEnumType.E_CSTRFG().TRNSFER" dest="in.cstrfg" by_interface="true" on_top="true"/>
+                <mapping src="smrycd" dest="in.smrycd" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="in.trancy" by_interface="true" on_top="true"/>
+                <mapping src="#dict.BaseEnumType.E_YES___().YES" dest="in.clactp" desc="计费判断是否销户" by_interface="true" on_top="true"/>
+                <mapping src="#dict.BaseEnumType.E_YES___().YES" dest="in.isclos" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="prcAccount" id="prcAccount" longname="销户转账并注销电子账户"/>
+        <service serviceName="IoSaveIoTransBill.SaveIoBill" id="saveIoBill" test="tractp==#dict.DpEnumType.E_CLSATP().OTHER" longname="登记出入金登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="trbkno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="capitp" dest="capitp" by_interface="true" on_top="true"/>
+                <mapping src="tracno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="chckdt" dest="chckdt" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="cuacno" dest="cuacno" by_interface="true" on_top="true"/>
+                <mapping src="fromtp" dest="fromtp" by_interface="true" on_top="true"/>
+                <mapping src="servdt" dest="frondt" by_interface="true" on_top="true"/>
+                <mapping src="servsq" dest="fronsq" by_interface="true" on_top="true"/>
+                <mapping src="ioflag" dest="ioflag" by_interface="true" on_top="true"/>
+                <mapping src="keepdt" dest="keepdt" by_interface="true" on_top="true"/>
+                <mapping src="tblKnaAcct.corpno" dest="otcorp" by_interface="true" on_top="true"/>
+                <mapping src="prcscd" dest="prcscd" by_interface="true" on_top="true"/>
+                <mapping src="remark" dest="remark" by_interface="true" on_top="true"/>
+                <mapping src="tlcgam" dest="tlcgam" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="toacct" by_interface="true" on_top="true"/>
+                <mapping src="toacno" dest="toacno" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="tobrch" by_interface="true" on_top="true"/>
+                <mapping src="toscac" dest="toscac" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="sendCloseInfoMsg" id="sendCloseInfoMsg" longname="销户信息通知" desc="销户信息通知"/>
+    </flow>
+</flowtran>

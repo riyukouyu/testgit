@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpSaveDraw" longname="存入支取相关SQL" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[存入支取时用到的命名SQL]]></description>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanMinsSeqno" longname="查询存入计划表中状态为未处理或正在处理中的最小序号">
+        <sql type="db2"><![CDATA[select min(seqnum) seqnum from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select min(seqnum) seqnum from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select min(seqnum) seqnum from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanSumSvbkam" longname="根据当前日期查询存入计划漏存金额">
+        <sql type="db2"><![CDATA[select sum(plmony - resvam) as svbktm from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select sum(plmony - resvam) as svbktm from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select sum(plmony - resvam) as svbktm from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="BaseDict.Comm.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.math.BigDecimal"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanMinSvbksq" longname="根据当前日期查询存入计划漏存的最小序号">
+        <sql type="db2"><![CDATA[select min(seqnum) as mnsqno from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select min(seqnum) as mnsqno from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select min(seqnum) as mnsqno from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="BaseDict.Comm.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanMaxSvbksq" longname="根据当前日期查询存入计划漏存的最大序号">
+        <sql type="db2"><![CDATA[select max(seqnum) as mxsqno from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select max(seqnum) as mxsqno from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select max(seqnum) as mxsqno from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and ploved <= #trandt# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="BaseDict.Comm.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaDrawPlanMinSeqno" longname="查询活期支取计划表中状态为未处理或正在处理中的最小序号">
+        <sql><![CDATA[select min(seqnum) seqnum from kna_draw_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select min(seqnum) seqnum from kna_draw_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select min(seqnum) seqnum from kna_draw_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaDrawPlanMaxSeqno" longname="查询活期支取计划表中状态为处理完成或正在处理中的最大序号">
+        <sql><![CDATA[select max(seqnum) seqnum from kna_draw_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('1','2')]]></sql>
+        <sql type="oracle"><![CDATA[select max(seqnum) seqnum from kna_draw_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('1','2')]]></sql>
+        <sql type="mysql"><![CDATA[select max(seqnum) seqnum from kna_draw_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('1','2')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxdrPlanMinSeqno" longname="查询定期支取计划表中状态为未处理或正在处理中的最小序号">
+        <sql><![CDATA[select min(seqnum) seqnum from kna_fxdr_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select min(seqnum) seqnum from kna_fxdr_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select min(seqnum) seqnum from kna_fxdr_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxdrPlanMaxSeqno" longname="查询定期支取计划表中状态为处理完成或正在处理中的最大序号">
+        <sql><![CDATA[select max(seqnum) seqnum from kna_fxdr_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('1','2')]]></sql>
+        <sql type="mysql"><![CDATA[select max(seqnum) seqnum from kna_fxdr_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('1','2')]]></sql>
+        <sql type="oracle"><![CDATA[select max(seqnum) seqnum from kna_fxdr_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('1','2')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaDrawPlanDpbkfgCounts" longname="获取活期支取计划违约记录数">
+        <sql><![CDATA[select count(*)  as count  from kna_draw_plan
+where dpbkfg ='1']]></sql>
+        <sql type="oracle"><![CDATA[select count(*)  as count  from kna_draw_plan
+where dpbkfg ='1']]></sql>
+        <sql type="mysql"><![CDATA[select count(*)  as count  from kna_draw_plan
+where dpbkfg ='1']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxdrPlanDpbkfgCounts" longname="获取定期支取计划违约记录数">
+        <sql><![CDATA[select count(*)  as count  from kna_fxdr_plan
+where dpbkfg ='1']]></sql>
+        <sql type="oracle"><![CDATA[select count(*)  as count  from kna_fxdr_plan
+where dpbkfg ='1']]></sql>
+        <sql type="mysql"><![CDATA[select count(*)  as count  from kna_fxdr_plan
+where dpbkfg ='1']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanCurrent" longname="根据日期查询存入计划当期计划">
+        <sql type="db2"><![CDATA[select * from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstad <= #trandt# and ploved > #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select * from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstad <= #trandt# and ploved > #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select * from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstad <= #trandt# and ploved > #trandt# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="BaseDict.Comm.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaSavePlan"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxsvPlanCurrent" longname="根据日期查询存入计划当期计划(定期)">
+        <sql type="db2"><![CDATA[select * from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstad <= #trandt# and ploved > #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select * from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstad <= #trandt# and ploved > #trandt# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select * from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstad <= #trandt# and ploved > #trandt# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="BaseDict.Comm.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaFxsvPlan"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanMaxSeqno" longname="查询存入计划表中状态为成功或处理中的最大序号">
+        <sql><![CDATA[select max(seqnum) seqnum from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('2','1')]]></sql>
+        <sql type="oracle"><![CDATA[select max(seqnum) seqnum from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('2','1')]]></sql>
+        <sql type="mysql"><![CDATA[select max(seqnum) seqnum from kna_save_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('2','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxsvPlanMaxSeqno" longname="查询定期存入计划表中状态成功和处理中的最大序号">
+        <sql><![CDATA[select max(seqnum) seqnum from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('2','1')]]></sql>
+        <sql type="oracle"><![CDATA[select max(seqnum) seqnum from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('2','1')]]></sql>
+        <sql type="mysql"><![CDATA[select max(seqnum) seqnum from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('2','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaSavePlanDpbkfgCounts" longname="获取活期存入计划违约记录数">
+        <sql><![CDATA[select count(*)  as count  from kna_save_plan where dpbkfg ='1']]></sql>
+        <sql type="oracle"><![CDATA[select count(*)  as count  from kna_save_plan where dpbkfg ='1']]></sql>
+        <sql type="mysql"><![CDATA[select count(*)  as count  from kna_save_plan where dpbkfg ='1']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxsvPlanDpbkfgCounts" longname="获取定期存入计划违约记录数">
+        <sql><![CDATA[select count(*)  as count  from kna_fxsv_plan where dpbkfg ='1']]></sql>
+        <sql type="oracle"><![CDATA[select count(*)  as count  from kna_fxsv_plan where dpbkfg ='1']]></sql>
+        <sql type="mysql"><![CDATA[select count(*)  as count  from kna_fxsv_plan where dpbkfg ='1']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="SelAccIOFunInfo" longname="根据对账日期查询电子账户出入金明细">
+        <sql type="db2"><![CDATA[ select a.* from knl_iobl a where a.chckdt = #trandt#]]></sql>
+        <sql type="oracle"><![CDATA[ select a.* from knl_iobl a where a.chckdt = #trandt#]]></sql>
+        <sql type="mysql"><![CDATA[ select a.* from knl_iobl a where a.chckdt = #trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIobl"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnaSavePlansCurrt" longname="根据日期查询存入计划当期计划(活期+定期)">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_save_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1'
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt# 
+    	union
+    	select
+    	    	* 
+    	from
+    	    	kna_fxsv_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1'
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_save_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1'
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt# 
+    	union
+    	select
+    	    	* 
+    	from
+    	    	kna_fxsv_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1'
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_save_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1'
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt# 
+    	union
+    	select
+    	    	* 
+    	from
+    	    	kna_fxsv_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1'
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaSavePlan"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaFxsvPlanMinsSeqno" longname="查询存入计划表中状态为未处理或正在处理中的最小序号">
+        <sql><![CDATA[select min(seqnum) seqnum from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="oracle"><![CDATA[select min(seqnum) seqnum from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <sql type="mysql"><![CDATA[select min(seqnum) seqnum from kna_fxsv_plan
+where corpno = #corpno# and acctno = #acctno# and plstat in ('0','1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selDrawPlansCurrt" longname="根据日期查询支取计划当期计划">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_draw_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1' 
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt# 
+    	union
+    	select
+    	    	* 
+    	from
+    	    	kna_fxdr_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1' 
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_draw_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1' 
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt# 
+    	union
+    	select
+    	    	* 
+    	from
+    	    	kna_fxdr_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1' 
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_draw_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1' 
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt# 
+    	union
+    	select
+    	    	* 
+    	from
+    	    	kna_fxdr_plan 
+    	where
+    	    	plstat in (
+    	    	    	'0','1' 
+    	    	) and plstad <= #trandt# 
+    	    	and ploved > #trandt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaDrawPlan"/>
+    </select>
+</sqls>

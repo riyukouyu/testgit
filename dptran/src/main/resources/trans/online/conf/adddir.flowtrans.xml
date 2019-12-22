@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="adddir" longname="增加产品目录" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[增加产品目录]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="catana" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="产品目录名称" ref="DpDict.Prod.catana"/>
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+            <field id="prodtp" type="DpEnumType.E_PRODCT" required="false" multi="false" array="false" longname="业务中类" ref="DpDict.Prod.prodtp"/>
+            <field id="pddpfg" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="业务小类" ref="DpDict.Prod.pddpfg"/>
+            <field id="debttp" type="BaseEnumType.E_DEBTTP" required="false" multi="false" array="false" longname="业务细类" ref="DpDict.Prod.debttp"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="addirel" id="addirel" longname="新增产品目录" desc="新增产品目录"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="mdcpdf" longname="修改超额优惠定义" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="smfacd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="超额优惠代码" ref="FeDict.Chrg.smfacd"/>
+            <field id="smfana" type="BaseType.U_CNSMSP" required="false" multi="false" array="false" longname="超额优惠代码名称" ref="FeDict.Chrg.smfana"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="FeDict.Chrg.brchno"/>
+            <field id="smbdtp" type="FeEnumType.E_SMBDTP" required="false" multi="false" array="false" longname="累积主体类型" ref="FeDict.Chrg.smbdtp"/>
+            <field id="cgsmtp" type="FeEnumType.E_CGSMTP" required="false" multi="false" array="false" longname="收费累计类型" ref="FeDict.Chrg.cgsmtp"/>
+            <field id="pdunit" type="FeEnumType.E_PDUNIT" required="false" multi="false" array="false" longname="周期" ref="FeDict.Chrg.pdunit"/>
+            <field id="efctdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="生效日期" ref="FeDict.Chrg.efctdt"/>
+            <field id="inefdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="失效日期" ref="FeDict.Chrg.inefdt"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="mdcpdf" id="mdcpdf" longname="修改超额优惠定义" desc="修改超额优惠定义"/>
+    </flow>
+</flowtran>

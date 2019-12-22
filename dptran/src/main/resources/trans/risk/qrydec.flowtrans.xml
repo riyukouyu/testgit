@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qrydec" longname="风控强扣列表查询" kind="1" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="身份证" ref="DpRiskDict.Aply.idtfno"/>
+            <field id="mobile" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="手机号" ref="DpRiskDict.Aply.mobile"/>
+            <field id="aplyid" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="申请冻结账户" ref="DpRiskDict.Aply.aplyid"/>
+            <field id="enflag" type="DpRiskEnumType.E_ENFLAG" required="false" multi="false" array="false" longname="录入标识" ref="DpRiskDict.Aply.enflag"/>
+            <field id="mrchno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="商户编号" ref="DpRiskDict.Aply.mrchno"/>
+            <field id="agntid" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="服务商编码" ref="DpRiskDict.Aply.agntid"/>
+            <field id="trpobgdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="调单开始日期" ref="DpRiskDict.Aply.trpobgdt"/>
+            <field id="trpoeddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="调单结束日期" ref="DpRiskDict.Aply.trpoeddt"/>
+            <field id="enbgdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="录入开始日期" ref="DpRiskDict.Aply.enbgdt"/>
+            <field id="eneddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="录入结束日期" ref="DpRiskDict.Aply.eneddt"/>
+            <field id="froztp" type="DpEnumType.E_FROZTP" required="false" multi="false" array="false" longname="冻结业务类型" ref="DpRiskDict.Aply.froztp"/>
+            <field id="deapst" type="DpRiskEnumType.E_DEAPST" required="false" multi="false" array="false" longname="强扣状态" ref="DpRiskDict.Aply.deapst"/>
+            <field id="deenus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="强扣录入柜员" ref="DpRiskDict.Aply.deenus"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" ref="DpRiskDict.Aply.mntrsq"/>
+            <field id="deentm" type="ApBaseType.U_TMSTMP" required="false" multi="false" array="false" longname="强扣录入时间" ref="DpRiskDict.Aply.deentm"/>
+            <field id="aplyno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="申请编号" ref="DpRiskDict.Aply.aplyno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="deduList" type="DpRiskType.RiskDeduListOutput" required="false" multi="true" array="false" longname="风控强扣列表"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="DpRiskService.SelRiskDeductList" id="SelRiskDeductList" longname="查询风控强扣列表">
+            <in_mappings by_interface="true">
+                <mapping src="agntid" dest="riskDeduListInput.agntid" by_interface="true" on_top="true"/>
+                <mapping src="aplyid" dest="riskDeduListInput.aplyid" by_interface="true" on_top="true"/>
+                <mapping src="aplyno" dest="riskDeduListInput.aplyno" by_interface="true" on_top="true"/>
+                <mapping src="deapst" dest="riskDeduListInput.deapst" by_interface="true" on_top="true"/>
+                <mapping src="deentm" dest="riskDeduListInput.deentm" by_interface="true" on_top="true"/>
+                <mapping src="deenus" dest="riskDeduListInput.deenus" by_interface="true" on_top="true"/>
+                <mapping src="enbgdt" dest="riskDeduListInput.enbgdt" by_interface="true" on_top="true"/>
+                <mapping src="eneddt" dest="riskDeduListInput.eneddt" by_interface="true" on_top="true"/>
+                <mapping src="enflag" dest="riskDeduListInput.enflag" by_interface="true" on_top="true"/>
+                <mapping src="froztp" dest="riskDeduListInput.froztp" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="riskDeduListInput.idtfno" by_interface="true" on_top="true"/>
+                <mapping src="mntrsq" dest="riskDeduListInput.mntrsq" by_interface="true" on_top="true"/>
+                <mapping src="mobile" dest="riskDeduListInput.mobile" by_interface="true" on_top="true"/>
+                <mapping src="mrchno" dest="riskDeduListInput.mrchno" by_interface="true" on_top="true"/>
+                <mapping src="trpobgdt" dest="riskDeduListInput.trpobgdt" by_interface="true" on_top="true"/>
+                <mapping src="trpoeddt" dest="riskDeduListInput.trpoeddt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="deduList" dest="deduList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

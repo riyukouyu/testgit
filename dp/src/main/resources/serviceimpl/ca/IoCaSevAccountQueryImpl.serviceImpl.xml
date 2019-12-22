@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceImpl id="IoCaSevAccountQueryImpl" longname="电子账户分户账明细账查询服务实现" serviceType="IoCaSevAccountQuery" package="cn.sunline.ltts.busi.ca.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>

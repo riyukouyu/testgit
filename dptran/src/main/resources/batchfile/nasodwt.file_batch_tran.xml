@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="nasodwt" longname="电子账户订单核对文件生成" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="nasodwt" longname="电子账户订单核对写文件" mode="splitor" splitor="|@|" splitorAsEnd="false" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1">
+            <field id="totanm" type="BaseType.U_LONGIN" longname="总笔数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="DpDepoBusiMain.KnbRegi" startline="1">
+            <field id="traype" type="BaseEnumType.E_TRAYPE" longname="交易类型" leftPadding="false" ref="DpDict.Ordr.traype" mode="splitor"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="产品代码" leftPadding="false" mode="splitor"/>
+            <field id="cordno" type="BaseType.U_CHAR40" longname="订单号" leftPadding="false" ref="DpDict.Ordr.cordno" mode="splitor"/>
+            <field id="transq" type="BaseType.U_SEQUNO" longname="交易流水" leftPadding="false" mode="splitor"/>
+            <field id="cardno" type="BaseType.U_CARDNO" longname="卡号" leftPadding="false" mode="splitor"/>
+            <field id="sbtram" type="BaseType.U_TRANAM" longname="金额" leftPadding="false" ref="DpDict.Ordr.sbtram" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

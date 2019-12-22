@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rpwiob" longname="银联清算对账写文件" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="rpwiob" longname="银联清算对账写文件" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1">
+            <field id="taskid" type="BaseType.U_CHAR40" longname="批量交易批次号" leftPadding="false" mode="splitor"/>
+            <field id="zongbish" type="ApBaseType.U_CHANZXLX" longname="总笔数" leftPadding="false" mode="splitor"/>
+            <field id="chulizbs" type="ApBaseType.U_CHANZXLX" longname="处理总笔数" leftPadding="false" mode="splitor"/>
+            <field id="chenggbs" type="ApBaseType.U_CHANZXLX" longname="成功数" leftPadding="false" mode="splitor"/>
+            <field id="shibaibs" type="ApBaseType.U_CHANZXLX" longname="失败数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="DpDepoBusiMain.KnlIoblCups" startline="2">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" longname="主交易流水" leftPadding="false" mode="splitor"/>
+            <field id="prepsq" type="PbBaseType.U_PREPSQ" longname="前置流水" leftPadding="false" mode="splitor"/>
+            <field id="cardno" type="BaseType.U_CHAR40" longname="交易卡号" leftPadding="false" mode="splitor"/>
+            <field id="devcno" type="BaseType.U_CHAR16" longname="设备号" leftPadding="false" mode="splitor"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" longname="借贷标志" leftPadding="false" ref="BaseDict.Comm.amntcd" mode="splitor"/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" leftPadding="false" ref="DpDict.Acct.tranam" mode="splitor"/>
+            <field id="prepdt" type="BaseType.U_CHAR16" longname="前置日期" leftPadding="false" mode="splitor"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" leftPadding="false" ref="BaseDict.Comm.crcycd" mode="splitor"/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="交易日期" leftPadding="false" mode="splitor"/>
+            <field id="cnkpdt" type="BaseType.U_DATE08" longname="核心清算日期" leftPadding="false" mode="splitor"/>
+            <field id="unkpdt" type="BaseType.U_DATE08" longname="银联清算日期" leftPadding="false" mode="splitor"/>
+            <field id="otacct" type="BaseType.U_ACCTNO" longname="转出账号" leftPadding="false" mode="splitor"/>
+            <field id="inacct" type="BaseType.U_ACCTNO" longname="转入账号" leftPadding="false" mode="splitor"/>
+            <field id="otbrch" type="BaseType.U_BRCHNO" longname="转出机构" leftPadding="false" mode="splitor"/>
+            <field id="inbrch" type="BaseType.U_BRCHNO" longname="转入机构" leftPadding="false" mode="splitor"/>
+            <field id="trbrch" type="BaseType.U_BRCHNO" longname="交易机构" leftPadding="false" mode="splitor"/>
+            <field id="servtp" type="BaseType.U_CHAR02" longname="渠道代码" leftPadding="false" mode="splitor"/>
+            <field id="trcode" type="BaseType.U_PRCSCD" longname="交易码" leftPadding="false" mode="splitor"/>
+            <field id="stand1" type="BaseType.U_CHAR08" longname="32域" leftPadding="false" mode="splitor"/>
+            <field id="stand2" type="BaseType.U_CHAR08" longname="33域" leftPadding="false" mode="splitor"/>
+            <field id="retrdt" type="BaseType.U_CHAR16" longname="设备交易日期时间" leftPadding="false" mode="splitor"/>
+            <field id="resssq" type="PbBaseType.U_PREPSQ" longname="原系统跟踪号" leftPadding="false" mode="splitor"/>
+            <field id="reprsq" type="PbBaseType.U_PREPSQ" longname="原前置流水号" leftPadding="false" mode="splitor"/>
+            <field id="servsq" type="PbBaseType.U_PREPSQ" longname="全渠道流水号" leftPadding="false" mode="splitor"/>
+            <field id="chckno" type="BaseType.U_CHAR16" longname="对账分类编号" leftPadding="false" mode="splitor"/>
+            <field id="chrgam" type="BaseType.U_TRANAM" longname="手续费" leftPadding="false" mode="splitor"/>
+            <field id="busino" type="BaseType.U_CHAR16" longname="商户代码" leftPadding="false" mode="splitor"/>
+            <field id="busitp" type="BaseType.U_CHAR04" longname="商户类型" leftPadding="false" mode="splitor"/>
+            <field id="authno" type="BaseType.U_CHAR06" longname="预授权标识码  " leftPadding="false" mode="splitor"/>
+            <field id="transt" type="DpEnumType.E_CUPSST" longname="交易状态" leftPadding="false" mode="splitor"/>
+            <field id="messtp" type="BaseType.U_CHAR04" longname="报文类型" leftPadding="false" mode="splitor"/>
+            <field id="proccd" type="BaseType.U_CHAR06" longname="处理码" leftPadding="false" mode="splitor"/>
+            <field id="prdate" type="BaseType.U_DATE08" longname="前置交易日期" leftPadding="false" mode="splitor"/>
+            <field id="prbrmk" type="BaseType.U_CHAR16" longname="代理机构标识号" leftPadding="false" mode="splitor"/>
+            <field id="trbrmk" type="BaseType.U_CHAR16" longname="发送机构标识号" leftPadding="false" mode="splitor"/>
+            <field id="spared" type="BaseType.U_CHAR20" longname="备用" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="true" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="对账日期"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

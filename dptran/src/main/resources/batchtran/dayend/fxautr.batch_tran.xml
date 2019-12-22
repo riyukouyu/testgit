@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="fxautr" longname="智能储蓄定期到期自动转存" dataItem="DpDayEndType.FxautrTranData" package="cn.sunline.ltts.busi.dptran.batchtran.dayend" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[1.只处理智能储蓄产品的定期到期数据
+2.将利息转存到本金中，即：新本金=本金+利息]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.dayend.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</batch_transaction>

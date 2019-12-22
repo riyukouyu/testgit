@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType id="UpInacInfo" kind="business" longname="内部户资料维护" package="cn.sunline.ltts.busi.in.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[内部户资料维护]]></description>
+    <service id="ModInacName" name="modInacName" longname="修改内部户信息">
+        <interface>
+            <input packMode="true">
+                <field id="acctno" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="true" multi="false" array="false" longname="内部户名称" ref="InDict.inac.acctna"/>
+                <field id="ovmony" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="透支限额" ref="InDict.inac.ovmony"/>
+                <field id="ispaya" type="InEnumType.E_ISPAYA" required="false" multi="false" array="false" longname="是否采用销账管理 " ref="InDict.inac.ispaya"/>
+                <field id="beintp" type="InEnumType.E_BEINTP" required="false" multi="false" array="false" longname="结息方式" ref="InDict.inac.beintp"/>
+                <field id="isbein" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="结息是否入账"/>
+                <field id="inrate" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="利率" ref="InDict.inac.inrate"/>
+                <field id="ovrate" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="透支利率" ref="InDict.inac.ovrate"/>
+                <field id="reveac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="收息账号" ref="InDict.inac.reveac"/>
+                <field id="paymac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="付息账号" ref="InDict.inac.paymac"/>
+				<field id="cdcnno" type="BaseType.U_DCNNO" required="false" multi="false" array="false" longname="DCN编号"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="内部户名称" ref="InDict.inac.acctna"/>
+                <field id="oldnam" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="原内部户帐号名称"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="selBillInfo" name="selBillInfo" longname="分页查询内部户交易明细">
+        <interface>
+            <input packMode="false">
+                <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+                <field id="bgdate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="开始日期"/>
+                <field id="endate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="结束日期"/>
+                <field id="pageno" type="long" required="false" multi="false" array="false" longname="当前页数"/>
+                <field id="pagesize" type="long" required="false" multi="false" array="false" longname="每页数量"/>
+                <field id="tranus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="记账柜员" ref="InDict.inac.tranus"/>
+                <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号" ref="InDict.inac.toacct"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="bInfos" type="InQueryTypes.InBillInfoOut" required="false" multi="false" array="false" longname="内部户交易明细输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+</serviceType>

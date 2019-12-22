@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qulnbl" longname="查询子户余额" kind="1" package="cn.sunline.edsp.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="inmeid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="内部商户号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="onlnbl" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="当前账户余额" ref="DpDict.Acct.onlnbl"/>
+            <field id="lowBalance" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="低风险余额"/>
+            <field id="highBalance" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="高风险余额"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="KnaAcctService.IQueryAcctNbl" id="IQueryAcctNbl" longname="查询电子账户当前余额">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

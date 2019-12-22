@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="lsamin" longname="大小额来账" kind="3" package="cn.sunline.ltts.busi.dptran.trans.client" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.client.intf">
+        <input packMode="true">
+            <field id="subsys" type="BaseType.U_CHAR01" required="true" multi="false" array="false" longname="清算渠道"/>
+            <field id="msetdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="委托日期"/>
+            <field id="msetsq" type="BaseType.U_CHAR20" required="true" multi="false" array="false" longname="交易序号"/>
+            <field id="crdbtg" type="DpEnumType.E_CRDBTG" required="true" multi="false" array="false" longname="借贷标志"/>
+            <field id="mesgtp" type="BaseType.U_CHAR16" required="true" multi="false" array="false" longname="报文编号"/>
+            <field id="iotype" type="DpEnumType.E_IOTYPE" required="true" multi="false" array="false" longname="往来标志"/>
+            <field id="busitp" type="BaseType.U_CHAR04" required="false" multi="false" array="false" longname="业务代码"/>
+            <field id="busikd" type="BaseType.U_CHAR05" required="false" multi="false" array="false" longname="业务种类"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="cstrfg" type="BaseType.U_CHAR01" required="true" multi="false" array="false" longname="现转标志"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="true" multi="false" array="false" longname="钞汇属性" ref="FnDict.Fnfc.csextg"/>
+            <field id="pyercd" type="LnBaseType.U_BANKNO" required="true" multi="false" array="false" longname="发起行行号"/>
+            <field id="pyeecd" type="LnBaseType.U_BANKNO" required="true" multi="false" array="false" longname="接收行行号"/>
+            <field id="pyerac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="付款人账号"/>
+            <field id="pyerna" type="BaseType.U_CHAR120" required="false" multi="false" array="false" longname="付款人名称"/>
+            <field id="pyeeac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="收款人账号"/>
+            <field id="pyeena" type="BaseType.U_CHAR120" required="false" multi="false" array="false" longname="收款人名称"/>
+            <field id="priotp" type="DpEnumType.E_PRIOTP" required="true" multi="false" array="false" longname="加急标志"/>
+            <field id="afeetg" type="DpEnumType.E_AFEETG" required="true" multi="false" array="false" longname="收费标志"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="true" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="afeeam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="手续费"/>
+            <field id="feeam1" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="汇划费"/>
+            <field id="chfcnb" type="KBaseType.U_LEIXIN15" required="false" multi="false" array="false" longname="对账分类编号"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="支付前置日期"/>
+            <field id="fronsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="支付前置流水号"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="true" multi="false" array="false" longname="账务机构" ref="PbDict.Charge.brchno"/>
+            <field id="userid" type="BaseType.U_USERID" required="true" multi="false" array="false" longname="操作柜员" ref="DpDict.Acct.userid"/>
+            <field id="ckbkus" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="复核用户" ref="PbDict.Dcmt.ckbkus"/>
+            <field id="authus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="授权柜员"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="npcpdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="轧差日期"/>
+            <field id="npcpbt" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="轧差场次"/>
+            <field id="remark1" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="备用字段1"/>
+            <field id="remark2" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="备用字段2"/>
+            <field id="chkqtn" type="DpAcctType.ChkQtIN" required="false" multi="false" array="false" longname="额度中心参数"/>
+            <field id="chrgpm" type="IoChrgComplexType.IoCgCalCenterReturn" required="false" multi="true" array="false" longname="公共收费参数"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="BaseDict.Comm.smrycd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="hostsq" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="主机流水号"/>
+            <field id="hostdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="主机日期"/>
+            <field id="acctbr" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="交易机构"/>
+            <field id="clerdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="clerod" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="清算场次"/>
+        </output>
+        <property packMode="true">
+            <field id="ischrg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否收费"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dealLsamin" id="dealLsamin" longname="大小额来账记账处理"/>
+    </flow>
+</flowtran>

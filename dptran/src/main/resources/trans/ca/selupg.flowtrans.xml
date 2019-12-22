@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="selupg" longname="电子账户升级登记簿查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="promst" type="CaEnumType.E_PROMST" required="false" multi="false" array="false" longname="升级状态" ref="CaDict.Eacct.promst"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户所属机构" ref="DpDict.Acct.brchno"/>
+            <field id="stardt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期"/>
+            <field id="stopdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="upgInfoList" type="IoCaTypGenEAccountInfo.IoCaQryUpRegOut" required="false" multi="true" array="false" longname="电子账户升级登记簿查询信息列表"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页码"/>
+            <field id="pgsize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页容量"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="prcQryUpRegBefore" id="prcQryUpRegBefore" longname="交易前处理" desc="查询电子账户升级登记簿交易前处理"/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryUpRegistry" id="caQryUpRegistry" longname="查询电子账户升级登记簿" desc="查询电子账户升级登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="brchno" dest="cplUpgInfo.brchno" desc="账号归属机构" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="cplUpgInfo.idtfno" desc="证件号码" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="cplUpgInfo.idtftp" desc="证件类型" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="cplUpgInfo.pageno" desc="页码" by_interface="true" on_top="true"/>
+                <mapping src="pgsize" dest="cplUpgInfo.pgsize" desc="页容量" by_interface="true" on_top="true"/>
+                <mapping src="promst" dest="cplUpgInfo.promst" desc="升级状态" by_interface="true" on_top="true"/>
+                <mapping src="stardt" dest="cplUpgInfo.stardt" desc="起始时间" by_interface="true" on_top="true"/>
+                <mapping src="stopdt" dest="cplUpgInfo.stopdt" desc="终止时间" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="upgInfoList" dest="upgInfoList" desc="电子账户升级登记簿信息" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

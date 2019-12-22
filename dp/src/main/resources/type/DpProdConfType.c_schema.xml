@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="DpProdConfType" package="cn.sunline.ltts.busi.dp.type" longname="产品配置符合类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[产品配置符合类型]]></description>
+    <complexType id="KupDppdBrchInfo" longname="产品机构控制" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbBrchList" longname="产品机构控制集合" dict="false" abstract="false" introduct="false">
+        <element id="dpbrch" longname="产品机构控制集合" type="DpProdConfType.KupDppdBrchInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbTermInfo" longname="产品存期控制信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="depttm" longname="存期" type="BaseEnumType.E_TERMCD" ref="DpDict.Prod.depttm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deptdy" longname="存期天数" type="BaseType.U_LONGIN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbTermList" longname="产品存期控制集合" dict="false" abstract="false" introduct="false">
+        <element id="dpterm" longname="产品存期控制" type="DpProdConfType.KupDppbTermInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbPostInfo" longname="产品存入控制信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="posttp" longname="存入控制方式" type="BaseEnumType.E_SAVECT" ref="DpDict.Prod.posttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="postwy" longname="存入控制方法" type="DpEnumType.E_POSTWY" ref="DpDict.Prod.postwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amntwy" longname="存入金额控制方式" type="DpEnumType.E_AMNTWY" ref="DpDict.Prod.amntwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="miniam" longname="单次存入最小金额" type="BaseType.U_TRANAM" ref="DpDict.Prod.miniam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="maxiam" longname="单次存入最大金额" type="BaseType.U_TRANAM" ref="DpDict.Prod.maxiam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="timewy" longname="存入次数控制方式" type="DpEnumType.E_TIMEWY" ref="DpDict.Prod.timewy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="minitm" longname="最小存入次数" type="BaseType.U_LONGIN" ref="DpDict.Prod.minitm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="maxitm" longname="最大存入次数" type="BaseType.U_LONGIN" ref="DpDict.Prod.maxitm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="detlfg" longname="是否明细汇总" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svrule" longname="每人限购份数" type="BaseType.U_LONGIN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbPostList" longname="产品存入控制集合" dict="false" abstract="false" introduct="false">
+        <element id="dppost" longname="产品存入控制信息" type="DpProdConfType.KupDppbPostInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbDrawInfo" longname="产品支取控制信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drawtp" longname="支取控制方式" type="BaseEnumType.E_DRAWCT" ref="DpDict.Prod.drawtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ctrlwy" longname="支取控制方法" type="DpEnumType.E_CTRLWY" ref="DpDict.Prod.ctrlwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="selfwy" longname="自定义控制方式" type="DpEnumType.E_SELFWY" ref="DpDict.Prod.selfwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordrwy" longname="支取预约方式" type="BaseEnumType.E_BSPKTP" ref="DpDict.Prod.ordrwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dramwy" longname="支取金额控制方式" type="DpEnumType.E_AMNTWY" ref="DpDict.Prod.dramwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drmiam" longname="单次支取最小金额" type="BaseType.U_TRANAM" ref="DpDict.Prod.drmiam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drmxam" longname="单次支取最大金额" type="BaseType.U_TRANAM" ref="DpDict.Prod.drmxam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drtmwy" longname="支取次数控制方式" type="DpEnumType.E_TIMEWY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drmitm" longname="最小支取次数" type="BaseType.U_LONGIN" ref="DpDict.Prod.drmitm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drmxtm" longname="最大支取次数" type="BaseType.U_LONGIN" ref="DpDict.Prod.drmxtm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drrule" longname="支取规则" type="DpEnumType.E_DRRULE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbDrawList" longname="产品支取控制集合" dict="false" abstract="false" introduct="false">
+        <element id="dpdraw" longname="产品支取控制信息" type="DpProdConfType.KupDppbDrawInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbMatuInfo" longname="产品到期控制信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="festdl" longname="遇节假日处理方式" type="BaseEnumType.E_HDDLTP" ref="DpDict.Prod.festdl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="delyfg" longname="是否根据存款顺延到期日" type="BaseEnumType.E_YES___" ref="DpDict.Prod.delyfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="matupd" longname="到期宽限期" type="BaseType.U_CHAR06" ref="DpDict.Prod.matupd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trdpfg" longname="允许转存标志" type="BaseEnumType.E_YES___" ref="DpDict.Prod.trdpfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trpdfg" longname="可以更换转存产品号" type="BaseEnumType.E_YES___" ref="DpDict.Prod.trpdfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trprod" longname="转存产品" type="BaseType.U_PRODCD" ref="DpDict.Prod.trprod" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trinwy" longname="转存利率调整方式" type="DpEnumType.E_TRINWY" ref="DpDict.Prod.trinwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbMatuList" longname="产品能到期控制集合" dict="false" abstract="false" introduct="false">
+        <element id="dpmatu" longname="产品到期控制" type="DpProdConfType.KupDppbMatuInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbDfitInfo" longname="产品违约支取利息定义" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drintp" longname="支取利息类型" type="DpEnumType.E_DRINTP" ref="DpDict.Prod.drintp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="teartp" longname="违约支取利息类型" type="DpEnumType.E_TEARTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ingpcd" longname="利息组代码" type="BaseType.U_CHAR08" ref="DpDict.Prod.ingpcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="intrtp" longname="利息类型" type="DpEnumType.E_INTRTP" ref="DpDict.Prod.intrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drintx" longname="利息支付方法说明" type="BaseType.U_SHORDS" ref="DpDict.Prod.drintx" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inadtp" longname="利息调整类型" type="DpEnumType.E_INADTP" ref="DpDict.Prod.inadtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sminad" longname="同时段多组利息调整选项" type="DpEnumType.E_SMINAD" ref="DpDict.Prod.sminad" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="adincd" longname="被调整利率编号" type="BaseType.U_CHAR20" ref="DpDict.Prod.adincd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="insrwy" longname="利率确定方式" type="BaseEnumType.E_IRAFBY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inclfg" longname="利率靠档标志" type="BaseEnumType.E_YES___" ref="DpDict.Prod.inclfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bsinam" longname="基准结息金额来源" type="DpEnumType.E_BSINAM" ref="DpDict.Prod.bsinam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bsindt" longname="基准结息起始日来源" type="DpEnumType.E_BSINDT" ref="DpDict.Prod.bsindt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inedsc" longname="结息终止日来源" type="DpEnumType.E_INEDSC" ref="DpDict.Prod.inedsc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bsincd" longname="基准结息利率编号" type="BaseType.U_CHAR20" ref="DpDict.Prod.bsincd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bsinrl" longname="违约计息基础" type="DpEnumType.E_INBEBS" ref="DpDict.Prod.bsinrl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bsinef" longname="基准利率生效日选项" type="BaseType.U_CHAR01" ref="DpDict.Prod.bsinef" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dtlvsr" longname="日期分层日来源" type="DpEnumType.E_DTLVSR" ref="DpDict.Prod.dtlvsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dtsrcd" longname="日期分层利率编号" type="BaseType.U_CHAR20" ref="DpDict.Prod.dtsrcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dtlvrl" longname="日期分层计息规则" type="DpEnumType.E_INBEBS" ref="DpDict.Prod.dtlvrl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dtlvef" longname="日期分层利率生效日选项" type="BaseEnumType.E_INTREF" ref="DpDict.Prod.dtlvef" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amlvsr" longname="金额分层来源" type="DpEnumType.E_AMLVSR" ref="DpDict.Prod.amlvsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amlvcd" longname="金额分层利率编号" type="BaseType.U_CHAR20" ref="DpDict.Prod.amlvcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amlvrl" longname="金额分层计息规则" type="DpEnumType.E_INBEBS" ref="DpDict.Prod.amlvrl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amlvef" longname="金额分层利率生效日选项" type="BaseEnumType.E_INTREF" ref="DpDict.Prod.amlvef" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drinsc" longname="支取利息范围" type="DpEnumType.E_DRINSC" ref="DpDict.Prod.drinsc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drdein" longname="支取是否扣除已付利息" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbDfitList" longname="产品违约支取利息定义集合" dict="false" abstract="false" introduct="false">
+        <element id="dpdfit" longname="产品违约支取利息定义" type="DpProdConfType.KupDppbDfitInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbPostPlanInfo" longname="产品存入计划信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="planfg" longname="设置存入计划标志" type="DpEnumType.E_PLANFG" ref="DpDict.Prod.planfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="planwy" longname="存入计划调整方式" type="BaseEnumType.E_SVPLAJ" ref="DpDict.Prod.planwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="adjtpd" longname="存入计划调整周期" type="BaseType.U_PERIOD" ref="DpDict.Prod.adjtpd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="endtwy" longname="存入计划结束日期方式" type="DpEnumType.E_ENDTWY" ref="DpDict.Prod.endtwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="gentwy" longname="存入计划生成方式" type="BaseEnumType.E_SVPLGN" ref="DpDict.Prod.gentwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svlepd" longname="漏存补足宽限期" type="BaseType.U_PERIOD" ref="DpDict.Prod.svlepd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svlewy" longname="存入漏补方式" type="BaseEnumType.E_SVBKAD" ref="DpDict.Prod.svlewy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="maxisp" longname="最大补足次数" type="BaseType.U_LONGIN" ref="DpDict.Prod.maxisp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dfltsd" longname="存入违约标准" type="BaseEnumType.E_SVBKLI" ref="DpDict.Prod.dfltsd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svletm" longname="漏存次数" type="BaseType.U_LONGIN" ref="DpDict.Prod.svletm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dfltwy" longname="存入违约处理方式" type="BaseEnumType.E_SVBKDL" ref="DpDict.Prod.dfltwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pscrwy" longname="存入计划控制方式" type="BaseEnumType.E_SVPLFG" ref="DpDict.Prod.pscrwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="maxibl" longname="账户留存最大余额" type="BaseType.U_ACBLTP" ref="DpDict.Prod.maxibl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbPostPlanList" longname="产品存入计划集合" dict="false" abstract="false" introduct="false">
+        <element id="dpptpl" longname="产品存入计划" type="DpProdConfType.KupDppbPostPlanInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbDrawPlanInfo" longname="产品支取计划" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="setpwy" longname="是否设置支取计划" type="BaseEnumType.E_YES___" ref="DpDict.Prod.setpwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="termwy" longname="支取计划调整周期方式" type="DpEnumType.E_DWPLAJ" ref="DpDict.Prod.termwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dradpd" longname="支取计划调整周期" type="BaseType.U_PERIOD" ref="DpDict.Prod.dradpd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dredwy" longname="支取计划结束日期方式" type="DpEnumType.E_ENDTWY" ref="DpDict.Prod.dredwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drcrwy" longname="支取计划控制方式" type="BaseEnumType.E_SVPLFG" ref="DpDict.Prod.drcrwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drdfsd" longname="支取违约标准" type="BaseEnumType.E_DWBKLI" ref="DpDict.Prod.drdfsd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drdfwy" longname="支取违约处理方式" type="BaseEnumType.E_DWBKDL" ref="DpDict.Prod.drdfwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="minibl" longname="账户留存最小余额" type="BaseType.U_TRANAM" ref="DpDict.Prod.minibl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="beinfg" longname="支取时结息处理标志" type="DpEnumType.E_BEINFG" ref="DpDict.Prod.beinfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbDrawPlanList" longname="产品支取计划集合" dict="false" abstract="false" introduct="false">
+        <element id="dpdwpl" longname="产品支取计划集合" type="DpProdConfType.KupDppbDrawPlanInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbIntrInfo" longname="产品利率信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="intrtp" longname="利息类型" type="DpEnumType.E_INTRTP" ref="DpDict.Prod.intrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inbefg" longname="计息标志" type="DpEnumType.E_INBEFG" ref="DpDict.Prod.inbefg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="txbefg" longname="计税标志" type="BaseEnumType.E_YES___" ref="DpDict.Prod.txbefg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="txbebs" longname="计息基础" type="DpEnumType.E_INBEBS" ref="DpDict.Prod.txbebs" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hutxfg" longname="舍弃角分计息标志" type="BaseEnumType.E_CAINRD" ref="DpDict.Prod.hutxfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="txbefr" longname="结息频率" type="BaseType.U_PERIOD" ref="DpDict.Prod.txbefr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="intrcd" longname="利率编号" type="BaseType.U_INRTNO" ref="DpDict.Prod.intrcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="intrwy" longname="利率靠档方式" type="DpEnumType.E_IRDPWY" ref="DpDict.Prod.intrwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="incdtp" longname="利率代码类型" type="DpEnumType.E_IRCDTP" ref="DpDict.Prod.incdtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lyinwy" longname="分层计息方式" type="DpEnumType.E_LYINWY" ref="DpDict.Prod.lyinwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inammd" longname="计息金额模式" type="DpEnumType.E_IBAMMD" ref="DpDict.Prod.inammd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bldyca" longname="平均余额天数计算方式" type="BaseEnumType.E_AVBLDT" ref="DpDict.Prod.bldyca" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inprwy" longname="利率重定价方式" type="BaseEnumType.E_IRRTTP" ref="DpDict.Prod.inprwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inadlv" longname="利率调整频率" type="BaseType.U_PERIOD" ref="DpDict.Prod.inadlv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="reprwy" longname="重订价利息处理方式" type="DpEnumType.E_REPRWY" ref="DpDict.Prod.reprwy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fvrbfg" longname="优惠变化调整优惠标志" type="DpEnumType.E_FVRBFG" ref="DpDict.Prod.fvrbfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fvrblv" longname="优惠调整频率" type="BaseType.U_PERIOD" ref="DpDict.Prod.fvrblv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="taxecd" longname="税率编号" type="BaseType.U_TXRTNO" ref="DpDict.Prod.taxecd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbIntrList" longname="产品利率集合" dict="false" abstract="false" introduct="false">
+        <element id="dpintr" longname="产品利率" type="DpProdConfType.KupDppbIntrInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbAcctInfo" longname="产品核算定义" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="depttm" longname="存期" type="BaseEnumType.E_TERMCD" ref="DpDict.Prod.depttm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctcd" longname="核算代码" type="BaseType.U_DTITCD" ref="DpDict.Prod.acctcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbAcctList" longname="产品核算定义" dict="false" abstract="false" introduct="false">
+        <element id="dpacct" longname="产品核算" type="DpProdConfType.KupDppbAcctInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbActpInfo" longname="产品账户类型控制信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cacttp" longname="客户账号类型" type="DpEnumType.E_CUSACT" ref="DpDict.Prod.cacttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acolfg" longname="账户下唯一标识" type="BaseEnumType.E_YES___" ref="DpDict.Prod.acolfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dcmtfg" longname="开子账户关联凭证标志" type="BaseEnumType.E_YES___" ref="DpDict.Prod.dcmtfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dcmttp" longname="开子户关联凭证种类" type="BaseEnumType.E_DCMTTP" ref="DpDict.Prod.dcmttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sactcn" longname="子户支付条件选项值" type="BaseType.U_CHAR80" ref="DpDict.Prod.sactcn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dcmtcn" longname="交易凭证选项值" type="BaseType.U_CHAR80" ref="DpDict.Prod.dcmtcn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbActpList" longname="产品账户类型控制集合" dict="false" abstract="false" introduct="false">
+        <element id="dpactp" longname="产品账户类型控制信息" type="DpProdConfType.KupDppbActpInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppdBrchInfoma" longname="产品机构控制部件信息" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="efctdt" longname="生效日期" type="BaseType.U_DATE08" ref="DpDict.Prod.efctdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inefdt" longname="失效日期" type="BaseType.U_DATE08" ref="DpDict.Prod.inefdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="KupDppbtmInfo" longname="产品存期复合类型" dict="false" abstract="false" introduct="false">
+        <element id="depttm" longname="存期" type="BaseEnumType.E_TERMCD" ref="DpDict.Prod.depttm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deptdy" longname="天数" type="BaseType.U_LONGIN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ProdcdAndna" longname="产品代码和名称" dict="false" abstract="false" introduct="false">
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodtx" longname="产品名称" type="BaseType.U_CHAR40" ref="DpDict.Prod.prodtx" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

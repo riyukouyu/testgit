@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="mdsecd" longname="修改场景计费管理" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="scencd" type="FeBaseType.U_SCENCD" required="false" multi="false" array="false" longname="场景代码" ref="FeDict.Chrg.scencd"/>
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+            <field id="remark" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="备注信息" ref="FeDict.Chrg.remark"/>
+            <field id="seqnum" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="顺序号" ref="FeDict.Chrg.seqnum"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="mdsecd" id="mdsecd" test="" longname="修改场景计费管理" desc="修改场景计费管理"/>
+    </flow>
+</flowtran>

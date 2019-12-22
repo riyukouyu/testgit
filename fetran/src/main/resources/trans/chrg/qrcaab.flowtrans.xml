@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrcaab" longname="查询费种代码附加属性" kind="1" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+            <field id="chrgna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="费种代码名称" ref="FeDict.Chrg.chrgna"/>
+            <field id="scencd" type="FeBaseType.U_SCENCD" required="false" multi="false" array="false" longname="场景代码" ref="FeDict.Chrg.scencd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="pinfos" type="IoFeChrgComplexType.IoCgCaab" required="false" multi="true" array="false" longname="费种代码核算属性明细"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qrcaab" id="qrcaab" longname="查询费种代码核算属性" desc="查询费种代码核算属性"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrypat" longname="查询产品部件交易" kind="maintain" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询产品部件交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="qryPatInfos" type="DpProdType.KupDppbPatOut" required="false" multi="true" array="false" longname="产品部件输出列表"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="selQrypat" id="selQrypat" longname="查询产品部件" desc="查询产品部件"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

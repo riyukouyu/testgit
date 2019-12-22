@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdelay" longname="查询电子账户延迟转账登记簿" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" ref="DpDict.Acct.transq"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acToAcDelayInfo" type="IoDpFrozComplexType.IoAcToAcDelayInfo" required="false" multi="true" array="false" longname="电子账户转电子账户延迟转账登记信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="IoDpFrozSvcType.IoQueryDelay" id="IoQueryDelay" longname="查询电子账户延迟转账">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="transq" dest="transq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acToAcDelayInfo" dest="acToAcDelayInfo" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

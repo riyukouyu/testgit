@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="cainac" longname="涉案可疑账户查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="trantp" type="DpEnumType.E_TRANTP" required="false" multi="false" array="false" longname="交易类型"/>
+            <field id="isscue" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否成功标识"/>
+            <field id="otcard" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转出方账号"/>
+            <field id="otcuna" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="转出方账户名称"/>
+            <field id="otbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转出账户机构"/>
+            <field id="otbkno" type="BaseType.U_BANKNO" required="false" multi="false" array="false" longname="转出银行行号"/>
+            <field id="incard" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入方账户"/>
+            <field id="incuna" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="转入方账户名称"/>
+            <field id="inbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转入方账户机构"/>
+            <field id="inbkno" type="BaseType.U_BANKNO" required="false" multi="false" array="false" longname="转入方银行行号"/>
+            <field id="cycrcd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="otisfg" type="BaseEnumType.E_INSPFG" required="false" multi="false" array="false" longname="转出方账户涉案可疑标识"/>
+            <field id="inisfg" type="BaseEnumType.E_INSPFG" required="false" multi="false" array="false" longname="转入方账号涉案可疑标识"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="becainac" id="becainac" longname="交易前处理"/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryInacInfo" id="IoCaQryInacInfo" test="otcard != null &amp;&amp; otcuna != null &amp;&amp; otcard != &quot;&quot; &amp;&amp; otcuna != &quot;&quot;" longname="转出账户涉案可疑登记簿查询">
+            <in_mappings by_interface="true">
+                <mapping src="otcard" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="otcuna" dest="custna" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="inspfg" dest="otisfg" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service serviceName="IoCaSevQryAccout.IoCaQryInacInfo" id="IoCaQryInacInfo" test="incard != null &amp;&amp; incuna != null &amp;&amp; incard != &quot;&quot; &amp;&amp; incuna != &quot;&quot;" longname="转入方涉案可疑查询">
+            <in_mappings by_interface="true">
+                <mapping src="incard" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="incuna" dest="custna" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="inspfg" dest="inisfg" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service serviceName="ServEacctSvcType.IoCaKnbTrinRegister" id="IoCaKnbTrinRegister" test="incard != null &amp;&amp; incuna != null &amp;&amp; incard != &quot;&quot; &amp;&amp; incuna != &quot;&quot;" longname="登记涉案交易信息登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="cycrcd" dest="knbTrinInput.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="incuna" dest="knbTrinInput.inacna" by_interface="true" on_top="true"/>
+                <mapping src="otbkno" dest="knbTrinInput.inbank" by_interface="true" on_top="true"/>
+                <mapping src="inbrch" dest="knbTrinInput.inbrch" by_interface="true" on_top="true"/>
+                <mapping src="incard" dest="knbTrinInput.incard" by_interface="true" on_top="true"/>
+                <mapping src="isscue" dest="knbTrinInput.issucc" by_interface="true" on_top="true"/>
+                <mapping src="otcuna" dest="knbTrinInput.otacna" by_interface="true" on_top="true"/>
+                <mapping src="otbkno" dest="knbTrinInput.otbank" by_interface="true" on_top="true"/>
+                <mapping src="otbrch" dest="knbTrinInput.otbrch" by_interface="true" on_top="true"/>
+                <mapping src="otcard" dest="knbTrinInput.otcard" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="knbTrinInput.tranam" by_interface="true" on_top="true"/>
+                <mapping src="trantp" dest="knbTrinInput.trantp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="ServEacctSvcType.IoCaKnbTrinRegisterPeer" id="ioCaKnbTrinRegisterPeer" test="otcard != null &amp;&amp; otcuna != null &amp;&amp; otcard != &quot;&quot; &amp;&amp; otcuna != &quot;&quot;" longname="登记涉案交易信息登记簿(转出)">
+            <in_mappings by_interface="true">
+                <mapping src="cycrcd" dest="knbTrinInput.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="otcuna" dest="knbTrinInput.inacna" by_interface="true" on_top="true"/>
+                <mapping src="otbkno" dest="knbTrinInput.inbank" by_interface="true" on_top="true"/>
+                <mapping src="inbrch" dest="knbTrinInput.inbrch" by_interface="true" on_top="true"/>
+                <mapping src="incard" dest="knbTrinInput.incard" by_interface="true" on_top="true"/>
+                <mapping src="isscue" dest="knbTrinInput.issucc" by_interface="true" on_top="true"/>
+                <mapping src="otcuna" dest="knbTrinInput.otacna" by_interface="true" on_top="true"/>
+                <mapping src="otbkno" dest="knbTrinInput.otbank" by_interface="true" on_top="true"/>
+                <mapping src="otbrch" dest="knbTrinInput.otbrch" by_interface="true" on_top="true"/>
+                <mapping src="otcard" dest="knbTrinInput.otcard" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="knbTrinInput.tranam" by_interface="true" on_top="true"/>
+                <mapping src="trantp" dest="knbTrinInput.trantp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

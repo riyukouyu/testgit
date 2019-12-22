@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knbopbt" longname="电子账户批量开户登记簿数仓抽数" kind="write" package="cn.sunline.ltts.busi.catran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knbopbt" longname="电子账户批量开户登记簿数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="btchno" type="ApBaseType.U_PILJYLSH" longname="批量交易批次号" length="200" leftPadding="false" padding=" "/>
+            <field id="acctdt" type="PbBaseType.U_DATE08" longname="日期" length="16" leftPadding="false" padding=" "/>
+            <field id="filena" type="ApBaseType.U_LEIXIN32" longname="文件名称" length="64" leftPadding="false" padding=" "/>
+            <field id="custac" type="BaseType.U_CUSTAC" longname="电子账号" length="64" leftPadding="false" padding=" "/>
+            <field id="custna" type="ApBaseType.U_ZHHUZWMC" longname="账户名称" length="200" leftPadding="false" padding=" "/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" longname="电子账户分类" length="2" leftPadding="false" padding=" "/>
+            <field id="brchno" type="BaseType.U_CHAR80" longname="账户归属机构" length="160" leftPadding="false" padding=" " ref="FnDict.Fnfc.brchno"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" longname="证件号码" length="40" leftPadding="false" padding=" " ref="PbDict.Cash.idtfno"/>
+            <field id="idtftp" type="BaseType.U_CHAR20" longname="证件类型" length="40" leftPadding="false" padding=" "/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="losern" type="BaseType.U_LOSERN" longname="失败原因" length="200" leftPadding="false" padding=" "/>
+            <field id="angtna" type="BaseType.U_ANGTNA" longname="代理单位名称" length="200" leftPadding="false" padding=" "/>
+            <field id="custid" type="BaseType.U_CUSTID" longname="用户ID" length="28" leftPadding="false" padding=" " ref="BaseDict.Comm.custid"/>
+            <field id="custcd" type="BaseType.U_CHAR20" longname="客户内码" length="40" leftPadding="false" padding=" " ref="BaseDict.Comm.custcd"/>
+            <field id="idckrt" type="CaEnumType.E_IDCKRT" longname="身份核查结果" length="2" leftPadding="false" padding=" " ref="CaDict.Eacct.idckrt"/>
+            <field id="mpckrt" type="CaEnumType.E_MPCKRT" longname="人脸识别结果" length="2" leftPadding="false" padding=" " ref="CaDict.Eacct.mpckrt"/>
+            <field id="teleno" type="BaseType.U_TELENO" longname="电话号码" length="40" leftPadding="false" padding=" " ref="DpDict.Acct.teleno"/>
+            <field id="openrt" type="CaEnumType.E_OPENRT" longname="开户结果" length="2" leftPadding="false" padding=" " ref="CaDict.Eacct.openrt"/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="交易渠道" length="4" leftPadding="false" padding=" "/>
+            <field id="aghmna" type="BaseType.U_CUSTNA" longname="代理人名称" length="160" leftPadding="false" padding=" "/>
+            <field id="agidtp" type="BaseEnumType.E_IDTFTP" longname="代理人证件类型" length="6" leftPadding="false" padding=" "/>
+            <field id="agidno" type="BaseType.U_IDTFNO" longname="代理人证件号码" length="40" leftPadding="false" padding=" "/>
+            <field id="btchnm" type="BaseType.U_INTEGE" longname="批量交易序号" length="8" leftPadding="false" padding=" "/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

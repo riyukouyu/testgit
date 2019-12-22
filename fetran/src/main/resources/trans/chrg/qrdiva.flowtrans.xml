@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdiva" longname="查询维度值管理" kind="1" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询场景事件维度值明细表]]></description>
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="dimecg" type="FeBaseType.U_DIMECG" required="false" multi="false" array="false" longname="维度类别" ref="FeDict.Chrg.dimecg"/>
+            <field id="expmsg" type="FeBaseType.U_SHORDS" required="false" multi="false" array="false" longname="维度值名称"/>
+            <field id="dimevl" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="维度值"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="pinfos" type="IoFeChrgComplexType.IoCgDiva" required="false" multi="true" array="false" longname="场景事件维度值明细信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qrdiva" id="qrdiva" longname="查询维度值管理" desc="查询维度值管理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

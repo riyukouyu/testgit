@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="adchdf" longname="新增费种代码定义" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="chrgna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="费种代码名称" ref="FeDict.Chrg.chrgna"/>
+            <field id="cgpyrv" type="FeEnumType.E_CGPYRV" required="false" multi="false" array="false" longname="费用收付标志" ref="FeDict.Chrg.cgpyrv"/>
+            <field id="fetype" type="FeEnumType.E_FETYPE" required="false" multi="false" array="false" longname="费种大类"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="mndecm" type="FeBaseType.U_LONGIN" required="false" multi="false" array="false" longname="最低小数位数" ref="FeDict.Chrg.mndecm"/>
+            <field id="carrtp" type="FeEnumType.E_CARRTP" required="false" multi="false" array="false" longname="四舍五入方式" ref="FeDict.Chrg.carrtp"/>
+            <field id="lysptp" type="FeEnumType.E_LYSPTP" required="false" multi="false" array="false" longname="分层方式" ref="FeDict.Chrg.lysptp"/>
+            <field id="cufesr" type="FeEnumType.E_CUFESR" required="false" multi="false" array="false" longname="收费金额来源" ref="FeDict.Chrg.cufesr"/>
+            <field id="felytp" type="FeEnumType.E_FELYTP" required="false" multi="false" array="false" longname="计费分层取值类型"/>
+            <field id="isfavo" type="FeEnumType.E_ISFAVO" required="false" multi="false" array="false" longname="是否允许优惠" ref="FeDict.Chrg.isfavo"/>
+            <field id="mnfvrt" type="FeBaseType.U_RATVAL" required="false" multi="false" array="false" longname="最低优惠比例" ref="FeDict.Chrg.mnfvrt"/>
+            <field id="mxfvrt" type="FeBaseType.U_RATVAL" required="false" multi="false" array="false" longname="最高优惠比例" ref="FeDict.Chrg.mxfvrt"/>
+            <field id="fedive" type="FeEnumType.E_FEDIVE" required="false" multi="false" array="false" longname="收费分润标志" ref="FeDict.Chrg.fedive"/>
+            <field id="chrgsr" type="FeEnumType.E_CHRGSR" required="false" multi="false" array="false" longname="收费金额来源" ref="FeDict.Chrg.chrgsr"/>
+            <field id="cjsign" type="FeEnumType.E_CJSIGN" required="false" multi="false" array="false" longname="县辖维护标志"/>
+            <field id="efctdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="生效日期" ref="FeDict.Chrg.efctdt"/>
+            <field id="inefdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="失效日期" ref="FeDict.Chrg.inefdt"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+        </output>
+        <property packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetCenterBranch" id="IoGetCenterBranch" longname="获取中心机构清算中心">
+            <in_mappings by_interface="true">
+                <mapping src="#run.tranbr" dest="brchno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="brchInfo.brchno" dest="brchno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="adchdf" id="adchdf" longname="新增费种代码定义" desc="新增费种代码定义"/>
+    </flow>
+</flowtran>

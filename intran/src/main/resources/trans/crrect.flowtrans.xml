@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="crrect" longname="隔日错账调整" kind="2" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[隔日错账调整]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="operwy" type="InEnumType.E_OPERWY" required="true" multi="false" array="false" longname="操作方式" ref="InDict.wrac.operwy"/>
+            <field id="trantp" type="BaseEnumType.E_STTRTP" required="false" multi="false" array="false" longname="交易类型"/>
+            <field id="prtrdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="原交易日期" ref="InDict.wrac.prtrdt"/>
+            <field id="prtrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="原交易流水" ref="InDict.wrac.prtrsq"/>
+            <field id="wronbr" type="BaseType.U_WRONBR" required="true" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+            <field id="wronte" type="BaseType.U_USERID" required="true" multi="false" array="false" longname="原错账经办柜员" ref="InDict.wrac.wronte"/>
+            <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+            <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因" ref="InDict.wrac.reason"/>
+            <field id="custac" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="账号1"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种" ref="InDict.inac.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇属性" ref="InDict.wrac.csextg"/>
+            <field id="rebuwo" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+            <field id="happbl" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额" ref="InDict.wrac.happbl"/>
+            <field id="charlg" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志"/>
+            <field id="payaListInfoFirst" type="InAcctTranOut.PayaListInfo" required="false" multi="true" array="false" longname="挂账明细1"/>
+            <field id="paydListInfoFirst" type="InAcctTranOut.PaydListInfo" required="false" multi="true" array="false" longname="销账明细1"/>
+            <field id="custaa" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="账号2"/>
+            <field id="acctme" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称2"/>
+            <field id="crcyce" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种2"/>
+            <field id="csexte" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇属性2"/>
+            <field id="rebuwa" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字2"/>
+            <field id="amntca" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志2"/>
+            <field id="happba" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额2"/>
+            <field id="charla" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志2"/>
+            <field id="payaListInfoSecond" type="InAcctTranOut.PayaListSecond" required="false" multi="true" array="false" longname="挂账明细2"/>
+            <field id="paydListInfoSecond" type="InAcctTranOut.PaydListSecond" required="false" multi="true" array="false" longname="销账明细2"/>
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="acstno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号" ref="InDict.inac.acstno"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="WroAccRollBack.InsNestbk" id="insNestbk" longname="隔日错账冲正录入或修改" desc="隔日错账冲正录入或修改">
+            <in_mappings by_interface="true">
+                <mapping src="acctme" dest="acctme" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="acctna" by_interface="true" on_top="true"/>
+                <mapping src="amntca" dest="amntca" by_interface="true" on_top="true"/>
+                <mapping src="amntcd" dest="amntcd" by_interface="true" on_top="true"/>
+                <mapping src="charla" dest="charla" by_interface="true" on_top="true"/>
+                <mapping src="charlg" dest="charlg" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="crcyce" dest="crcyce" by_interface="true" on_top="true"/>
+                <mapping src="csexte" dest="csexte" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="custaa" dest="custaa" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="happba" dest="happba" by_interface="true" on_top="true"/>
+                <mapping src="happbl" dest="happbl" by_interface="true" on_top="true"/>
+                <mapping src="numbsq" dest="numbsq" by_interface="true" on_top="true"/>
+                <mapping src="operwy" dest="operwy" by_interface="true" on_top="true"/>
+                <mapping src="payaListInfoFirst" dest="payaListInfoFirst" by_interface="true" on_top="true"/>
+                <mapping src="payaListInfoSecond" dest="payaListInfoSecond" by_interface="true" on_top="true"/>
+                <mapping src="paydListInfoFirst" dest="paydListInfoFirst" by_interface="true" on_top="true"/>
+                <mapping src="paydListInfoSecond" dest="paydListInfoSecond" by_interface="true" on_top="true"/>
+                <mapping src="prtrdt" dest="prtrdt" by_interface="true" on_top="true"/>
+                <mapping src="prtrsq" dest="prtrsq" by_interface="true" on_top="true"/>
+                <mapping src="reason" dest="reason" by_interface="true" on_top="true"/>
+                <mapping src="rebuwa" dest="rebuwa" by_interface="true" on_top="true"/>
+                <mapping src="rebuwo" dest="rebuwo" by_interface="true" on_top="true"/>
+                <mapping src="trantp" dest="trantp" by_interface="true" on_top="true"/>
+                <mapping src="wronbr" dest="wronbr" by_interface="true" on_top="true"/>
+                <mapping src="wronte" dest="wronte" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acstno" dest="acstno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

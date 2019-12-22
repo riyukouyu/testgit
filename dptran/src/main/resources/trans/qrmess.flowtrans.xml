@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrmess" longname="查询提示信息启用标志" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="gropcd" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="组号"/>
+            <field id="pageno" type="long" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pgsize" type="long" required="false" multi="false" array="false" longname="每页记录数"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="messls" type="DpPoc.MessInfo" required="false" multi="true" array="false" longname="提示标志列表"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="messageQuery" id="messageQuery" longname="信息标志查询"/>
+    </flow>
+</flowtran>

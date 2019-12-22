@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpTransfer" package="cn.sunline.ltts.busi.dp.type" longname="存款转账相关复合类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="DpKnbAcctSign" longname="定转签约信息" dict="false" abstract="false" introduct="false">
+        <element id="custac" longname="电子账号" type="BaseType.U_CHAR32" ref="BaseDict.Comm.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="转出账号" type="BaseType.U_ACCTNO" ref="BaseDict.Comm.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tgacct" longname="转入账号" type="BaseType.U_CHAR20" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" ref="BaseDict.Comm.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trdate" longname="每月执行日" type="BaseType.U_DATE02" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="交易卡号" type="BaseType.U_CARDNO" ref="BaseDict.Comm.cardno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="BaseDict.Comm.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpKnbAcctBach" longname="电子账户批量转账登记簿复合类型" dict="false" abstract="false" introduct="false">
+        <element id="accttp" longname="归集账户类型" type="BaseType.U_CHAR01" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="归集账号" type="BaseType.U_CARDNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctna" longname="归集账户名称" type="BaseType.U_ACCTNA" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pyacct" longname="被归集账号" type="BaseType.U_CARDNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pyacna" longname="被归集账户名称" type="BaseType.U_ACCTNA" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="被归集账户开户行机构" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sweptp" longname="归集方式" type="BaseType.U_CHAR01" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="swpamt" longname="归集金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="filesq" longname="文件批次号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dataid" longname="任务编号" type="BaseType.U_CHAR16" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transq" longname="主交易流水" type="BaseType.U_SEQUNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="主交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="交易状态" type="BaseEnumType.E_TRANST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="descrb" longname="交易描述" type="BaseType.U_SHORDS" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sourdt" longname="来源方日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="soursq" longname="来源方流水" type="BaseType.U_SEQUNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acbrch" longname="归集账户机构" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="交易渠道" type="MsType.U_CHANNEL" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpknaDelayBatch" longname="延迟转账批量定时拆分复合类型" dict="false" abstract="false" introduct="false">
+        <element id="transq" longname="主交易流水" type="BaseType.U_SEQUNO" ref="DpDict.Acct.transq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="capitp" longname="资金交易类型" type="DpEnumType.E_CAPITP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="卡号" type="BaseType.U_CARDNO" ref="DpDict.Acct.cardno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cuacno" longname="转入方电子账户" type="BaseType.U_CUACNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="转入方子账号" type="BaseType.U_ACCTNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="转入方账户所属机构" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="incorp" longname="转入方账户所属法人" type="BaseType.U_CORPNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tocorp" longname="转出方账户所属法人" type="BaseType.U_CORPNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tobrch" longname="转出方账号所属机构" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toacct" longname="转出方账号/卡号" type="BaseType.U_ACCTNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toscac" longname="转出方电子账户" type="BaseType.U_CUACNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toacno" longname="转出方子账号" type="BaseType.U_ACCTNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" ref="DpDict.Acct.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tlcgam" longname="收费总金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="交易渠道" type="MsType.U_CHANNEL" ref="DpDict.Acct.servtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inacna" longname="转入方户名" type="BaseType.U_ACCTNA" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="otacna" longname="转出方户名" type="BaseType.U_ACCTNA" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acdate" longname="到账日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trantp" longname="转账时效标志" type="DpEnumType.E_TRNESS" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="DpDict.Acct.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpCount" longname="总金额及总条数" dict="false" abstract="false" introduct="false">
+        <element id="counts" longname="总计" type="PbBaseType.U_LONGIN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="总金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAcctinIoblCups" longname="收单交易流水信息查询" dict="false" abstract="false" introduct="false">
+        <element id="mntrsq" longname="主交易流水" type="PbBaseType.U_TRNSEQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="psbhno" longname="批次号" type="BaseType.U_CHAR06" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrtm" longname="核心交易时间" type="BaseType.U_TRTMCH" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prepsq" longname="前置流水" type="PbBaseType.U_PREPSQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prepdt" longname="前置日期" type="BaseType.U_CHAR08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="preptm" longname="前置交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="uniseq" longname="银联流水" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="unkpdt" longname="银联清算日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrdt" longname="银联交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrtm" longname="银联交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="agid01" longname="一级服务商" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ad01na" longname="一级服务商名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户号" type="BaseType.U_CHAR25" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmena" longname="内部商户名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="frteno" longname="来源手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmfrteno" longname="脱敏来源手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="电子账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="支付金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgam" longname="银联成本手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jnanam" longname="服务商手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totaam" longname="总手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svcode" longname="服务编码" type="JfDpEnumType.E_SERVCD" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sbrand" longname="pos品牌" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="orgaid" longname="机构号" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toanam" longname="商户存入金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="入账交易状态" type="JfDpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="支付银行卡账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmpabkno" longname="脱敏支付银行卡账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardtp" longname="支付银行卡类型" type="DsEnumType.E_CARDTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="refeno" longname="参考号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordeno" longname="订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="buodno" longname="商户订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算类型" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucfe" longname="活动抵扣" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="markfe" longname="总抵扣 |基础抵扣 |D0抵扣 |附加抵扣 |" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pamena" longname="支付商户号名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pateid" longname="支付终端号" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busitp" longname="业务类型" type="DsEnumType.E_BUSITP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="支付渠道" type="JfDpEnumType.E_RETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mercfg" longname="商户类型" type="JfDpEnumType.E_MERCFG" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="termtp" longname="终端类型" type="DsEnumType.E_TERMLX" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cletip" longname="客户端ip地址" type="BaseType.U_CHAR25" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="gprsps" longname="经纬度" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rtcode" longname="返回码" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="retmsg" longname="返回信息" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="edanam" longname="代发金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sacdno" longname="收款银行卡号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmsacdno" longname="脱敏收款银行卡号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sabkna" longname="结算卡银行名称" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="edandt" longname="代发交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="edtrtm" longname="核心代发交易时间" type="BaseType.U_TRTMCH" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="edanst" longname="代发核心交易状态" type="DpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pameno" longname="支付商户号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fiel02" longname="62域上送的基站信息" type="BaseType.U_CHAR20" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recdtp" longname="收款卡类型" type="CaEnumType.E_BACATP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="merate" longname="商户结算费率" type="BaseType.U_CHAR100" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="signim" longname="签购单url" type="BaseType.U_CHAR200" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="otbkna" longname="银行卡开户行名称" type="BaseType.U_CHAR100" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="posnum" longname="内部终端号" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpKnlCleaseInfo" longname="清结算流水查询" dict="false" abstract="false" introduct="false">
+        <element id="sbrand" longname="品牌名称" type="BaseType.U_CHAR20" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busitp" longname="业务类型" type="DsEnumType.E_BUSITP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="商户号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="teleno" longname="手机号码" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pamena" longname="客户姓名" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordeno" longname="订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrsq" longname="交易流水" type="PbBaseType.U_TRNSEQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="refeno" longname="参考号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prepdt" longname="交易日期" type="BaseType.U_CHAR08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="preptm" longname="交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="unkpdt" longname="银联清算日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardtp" longname="卡类型" type="DsEnumType.E_CARDTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jnanam" longname="服务商分润金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="代发状态" type="JfDpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="代发渠道" type="JfDpEnumType.E_RETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrst" longname="交易状态" type="JfDpEnumType.E_PASTAT" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算方式" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toanam" longname="结算金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucfe" longname="优费券抵扣" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgam" longname="银联成本" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="付款账户" type="BaseType.U_CHAR64" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sacdno" longname="结算账户" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sacdna" longname="结算户名" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="atfnsy" longname="实际结算方式" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rtcode" longname="代发返回码" type="BaseType.U_CHAR05" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpTrans" longname="交易记录" dict="false" abstract="false" introduct="false">
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toanam" longname="收款金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="收单状态" type="BaseType.U_CHAR02" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="edtrst" longname="代发状态" type="BaseType.U_CHAR02" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svcode" longname="付款方式" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="frteno" longname="付款人手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="teleno" longname="收款手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="交易卡号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sacdno" longname="结算卡号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="feanam" longname="手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrtm" longname="交易时间" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordeno" longname="订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="flowid" longname="流水号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acfist" longname="结算类型" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="VerifyAccountingRecordIn" longname="收单对账文件生成" dict="false" abstract="false" introduct="false">
+        <element id="flowid" longname="交易自增id" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrsq" longname="主交易流水" type="PbBaseType.U_TRNSEQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrtm" longname="核心交易时间" type="BaseType.U_TRTMCH" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prepsq" longname="posp流水" type="PbBaseType.U_PREPSQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prepdt" longname="posp日期" type="BaseType.U_CHAR08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="preptm" longname="posp交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="uniseq" longname="银联流水" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="unkpdt" longname="银联清算日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrdt" longname="银联交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrtm" longname="银联交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="atsvpr" longname="归属服务商" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="atsvna" longname="归属服务商名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="agid01" longname="一级服务商" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ad01na" longname="一级服务商名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ratet1" longname="商户结算费率" type="BaseType.U_RATECD" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rated0" longname="商户秒到费率" type="BaseType.U_RATECD" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="refeno" longname="参考号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordeno" longname="订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="buodno" longname="商户订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="刷卡总金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toanam" longname="商户存入金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgam" longname="银联成本手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jnanam" longname="分润费用（包含D0提现费用）" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svcode" longname="服务编码" type="JfDpEnumType.E_SERVCD" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="支付渠道" type="JfDpEnumType.E_RETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="messtp" longname="报文类型" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="电子账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="负债子账号" type="BaseType.U_ACCTNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmena" longname="内部商户名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="teleno" longname="手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="frteno" longname="来源手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="支付银行卡账号" type="BaseType.U_CHAR64" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardtp" longname="支付银行卡类型" type="DsEnumType.E_CARDTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pacaat" longname="支付银行卡属性" type="JfDpEnumType.E_PACAAT" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="核心交易状态" type="JfDpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="orgaid" longname="机构号（品牌id）" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prpoin" longname="赠送积分" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucid" longname="抵用券id" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucfe" longname="活动抵扣" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算类型" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acfist" longname="实际结算类型" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sbrand" longname="pos品牌" type="BaseType.U_CHAR20" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busitp" longname="业务类型" type="DsEnumType.E_BUSITP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="reflid" longname="原交易自增id" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpKnlIobl" longname="清结算平账详情查询" dict="false" abstract="false" introduct="false">
+        <element id="flowid" longname="交易自增id" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrsq" longname="主交易流水" type="PbBaseType.U_TRNSEQ" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="BaseType.U_DATE08" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrtm" longname="核心交易时间" type="BaseType.U_TRTMCH" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="uniseq" longname="银联流水" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="unkpdt" longname="银联清算日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrdt" longname="银联交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrtm" longname="银联交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="agid01" longname="一级服务商" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ad01na" longname="一级服务商名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ad01am" longname="一级服务商分润金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="merate" longname="商户费率" type="BaseType.U_CHAR100" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="onefee" longname="秒到费" type="BaseType.U_CHAR100" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="refeno" longname="参考号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordeno" longname="订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="buodno" longname="商户订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="刷卡总金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toanam" longname="商户存入金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgam" longname="银联成本手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jnanam" longname="分润费用（包含D0提现费用）" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="电子账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmena" longname="内部商户名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tminmena" longname="内部商户名称" type="BaseType.U_CHAR180" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="teleno" longname="手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmteleno" longname="手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="支付银行卡账号" type="BaseType.U_CHAR64" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmpabkno" longname="支付银行卡账号" type="BaseType.U_CHAR64" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pycdtp" longname="支付银行卡类型" type="DsEnumType.E_CARDTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pameno" longname="支付商户号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pamena" longname="支付商户号名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmpamena" longname="支付商户号名称" type="BaseType.U_CHAR180" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="核心交易状态" type="JfDpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prpoin" longname="赠送积分" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcipy" longname="特殊优惠" type="JfDpEnumType.E_SPCIPY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mercfg" longname="商户类型" type="JfDpEnumType.E_MERCFG" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucfe" longname="活动抵扣" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acfist" longname="实际结算类型" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sbrand" longname="pos品牌" type="BaseType.U_CHAR20" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busitp" longname="业务类型" type="DsEnumType.E_BUSITP" ref="DsDict.Ds.busitp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ottrsq" longname="主交易流水" type="PbBaseType.U_TRNSEQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dfdate" longname="交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dftime" longname="核心交易时间" type="BaseType.U_TRTMCH" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="intrsq" longname="原收单交易流水" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="indate" longname="原收单交易日期" type="BaseType.U_CHAR08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="retmsg" longname="应答描述" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dfamt" longname="代发金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dfst" longname="核心交易状态" type="JfDpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算方式" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sabkna" longname="结算卡银行名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sacdno" longname="结算卡账号" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmsacdno" longname="结算卡账号" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sacdna" longname="结算卡账号名称" type="BaseType.U_CHAR180" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmsacdna" longname="结算卡账号名称" type="BaseType.U_CHAR180" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardtp" longname="结算卡类型" type="CaEnumType.E_BACATP" ref="DpDict.Acct.cardtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bankno" longname="联行号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAcctinIoblCupsExp" longname="收单交易流水信息导出查询" dict="false" abstract="false" introduct="false">
+        <element id="orgaid" longname="机构号" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sbrand" longname="pos品牌" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busitp" longname="业务类型" type="DsEnumType.E_BUSITP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户号" type="BaseType.U_CHAR25" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmena" longname="内部商户名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mercfg" longname="商户类型" type="JfDpEnumType.E_MERCFG" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrsq" longname="主交易流水" type="PbBaseType.U_TRNSEQ" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算类型" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ordeno" longname="订单号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="支付金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toanam" longname="商户存入金额" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgam" longname="银联成本手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totaam" longname="总手续费" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucfe" longname="活动抵扣" type="BaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="markfe" longname="总抵扣 |基础抵扣 |D0抵扣 |附加抵扣 |" type="BaseType.U_CHAR30" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="支付渠道" type="JfDpEnumType.E_RETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transt" longname="入账交易状态" type="JfDpEnumType.E_CUPSST" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="uniseq" longname="银联流水" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="refeno" longname="参考号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrdt" longname="银联交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="untrtm" longname="银联交易时间" type="BaseType.U_CHAR10" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="agid01" longname="一级服务商" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="电子账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardtp" longname="支付银行卡类型" type="DsEnumType.E_CARDTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="支付银行卡账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmpabkno" longname="脱敏支付银行卡账号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pameno" longname="支付商户号" type="BaseType.U_CHAR50" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pamena" longname="支付商户号名称" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="frteno" longname="来源手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tmfrteno" longname="脱敏来源手机号" type="BaseType.U_CHAR35" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="otbkna" longname="银行卡开户行名称" type="BaseType.U_CHAR100" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrtm" longname="核心交易时间" type="BaseType.U_TRTMCH" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prepdt" longname="前置日期" type="BaseType.U_CHAR08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="termtp" longname="终端类型" type="DsEnumType.E_TERMLX" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

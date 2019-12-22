@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="testIntera" longname="测试数据交互" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="source" type="string" required="false" multi="false" array="false" longname="源系统ID"/>
+            <field id="target" type="string" required="false" multi="false" array="false" longname="目标系统ID"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="source" type="string" required="false" multi="false" array="false" longname="源系统ID"/>
+            <field id="target" type="string" required="false" multi="false" array="false" longname="目标系统ID"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="test" id="test"/>
+    </flow>
+</flowtran>

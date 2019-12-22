@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrirdt" longname="查询利息调整登记簿" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+            <field id="adjttp" type="DpEnumType.E_ADJTTP" required="false" multi="false" array="false" longname="利息调整方式" ref="DpDict.Acct.adjttp"/>
+            <field id="bgdate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期"/>
+            <field id="endate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="截止日期"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <field id="adjustInterestInfo" type="IoDpTable.IoDpKnbInrtAdjt" required="false" multi="true" array="false" longname="利息调整登记簿"/>
+        </output>
+        <property packMode="false">
+            <field id="adjustInterestInfo" type="IoDpCapital.AdjustInterest_IN" required="false" multi="true" array="false" longname="利息调整登记簿查询"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="DpAcctSvcType.selAdjustInterestRgst" id="selAdjustInterestRgst" longname="查询利息调整登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="adjttp" dest="adjttp" by_interface="true" on_top="true"/>
+                <mapping src="bgdate" dest="bgdate" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="endate" dest="endate" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="adjustInterestInfo" dest="adjustInterestInfo" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

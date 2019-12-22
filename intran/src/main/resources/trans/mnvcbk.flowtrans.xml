@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="mnvcbk" longname="内部账转内部户维护" kind="1" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[内部账转内部户维护]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="acstno" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套号"/>
+            <field id="iavctp" type="InEnumType.E_IAVCTP" required="false" multi="false" array="false" longname="传票类型" ref="InDict.inac.iavctp"/>
+            <field id="cntsys" type="InEnumType.E_CNTSYS" required="true" multi="false" array="false" longname="是否跨系统转账" ref="InDict.inac.cntsys"/>
+            <field id="iavcbkListInfo" type="InAcctTranOut.IavcbkDetail" required="true" multi="true" array="false" longname="传票明细"/>
+            <field id="paydListInfo" type="InAcctTranOut.PaydDetail" required="false" multi="true" array="false" longname="销账明细"/>
+            <field id="payaListInfo" type="InAcctTranOut.PayaDetail" required="false" multi="true" array="false" longname="挂账明细"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="befroeCheck" id="befroeCheck" longname="存档前检查" desc="存档前检查"/>
+        <service serviceName="IoInAcctTranOut.UpdMnvcbk" id="UpdMnvcbk" longname="内部账转内部户维护" desc="内部账转内部户维护">
+            <in_mappings by_interface="true">
+                <mapping src="acstno" dest="acstno" by_interface="true" on_top="true"/>
+                <mapping src="cntsys" dest="cntsys" by_interface="true" on_top="true"/>
+                <mapping src="iavcbkListInfo" dest="iavcbkListInfo" by_interface="true" on_top="true"/>
+                <mapping src="iavctp" dest="iavctp" by_interface="true" on_top="true"/>
+                <mapping src="payaListInfo" dest="payaListInfo" by_interface="true" on_top="true"/>
+                <mapping src="paydListInfo" dest="paydListInfo" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

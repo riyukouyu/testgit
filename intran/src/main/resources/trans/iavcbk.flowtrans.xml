@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="iavcbk" longname="内部账转内部户录入" kind="2" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[内部账转内部户录入]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="acstno" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套号"/>
+            <field id="iavctp" type="InEnumType.E_IAVCTP" required="true" multi="false" array="false" longname="传票类型" ref="InDict.inac.iavctp"/>
+            <field id="smrytx" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="摘要" ref="InDict.inac.smrytx"/>
+            <field id="cntsys" type="InEnumType.E_CNTSYS" required="false" multi="false" array="false" longname="是否跨系统转账" ref="InDict.inac.cntsys"/>
+            <field id="isadds" type="InEnumType.E_ISADDS" required="false" multi="false" array="false" longname="是否新增套号或序号" ref="InDict.inac.isadds"/>
+            <field id="iavcbkListInfo" type="InAcctTranOut.IavcbkDetail" required="true" multi="true" array="false" longname="传票明细"/>
+            <field id="paydListInfo" type="InAcctTranOut.PaydDetail" required="false" multi="true" array="false" longname="销账明细"/>
+            <field id="payaListInfo" type="InAcctTranOut.PayaDetail" required="false" multi="true" array="false" longname="挂账明细"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="payasq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="待销账流水" ref="InDict.inac.payasq"/>
+            <field id="paydsq" type="BaseType.U_PAYASQ" required="false" multi="false" array="false" longname="销账序号" ref="InDict.inac.paydsq"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="befroeCheck" id="befroeCheck" longname="存档前检查" desc="存档前检查"/>
+        <service serviceName="IoInAcctTranOut.InsIavcbk" id="InsIavcbk" longname="内部账转内部户录入" desc="内部账转内部户录入">
+            <in_mappings by_interface="true">
+                <mapping src="acstno" dest="acstno" by_interface="true" on_top="true"/>
+                <mapping src="iavcbkListInfo" dest="iavcbkListInfo" by_interface="true" on_top="true"/>
+                <mapping src="iavctp" dest="iavctp" by_interface="true" on_top="true"/>
+                <mapping src="payaListInfo" dest="payaListInfo" by_interface="true" on_top="true"/>
+                <mapping src="paydListInfo" dest="paydListInfo" by_interface="true" on_top="true"/>
+                <mapping src="smrytx" dest="smrytx" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="payasq" dest="payasq" by_interface="true" on_top="true"/>
+                <mapping src="paydsq" dest="paydsq" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

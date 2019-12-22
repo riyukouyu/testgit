@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qybill" longname="查询账户对账信息" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号"/>
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始交易日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止交易日期"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="knlBillInfo" type="IoDpQueryComplexType.IoKnlBillInfo" required="false" multi="true" array="false" longname="账户对账信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="IoAccountSvcType.IoQueryKnlBill" id="IoQueryKnlBill" longname="查询账户对账信息">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="bgindt" dest="bgindt" by_interface="true" on_top="true"/>
+                <mapping src="endddt" dest="endddt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="knlBillInfo" dest="knlBillInfo" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

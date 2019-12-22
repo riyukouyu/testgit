@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="genbzp" longname="根据属性类型查询信息" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="bzprtp" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="属性类型" ref="InDict.inac.bzprtp"/>
+        </input>
+        <output asParm="false" packMode="false">
+            <field id="cplBztpInfo" type="IoInQueryTypes.IoBzprtpAllInfo" required="false" multi="false" array="false" longname="属性类型信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelBztpInfoByBzprtp" id="selBztpInfoByBzprtp" longname="根据属性类型查询信息" desc="根据属性类型查询信息">
+            <in_mappings by_interface="true">
+                <mapping src="bzprtp" dest="bzprtp" desc="属性类型" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplBzprtpInfo.billtg" dest="cplBztpInfo.billtg" desc="账单控制方式" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.bzprtp" dest="cplBztpInfo.bzprtp" desc="属性类型" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.desctx" dest="cplBztpInfo.desctx" desc="描述" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.kpacfg" dest="cplBztpInfo.kpacfg" desc="记账控制" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.ovdftg" dest="cplBztpInfo.ovdftg" desc="透支控制方式" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.pauntg" dest="cplBztpInfo.pauntg" desc="待销账必须全额销账标志" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.payatg" dest="cplBztpInfo.payatg" desc="待销账方向" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.rlbltg" dest="cplBztpInfo.rlbltg" desc="余额更新方式" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.totltg" dest="cplBztpInfo.totltg" desc="汇总标志" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.trcrlm" dest="cplBztpInfo.trcrlm" desc="内部账户贷方交易检查条件" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.trdrlm" dest="cplBztpInfo.trdrlm" desc="内部账户借方交易检查条件" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.usdcmt" dest="cplBztpInfo.usdcmt" desc="是否使用开户凭证" by_interface="true" on_top="true"/>
+                <mapping src="cplBzprtpInfo.usdctg" dest="cplBztpInfo.usdctg" desc="是否使用交易凭证" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

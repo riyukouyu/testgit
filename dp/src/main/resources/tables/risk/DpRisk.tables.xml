@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpRisk" package="cn.sunline.edsp.busi.dp.tables.risk" longname="风控冻结强扣表结构" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="KnbAply" name="knb_aply" longname="风控强扣申请登记簿" tableType="ORDINARY" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="aplyno" longname="申请编号" type="BaseType.U_SEQUNO" ref="DpRiskDict.Aply.aplyno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="aplyid" longname="申请冻结账户" type="BaseType.U_ACCTNO" ref="DpRiskDict.Aply.aplyid" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozam" longname="冻结总金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.frozam" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozbl" longname="剩余冻结金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.frozbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="froztp" longname="冻结业务类型" type="DpEnumType.E_FROZTP" ref="DpRiskDict.Aply.froztp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozow" longname="冻结主体类型" type="JFBaseEnumType.E_STACTP" ref="DpRiskDict.Aply.frozow" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frreas" longname="冻结原因" type="BaseType.U_SHORDS" ref="DpRiskDict.Aply.frreas" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="frexog" longname="冻结申请部门" type="DpRiskEnumType.E_FREXOG" ref="DpRiskDict.Aply.frexog" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="enuser" longname="录入柜员" type="BaseType.U_USERID" ref="DpRiskDict.Aply.enuser" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="entime" longname="录入时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Aply.entime" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="operator" longname="操作人" type="BaseType.U_USERID" ref="DpRiskDict.Aply.operator" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="optime" longname="操作时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Aply.optime" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="retrsq" longname="收单交易流水" type="BaseType.U_CHAR40" ref="DpRiskDict.Aply.retrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="retrdt" longname="收单交易日期" type="BaseType.U_DATE08" ref="DpRiskDict.Aply.retrdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="refeno" longname="参考号" type="BaseType.U_CHAR50" ref="DpRiskDict.Aply.refeno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="frbgdt" longname="冻结起始日期" type="BaseType.U_DATE08" ref="DpRiskDict.Aply.frbgdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="freddt" longname="冻结终止日期" type="BaseType.U_DATE08" ref="DpRiskDict.Aply.freddt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="frtime" longname="冻结时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Aply.frtime" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="lttscd" longname="内部交易码" type="BaseType.U_LTTSCD" ref="DpRiskDict.Aply.lttscd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mntrsq" longname="主交易流水" type="BaseType.U_SEQUNO" ref="DpRiskDict.Aply.mntrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="frapst" longname="冻结状态" type="DpRiskEnumType.E_FRAPST" ref="DpRiskDict.Aply.frapst" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="remark" longname="备注" type="BaseType.U_SHORTS" ref="DpRiskDict.Aply.remark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unfrdt" longname="解冻日期" type="BaseType.U_DATE08" ref="DpRiskDict.Aply.unfrdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bradna" longname="品牌名称" type="BaseType.U_CHAR100" ref="DpRiskDict.Aply.bradna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="sbrand" longname="支付机构号" type="BaseType.U_CHAR30" ref="DpRiskDict.Aply.sbrand" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mobile" longname="手机号" type="BaseType.U_CHAR50" ref="DpRiskDict.Aply.mobile" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mrchno" longname="商户编号" type="BaseType.U_CHAR30" ref="DpRiskDict.Aply.mrchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mrchna" longname="商户名称" type="BaseType.U_CHAR200" ref="DpRiskDict.Aply.mrchna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="idtfno" longname="身份证" type="BaseType.U_IDTFNO" ref="DpRiskDict.Aply.idtfno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="agntna" longname="服务商名称" type="BaseType.U_CHAR100" ref="DpRiskDict.Aply.agntna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="agntid" longname="服务商编码" type="BaseType.U_CHAR200" ref="DpRiskDict.Aply.agntid" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="dedubl" longname="服务商剩余强扣金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.dedubl" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deduam" longname="服务商已强扣金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.deduam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="dedufn" longname="服务商最终强扣金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.dedufn" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="enflag" longname="录入标识" type="DpRiskEnumType.E_ENFLAG" ref="DpRiskDict.Aply.enflag" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trpodt" longname="调单日期" type="BaseType.U_DATE08" ref="DpRiskDict.Aply.trpodt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tmidtfno" longname="脱敏身份证" type="BaseType.U_IDTFNO" ref="DpRiskDict.Aply.tmidtfno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tmmobile" longname="脱敏手机号" type="BaseType.U_CHAR50" ref="DpRiskDict.Aply.tmmobile" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deapst" longname="强扣状态" type="DpRiskEnumType.E_DEAPST" ref="DpRiskDict.Aply.deapst" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="demram" longname="商户已扣金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.demram" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deenus" longname="强扣录入柜员" type="BaseType.U_USERID" ref="DpRiskDict.Aply.deenus" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deentm" longname="强扣录入时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Aply.deentm" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="detime" longname="强扣时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Aply.detime" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="advaamt" longname="垫付金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.advaamt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="agtperc" longname="服务商扣款比例" type="BaseType.U_RATECD" ref="DpRiskDict.Aply.agtperc" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fragbl" longname="服务商剩余冻结金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.fragbl" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bakfee" longname="退单手续费" type="BaseType.U_TRANAM" ref="DpRiskDict.Aply.bakfee" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="aplyno" operate="selectOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="unique" fields="froztp refeno" operate="selectOne"/>
+        </odbindexes>
+        <indexes/>
+    </table>
+    <table id="KnbRecord" name="knb_record" longname="风控冻结强扣操作记录" tableType="ORDINARY" virtual="false" abstract="false">
+        <fields>
+            <field id="id" longname="id" type="BaseType.U_CHAR50" ref="DpRiskDict.Record.id" primarykey="true" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="aplyno" longname="申请编号" type="BaseType.U_SEQUNO" ref="DpRiskDict.Record.aplyno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="operator" longname="操作人" type="BaseType.U_USERID" ref="DpRiskDict.Record.operator" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="optime" longname="操作时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Record.optime" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opdesc" longname="操作功能" type="DpRiskEnumType.E_OPDESC" ref="DpRiskDict.Record.opdesc" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="mntrsq" longname="交易流水" type="BaseType.U_SEQUNO" ref="DpRiskDict.Record.mntrsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes/>
+        <indexes/>
+    </table>
+    <table id="KnbFrozDeta" name="knb_froz_deta" longname="冻结明细登记簿" tableType="ORDINARY" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="aplyno" longname="申请编号" type="BaseType.U_SEQUNO" ref="DpRiskDict.FrozDeta.aplyno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozsq" longname="冻结序号" type="BaseType.U_CHAR32" ref="DpRiskDict.FrozDeta.frozsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozow" longname="冻结主体类型" type="JFBaseEnumType.E_STACTP" ref="DpRiskDict.FrozDeta.frozow" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frowid" longname="冻结主体ID" type="BaseType.U_ACCTNO" ref="DpRiskDict.FrozDeta.frowid" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozam" longname="冻结金额" type="BaseType.U_TRANAM" ref="DpRiskDict.FrozDeta.frozam" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozbl" longname="冻结余额" type="BaseType.U_TRANAM" ref="DpRiskDict.FrozDeta.frozbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="frozdt" longname="冻结日期" type="BaseType.U_DATE08" ref="DpRiskDict.FrozDeta.frozdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="froztm" longname="冻结时间" type="BaseType.U_TRTMCH" ref="DpRiskDict.FrozDeta.froztm" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="frozst" longname="冻结状态" type="DpRiskEnumType.E_FRDEST" ref="DpRiskDict.FrozDeta.frozst" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tdtrsq" longname="收单交易流水" type="BaseType.U_CHAR40" ref="DpRiskDict.FrozDeta.tdtrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tdtrdt" longname="收单交易日期" type="BaseType.U_DATE08" ref="DpRiskDict.FrozDeta.tdtrdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="orresn" longname="收单来源" type="BaseType.U_CHAR80" ref="DpRiskDict.FrozDeta.orresn" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="thawdt" longname="解冻日期" type="BaseType.U_DATE08" ref="DpRiskDict.FrozDeta.thawdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="thawtm" longname="解冻时间" type="BaseType.U_TRTMCH" ref="DpRiskDict.FrozDeta.thawtm" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="forcdt" longname="强扣日期" type="BaseType.U_DATE08" ref="DpRiskDict.FrozDeta.forcdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="forctm" longname="强扣时间" type="BaseType.U_TRTMCH" ref="DpRiskDict.FrozDeta.forctm" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mrchno" longname="商户编号" type="BaseType.U_CHAR30" ref="DpRiskDict.FrozDeta.mrchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="refeno" longname="参考号" type="BaseType.U_CHAR50" ref="DpRiskDict.FrozDeta.refeno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bradna" longname="品牌名称" type="BaseType.U_CHAR100" ref="DpRiskDict.FrozDeta.bradna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="sbrand" longname="支付机构号" type="BaseType.U_CHAR30" ref="DpRiskDict.FrozDeta.sbrand" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deagbl" longname="服务商强扣剩余金额" type="BaseType.U_TRANAM" ref="DpRiskDict.FrozDeta.deagbl" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="thawam" longname="解冻金额" type="BaseType.U_TRANAM" ref="DpRiskDict.FrozDeta.thawam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="deduam" longname="强扣金额" type="BaseType.U_TRANAM" ref="DpRiskDict.FrozDeta.deduam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="isagnt" longname="是否服务商" type="BaseEnumType.E_YES___" ref="DpRiskDict.FrozDeta.isagnt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="aplyno" sort="frozsq" operate="selectAll selectPageWithCount"/>
+            <index id="odb2" type="index" fields="frozst tdtrsq" operate="selectAll"/>
+        </odbindexes>
+        <indexes/>
+    </table>
+    <table id="KnbThaw" name="knb_thaw" longname="申请解冻登记簿" tableType="ORDINARY" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="odfrno" longname="原申请编号" type="BaseType.U_SEQUNO" ref="DpRiskDict.Thaw.odfrno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unfrsq" longname="解冻序号" type="BaseType.U_CHAR32" ref="DpRiskDict.Thaw.unfrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="aplyid" longname="解冻账号ID" type="BaseType.U_ACCTNO" ref="DpRiskDict.Thaw.aplyid" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="frozow" longname="解冻账号类型" type="JFBaseEnumType.E_STACTP" ref="DpRiskDict.Thaw.frozow" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unexog" longname="解冻部门" type="DpRiskEnumType.E_FREXOG" ref="DpRiskDict.Thaw.unexog" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="enteruser" longname="录入柜员" type="BaseType.U_USERID" ref="DpRiskDict.Thaw.enteruser" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="entertime" longname="录入时间" type="ApBaseType.U_TMSTMP" ref="DpRiskDict.Thaw.entertime" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="operator" longname="操作人" type="BaseType.U_USERID" ref="DpRiskDict.Thaw.operator" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="operatetime" longname="操作时间" type="BaseType.U_TRTMCH" ref="DpRiskDict.Thaw.operatetime" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="lttscd" longname="内部交易吗" type="BaseType.U_CHAR60" ref="DpRiskDict.Thaw.lttscd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unfrdt" longname="解冻日期" type="BaseType.U_DATE08" ref="DpRiskDict.Thaw.unfrdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unfrtm" longname="解冻时间" type="BaseType.U_TRTMCH" ref="DpRiskDict.Thaw.unfrtm" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mntrsq" longname="主交易流水" type="BaseType.U_SEQUNO" ref="DpRiskDict.Thaw.mntrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unmark" longname="解冻备注" type="BaseType.U_SHORTS" ref="DpRiskDict.Thaw.unmark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="unfram" longname="解冻金额" type="BaseType.U_TRANAM" ref="DpRiskDict.Thaw.unfram" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mtdate" longname="维护日期" type="BaseType.U_DATE08" ref="DpRiskDict.Thaw.mtdate" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes/>
+        <indexes/>
+    </table>
+    <table id="KnbChabck" name="knb_chabck" longname="银联差错退款数据登记表" tableType="ORDINARY" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trandt" longname="处理日期" type="BaseType.U_CHAR08" ref="DpRiskDict.KnbChabak.trandt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="errtgs" longname="差错交易标志" type="BaseType.U_CHAR05" ref="DpRiskDict.KnbChabak.errtgs" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0032" longname="代理机构标识码" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fd0032" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0033" longname="发送机构标识码" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fd0033" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0011" longname="系统跟踪号" type="BaseType.U_CHAR08" ref="DpRiskDict.KnbChabak.fd0011" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0007" longname="交易传输时间" type="BaseType.U_CHAR50" ref="DpRiskDict.KnbChabak.fd0007" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0002" longname="主账号" type="BaseType.U_CHAR20" ref="DpRiskDict.KnbChabak.fd0002" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0004" longname="交易金额" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.fd0004" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mesgtp" longname="报文类型" type="BaseType.U_CHAR04" ref="DpRiskDict.KnbChabak.mesgtp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0003" longname="交易类型码" type="BaseType.U_CHAR06" ref="DpRiskDict.KnbChabak.fd0003" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0018" longname="商户类型" type="BaseType.U_CHAR04" ref="DpRiskDict.KnbChabak.fd0018" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0041" longname="受卡机终端标识码" type="BaseType.U_CHAR08" ref="DpRiskDict.KnbChabak.fd0041" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0037" longname="上一笔交易检索参考号" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fd0037" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0025" longname="服务点条件码" type="BaseType.U_CHAR05" ref="DpRiskDict.KnbChabak.fd0025" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0038" longname="授权应答码" type="BaseType.U_CHAR06" ref="DpRiskDict.KnbChabak.fd0038" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0100" longname="接收机构标识码" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fd0100" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fkbkcd" longname="发卡银行标识码" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fkbkcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0902" longname="上一笔交易的系统跟踪号" type="BaseType.U_CHAR08" ref="DpRiskDict.KnbChabak.fd0902" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0039" longname="交易返回码" type="BaseType.U_DATE04" ref="DpRiskDict.KnbChabak.fd0039" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0022" longname="服务点输入方式" type="BaseType.U_CHAR05" ref="DpRiskDict.KnbChabak.fd0022" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="slysam" longname="受理方应收手续费" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.slysam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="slyfam" longname="受理方应付手续费" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.slyfam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fqfams" longname="分期付款附加手续费" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.fqfams" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0028" longname="持卡人交易手续费" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.fd0028" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="yshams" longname="应收费用" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.yshams" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="yfuams" longname="应付费用" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.yfuams" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cacyin" longname="差错原因" type="BaseType.U_CHAR04" ref="DpRiskDict.KnbChabak.cacyin" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="zchucd" longname="接收机构标识码/转出机构标识码" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.zchucd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0102" longname="转出卡号" type="BaseType.U_CHAR20" ref="DpRiskDict.KnbChabak.fd0102" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="zrucds" longname="转入机构标识码" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.zrucds" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0103" longname="转入卡号" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fd0103" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0903" longname="上一笔交易的日期时间" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fd0903" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0023" longname="卡片序列号" type="BaseType.U_CHAR04" ref="DpRiskDict.KnbChabak.fd0023" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6022" longname="终端读取能力" type="BaseType.U_CHAR01" ref="DpRiskDict.KnbChabak.fd6022" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6023" longname="IC卡条件代码" type="BaseType.U_CHAR01" ref="DpRiskDict.KnbChabak.fd6023" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0015" longname="上一笔交易清算日期" type="BaseType.U_CHAR16" ref="DpRiskDict.KnbChabak.fd0015" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="上一笔交易金额" type="BaseType.U_TRANAM" ref="DpRiskDict.KnbChabak.tranam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="jydytp" longname="交易地域标志" type="BaseType.U_CHAR01" ref="DpRiskDict.KnbChabak.jydytp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ecitps" longname="ECI标志" type="BaseType.U_CHAR02" ref="DpRiskDict.KnbChabak.ecitps" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0042" longname="商户代码" type="BaseType.U_CHAR16" ref="DpRiskDict.KnbChabak.fd0042" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fsqsjg" longname="发送方清算机构" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.fsqsjg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="zcqsjg" longname="接收方清算机构/转出方清算机构" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.zcqsjg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="zrqsjg" longname="转入方清算机构" type="BaseType.U_CHAR12" ref="DpRiskDict.KnbChabak.zrqsjg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6025" longname="上一笔交易终端类型" type="BaseType.U_CHAR02" ref="DpRiskDict.KnbChabak.fd6025" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0043" longname="商户名称地址" type="BaseType.U_CHAR50" ref="DpRiskDict.KnbChabak.fd0043" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6031" longname="特殊计费类型" type="BaseType.U_CHAR02" ref="DpRiskDict.KnbChabak.fd6031" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6032" longname="特殊计费档次" type="BaseType.U_CHAR01" ref="DpRiskDict.KnbChabak.fd6032" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="taccds" longname="保留使用" type="BaseType.U_CHAR08" ref="DpRiskDict.KnbChabak.taccds" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="kcpxxs" longname="卡产品标识信息" type="BaseType.U_CHAR25" ref="DpRiskDict.KnbChabak.kcpxxs" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="yccdms" longname="引发差错交易的最原始交易的交易代码" type="BaseType.U_CHAR03" ref="DpRiskDict.KnbChabak.yccdms" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6035" longname="交易发起方式" type="BaseType.U_CHAR02" ref="DpRiskDict.KnbChabak.fd6035" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd6038" longname="账户结算类型" type="BaseType.U_CHAR02" ref="DpRiskDict.KnbChabak.fd6038" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fd0060" longname="保留使用" type="BaseType.U_CHAR50" ref="DpRiskDict.KnbChabak.fd0060" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mrchno" longname="商户编号" type="BaseType.U_CHAR30" ref="DpRiskDict.KnbChabak.mrchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tmmobile" longname="脱敏手机号" type="BaseType.U_CHAR50" ref="DpRiskDict.KnbChabak.tmmobile" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mobile" longname="手机号" type="BaseType.U_CHAR50" ref="DpRiskDict.KnbChabak.mobile" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tmidtfno" longname="脱敏身份证" type="BaseType.U_IDTFNO" ref="DpRiskDict.KnbChabak.tmidtfno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="idtfno" longname="身份证" type="BaseType.U_IDTFNO" ref="DpRiskDict.KnbChabak.idtfno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bradna" longname="品牌名称" type="BaseType.U_CHAR100" ref="DpRiskDict.KnbChabak.bradna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="sbrand" longname="支付机构号" type="BaseType.U_CHAR30" ref="DpRiskDict.KnbChabak.sbrand" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cbakst" longname="退单状态" type="DpRiskEnumType.E_CBAKST" ref="DpRiskDict.KnbChabak.cbakst" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="knb_Chabck_uk_1" type="unique" fields="fd0037" operate="selectOne updateOne"/>
+            <index id="knb_Chabck_uk_2" type="index" fields="fd0002 mrchno mobile idtfno"/>
+        </odbindexes>
+        <indexes>
+            <index id="knb_Chabck_uk_1" type="unique" fields="fd0037 corpno">
+                <ddls/>
+            </index>
+            <index id="knb_Chabck_uk_2" type="index" fields="fd0002 mrchno mobile idtfno corpno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

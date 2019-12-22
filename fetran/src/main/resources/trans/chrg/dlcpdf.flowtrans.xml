@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dlcpdf" longname="删除超额优惠定义" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="smfacd" type="BaseType.U_CHAR08" required="false" default="''" multi="false" array="false" longname="超额优惠代码"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dlcpdf" id="dlcpdf" longname="删除超额优惠定义" desc="删除超额优惠定义"/>
+    </flow>
+</flowtran>

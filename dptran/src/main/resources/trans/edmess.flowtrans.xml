@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="edmess" longname="提示信息标志（新增、修改）" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.aptran.trans.intf">
+        <input packMode="true">
+            <field id="messno" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="信息序号"/>
+            <field id="messna" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="信息名称"/>
+            <field id="isprom" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="启用提示"/>
+            <field id="contxt" type="BaseType.U_CHAR1000" required="false" multi="false" array="false" longname="消息内容"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="messno" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="信息序号"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="messageSave" id="messageSave" longname="提示信息（新增、修改）"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

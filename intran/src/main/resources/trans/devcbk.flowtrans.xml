@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="devcbk" longname="内部账转内部账单条删除" kind="2" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[内部账转内部账单条删除]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="acstno" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套号" ref="InDict.inac.acstno"/>
+            <field id="payseq" type="BaseType.U_INTEGE" required="true" multi="false" array="false" longname="序号" ref="InDict.inac.payseq"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInAcctTranOut.DelDevcbk" id="delDevcbk" longname="内部账转内部账删除" desc="内部账转内部账删除">
+            <in_mappings by_interface="true">
+                <mapping src="acstno" dest="acstno" by_interface="true" on_top="true"/>
+                <mapping src="payseq" dest="payseq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

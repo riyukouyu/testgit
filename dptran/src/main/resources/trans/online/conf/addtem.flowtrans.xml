@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="addtem" longname="产品模板新增" kind="3" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[新增产品模板交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="insModes" type="DpProdType.kupModeinsInfo" required="false" multi="true" array="false" longname="新增模板输入"/>
+            <field id="modena" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="模板名称" ref="DpDict.Prod.modena"/>
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="modeno" type="BaseType.U_CHAR16" required="false" multi="false" array="false" longname="模板编号" ref="DpDict.Prod.modeno"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="instem" id="instem" longname="新增产品模板"/>
+    </flow>
+</flowtran>

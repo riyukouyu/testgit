@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qrbusi" longname="分页查询业务编码信息" kind="query" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="starno" type="integer" required="false" multi="false" array="false" longname="开始记录"/>
+            <field id="pageno" type="integer" required="false" multi="false" array="false" longname="页记录数"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务代码" ref="InDict.inac.busino"/>
+            <field id="busina" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="业务代码中文名称说明" ref="InDict.inac.busina"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="businoInfos" type="IoInQueryTypes.IoBusinoInfo" required="false" multi="true" array="false" longname="业务编码信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelBusinoInfoWithPage" id="selBusinoInfoWithPage" longname="分页查询业务编码信息" desc="分页查询业务编码信息">
+            <in_mappings by_interface="true">
+                <mapping src="busina" dest="busina" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="#run.page_size" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="#run.page_start" dest="starno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplBusinoInfos.businoInfos" dest="businoInfos" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

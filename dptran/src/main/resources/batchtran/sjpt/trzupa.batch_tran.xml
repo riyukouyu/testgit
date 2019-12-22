@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="trzupa" longname="数据平台供数-渠道和交易码参数表信息" package="cn.sunline.ltts.busi.dptran.batchtran.sjpt" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[数据平台供数-渠道和交易码参数表信息]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.sjpt.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrjols" longname="查询联名账户交易明细" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="joinac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="联名账户"/>
+            <field id="pageno" type="long" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pgsize" type="long" required="false" multi="false" array="false" longname="每页记录数"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="ioblls" type="IoDpJointType.IoDpKnbJointIoblInfo" required="false" multi="true" array="false" longname="联名账户交易明细"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qrKnbJointIoblList" id="qrKnbJointIoblList" longname="查询联名账户交易明细"/>
+    </flow>
+</flowtran>

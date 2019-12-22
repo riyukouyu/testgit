@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="brinup" longname="修改存款违约支取利息利率部件信息" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="teartp" type="DpEnumType.E_TEARTP" required="false" multi="false" array="false" longname="违约支取利息类型" ref=""/>
+            <field id="incdtp" type="DpEnumType.E_IRCDTP" required="false" fixed="" default="" multi="false" array="false" longname="违约利率代码类型" desc="" ref=""/>
+            <field id="bsincd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="基准结息利率编号" ref="DpDict.Prod.bsincd"/>
+            <field id="bsinrl" type="DpEnumType.E_INBEBS" required="false" fixed="" default="" multi="false" array="false" longname="违约计息基础" desc="" ref="DpDict.Prod.bsinrl"/>
+            <field id="drintx" type="BaseType.U_SHORDS" required="false" fixed="" default="" multi="false" array="false" longname="利息支付方法说明" desc="" ref="DpDict.Prod.drintx"/>
+            <field id="bsinam" type="DpEnumType.E_BSINAM.E_TRINAM" required="false" fixed="" default="" multi="false" array="false" longname="违约基准结息金额来源" desc="" ref="DpDict.Acct.bsinam"/>
+            <field id="bsindt" type="DpEnumType.E_BSINDT.E_TRINDT" required="false" fixed="" default="" multi="false" array="false" longname="违约基准结息起始日来源" desc="" ref="DpDict.Acct.bsindt"/>
+            <field id="inadtp" type="DpEnumType.E_INADTP.E_TRINTP" required="false" fixed="" default="" multi="false" array="false" longname="违约利息调整类型" desc="" ref="DpDict.Acct.inadtp"/>
+            <field id="inclfg" type="BaseEnumType.E_YES___" required="false" fixed="" default="" multi="false" array="false" longname="利率靠档标志" desc="" ref="DpDict.Prod.inclfg"/>
+            <field id="intrwy" type="DpEnumType.E_IRDPWY" required="false" fixed="" default="" multi="false" array="false" longname="利率靠档方式" desc="" ref="DpDict.Prod.intrwy"/>
+            <field id="intrdt" type="DpEnumType.E_INTRDT" required="false" fixed="" default="" multi="false" array="false" longname="利率确定日期" desc="" ref="DpDict.Prod.intrdt"/>
+            <field id="levety" type="DpEnumType.E_LEVETY" required="false" fixed="" default="" multi="false" array="false" longname="靠档规则" desc="" ref="DpDict.Prod.levety"/>
+            <field id="insrwy" type="BaseEnumType.E_IRAFBY.E_TRAFTP" required="false" fixed="" default="" multi="false" array="false" longname="违约利率确定方式" desc="" ref="DpDict.Acct.insrwy"/>
+            <field id="inedsc" type="DpEnumType.E_INEDSC.E_TREDSC" required="false" fixed="" default="" multi="false" array="false" longname="违约结息终止日来源" desc="" ref="DpDict.Acct.inedsc"/>
+            <field id="drdein" type="BaseEnumType.E_YES___" required="false" fixed="" default="" multi="false" array="false" longname="支取是否扣除已付利息" desc="" ref="DpDict.Acct.drdein"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="updPrdInterst" id="updPrdInterst" test="" longname="修改存款违约支取利息利率部件信息" desc="修改存款违约支取利息利率部件信息"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

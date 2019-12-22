@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Yht" longname="银户通相关SQL" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectOne" type="sql" id="selKnlioblByOrdesq" longname="根据订单流水查询电子账户出入金">
+        <sql type="oracle"><![CDATA[select a.* from knl_iobl a where a.servsq=#ordesq# or a.transq=#ordesq# or a.busisq=#ordesq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ordesq" jdbcType="VARCHAR" javaType="string" mode="in" longname="订单流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIobl"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selknlcnapotByOrdesq" longname="根据订单流水查询大小额往来账">
+        <sql type="oracle"><![CDATA[select b.* from knl_cnapot b where b.servsq=#ordesq# or b.busisq=#ordesq# or b.msetsq=#ordesq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ordesq" jdbcType="VARCHAR" javaType="string" mode="in" longname="订单流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlCnapot"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selknlioblcupsByOrdesq" longname="根据订单流水查询银联CUPS/银联无卡">
+        <sql type="oracle"><![CDATA[select c.* from knl_iobl_cups c where c.mntrsq=#ordesq# or c.prepsq=#ordesq# or c.servsq=#ordesq# or c.fronsq=#ordesq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ordesq" jdbcType="VARCHAR" javaType="string" mode="in" longname="订单流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblCups"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnacacdByCustac" longname="根据电子账号和状态查询绑定账户信息">
+        <sql type="oracle"><![CDATA[select a.* from kna_cacd a where a.status!='2' and a.custac=#custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="BaseDict.Comm.custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnaCacd"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnaacctByCustac" longname="根据电子账号查询绑定账户信息">
+        <sql type="oracle"><![CDATA[select a.* from kna_acct a where a.acctst!='2' and a.custac=#custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaAcct"/>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selCountByTranDetl" longname="查询电子账户活期账户交易明细数量(含已销户)（客户端）">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR1000" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="bgindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+            <parameter property="smrycd" ref="BaseDict.Comm.smrycd" jdbcType="VARCHAR" javaType="BaseType.U_SMRYCD" mode="in" longname="摘要代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(1) from knl_bill]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctno in (${acctno}) and trancy = #crcycd#]]></str>
+                    <if test="bgindt!=null&amp;&amp;bgindt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt between #bgindt# and #endddt#]]></str>
+                    </if>
+                    <if test="smrycd!=null&amp;&amp;smrycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[smrycd = #smrycd#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc,acctno desc, detlsq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selAmountByTranDetl" longname="查询电子账户活期账户交易明细总支出/总收入(含已销户)（客户端）">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR1000" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="bgindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+            <parameter property="smrycd" ref="BaseDict.Comm.smrycd" jdbcType="VARCHAR" javaType="BaseType.U_SMRYCD" mode="in" longname="摘要代码" parameterType="condition"/>
+            <parameter property="amntcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="借贷标志" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select sum(tranam) from knl_bill]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctno in (${acctno}) and trancy = #crcycd#]]></str>
+                    <if test="bgindt!=null&amp;&amp;bgindt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt between #bgindt# and #endddt#]]></str>
+                    </if>
+                    <if test="smrycd!=null&amp;&amp;smrycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[smrycd = #smrycd#]]></str>
+                    </if>
+                    <if test="amntcd!=null&amp;&amp;amntcd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[amntcd = #amntcd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKnlbillByTranDetl" longname="查询电子账户活期账户交易明细(含已销户)（客户端）">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="bgindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+            <parameter property="smrycd" ref="BaseDict.Comm.smrycd" jdbcType="VARCHAR" javaType="BaseType.U_SMRYCD" mode="in" longname="摘要代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlBill"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knl_bill]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctno = #acctno# and trancy = #crcycd#]]></str>
+                    <if test="bgindt!=null&amp;&amp;bgindt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt between #bgindt# and #endddt#]]></str>
+                    </if>
+                    <if test="smrycd!=null&amp;&amp;smrycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[smrycd = #smrycd#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc, detlsq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKnaacdcByCustac" longname="根据电子账号和状态查询卡号">
+        <sql type="oracle"><![CDATA[select a.* from kna_acdc a where a.status!='2' and a.custac=#custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnaAcdc"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaacctByTransq" longname="根据交易流水查询负债活期账户信息表">
+        <sql type="oracle"><![CDATA[select a.* from kna_acct a where a.opensq=#transq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaAcct"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnspckgByTransq" longname="根据交易流水和交易日期查询交易报文表">
+        <sql type="oracle"><![CDATA[select a.* from kns_pckg a where a.trandt=#trandt# and a.transq=#transq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="SysBusiTable.KnsPckg"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnsreduByOrdrsq" longname="根据订单流水查询防重流水表">
+        <sql type="oracle"><![CDATA[select a.* from kns_redu a where a.inpusq = #ordrsq# or a.transq=#ordrsq# or a.pckgsq=#ordrsq# or a.busisq=#ordrsq# or a.mntrsq=#ordrsq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ordrsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="订单流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="SysBusiTable.KnsRedu"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnsacsqByTransqAmntcd" longname="根据交易流水和借贷标志查询会计流水表">
+        <sql type="oracle"><![CDATA[select * from kns_acsq where amntcd=#amntcd# and transq=#transq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="amntcd" jdbcType="VARCHAR" javaType="BaseEnumType.E_AMNTCD" mode="in" longname="借贷标志" parameterType="condition"/>
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAccount.KnsAcsq"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnafxacByLstrsq" longname="根据上次交易流水查询负债定期账户信息表">
+        <sql type="oracle"><![CDATA[select * from  kna_fxac where lstrsq=#lstrsq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="lstrsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="上次交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaFxac"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnbRegiBytransq" longname="根据交易流水查询订单登记薄">
+        <sql type="oracle"><![CDATA[select a.* from knb_regi a where a.transq=#transq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnbRegi"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnsacsqByTransq" longname="根据交易流水查询会计流水表">
+        <sql type="oracle"><![CDATA[select * from kns_acsq where transq=#transq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAccount.KnsAcsq"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnbregiByCordno" longname="根据子订单号查询订单登记薄">
+        <sql type="oracle"><![CDATA[select * from knb_regi where cordno=#cordno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cordno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="子订单号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpYhtType.DpKnbRegiInfo"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnsacsqByTransqBltype" longname="根据交易流水和余额属性查询会计流水表">
+        <sql type="oracle"><![CDATA[select * from kns_acsq where transq=#transq# and bltype=#bltype#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="bltype" jdbcType="VARCHAR" javaType="BaseEnumType.E_BLTYPE" mode="in" longname="余额属性" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAccount.KnsAcsq"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnsreduByOrdrsqInpudt" longname="根据订单流水和上送系统日期查询防重流水表">
+        <sql type="oracle"><![CDATA[select r.transq,r.trandt,r.txnsts from kns_redu r where r.busisq=#ordrsq# and r.inpudt=#inpudt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ordrsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="订单流水" parameterType="condition"/>
+            <parameter property="inpudt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上送系统日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaInfoOut"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnbdrawByOrdridOrdedt" longname="根据订单流水和订单日期查询支取信息登记表">
+        <sql type="oracle"><![CDATA[select a.trandt,a.transq,a.cordst from knb_draw a where a.ordrid=#ordrid# and a.ordedt=#ordedt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ordrid" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="订单流水" parameterType="condition"/>
+            <parameter property="ordedt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="订单日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnbDraw"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupdppbtermByProdcd" longname="根据产品编号查询产品存期控制表">
+        <sql type="oracle"><![CDATA[select a.depttm from kup_dppb_term a where a.prodcd=#prodcd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpFxacInfoByCustacDepttm" longname="根据电子账号和存期查询定期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" parameterType="condition"/>
+            <parameter property="depttm" jdbcType="VARCHAR" javaType="BaseEnumType.E_TERMCD" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select fxac.ACCTNO,fxac.ACCTNA,fxac.OPMONY,fxac.DEPTTM,fxac.DEPTDY,fxac.CRCYCD,fxac.CSEXTG,${prodtp} prodtp,
+ case when fxac.acsetp='05' then '7' when fxac.acsetp='07' then '6' end as pdtpdl,fxac.PRODCD,fxac.ONLNBL,fxac.BRCHNO openbr,
+case when fxac.UPBLDT < #trandt# then fxac.ONLNBL else fxac.LASTBL end as lastbl,
+intr.CUUSIN as intrvl,fxac.LSTRDT,fxac.OPENDT,fxac.OPENSQ,fxac.MATUDT,fxac.BGINDT,
+fxac.CLOSDT,fxac.CLOSSQ,
+case when fxac.ACCTST = '3' then '1' else fxac.ACCTST end as dpacst,prod.obgaon as sprdna
+from kna_fxac fxac,kub_inrt intr,kna_fxac_prod prod 
+where fxac.acctst = #cuacst# and fxac.CUSTAC = #custac# and fxac.crcycd = #crcycd# and fxac.ACCTNO = intr.ACCTNO and fxac.ACCTNO = prod.ACCTNO and fxac.DEPTTM= #depttm# order by fxac.acctst asc,fxac.opendt desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpAcctInfoByCustacAstateWdqProdcd" longname="根据电子账号和未到期资产状态和产品编号查询活期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="产品编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod,kns_redu redu,knb_regi regi 
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst# and acct.opensq = redu.busisq and redu.transq = regi.transq and (acct.matudt is null and acct.matudt > #trandt#)
+]]></str>
+            <if test="acctno != '' &amp;&amp; acctno != null" type="If">
+                <str type="Str"><![CDATA[and acct.ACCTNO not in (#acctno#)]]></str>
+            </if>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and acct.prodcd = #prodcd#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by acct.acctst asc,acct.opendt desc,regi.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpAcctInfoByCustacAstateDqProdcd" longname="根据电子账号和到期资产状态和产品编号查询活期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="产品编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod,kns_redu redu,knb_regi regi  
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst# and acct.opensq = redu.busisq and redu.transq = regi.transq and acct.matudt <= #trandt#
+]]></str>
+            <if test="acctno != '' &amp;&amp; acctno != null" type="If">
+                <str type="Str"><![CDATA[and acct.ACCTNO not in (#acctno#)]]></str>
+            </if>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and acct.prodcd = #prodcd#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by acct.acctst asc,acct.opendt desc,regi.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpAcctInfoByCustacAstateProdcd" longname="根据电子账号和产品编号查询活期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod,kns_redu redu,knb_regi regi  
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst# and acct.opensq = redu.busisq and redu.transq = regi.transq]]></str>
+            <if test="acctno != '' &amp;&amp; acctno != null" type="If">
+                <str type="Str"><![CDATA[and acct.ACCTNO not in (#acctno#)]]></str>
+            </if>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and acct.prodcd = #prodcd#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by acct.acctst asc,acct.opendt desc,regi.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpFxacInfoByCustacAstateWdqProdcdDepttm" longname="根据电子账号和未到期资产状态和产品编号查询定期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" ref="DpDict.Prod.prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号" parameterType="condition"/>
+            <parameter property="depttm" jdbcType="VARCHAR" javaType="BaseType.U_CHAR06" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select fxac.ACCTNO,fxac.ACCTNA,fxac.OPMONY,fxac.DEPTTM,fxac.DEPTDY,fxac.CRCYCD,fxac.CSEXTG,${prodtp} prodtp,
+ case when fxac.acsetp='05' then '7' when fxac.acsetp='07' then '6' end as pdtpdl,fxac.PRODCD,fxac.ONLNBL,fxac.BRCHNO openbr,
+case when fxac.UPBLDT < #trandt# then fxac.ONLNBL else fxac.LASTBL end as lastbl,
+intr.CUUSIN as intrvl,fxac.LSTRDT,fxac.OPENDT,fxac.OPENSQ,fxac.MATUDT,fxac.BGINDT,
+fxac.CLOSDT,fxac.CLOSSQ,
+case when fxac.ACCTST = '3' then '1' else fxac.ACCTST end as dpacst,prod.obgaon as sprdna
+from kna_fxac fxac,kub_inrt intr,kna_fxac_prod prod, kns_redu redu,knb_regi regi 
+where fxac.acctst = #cuacst# and fxac.CUSTAC = #custac# and fxac.crcycd = #crcycd# and fxac.ACCTNO = intr.ACCTNO and fxac.ACCTNO = prod.ACCTNO and fxac.matudt > #trandt#  and fxac.opensq = redu.busisq and redu.transq = regi.transq ]]></str>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and fxac.prodcd = #prodcd#]]></str>
+            </if>
+            <if test="depttm != '' &amp;&amp; depttm != null" type="If">
+                <str type="Str"><![CDATA[and fxac.depttm = #depttm#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by fxac.acctst asc,fxac.opendt desc,regi.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpFxacInfoByCustacAstateDqProdcdDepttm" longname="根据电子账号和到期资产状态和产品编号查询定期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" ref="DpDict.Prod.prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号" parameterType="condition"/>
+            <parameter property="depttm" jdbcType="VARCHAR" javaType="BaseType.U_CHAR06" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select fxac.ACCTNO,fxac.ACCTNA,fxac.OPMONY,fxac.DEPTTM,fxac.DEPTDY,fxac.CRCYCD,fxac.CSEXTG,${prodtp} prodtp,
+ case when fxac.acsetp='05' then '7' when fxac.acsetp='07' then '6' end as pdtpdl,fxac.PRODCD,fxac.ONLNBL,fxac.BRCHNO openbr,
+case when fxac.UPBLDT < #trandt# then fxac.ONLNBL else fxac.LASTBL end as lastbl,
+intr.CUUSIN as intrvl,fxac.LSTRDT,fxac.OPENDT,fxac.OPENSQ,fxac.MATUDT,fxac.BGINDT,
+fxac.CLOSDT,fxac.CLOSSQ,
+case when fxac.ACCTST = '3' then '1' else fxac.ACCTST end as dpacst,prod.obgaon as sprdna
+from kna_fxac fxac,kub_inrt intr,kna_fxac_prod prod,kns_redu redu,knb_regi regi 
+where fxac.acctst = #cuacst# and fxac.CUSTAC = #custac# and fxac.crcycd = #crcycd# and fxac.ACCTNO = intr.ACCTNO and fxac.ACCTNO = prod.ACCTNO and fxac.matudt <= #trandt# and fxac.opensq = redu.busisq and redu.transq = regi.transq ]]></str>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and fxac.prodcd = #prodcd#]]></str>
+            </if>
+            <if test="depttm != '' &amp;&amp; depttm != null" type="If">
+                <str type="Str"><![CDATA[and fxac.depttm=#depttm#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by fxac.acctst asc,fxac.opendt desc,regi.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpFxacInfoByCustacAstateProdcdDepttm" longname="根据电子账号和产品编号查询定期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" ref="DpDict.Prod.prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号" parameterType="condition"/>
+            <parameter property="depttm" jdbcType="VARCHAR" javaType="BaseType.U_CHAR06" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select fxac.ACCTNO,fxac.ACCTNA,fxac.OPMONY,fxac.DEPTTM,fxac.DEPTDY,fxac.CRCYCD,fxac.CSEXTG,${prodtp} prodtp,
+ case when fxac.acsetp='05' then '7' when fxac.acsetp='07' then '6' end as pdtpdl,fxac.PRODCD,fxac.ONLNBL,fxac.BRCHNO openbr,
+case when fxac.UPBLDT < #trandt# then fxac.ONLNBL else fxac.LASTBL end as lastbl,
+intr.CUUSIN as intrvl,fxac.LSTRDT,fxac.OPENDT,fxac.OPENSQ,fxac.MATUDT,fxac.BGINDT,
+fxac.CLOSDT,fxac.CLOSSQ,
+case when fxac.ACCTST = '3' then '1' else fxac.ACCTST end as dpacst,prod.obgaon as sprdna
+from kna_fxac fxac,kub_inrt intr,kna_fxac_prod prod,kns_redu redu,knb_regi regi  
+where fxac.acctst = #cuacst# and fxac.CUSTAC = #custac# and fxac.crcycd = #crcycd# and fxac.ACCTNO = intr.ACCTNO and fxac.ACCTNO = prod.ACCTNO and fxac.opensq = redu.busisq and redu.transq = regi.transq ]]></str>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and fxac.prodcd = #prodcd#]]></str>
+            </if>
+            <if test="depttm != '' &amp;&amp; depttm != null" type="If">
+                <str type="Str"><![CDATA[and fxac.depttm = #depttm#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by fxac.acctst asc,fxac.opendt desc,regi.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpAcctInfoByCustacAstateWdqProdcdProdII" longname="根据电子账号和未到期资产状态和产品编号查询不包含II类结算户的活期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="产品编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod 
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst# and acct.matudt > #trandt# 
+union 
+select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod 
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst# and acct.matudt is null]]></str>
+            <if test="acctno != '' &amp;&amp; acctno != null" type="If">
+                <str type="Str"><![CDATA[and acct.ACCTNO not in (#acctno#)]]></str>
+            </if>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and acct.prodcd != #prodcd#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by acct.acctst asc,acct.opendt desc,acct.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpAcctInfoByCustacAstateDqProdcdProdII" longname="根据电子账号和到期资产状态和产品编号查询不包含II类结算户的活期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="产品编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod 
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst# and acct.matudt <= #trandt#]]></str>
+            <if test="acctno != '' &amp;&amp; acctno != null" type="If">
+                <str type="Str"><![CDATA[and acct.ACCTNO not in (#acctno#)]]></str>
+            </if>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and acct.prodcd != #prodcd#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by acct.acctst asc,acct.opendt desc,acct.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selDpAcctInfoByCustacAstateProdcdProdII" longname="根据电子账号和产品编号查询不包含II类结算账户的活期存款类子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="prodtp" ref="CaDict.Eacct.prodtp" jdbcType="VARCHAR" javaType="CaEnumType.E_PRODTP" mode="in" longname="产品类型" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="负债账号状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoCaDpacctInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select acct.ACCTNO,acct.ACCTNA,acct.CRCYCD,acct.CSEXTG,${prodtp} prodtp,
+CASE acct.acsetp
+    WHEN '01' THEN '1'
+    WHEN '02' THEN '2'
+    WHEN '03' THEN '4'
+    WHEN '04' THEN '5'
+    WHEN '06' THEN '3'
+    ELSE ''
+END pdtpdl,
+acct.PRODCD,acct.ONLNBL,acct.BRCHNO openbr,
+case when acct.UPBLDT < #trandt# then acct.ONLNBL else acct.LASTBL end as lastbl,
+acct.LSTRDT,acct.OPENDT,acct.OPENSQ,acct.MATUDT,acct.BGINDT,
+acct.CLOSDT,acct.CLOSSQ,case when acct.ACCTST = '3' then '1' else acct.ACCTST end as dpacst,prod.obgaon as sprdna from kna_acct acct,kna_acct_prod prod 
+where acct.CUSTAC = #custac# and acct.crcycd = #crcycd# and acct.ACCTNO = prod.ACCTNO and acct.acctst = #cuacst#]]></str>
+            <if test="acctno != '' &amp;&amp; acctno != null" type="If">
+                <str type="Str"><![CDATA[and acct.ACCTNO not in (#acctno#)]]></str>
+            </if>
+            <if test="prodcd != '' &amp;&amp; prodcd != null" type="If">
+                <str type="Str"><![CDATA[and acct.prodcd != #prodcd#]]></str>
+            </if>
+            <str type="Str"><![CDATA[order by acct.acctst asc,acct.opendt desc,acct.tmstmp desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selKnbRegiByChckdt" longname="根据对账日期查询订单登记簿">
+        <sql type="oracle"><![CDATA[select * from knb_regi where cordst = '1' and traype  = '1' or traype  = '2' and chckdt = #chckdt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="chckdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="对账日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpYhtType.DpKnbRegiInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnaSignDetlByAcctno" longname="根据负债账号查询转存签约明细表">
+        <sql type="oracle"><![CDATA[select * from kna_sign_detl where acctno=#acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnaSignDetl"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnaacctByAcctnoCorpnoAcctst" longname="根据负债账号和法人代码账户状态查询负债活期账户信息表">
+        <sql type="oracle"><![CDATA[select * from kna_acct a where a.acctno=#acctno# and a.corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="账户状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaAcct"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selKnlbillByAcctno">
+        <sql type="oracle"><![CDATA[select * from knl_bill a where a.acctno=#acctno# and a.corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlBill"/>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selKnafxacByAcctnoCorpnoAcctstProdcd" longname="根据负债账号和法人代码账户状态产品编码查询负债定期账户信息表">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="负债账户状态" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaFxac"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kna_fxac a where a.acctno=#acctno# and a.corpno=#corpno# and a.acctst=#acctst#]]></str>
+            <if test="prodcd != null &amp;&amp; prodcd != ''" type="If">
+                <str type="Str"><![CDATA[and a.prodcd=#prodcd#]]></str>
+            </if>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKnafxacByAcctnoCorpnoAcctst" longname="根据负债账号和法人代码账户状态查询负债定期账户信息表">
+        <sql type="oracle"><![CDATA[select * from kna_fxac a where a.acctno=#acctno# and a.corpno=#corpno# and a.acctst=#acctst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="负债账户状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaFxac"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selAllHqTranDetl" longname="查询电子账户活期账户交易明细(含已销户)（客户端）">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR1000" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="bgindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+            <parameter property="smrycd" ref="BaseDict.Comm.smrycd" jdbcType="VARCHAR" javaType="BaseType.U_SMRYCD" mode="in" longname="摘要代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoDpTable.IoDpTranDetlHqQryAcct"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select trandt,trantm,tranam,acctbl,trancy crcycd,csextg,amntcd,opcuac,opacna opcuna,tranbr,servtp,smrycd,smryds,remark,tmstmp,machdt from knl_bill]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctno in (${acctno}) and trancy = #crcycd# and stacps is null]]></str>
+                    <if test="bgindt!=null&amp;&amp;bgindt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt between #bgindt# and #endddt#]]></str>
+                    </if>
+                    <if test="smrycd!=null&amp;&amp;smrycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[smrycd = #smrycd#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc,acctno desc, detlsq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selHqTranDetl" longname="查询电子账户活期账户交易明细（客户端）">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="bgindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+            <parameter property="smrycd" ref="BaseDict.Comm.smrycd" jdbcType="VARCHAR" javaType="BaseType.U_SMRYCD" mode="in" longname="摘要代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoDpTable.IoDpTranDetlHqQryAcct"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select trandt,trantm,tranam,acctbl,trancy crcycd,csextg,amntcd,opcuac,opacna opcuna,tranbr,servtp,smrycd,smryds,remark,tmstmp,machdt,transq,intrcd from knl_bill
+]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctno = #acctno# and trancy = #crcycd# and stacps is null]]></str>
+                    <if test="bgindt!=null&amp;&amp;bgindt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt between #bgindt# and #endddt#]]></str>
+                    </if>
+                    <if test="smrycd!=null&amp;&amp;smrycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[smrycd = #smrycd#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc, detlsq desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selKnbCbdlByAcctno" longname="根据负债账号查询负债账户计提明细">
+        <sql type="oracle"><![CDATA[SELECT "CORPNO", "CABRDT", "ACCTNO", "BRCHNO", "ACCTCD", "CRCYCD", "PRODCD", "CABRIN", "INTXAM", "ACMLTN", "INTRVL", "ISADD", "ISCLOS", "TMSTMP" FROM knb_cbdl where acctno=#acctno# and cabrdt<#cabrdt# order by tmstmp desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债子账号" parameterType="condition"/>
+            <parameter property="cabrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="计提日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoInst.KnbCbdl"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selKnbCbdlByAcctnoOne" longname="根据负债账号查询负债账户最近计提明细">
+        <sql type="oracle"><![CDATA[SELECT "CORPNO", "CABRDT", "ACCTNO", "BRCHNO", "ACCTCD", "CRCYCD", "PRODCD", "CABRIN", "INTXAM", "ACMLTN", "INTRVL", "ISADD", "ISCLOS", "TMSTMP" FROM knb_cbdl where acctno=#acctno# and cabrdt<#cabrdt# order by tmstmp desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债子账号" parameterType="condition"/>
+            <parameter property="cabrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="计提日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoInst.KnbCbdl"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnlbillByTransq" longname="根据交易流水查询">
+        <sql type="oracle"><![CDATA[select * from knl_bill a where a.amntcd=#amntcd# and a.transq=#transq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="amntcd" jdbcType="VARCHAR" javaType="BaseEnumType.E_AMNTCD" mode="in" longname="记账方向" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlBill"/>
+    </select>
+</sqls>

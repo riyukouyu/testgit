@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="iavcqr" longname="跨机构转账查询" kind="1" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[跨机构转账查询]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="acstno" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套号" ref="InDict.inac.acstno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acstno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号" ref="InDict.inac.acstno"/>
+            <field id="smrytx" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="摘要" ref="InDict.inac.smrytx"/>
+            <field id="iavcst" type="InEnumType.E_CMBK_TRANST" required="false" multi="false" array="false" longname="传票状态" ref="InDict.inac.iavcst"/>
+            <field id="iavctp" type="InEnumType.E_IAVCTP" required="false" multi="false" array="false" longname="传票类型" ref="InDict.inac.iavctp"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志" ref="InDict.inac.csextg"/>
+            <field id="tranam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="交易金额" ref="InDict.inac.tranam"/>
+            <field id="acctbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="记账机构" ref="InDict.inac.acctbr"/>
+            <field id="intype" type="ApBaseEnumType.E_INTYPE" required="false" multi="false" array="false" longname="跨机构转入类型" ref="InDict.inac.intype"/>
+            <field id="otacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转出账号"/>
+            <field id="otacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="转出户名"/>
+            <field id="otamcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="转出借贷标志"/>
+            <field id="otcrcd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="转出币种"/>
+            <field id="otpatp" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="转出挂销账标志"/>
+            <field id="cntsys" type="InEnumType.E_CNTSYS" required="false" multi="false" array="false" longname="是否跨系统转账" ref="InDict.inac.cntsys"/>
+            <field id="payaListInfoFirst" type="InAcctTranOut.PayaFirst" required="false" multi="true" array="false" longname="挂账明细1"/>
+            <field id="paydListInfoFirst" type="InAcctTranOut.PaydFirst" required="false" multi="true" array="false" longname="销账明细1"/>
+            <field id="inacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入账号"/>
+            <field id="inacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="转入户名"/>
+            <field id="incrcd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="转入币种"/>
+            <field id="inpatp" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="转入挂销账标志"/>
+            <field id="inamcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="转入借贷标志"/>
+            <field id="payaListInfoSecond" type="InAcctTranOut.PayaSecond" required="false" multi="true" array="false" longname="挂账明细2"/>
+            <field id="paydListInfoSecond" type="InAcctTranOut.PaydSecond" required="false" multi="true" array="false" longname="销账明细2"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInAcctTranOut.SelIavcqr" id="selIavcqr" longname="跨机构转账信息查询" desc="跨机构转账信息查询">
+            <in_mappings by_interface="true">
+                <mapping src="acstno" dest="acstno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acctbr" dest="acctbr" by_interface="true" on_top="true"/>
+                <mapping src="acstno" dest="acstno" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="iavcst" dest="iavcst" by_interface="true" on_top="true"/>
+                <mapping src="iavctp" dest="iavctp" by_interface="true" on_top="true"/>
+                <mapping src="inacna" dest="inacna" by_interface="true" on_top="true"/>
+                <mapping src="inacno" dest="inacno" by_interface="true" on_top="true"/>
+                <mapping src="inamcd" dest="inamcd" by_interface="true" on_top="true"/>
+                <mapping src="incrcd" dest="incrcd" by_interface="true" on_top="true"/>
+                <mapping src="inpatp" dest="inpatp" by_interface="true" on_top="true"/>
+                <mapping src="intype" dest="intype" by_interface="true" on_top="true"/>
+                <mapping src="otacna" dest="otacna" by_interface="true" on_top="true"/>
+                <mapping src="otacno" dest="otacno" by_interface="true" on_top="true"/>
+                <mapping src="otamcd" dest="otamcd" by_interface="true" on_top="true"/>
+                <mapping src="otcrcd" dest="otcrcd" by_interface="true" on_top="true"/>
+                <mapping src="otpatp" dest="otpatp" by_interface="true" on_top="true"/>
+                <mapping src="payaListInfoFirst" dest="payaListInfoFirst" by_interface="true" on_top="true"/>
+                <mapping src="payaListInfoSecond" dest="payaListInfoSecond" by_interface="true" on_top="true"/>
+                <mapping src="paydListInfoFirst" dest="paydListInfoFirst" by_interface="true" on_top="true"/>
+                <mapping src="paydListInfoSecond" dest="paydListInfoSecond" by_interface="true" on_top="true"/>
+                <mapping src="smrytx" dest="smrytx" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

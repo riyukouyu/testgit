@@ -1,0 +1,2184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpDayEnd" longname="日终批量SQL集合" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectOne" type="sql" id="selAuacinCount" longname="获取待转智能储蓄的账户记录数">
+        <sql type="oracle"><![CDATA[select count(*) from ktp_auac]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from ktp_auac]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAuacinPoint" longname="获取待转智能储蓄的账户分割点">
+        <sql type="oracle"><![CDATA[select max(acctno) as gpoint from (select * from ktp_auac a where #gpoint# is null or a.acctno > #gpoint# order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <sql type="mysql"><![CDATA[select max(acctno) as gpoint from (select * from ktp_auac a where #gpoint# is null or a.acctno > #gpoint# order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="gpoint" jdbcType="VARCHAR" javaType="string" mode="in" longname="分组点" parameterType="condition"/>
+            <parameter property="rdnumb" jdbcType="VARCHAR" javaType="long" mode="in" longname="记录数" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAuacinTranData" longname="获取待转智能储蓄的账户数据集">
+        <sql type="oracle"><![CDATA[select acctno,acctna,custac,custno,crcycd,cardno,onlnbl,acseno,auacno from (select * from ktp_auac a where #gpoint#  is null or a.acctno > #gpoint# order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <sql type="mysql"><![CDATA[select acctno,acctna,custac,custno,crcycd,cardno,onlnbl,acseno,auacno from (select * from ktp_auac a where #gpoint#  is null or a.acctno > #gpoint# order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="gpoint" jdbcType="VARCHAR" javaType="string" mode="in" longname="分组点" parameterType="condition"/>
+            <parameter property="rdnumb" jdbcType="VARCHAR" javaType="long" mode="in" longname="记录数" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.AuacinTranData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAuacinTranDatas" longname="获取待转智能储蓄的账户数据集">
+        <sql><![CDATA[select D.signno, D.custno,
+				D.custac, D.acctno, D.fxacct auacno, 
+				D.period, D.frequy, D.miniam, D.keepam, 
+				D.trottp, D.trmiam, D.upamnt, D.signam, 
+				D.effedt, D.currdt, D.nextdt,
+				ifnull((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0) onlnbl, A.crcycd, A.acctna
+			from kna_sign_detl D 
+			left outer join kna_acct A on D.acctno = A.acctno 
+			where D.nextdt<=#trandt# 
+			and D.signst=#signst# 
+			and D.corpno=#corpno#
+                     and D.signtp=#signtp# 
+			and (D.cncldt is null or D.cncldt = '')]]></sql>
+        <sql type="oracle"><![CDATA[select D.signno, D.custno,
+				D.custac, D.acctno, D.fxacct auacno, 
+				D.period, D.frequy, D.miniam, D.keepam, 
+				D.trottp, D.trmiam, D.upamnt, D.signam, 
+				D.effedt, D.currdt, D.nextdt,
+				nvl((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0) onlnbl, A.crcycd, A.acctna
+			from kna_sign_detl D 
+			left outer join kna_acct A on D.acctno = A.acctno 
+			where D.nextdt<=#trandt# 
+			and D.signst=#signst# 
+			and D.corpno=#corpno#
+                     and D.signtp=#signtp# 
+			and (D.cncldt is null or D.cncldt = '')]]></sql>
+        <sql type="mysql"><![CDATA[select D.signno, D.custno,
+				D.custac, D.acctno, D.fxacct auacno, 
+				D.period, D.frequy, D.miniam, D.keepam, 
+				D.trottp, D.trmiam, D.upamnt, D.signam, 
+				D.effedt, D.currdt, D.nextdt,
+				ifnull((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0) onlnbl, A.crcycd, A.acctna
+			from kna_sign_detl D 
+			left outer join kna_acct A on D.acctno = A.acctno 
+			where D.nextdt<=#trandt# 
+			and D.signst=#signst# 
+			and D.corpno=#corpno#
+                     and D.signtp=#signtp# 
+			and (D.cncldt is null or D.cncldt = '')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="signst" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="signtp" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNTP" mode="in" longname="签约类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.AuacinTranData"/>
+    </select>
+    <insert id="insKtpAuac" longname="插入智能储蓄转存临时表">
+        <sql type="oracle"><![CDATA[
+    	insert 
+    	into
+    	    	ktp_auac
+    	    	(acctno,acctna,custno,custac,crcycd,onlnbl,acseno,cardno,auacno,ausbac) select
+    	    	    	a.acctno,a.acctna,a.custno,a.custac,a.crcycd,
+    	    	    	nvl((case when a.upbldt = #trandt# then a.lastbl else a.onlnbl end),0),b.subsac,c.cardno,d.acctno,
+    	    	    	e.subsac 
+    	    	from
+    	    	    	kna_acct a 
+    	    	left outer join
+    	    	    	kna_fxac d 
+    	    	    	    	on a.custac = d.custac and d.prodcd= #prodcd# 
+    	    	left outer join
+    	    	    	kna_accs e 
+    	    	    	    	on d.acctno = e.acctno,
+    	    	    	kna_accs b,kna_acdc c 
+    	    	where
+    	    	    	a.acctno = b.acctno 
+    	    	    	and a.custac = c.custac and a.acctst = '1' 
+    	    	    	and (
+    	    	    	    	case when a.upbldt = #trandt# then a.lastbl else a.onlnbl end
+    	    	    	) >= #srdpam# 
+    	]]></sql>
+        <sql><![CDATA[
+    	insert 
+    	into
+    	    	ktp_auac
+    	    	(acctno,acctna,custno,custac,crcycd,onlnbl,acseno,cardno,auacno,ausbac) select
+    	    	    	a.acctno,a.acctna,a.custno,a.custac,a.crcycd,
+    	    	    	ifnull((case when a.upbldt = #trandt# then a.lastbl else a.onlnbl end),0),b.subsac,c.cardno,d.acctno,
+    	    	    	e.subsac 
+    	    	from
+    	    	    	kna_acct a 
+    	    	left outer join
+    	    	    	kna_fxac d 
+    	    	    	    	on a.custac = d.custac and d.prodcd= #prodcd# 
+    	    	left outer join
+    	    	    	kna_accs e 
+    	    	    	    	on d.acctno = e.acctno,
+    	    	    	kna_accs b,kna_acdc c 
+    	    	where
+    	    	    	a.acctno = b.acctno 
+    	    	    	and a.custac = c.custac and a.acctst = '1' 
+    	    	    	and (
+    	    	    	    	case when a.upbldt = #trandt# then a.lastbl else a.onlnbl end
+    	    	    	) >= #srdpam# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	insert 
+    	into
+    	    	ktp_auac
+    	    	(acctno,acctna,custno,custac,crcycd,onlnbl,acseno,cardno,auacno,ausbac) select
+    	    	    	a.acctno,a.acctna,a.custno,a.custac,a.crcycd,
+    	    	    	ifnull((case when a.upbldt = #trandt# then a.lastbl else a.onlnbl end),0),b.subsac,c.cardno,d.acctno,
+    	    	    	e.subsac 
+    	    	from
+    	    	    	kna_acct a 
+    	    	left outer join
+    	    	    	kna_fxac d 
+    	    	    	    	on a.custac = d.custac and d.prodcd= #prodcd# 
+    	    	left outer join
+    	    	    	kna_accs e 
+    	    	    	    	on d.acctno = e.acctno,
+    	    	    	kna_accs b,kna_acdc c 
+    	    	where
+    	    	    	a.acctno = b.acctno 
+    	    	    	and a.custac = c.custac and a.acctst = '1' 
+    	    	    	and (
+    	    	    	    	case when a.upbldt = #trandt# then a.lastbl else a.onlnbl end
+    	    	    	) >= #srdpam# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="srdpam" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="起存金额" parameterType="condition"/>
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号（智能储蓄）" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <delete method="delete" id="delKtpAuac" longname="清空只能储蓄转存临时表">
+        <sql type="oracle"><![CDATA[truncate table ktp_auac]]></sql>
+        <sql type="mysql"><![CDATA[truncate table ktp_auac]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </delete>
+    <insert id="insKtpAuacForFx" longname="插入智能储蓄转存临时表">
+        <sql type="oracle"><![CDATA[
+    	insert 
+    	into
+    	    	ktp_auac
+    	    	(acctno,acctna,custac,crcycd,onlnbl,acseno,cardno,auacno,ausbac) select
+    	    	    	a.acctno,a.acctna,a.custac,a.crcycd,nvl((case when a.upbldt = #trandt# then -a.lastbl else -a.onlnbl end),
+    	    	    	0),b.subsac,c.cardno,d.acctno,e.subsac 
+    	    	from
+    	    	    	kna_acct a 
+    	    	left outer join
+    	    	    	kna_fxac d 
+    	    	    	    	on a.custac = d.custac 
+    	    	left outer join
+    	    	    	kna_accs e 
+    	    	    	    	on d.acctno = e.acctno,
+    	    	    	kna_accs b,
+    	    	    	kna_acdc c 
+    	    	where
+    	    	    	a.acctno = b.acctno and a.custac = c.custac 
+    	    	    	and d.prodcd=#prodcd# and a.acctst = '1' 
+    	    	    	and a.onlnbl <0 
+    	]]></sql>
+        <sql><![CDATA[
+    	insert 
+    	into
+    	    	ktp_auac
+    	    	(acctno,acctna,custac,crcycd,onlnbl,acseno,cardno,auacno,ausbac) select
+    	    	    	a.acctno,a.acctna,a.custac,a.crcycd,ifnull((case when a.upbldt = #trandt# then -a.lastbl else -a.onlnbl end),
+    	    	    	0),b.subsac,c.cardno,d.acctno,e.subsac 
+    	    	from
+    	    	    	kna_acct a 
+    	    	left outer join
+    	    	    	kna_fxac d 
+    	    	    	    	on a.custac = d.custac 
+    	    	left outer join
+    	    	    	kna_accs e 
+    	    	    	    	on d.acctno = e.acctno,
+    	    	    	kna_accs b,
+    	    	    	kna_acdc c 
+    	    	where
+    	    	    	a.acctno = b.acctno and a.custac = c.custac 
+    	    	    	and d.prodcd=#prodcd# and a.acctst = '1' 
+    	    	    	and a.onlnbl <0 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	insert 
+    	into
+    	    	ktp_auac
+    	    	(acctno,acctna,custac,crcycd,onlnbl,acseno,cardno,auacno,ausbac) select
+    	    	    	a.acctno,a.acctna,a.custac,a.crcycd,ifnull((case when a.upbldt = #trandt# then -a.lastbl else -a.onlnbl end),
+    	    	    	0),b.subsac,c.cardno,d.acctno,e.subsac 
+    	    	from
+    	    	    	kna_acct a 
+    	    	left outer join
+    	    	    	kna_fxac d 
+    	    	    	    	on a.custac = d.custac 
+    	    	left outer join
+    	    	    	kna_accs e 
+    	    	    	    	on d.acctno = e.acctno,
+    	    	    	kna_accs b,
+    	    	    	kna_acdc c 
+    	    	where
+    	    	    	a.acctno = b.acctno and a.custac = c.custac 
+    	    	    	and d.prodcd=#prodcd# and a.acctst = '1' 
+    	    	    	and a.onlnbl <0 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号（智能储蓄）" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectOne" type="sql" id="selCucaInfo" longname="查询电子账号信息">
+        <sql type="oracle"><![CDATA[select cacttp from kna_cust where custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[select cacttp from kna_cust where custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.CucaInfo"/>
+    </select>
+    <insert id="insKtpAdin" longname="插入利息调整临时表">
+        <sql type="oracle"><![CDATA[insert into ktp_adin(acctno,crcycd,intrtp,instdt,intrcd,lyinwy,incdtp,intrwy,lvamot,lvindt,txbebs,acbsin,cuusin,cutmam,laamdt,lsinop) 
+		select a.acctno,a.crcycd,a.intrtp,a.bgindt,a.intrcd,b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr,b.cuusin,a.cutmam,a.laamdt,a.lsinop
+		from knb_acin a join kub_inrt b on a.acctno = b.acctno 
+		where a.intrcd = #intrcd# and a.crcycd=#crcycd#]]></sql>
+        <sql type="mysql"><![CDATA[insert into ktp_adin(acctno,crcycd,intrtp,instdt,intrcd,lyinwy,incdtp,intrwy,lvamot,lvindt,txbebs,acbsin,cuusin,cutmam,laamdt,lsinop) 
+		select a.acctno,a.crcycd,a.intrtp,a.bgindt,a.intrcd,b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr,b.cuusin,a.cutmam,a.laamdt,a.lsinop
+		from knb_acin a join kub_inrt b on a.acctno = b.acctno 
+		where a.intrcd = #intrcd# and a.crcycd=#crcycd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="intrcd" ref="DpDict.Prod.intrcd" jdbcType="VARCHAR" javaType="BaseType.U_INRTNO" mode="in" longname="利率编号" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <delete method="delete" id="delKtpAdin" longname="清空调整利息临时表">
+        <sql type="oracle"><![CDATA[truncate table ktp_adin]]></sql>
+        <sql type="mysql"><![CDATA[truncate table ktp_adin]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </delete>
+    <select cache="none" method="selectOne" type="sql" id="selAdinCount" longname="获取调整利率账户记录数">
+        <sql type="oracle"><![CDATA[select count(*) from ktp_adin]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from ktp_adin]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAdinPoint" longname="获取待转智能储蓄的账户分割点">
+        <sql type="oracle"><![CDATA[select max(acctno) as gpoint from (select * from ktp_adin a where #gpoint# is null or a.acctno > #gpoint# order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <sql type="mysql"><![CDATA[select max(acctno) as gpoint from (select * from ktp_adin a where #gpoint# is null or a.acctno > #gpoint# order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="gpoint" jdbcType="VARCHAR" javaType="string" mode="in" longname="分组点" parameterType="condition"/>
+            <parameter property="rdnumb" jdbcType="VARCHAR" javaType="long" mode="in" longname="记录数" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAdinTranDataByCorp" longname="获取待调整利息账户数据集">
+        <sql type="oracle"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr acbsin,b.cuusin,b.isfavo,b.favovl,b.favort,b.irflby,b.inflpo,b.inflrt,
+a.cutmam,a.laamdt,a.lsinop,a.corpno ,a.TAXECD intxcd
+		from knb_acin a 
+		join kub_inrt b on a.acctno = b.acctno 
+		where a.intrcd = #intrcd# 
+		and a.crcycd=#crcycd# 
+		and b.lvindt=#depttm# 
+		and a.corpno = #corpno# 
+		and (a.luindt<>#currdt# or a.luindt is null) ]]></sql>
+        <sql type="mysql"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr acbsin,b.cuusin,b.isfavo,b.favovl,b.favort,b.irflby,b.inflpo,b.inflrt,
+a.cutmam,a.laamdt,a.lsinop,a.corpno ,a.TAXECD intxcd
+		from knb_acin a 
+		join kub_inrt b on a.acctno = b.acctno 
+		where a.intrcd = #intrcd# 
+		and a.crcycd=#crcycd# 
+		and b.lvindt=#depttm# 
+		and a.corpno = #corpno# 
+		and (a.luindt<>#currdt# or a.luindt is null) ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="intrcd" ref="DpDict.Prod.intrcd" jdbcType="VARCHAR" javaType="BaseType.U_INRTNO" mode="in" longname="利率编号" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="currdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="当前日期" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="depttm" ref="DpDict.Prod.depttm" jdbcType="VARCHAR" javaType="BaseEnumType.E_TERMCD" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.KtpAdinType"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAdinTranDataNoCorp" longname="获取待调整利息账户数据集">
+        <sql type="oracle"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr acbsin,b.cuusin,b.isfavo,b.favovl,b.favort,b.irflby,b.inflpo,b.inflrt,
+a.cutmam,a.laamdt,a.lsinop,a.corpno,a.TAXECD intxcd
+		from knb_acin a 
+		join kub_inrt b on a.acctno = b.acctno 
+		where a.luindt <> #currdt# and a.corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr acbsin,b.cuusin,b.isfavo,b.favovl,b.favort,b.irflby,b.inflpo,b.inflrt,
+a.cutmam,a.laamdt,a.lsinop,a.corpno,a.TAXECD intxcd
+		from knb_acin a 
+		join kub_inrt b on a.acctno = b.acctno 
+		where a.luindt <> #currdt# and a.corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="intrcd" ref="DpDict.Prod.intrcd" jdbcType="VARCHAR" javaType="BaseType.U_INRTNO" mode="in" longname="利率编号" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="currdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="当前日期" parameterType="condition"/>
+            <parameter property="depttm" ref="DpDict.Prod.depttm" jdbcType="VARCHAR" javaType="BaseEnumType.E_TERMCD" mode="in" longname="存期" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.KtpAdinType"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selCrcabrFxacData" longname="查询定期负债账户计提数据集">
+        <sql type="oracle"><![CDATA[select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,#trandt# as trandt,#lstrdt# as lstrdt 
+from kna_cust a join kna_accs b on (a.custac = b.custac and a.acctst = '1' and b.acctst = '1')
+	join kna_fxac c on (b.acctno = c.acctno and c.acctst = '1')]]></sql>
+        <sql type="mysql"><![CDATA[select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,#trandt# as trandt,#lstrdt# as lstrdt 
+from kna_cust a join kna_accs b on (a.custac = b.custac and a.acctst = '1' and b.acctst = '1')
+	join kna_fxac c on (b.acctno = c.acctno and c.acctst = '1')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="lstrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上次交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.CrcabrProcData"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFxautrCount" longname="获取定期自动转存账户记录数">
+        <sql type="oracle"><![CDATA[select count(*) from kna_fxac_detl where matudt = #trandt# and acctst='1']]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from kna_fxac_detl where matudt = #trandt# and acctst='1']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFxautrPoint" longname="获取定期自动转存账户分割点">
+        <sql type="oracle"><![CDATA[select max(acctno) as gpoint from (select * from kna_fxac_detl a where a.matudt = #trandt# and a.acctst='1' and (#gpoint# is null or a.acctno > #gpoint#) order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <sql type="mysql"><![CDATA[select max(acctno) as gpoint from (select * from kna_fxac_detl a where a.matudt = #trandt# and a.acctst='1' and (#gpoint# is null or a.acctno > #gpoint#) order by a.acctno) t where rownum <= #rdnumb#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="gpoint" jdbcType="VARCHAR" javaType="string" mode="in" longname="分组点" parameterType="condition"/>
+            <parameter property="rdnumb" jdbcType="VARCHAR" javaType="long" mode="in" longname="记录数" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFxautrTranData" longname="获取定期自动转存数据集">
+        <sql type="oracle"><![CDATA[select  t.acctno, t.detlsq, t.crcycd, t.bgindt, t.matudt, t.onlnbl, t2.custac, t2.custno, t2.acctna,t2.depttm,t3.subsac, t4.cardno from (select * from kna_fxac_detl a where a.matudt = #trandt# and a.acctst='1' and (#gpoint# is null or a.acctno > #gpoint#) order by a.acctno) t, kna_fxac t2, kna_accs t3, kna_acdc t4 where t.acctno = t2.acctno and t.acctno = t3.acctno and t2.custac = t4.custac and rownum <= #rdnumb#]]></sql>
+        <sql type="mysql"><![CDATA[select  t.acctno, t.detlsq, t.crcycd, t.bgindt, t.matudt, t.onlnbl, t2.custac, t2.custno, t2.acctna,t2.depttm,t3.subsac, t4.cardno from (select * from kna_fxac_detl a where a.matudt = #trandt# and a.acctst='1' and (#gpoint# is null or a.acctno > #gpoint#) order by a.acctno) t, kna_fxac t2, kna_accs t3, kna_acdc t4 where t.acctno = t2.acctno and t.acctno = t3.acctno and t2.custac = t4.custac and rownum <= #rdnumb#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="gpoint" jdbcType="VARCHAR" javaType="string" mode="in" longname="分组点" parameterType="condition"/>
+            <parameter property="rdnumb" jdbcType="VARCHAR" javaType="long" mode="in" longname="记录数" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.FxautrTranData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selCabrtlRecord" longname="查询计提明细汇总">
+        <sql type="oracle"><![CDATA[	select #lstrdt# as cabrdt,brchno,acctcd,crcycd,prodcd,sum(cabrin) as cabram
+	from knb_cbdl a
+	where a.cabrdt = #lstrdt#
+	group by brchno,acctcd,crcycd,prodcd]]></sql>
+        <sql type="mysql"><![CDATA[	select #lstrdt# as cabrdt,brchno,acctcd,crcycd,prodcd,sum(cabrin) as cabram
+	from knb_cbdl a
+	where a.cabrdt = #lstrdt#
+	group by brchno,acctcd,crcycd,prodcd]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="lstrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上次交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpInterestType.DpCabrin"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selSumFxacDrdl" longname="查询支取部分的账户列表">
+        <sql type="oracle"><![CDATA[select a.* 
+			from kna_fxac_drdl a,kna_accs b 
+			where a.acctno = b.acctno 
+			and b.custac=#ecctno#
+			and b.crcycd=#crcycd#]]></sql>
+        <sql type="mysql"><![CDATA[select a.* 
+			from kna_fxac_drdl a,kna_accs b 
+			where a.acctno = b.acctno 
+			and b.custac=#ecctno#
+			and b.crcycd=#crcycd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ecctno" ref="CaDict.Eacct.ecctno" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="crcycd" ref="DpDict.Acct.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="货币代号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnaFxacDrdl"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selSumCabrFxdr" longname="查询支取部分的账户计提明细列表">
+        <sql type="oracle"><![CDATA[select a.* 
+			from knb_cabr_fxdr a,kna_accs b 
+			where a.acctno = b.acctno 
+			and b.custac=#ecctno#
+			and b.crcycd=#crcycd#
+			and a.cabrdt=#trandt#]]></sql>
+        <sql type="mysql"><![CDATA[select a.* 
+			from knb_cabr_fxdr a,kna_accs b 
+			where a.acctno = b.acctno 
+			and b.custac=#ecctno#
+			and b.crcycd=#crcycd#
+			and a.cabrdt=#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ecctno" ref="CaDict.Eacct.ecctno" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="crcycd" ref="DpDict.Acct.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="货币代号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoInst.KnbCabrFxdr"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selSumCabrFxdrAm" longname="查询支取部分的账户计提总额">
+        <sql type="oracle"><![CDATA[select sum(a.cabrin)
+			from knb_cabr_fxdr a,kna_accs b 
+			where a.acctno = b.acctno 
+			and b.custac=#ecctno#
+			and a.cabrdt=#trandt#
+			and b.crcycd=#crcycd#]]></sql>
+        <sql type="mysql"><![CDATA[select sum(a.cabrin)
+			from knb_cabr_fxdr a,kna_accs b 
+			where a.acctno = b.acctno 
+			and b.custac=#ecctno#
+			and a.cabrdt=#trandt#
+			and b.crcycd=#crcycd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ecctno" ref="CaDict.Eacct.ecctno" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="crcycd" ref="DpDict.Acct.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="货币代号" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.math.BigDecimal"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="getAcctnoIsInIndl" longname="查询负债账户是否存在此表">
+        <sql type="oracle"><![CDATA[select detlsq from knb_indl where acctno = #acctno# and intrtp = #intrtp# order by detlsq desc]]></sql>
+        <sql type="mysql"><![CDATA[select detlsq from knb_indl where acctno = #acctno# and intrtp = #intrtp# order by detlsq desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="intrtp" ref="DpDict.Prod.intrtp" jdbcType="VARCHAR" javaType="DpEnumType.E_INTRTP" mode="in" longname="利息类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <update method="update" id="upAcinForSubByAcctno" longname="利率调整时更新账户计息信息">
+        <sql type="oracle"><![CDATA[update knb_acin a set a.luindt = #luindt#,a.lsinop = #lsinop#,a.cutmam = #cutmam#,a.laamdt = #laamdt#,a.lastdt = #lastdt#,a.tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[update knb_acin a set a.luindt = #luindt#,a.lsinop = #lsinop#,a.cutmam = #cutmam#,a.laamdt = #laamdt#,a.lastdt = #lastdt#,a.tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="luindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="积数更新日期" parameterType="condition"/>
+            <parameter property="laamdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="最近更新日期" parameterType="condition"/>
+            <parameter property="cutmam" ref="DpDict.Prod.cutmam" jdbcType="VARCHAR" javaType="BaseType.U_ACMLBL" mode="in" longname="本期积数" parameterType="condition"/>
+            <parameter property="lsinop" ref="DpDict.Prod.lsinop" jdbcType="VARCHAR" javaType="BaseEnumType.E_INDLTP" mode="in" longname="上次利息操作" parameterType="condition"/>
+            <parameter property="lastdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="利率上次更新日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="upAcinLuindtByAcctno" longname="利率调整时更新账户计息信息利率调整日期">
+        <sql type="oracle"><![CDATA[update knb_acin a set a.luindt = #luindt#,a.tmstmp=#tmstmp# where a.acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[update knb_acin a set a.luindt = #luindt#,a.tmstmp=#tmstmp# where a.acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="luindt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="积数更新日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="upKubinrtForSubByAcctno" longname="利率调整时更新账户利率信息">
+        <sql type="oracle"><![CDATA[update kub_inrt a set a.bsintr = #bsintr#,a.irflby=#irflby#,a.inflpo=#inflpo#,a.inflrt=#inflrt#,a.cuusin = #cuusin# ,tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[update kub_inrt a set a.bsintr = #bsintr#,a.irflby=#irflby#,a.inflpo=#inflpo#,a.inflrt=#inflrt#,a.cuusin = #cuusin# ,tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="bsintr" ref="DpDict.Prod.bsintr" jdbcType="VARCHAR" javaType="BaseType.U_INSTRT" mode="in" longname="基准利率" parameterType="condition"/>
+            <parameter property="cuusin" ref="DpDict.Prod.cuusin" jdbcType="VARCHAR" javaType="BaseType.U_INSTRT" mode="in" longname="当前执行利率" parameterType="condition"/>
+            <parameter property="irflby" ref="DpDict.Prod.irflby" jdbcType="VARCHAR" javaType="BaseEnumType.E_IRFLPF" mode="in" longname="利率浮动方式" parameterType="condition"/>
+            <parameter property="inflpo" ref="DpDict.Prod.inflpo" jdbcType="VARCHAR" javaType="BaseType.U_EXCHRT" mode="in" longname="利率浮动点数" parameterType="condition"/>
+            <parameter property="inflrt" ref="DpDict.Prod.inflrt" jdbcType="VARCHAR" javaType="BaseType.U_ACBLTP" mode="in" longname="利率浮动百分比" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selKnbFrozByMadt" longname="查询日终待解冻数据">
+        <sql type="db2"><![CDATA[select * from knb_froz where corpno = #corpno# and freddt <= #freddt# and frozst = #frozst# and (froztp = #froztp# or froztp = #froztp2# ) 
+     order by frozno,frozsq asc]]></sql>
+        <sql type="oracle"><![CDATA[select * from knb_froz where corpno = #corpno# and freddt <= #freddt# and frozst = #frozst# and (froztp = #froztp# or froztp = #froztp2#) 
+     order by frozno,frozsq asc]]></sql>
+        <sql type="mysql"><![CDATA[select * from knb_froz where corpno = #corpno# and freddt <= #freddt# and frozst = #frozst# and (froztp = #froztp# or froztp = #froztp2#) 
+     order by frozno,frozsq asc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="freddt" ref="DpDict.Froz.freddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="冻结终止日期" parameterType="condition"/>
+            <parameter property="frozst" ref="DpDict.Froz.frozst" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZST" mode="in" longname="冻结状态" parameterType="condition"/>
+            <parameter property="froztp" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZTP" mode="in" longname="冻结业务类型" parameterType="condition"/>
+            <parameter property="froztp2" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZTP" mode="in" longname="冻结业务类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpFroz.KnbFroz"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbFrozByStms" longname="查询待解止数据紧急止付">
+        <sql type="db2"><![CDATA[select a.* from knb_froz a where a.frozst = #frozst#  and a.sttmct = '2' and a.corpno = #corpno# and a.froztp = #froztp# and (CONCAT(a.freddt,a.fredtm) <= CONCAT(#trandt#,#trantm#))]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from knb_froz a where a.frozst = #frozst#  and a.sttmct = '2' and a.corpno = #corpno# and a.froztp = #froztp# and (CONCAT(a.freddt,a.fredtm) <= CONCAT(#trandt#,#trantm#))]]></sql>
+        <sql type="mysql"><![CDATA[select a.* from knb_froz a where a.frozst = #frozst#  and a.sttmct = '2' and a.corpno = #corpno# and a.froztp = #froztp# and (CONCAT(a.freddt,a.fredtm) <= CONCAT(#trandt#,#trantm#))]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="frozst" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZST" mode="in" longname="冻结状态" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="froztp" ref="DpDict.Froz.froztp" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZTP" mode="in" longname="冻结业务类型" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trantm" ref="DpDict.Acct.trantm" jdbcType="VARCHAR" javaType="BaseType.U_DATELG" mode="in" longname="交易时间" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpFroz.KnbFroz"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selFxacDrdlInstamByAcctno" longname="根据智能储蓄负债账户查询支取部分计息">
+        <sql type="oracle"><![CDATA[select acctno,sum(intram) as cabrin from kna_fxac_drdl where acctno = #acctno# and transt = #transt# group by acctno]]></sql>
+        <sql type="mysql"><![CDATA[select acctno,sum(intram) as cabrin from kna_fxac_drdl where acctno = #acctno# and transt = #transt# group by acctno]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="交易状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpInterestType.DpInstCabrOut"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFxautrDatas" longname="查询定期到期数据">
+        <sql type="oracle"><![CDATA[select t1.custno,t1.custac,t1.acctno,t1.acctna,t1.crcycd,t1.depttm,t1.prodcd,t1.acctcd,t2.detlsq,t3.subsac as acseno,t4.cardno ,case when  t2.acctno is not null then t2.bgindt else t1.bgindt end as bgindt,case when  t2.acctno is not null then t2.matudt else t1.matudt end as matudt,case when  t2.acctno is not null then t2.onlnbl else t1.onlnbl end as onlnbl from kna_fxac t1 left outer join kna_fxac_detl t2 on t1.acctno = t2.acctno,kna_accs t3,kna_acdc t4 where case when t2.acctst is not null then t2.acctst else t1.acctst end = '1' and case when t2.matudt is not null then t2.matudt else t1.matudt end = #trandt# and t1.acctno = t3.acctno and t1.custac = t4.custac and t1.corpno = #corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select t1.custno,t1.custac,t1.acctno,t1.acctna,t1.crcycd,t1.depttm,t1.prodcd,t1.acctcd,t2.detlsq,t3.subsac as acseno,t4.cardno ,case when  t2.acctno is not null then t2.bgindt else t1.bgindt end as bgindt,case when  t2.acctno is not null then t2.matudt else t1.matudt end as matudt,case when  t2.acctno is not null then t2.onlnbl else t1.onlnbl end as onlnbl from kna_fxac t1 left outer join kna_fxac_detl t2 on t1.acctno = t2.acctno,kna_accs t3,kna_acdc t4 where case when t2.acctst is not null then t2.acctst else t1.acctst end = '1' and case when t2.matudt is not null then t2.matudt else t1.matudt end = #trandt# and t1.acctno = t3.acctno and t1.custac = t4.custac and t1.corpno = #corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.FxautrTranData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFxToCuData" longname="获取智能储蓄转电子账户数据集合">
+        <sql type="db2"><![CDATA[select D.signno, D.custno,
+			D.custac, D.acctno, D.fxacct auacno, 
+			D.period, D.frequy, D.miniam, D.keepam, 
+			D.trottp, D.trmiam, D.upamnt, D.signam, 
+			D.effedt, D.currdt, D.nextdt, D.unsgtp, D.otupam, D.otmiam,D.cncldt,
+			value((case when A.upbldt = #trandt# then abs(A.lastbl) else abs(A.onlnbl) end),0) onlnbl, A.crcycd, A.acctna,A.corpno
+		from kna_sign_detl D 
+		left outer join kna_acct A on D.acctno = A.acctno 
+		where D.signst=#signst# 
+		and D.signtp=#signtp# 
+		and value((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0)< 0]]></sql>
+        <sql><![CDATA[select D.signno, D.custno,
+			D.custac, D.acctno, D.fxacct auacno, 
+			D.period, D.frequy, D.miniam, D.keepam, 
+			D.trottp, D.trmiam, D.upamnt, D.signam, 
+			D.effedt, D.currdt, D.nextdt, D.unsgtp, D.otupam, D.otmiam,D.cncldt,
+			ifnull((case when A.upbldt = #trandt# then abs(A.lastbl) else abs(A.onlnbl) end),0) onlnbl, A.crcycd, A.acctna,A.corpno
+		from kna_sign_detl D 
+		left outer join kna_acct A on D.acctno = A.acctno 
+		where D.signst=#signst# 
+		and D.signtp=#signtp# 
+		and ifnull((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0)< 0]]></sql>
+        <sql type="oracle"><![CDATA[select D.signno, D.custno,
+			D.custac, D.acctno, D.fxacct auacno, 
+			D.period, D.frequy, D.miniam, D.keepam, 
+			D.trottp, D.trmiam, D.upamnt, D.signam, 
+			D.effedt, D.currdt, D.nextdt, D.unsgtp, D.otupam, D.otmiam,D.cncldt,
+			nvl((case when A.upbldt = #trandt# then abs(A.lastbl) else abs(A.onlnbl) end),0) onlnbl, A.crcycd, A.acctna,A.corpno
+		from kna_sign_detl D 
+		left outer join kna_acct A on D.acctno = A.acctno 
+		where D.signst=#signst# 
+		and D.signtp=#signtp# 
+		and nvl((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0)< 0]]></sql>
+        <sql type="mysql"><![CDATA[select D.signno, D.custno,
+			D.custac, D.acctno, D.fxacct auacno, 
+			D.period, D.frequy, D.miniam, D.keepam, 
+			D.trottp, D.trmiam, D.upamnt, D.signam, 
+			D.effedt, D.currdt, D.nextdt, D.unsgtp, D.otupam, D.otmiam,D.cncldt,
+			ifnull((case when A.upbldt = #trandt# then abs(A.lastbl) else abs(A.onlnbl) end),0) onlnbl, A.crcycd, A.acctna,A.corpno
+		from kna_sign_detl D 
+		left outer join kna_acct A on D.acctno = A.acctno 
+		where D.signst=#signst# 
+		and D.signtp=#signtp# 
+		and ifnull((case when A.upbldt = #trandt# then A.lastbl else A.onlnbl end),0)< 0]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="signst" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="signtp" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNTP" mode="in" longname="签约类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.AuacinTranData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selInstpyAcctData" longname="查询活期负债账户结息处理数据集">
+        <sql type="oracle"><![CDATA[select a.acctno,#trandt# as trandt from knb_acin a,kna_acct b where a.txbefr  is not null and a.ncindt=#trandt#
+and a.acctno=b.acctno and b.acctst=1
+
+	]]></sql>
+        <sql type="mysql"><![CDATA[select a.acctno,#trandt# as trandt from knb_acin a,kna_acct b where a.txbefr  is not null and a.ncindt=#trandt#
+and a.acctno=b.acctno and b.acctst=1
+
+	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.InstpyTranData"/>
+    </select>
+    <update method="update" id="updKtpAuac" longname="更新智能储蓄转存余额">
+        <sql type="oracle"><![CDATA[update ktp_auac a set a.onlnbl = a.onlnbl - (select frozbl from ktp_froz_bala b where a.acctno = b.acctno) where exists (select 1 from ktp_froz_bala c where a.acctno = c.acctno)]]></sql>
+        <sql type="mysql"><![CDATA[update ktp_auac a set a.onlnbl = a.onlnbl - (select frozbl from ktp_froz_bala b where a.acctno = b.acctno) where exists (select 1 from ktp_froz_bala c where a.acctno = c.acctno)]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <insert id="insKtpFrozBala" longname="插入冻结余额临时表">
+        <sql type="oracle"><![CDATA[insert into ktp_froz_bala(acctno,frozbl) select a.acctno as acctno,sum(a.frozbl) as frozbl from knb_froz_detl a where a.frozst = #frozst# group by a.acctno]]></sql>
+        <sql type="mysql"><![CDATA[insert into ktp_froz_bala(acctno,frozbl) select a.acctno as acctno,sum(a.frozbl) as frozbl from knb_froz_detl a where a.frozst = #frozst# group by a.acctno]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="frozst" ref="DpDict.Froz.frozst" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZST" mode="in" longname="冻结状态" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <delete method="delete" id="delKtpFrozBala" longname="删除冻结余额临时表">
+        <sql type="oracle"><![CDATA[truncate table ktp_froz_bala]]></sql>
+        <sql type="mysql"><![CDATA[truncate table ktp_froz_bala]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </delete>
+    <update method="update" id="uptKnlBillSuccessShowt1" longname="修改连笔交易成功显示标志">
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	knl_bill 
+    	set
+    	    	showt1='0' 
+    	where
+    	    	ussqno is not null and showt1='2' 
+    	    	and corrtg='0'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	knl_bill 
+    	set
+    	    	showt1='0' 
+    	where
+    	    	ussqno is not null and showt1='2' 
+    	    	and corrtg='0'
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <update method="update" id="uptKnlBillFailShowt1" longname="修改连笔第二笔交易失败显示标志">
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	knl_bill 
+    	set
+    	    	showt1='0' 
+    	where
+    	    	ussqno in(
+    	    	    	select
+    	    	    	    	ussqno 
+    	    	    	from
+    	    	    	    	knl_bill 
+    	    	    	where
+    	    	    	    	ussqno is not null and showt1='2' 
+    	    	    	    	and corrtg='1'
+    	    	) and showt1='1' 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	knl_bill 
+    	set
+    	    	showt1='0' 
+    	where
+    	    	ussqno in(
+    	    	    	select
+    	    	    	    	ussqno 
+    	    	    	from
+    	    	    	    	knl_bill 
+    	    	    	where
+    	    	    	    	ussqno is not null and showt1='2' 
+    	    	    	    	and corrtg='1'
+    	    	) and showt1='1' 
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <update method="update" id="uptKnlBillFailShowt2" longname="修改连笔交易失败显示标志">
+        <sql type="oracle"><![CDATA[update knl_bill set showt2='0' where ussqno is not null and showt2='2' and corrtg='1'
+		]]></sql>
+        <sql type="mysql"><![CDATA[update knl_bill set showt2='0' where ussqno is not null and showt2='2' and corrtg='1'
+		]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selFxactrDatas" longname="查询传统定期到期数据">
+        <sql type="oracle" desc="kna_fxsv表的是否明细字段为否的就是传统定期，为是的就是智能储蓄。"><![CDATA[select t1.custno,t1.custac,t1.acctno,t1.acctna,t1.crcycd,t1.depttm,t1.prodcd,t1.acctcd,t3.subsac as acseno,t4.cardno,t1.bgindt,t1.matudt,t1.onlnbl from kna_fxac t1,kna_accs t3,kna_acdc t4,kna_fxsv  t5
+			where t1.acctst = '1'  and t1.onlnbl > 0 and t1.acctno = t3.acctno and t1.custac = t4.custac and t5.detlfg = '0'  and  t1.acctno = t5.acctno and t1.matudt <= #trandt# and t1.corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select t1.custno,t1.custac,t1.acctno,t1.acctna,t1.crcycd,t1.depttm,t1.prodcd,t1.acctcd,t3.subsac as acseno,t4.cardno,t1.bgindt,t1.matudt,t1.onlnbl from kna_fxac t1,kna_accs t3,kna_acdc t4,kna_fxsv  t5
+			where t1.acctst = '1'  and t1.onlnbl > 0 and t1.acctno = t3.acctno and t1.custac = t4.custac and t5.detlfg = '0'  and  t1.acctno = t5.acctno and t1.matudt <= #trandt# and t1.corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.FxautrTranData"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCrcabrAcctData" longname="查询活期定期负债账户计提处理数据集">
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" parameterType="condition"/>
+            <parameter property="lstrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" parameterType="condition"/>
+            <parameter property="abrall" jdbcType="VARCHAR" javaType="BaseEnumType.E_YES___" mode="in" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.CrcabrProcData"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno 
+from kna_acct c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#))]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[c.upbldt >= #lstrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno 
+from kna_acct c ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#)) ]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[not exists (select 1 from knb_cbdl t where c.acctno = t.acctno and t.corpno = #corpno# and t.cabrdt = #trandt#) ]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union all 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno
+from kna_fxac c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ (c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#))]]></str>
+                    <str type="Str"><![CDATA[ c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[c.upbldt=#lstrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno
+from kna_fxac c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#)) ]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno# ]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[not exists (select 1 from knb_cbdl t where c.acctno = t.acctno and t.corpno = #corpno# and t.cabrdt = #trandt#) ]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno 
+from kna_acct c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#))]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[c.upbldt >= #lstrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno 
+from kna_acct c ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#)) ]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[not exists (select 1 from knb_cbdl t where c.acctno = t.acctno and t.corpno = #corpno# and t.cabrdt = #trandt#) ]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union all 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno
+from kna_fxac c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ (c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#))]]></str>
+                    <str type="Str"><![CDATA[ c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[c.upbldt=#lstrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno
+from kna_fxac c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#)) ]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno# ]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[not exists (select 1 from knb_cbdl t where c.acctno = t.acctno and t.corpno = #corpno# and t.cabrdt = #trandt#) ]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno 
+from kna_acct c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#))]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[c.upbldt >= #lstrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno 
+from kna_acct c ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#)) ]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[not exists (select 1 from knb_cbdl t where c.acctno = t.acctno and t.corpno = #corpno# and t.cabrdt = #trandt#) ]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union all 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno
+from kna_fxac c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ (c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#))]]></str>
+                    <str type="Str"><![CDATA[ c.corpno = #corpno#]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[c.upbldt=#lstrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[union 
+select c.acctno,c.crcycd,c.matudt,c.bgindt,c.depttm,c.pddpfg,${trandt} as trandt,${lstrdt} as lstrdt,c.corpno
+from kna_fxac c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[(c.acctst = '1' or (c.acctst = '2' and c.closdt >= #lstrdt#)) ]]></str>
+                    <str type="Str"><![CDATA[c.corpno = #corpno# ]]></str>
+                    <if test="abrall == 0" type="If">
+                        <str type="Str"><![CDATA[not exists (select 1 from knb_cbdl t where c.acctno = t.acctno and t.corpno = #corpno# and t.cabrdt = #trandt#) ]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selDrawAcctData" longname="查询定期负债账户结息处理数据集">
+        <sql><![CDATA[select distinct acctno,trandt,corpno from kna_fxac_drdl where transt='1' and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[select distinct acctno,trandt,corpno from kna_fxac_drdl where transt='1' and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select distinct acctno,trandt,corpno from kna_fxac_drdl where transt='1' and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.InstpyTranData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAdinLayerData" longname="日终利率分段调整分层账户利率信息">
+        <sql><![CDATA[select 
+a.acctno,a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,
+a.cutmam,a.laamdt,a.lsinop,a.incdtp,a.lyinwy,a.txbebs
+		from knb_acin a  
+		where a.intrcd = #intrcd# and a.crcycd=#crcycd# and (a.luindt<>#currdt# or a.luindt is null) and a.incdtp=#incdtp#]]></sql>
+        <sql type="oracle"><![CDATA[select 
+a.acctno,a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,
+a.cutmam,a.laamdt,a.lsinop,a.incdtp,a.lyinwy,a.txbebs
+		from knb_acin a  
+		where a.intrcd = #intrcd# and a.crcycd=#crcycd# and (a.luindt<>#currdt# or a.luindt is null) and a.incdtp=#incdtp#]]></sql>
+        <sql type="mysql"><![CDATA[select 
+a.acctno,a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,
+a.cutmam,a.laamdt,a.lsinop,a.incdtp,a.lyinwy,a.txbebs
+		from knb_acin a  
+		where a.intrcd = #intrcd# and a.crcycd=#crcycd# and (a.luindt<>#currdt# or a.luindt is null) and a.incdtp=#incdtp#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="intrcd" ref="DpDict.Prod.intrcd" jdbcType="VARCHAR" javaType="BaseType.U_INRTNO" mode="in" longname="利率编号" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="currdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="当前日期" parameterType="condition"/>
+            <parameter property="incdtp" ref="DpDict.Prod.incdtp" jdbcType="VARCHAR" javaType="DpEnumType.E_IRCDTP" mode="in" longname="利率代码类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.LayerAdinType"/>
+    </select>
+    <update method="update" id="updAdinLayerData" longname="日终利率分段调整分层账户利率信息">
+        <sql><![CDATA[update kub_inrt a set a.lastbl = #lastbl#,a.lastdt=#lastdt#,a.clvsmt=#clvsmt# ,tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[update kub_inrt a set a.lastbl = #lastbl#,a.lastdt=#lastdt#,a.clvsmt=#clvsmt# ,tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <sql type="oracle"><![CDATA[update kub_inrt a set a.lastbl = #lastbl#,a.lastdt=#lastdt#,a.clvsmt=#clvsmt# ,tmstmp=#tmstmp#
+where a.acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="lastbl" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="当前层次上日余额" parameterType="condition"/>
+            <parameter property="lastdt" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" parameterType="condition"/>
+            <parameter property="clvsmt" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updAdinLayerIntr" longname="修改分层账户执行利率表">
+        <sql><![CDATA[update kub_inrt a set a.bsintr = #bsintr#,a.cuusin = #cuusin#,tmstmp=#tmstmp#
+where a.acctno = #acctno# and a.indxno=#indxno#]]></sql>
+        <sql type="oracle"><![CDATA[update kub_inrt a set a.bsintr = #bsintr#,a.cuusin = #cuusin#,tmstmp=#tmstmp#
+where a.acctno = #acctno# and a.indxno=#indxno#]]></sql>
+        <sql type="mysql"><![CDATA[update kub_inrt a set a.bsintr = #bsintr#,a.cuusin = #cuusin#,tmstmp=#tmstmp#
+where a.acctno = #acctno# and a.indxno=#indxno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="bsintr" ref="DpDict.Prod.bsintr" jdbcType="VARCHAR" javaType="BaseType.U_INSTRT" mode="in" longname="基准利率" parameterType="condition"/>
+            <parameter property="cuusin" ref="DpDict.Prod.cuusin" jdbcType="VARCHAR" javaType="BaseType.U_INSTRT" mode="in" longname="当前执行利率" parameterType="condition"/>
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="indxno" jdbcType="VARCHAR" javaType="BaseType.U_SHORIN" mode="in" longname="顺序号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selAcmatuData" longname="定期存款产品到期数据集查询">
+        <sql desc="按isdetl进行顺序排序，保证负债子账号优先进行处理，后续的明细在负债子账号之后进行处理，如果明细对应的负债子账号已关户则直接跳过明细不处理即可"><![CDATA[select * from (
+SELECT 
+'0' isdetl,
+A.corpno,  A.acctno,  A.acsetp,  A.acctna,  A.custno, A.crcycd,  A.csextg,  A.depttm,  A.matudt,  A.bgindt, 
+A.brchno,  A.opendt,  A.opensq,  A.closdt,  A.clossq, A.onlnbl,  A.upbldt,  A.lastbl,  A.lstrdt,  A.lstrsq,  
+A.prodcd,  A.pddpfg,  A.hdmxmy,  A.hdmimy,  A.custac, A.bkmony,  A.opmony,  A.debttp,  A.acctst,  
+A.sleptg,  A.spectp,  A.accttp,  A.acctcd,  A.deptdy, A.isdrft,  A.tmstmp,  null detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_fxac A,kna_fxac_matu M 
+where A.acctno = M.acctno 
+and A.acctst = #acctst# 
+and A.matudt = #matudt#  
+union all 
+SELECT 
+'0' isdetl,
+A.corpno,  A.acctno,  A.acsetp,  A.acctna,  A.custno, A.crcycd,  A.csextg,  A.depttm,  A.matudt,  A.bgindt, 
+A.brchno,  A.opendt,  A.opensq,  A.closdt,  A.clossq, A.onlnbl,  A.upbldt,  A.lastbl,  A.lstrdt,  A.lstrsq,  
+A.prodcd,  A.pddpfg,  A.hdmxmy,  A.hdmimy,  A.custac, A.bkmony,  A.opmony,  A.debttp,  A.acctst,  
+A.sleptg,  A.spectp,  A.accttp,  A.acctcd,  A.deptdy, A.isdrft,  A.tmstmp,  null detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_acct A,kna_acct_matu M 
+where A.acctno = M.acctno 
+and A.acctst = #acctst# 
+and A.matudt = #matudt# 
+union all 
+select 
+'1' isdetl,
+D.corpno, D.acctno, null, null, null,D.crcycd, D.csextg, null,	D.matudt, D.bgindt,
+null, D.opendt, D.opensq, D.closdt, D.clossq,D.onlnbl, null, 0, D.lstrdt, D.lstrsq,
+null, null , 0, 0, null,0, 0, null , D.acctst,
+null, null, null,null, null,null, null, D.detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_fxac_detl D left join kna_fxac_matu M 
+on D.acctno = M.acctno 
+where D.acctst = #acctst# and D.corpno=#corpno#
+and D.matudt = #matudt# ) R order by R.isdetl]]></sql>
+        <sql type="oracle"><![CDATA[select * from (
+SELECT 
+'0' isdetl,
+A.corpno,  A.acctno,  A.acsetp,  A.acctna,  A.custno, A.crcycd,  A.csextg,  A.depttm,  A.matudt,  A.bgindt, 
+A.brchno,  A.opendt,  A.opensq,  A.closdt,  A.clossq, A.onlnbl,  A.upbldt,  A.lastbl,  A.lstrdt,  A.lstrsq,  
+A.prodcd,  A.pddpfg,  A.hdmxmy,  A.hdmimy,  A.custac, A.bkmony,  A.opmony,  A.debttp,  A.acctst,  
+A.sleptg,  A.spectp,  A.accttp,  A.acctcd,  A.deptdy, A.isdrft,  A.tmstmp,  null detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_fxac A,kna_fxac_matu M 
+where A.acctno = M.acctno 
+and A.acctst = #acctst# 
+and A.matudt = #matudt#  
+union all 
+SELECT 
+'0' isdetl,
+A.corpno,  A.acctno,  A.acsetp,  A.acctna,  A.custno, A.crcycd,  A.csextg,  A.depttm,  A.matudt,  A.bgindt, 
+A.brchno,  A.opendt,  A.opensq,  A.closdt,  A.clossq, A.onlnbl,  A.upbldt,  A.lastbl,  A.lstrdt,  A.lstrsq,  
+A.prodcd,  A.pddpfg,  A.hdmxmy,  A.hdmimy,  A.custac, A.bkmony,  A.opmony,  A.debttp,  A.acctst,  
+A.sleptg,  A.spectp,  A.accttp,  A.acctcd,  A.deptdy, A.isdrft,  A.tmstmp,  null detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_acct A,kna_acct_matu M 
+where A.acctno = M.acctno 
+and A.acctst = #acctst# 
+and A.matudt = #matudt# 
+union all 
+select 
+'1' isdetl,
+D.corpno, D.acctno, null, null, null,D.crcycd, D.csextg, null,	D.matudt, D.bgindt,
+null, D.opendt, D.opensq, D.closdt, D.clossq,D.onlnbl, null, 0, D.lstrdt, D.lstrsq,
+null, null , 0, 0, null,0, 0, null , D.acctst,
+null, null, null,null, null,null, null, D.detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_fxac_detl D left join kna_fxac_matu M 
+on D.acctno = M.acctno 
+where D.acctst = #acctst# and D.corpno=#corpno#
+and D.matudt = #matudt# ) R order by R.isdetl]]></sql>
+        <sql type="mysql"><![CDATA[select * from (
+SELECT 
+'0' isdetl,
+A.corpno,  A.acctno,  A.acsetp,  A.acctna,  A.custno, A.crcycd,  A.csextg,  A.depttm,  A.matudt,  A.bgindt, 
+A.brchno,  A.opendt,  A.opensq,  A.closdt,  A.clossq, A.onlnbl,  A.upbldt,  A.lastbl,  A.lstrdt,  A.lstrsq,  
+A.prodcd,  A.pddpfg,  A.hdmxmy,  A.hdmimy,  A.custac, A.bkmony,  A.opmony,  A.debttp,  A.acctst,  
+A.sleptg,  A.spectp,  A.accttp,  A.acctcd,  A.deptdy, A.isdrft,  A.tmstmp,  null detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_fxac A,kna_fxac_matu M 
+where A.acctno = M.acctno 
+and A.acctst = #acctst# 
+and A.matudt = #matudt#  
+union all 
+SELECT 
+'0' isdetl,
+A.corpno,  A.acctno,  A.acsetp,  A.acctna,  A.custno, A.crcycd,  A.csextg,  A.depttm,  A.matudt,  A.bgindt, 
+A.brchno,  A.opendt,  A.opensq,  A.closdt,  A.clossq, A.onlnbl,  A.upbldt,  A.lastbl,  A.lstrdt,  A.lstrsq,  
+A.prodcd,  A.pddpfg,  A.hdmxmy,  A.hdmimy,  A.custac, A.bkmony,  A.opmony,  A.debttp,  A.acctst,  
+A.sleptg,  A.spectp,  A.accttp,  A.acctcd,  A.deptdy, A.isdrft,  A.tmstmp,  null detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_acct A,kna_acct_matu M 
+where A.acctno = M.acctno 
+and A.acctst = #acctst# 
+and A.matudt = #matudt# 
+union all 
+select 
+'1' isdetl,
+D.corpno, D.acctno, null, null, null,D.crcycd, D.csextg, null,	D.matudt, D.bgindt,
+null, D.opendt, D.opensq, D.closdt, D.clossq,D.onlnbl, null, 0, D.lstrdt, D.lstrsq,
+null, null , 0, 0, null,0, 0, null , D.acctst,
+null, null, null,null, null,null, null, D.detlsq,
+M.festdl,  M.delyfg,  M.matupd,  M.trdpfg,  M.trpdfg,
+M.trprod,  M.dumpnm,  M.undump,  M.trsvtp,  M.trinwy, M.trdptm 
+from kna_fxac_detl D left join kna_fxac_matu M 
+on D.acctno = M.acctno 
+where D.acctst = #acctst# and D.corpno=#corpno#
+and D.matudt = #matudt# ) R order by R.isdetl]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_DPACST" mode="in" longname="子账户状态" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="matudt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="到期日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.AcmatuData"/>
+    </select>
+    <delete method="delete" id="delknbcbdlData" longname="删除日终预计提数据">
+        <sql><![CDATA[delete from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno#]]></sql>
+        <sql type="oracle"><![CDATA[delete from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[delete from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cabrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上一计提日期" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </delete>
+    <select cache="none" method="selectAll" type="sql" id="selAcSleepInfos" longname="查询状态为正常和未激活和未启用的电子账户(休眠)">
+        <sql type="mysql"><![CDATA[select DISTINCT(a.custac) as custac from kna_cust a
+inner join kna_cuad b on(a.CUSTAC = b.CUSTAC)
+inner join knp_acst c on(b.dime01=c.dime01 
+and b.dime02=c.dime02 and b.dime03=c.dime03 and b.dime04=c.dime04 
+and b.dime05=c.dime05 and b.dime06=c.dime06 and  b.prcscd=c.prcscd) 
+where c.CUACST in ('1','3')]]></sql>
+        <sql type="oracle"><![CDATA[select DISTINCT(a.custac) as custac from kna_cust a
+inner join kna_cuad b on(a.CUSTAC = b.CUSTAC)
+inner join knp_acst c on(b.dime01=c.dime01 
+and b.dime02=c.dime02 and b.dime03=c.dime03 and b.dime04=c.dime04 
+and b.dime05=c.dime05 and b.dime06=c.dime06 and  b.prcscd=c.prcscd) 
+where c.CUACST in ('1','3')]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="IoDpTable.IoDpKnaAcct"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selLastTrandt" longname="查询电子账户最后一笔存取交易日期">
+        <sql type="db2"><![CDATA[select  a.TRANDT from knl_bill a where intrcd <> 'instpy' and custac = #custac# order by detlsq desc]]></sql>
+        <sql type="oracle"><![CDATA[select  a.TRANDT from knl_bill a where intrcd <> 'instpy' and custac = #custac# order by detlsq desc]]></sql>
+        <sql type="mysql"><![CDATA[select  a.TRANDT from knl_bill a where intrcd <> 'instpy' and custac = #custac# order by detlsq desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CUSTAC" mode="in" longname="电子账号ID" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selHlastTrandt" longname="查询历史表电子账户最后一笔存取交易日期">
+        <sql type="db2"><![CDATA[select  a.TRANDT from h_knl_bill a where intrcd <> 'instpy' and custac = #custac# order by detlsq desc]]></sql>
+        <sql type="oracle"><![CDATA[select  a.TRANDT from h_knl_bill a where intrcd <> 'instpy' and custac = #custac# order by detlsq desc]]></sql>
+        <sql type="mysql"><![CDATA[select  a.TRANDT from h_knl_bill a where intrcd <> 'instpy' and custac = #custac# order by detlsq desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CUSTAC" mode="in" longname="电子账号ID" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selIntrByTrandt" longname="获取需要分段的利率数据">
+        <sql desc="查询基础利率和浮动利率，最后按照利率代码类型正序排列，将基础利率放在上面。由于每个利率代码在同一天生效实际不同， 因此需要在代码中获取每个利率代码的首条记录，浮动利率需要查寻全量的生效代码进行匹配"><![CDATA[ with R1 as (
+	select 
+	'2' as incdtp,  intrcd, crcycd,	 depttm,  efctdt,  efcttm, inefdt, ineftm, intrst,  corpno, rfirtm, rfircd 
+	from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt# and intrst = '1'
+	union 
+	select 
+	'2' as incdtp,  b.intrcd, b.crcycd,	 b.depttm, b.efctdt, b.efcttm, b.inefdt, b.ineftm, b.intrst,  b.corpno,b.rfirtm,  b.rfircd 
+	from kup_bkir b where exists (
+		select 1 from kup_rfir r 
+		where r.efctdt > #stardt# 
+		and r.efctdt <= #trandt#  
+		and r.rfircd = b.rfircd and r.intrst = '1'
+		and r.rfirtm = b.rfirtm 
+	)   and b.intrst = '1' 
+	union 
+	select 
+	'1' as  incdtp, rfircd, crcycd,  rfirtm depttm,  efctdt, efcttm, inefdt, ineftm, intrst, corpno, null,null
+	from kup_rfir where  efctdt > #stardt# and efctdt <= #trandt#  and intrst = '1'
+),
+R2 as (
+	select '3' as incdtp, t2.intrcd, t2.crcycd,  t2.rfirtm depttm, t2.efctdt, t2.efcttm, t2.inefdt, t2.ineftm, t2.intrst,  t2.corpno, null rfirtm,null rfircd 
+	from kup_rlir t2 where exists (
+		select 1 from R1 
+		where t2.rfircd = R1.intrcd 
+		and t2.rfirtm = R1.depttm
+	) and t2.intrst = '1' 
+	union 
+	select '3' as incdtp, t2.intrcd, t2.crcycd,  t2.rfirtm depttm, t2.efctdt, t2.efcttm, t2.inefdt, t2.ineftm, t2.intrst,  t2.corpno, null rfirtm,null rfircd 
+	from kup_rlir t2 where t2.efctdt > #stardt# and t2.efctdt <= #trandt#  and t2.intrst = '1'
+)
+select * from (
+select R1.* from R1 
+union 
+select R2.* from R2
+) order by incdtp asc,intrcd asc, depttm asc, efcttm desc, corpno desc]]></sql>
+        <sql type="mysql"><![CDATA[
+select * from (  select '3' as incdtp, t2.intrcd, t2.crcycd, t2.rfirtm depttm, t2.efctdt,
+t2.efcttm, t2.inefdt, t2.ineftm, t2.intrst, t2.corpno, null rfirtm,null rfircd from
+kup_rlir t2 where exists ( select 1 from (select 
+    '2' as incdtp,  intrcd, crcycd,  depttm,  efctdt,  efcttm, inefdt, ineftm, intrst,  corpno, rfirtm, rfircd 
+    from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt# and intrst = '1'
+    union 
+    select 
+    '2' as incdtp,  b.intrcd, b.crcycd,  b.depttm, b.efctdt, b.efcttm, b.inefdt, b.ineftm, b.intrst,  b.corpno,b.rfirtm,  b.rfircd 
+    from kup_bkir b where exists (
+        select 1 from kup_rfir r 
+        where r.efctdt > #stardt# 
+        and r.efctdt <= #trandt#  
+        and r.rfircd = b.rfircd and r.intrst = '1'
+        and r.rfirtm = b.rfirtm 
+    )   and b.intrst = '1' 
+    union 
+    select 
+    '1' as  incdtp, rfircd, crcycd,  rfirtm depttm,  efctdt, efcttm, inefdt, ineftm, intrst, corpno, null,null
+    from kup_rfir where  efctdt > #stardt# and efctdt <= #trandt#  and intrst = '1') R1 where t2.rfircd = R1.intrcd 
+        and t2.rfirtm = R1.depttm
+    ) and t2.intrst = '1' 
+    union 
+    select '3' as incdtp, t2.intrcd, t2.crcycd,  t2.rfirtm depttm, t2.efctdt, t2.efcttm, t2.inefdt, t2.ineftm, t2.intrst,  t2.corpno, null rfirtm,null rfircd 
+    from kup_rlir t2 where t2.efctdt > #stardt# and t2.efctdt <= #trandt#  and t2.intrst = '1'
+    UNION  ALL
+    select 
+    '2' as incdtp,  intrcd, crcycd,  depttm,  efctdt,  efcttm, inefdt, ineftm, intrst, corpno, rfirtm, rfircd 
+    from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt# and intrst = '1'
+    union 
+    select 
+    '2' as incdtp,  b.intrcd, b.crcycd,  b.depttm, b.efctdt, b.efcttm, b.inefdt, b.ineftm, b.intrst, b.corpno,b.rfirtm,  b.rfircd 
+    from kup_bkir b where exists (
+        select 1 from kup_rfir r 
+        where r.efctdt > #stardt# 
+        and r.efctdt <= #trandt#  
+        and r.rfircd = b.rfircd and r.intrst = '1'
+        and r.rfirtm = b.rfirtm 
+    )   and b.intrst = '1' 
+    union 
+    select 
+    '1' as  incdtp, rfircd, crcycd,  rfirtm depttm,  efctdt, efcttm, inefdt, ineftm, intrst, corpno, null,null
+    from kup_rfir where  efctdt > #stardt# and efctdt <= #trandt#  and intrst = '1' ) AS a 
+    order by a.incdtp asc, a.intrcd asc, a.depttm asc, a.efcttm desc, a.corpno desc
+]]></sql>
+        <sql type="oracle"><![CDATA[ with R1 as (
+	select 
+	'2' as incdtp,  intrcd, crcycd,	 depttm,  efctdt,  efcttm, inefdt, ineftm, intrst,  corpno, rfirtm, rfircd 
+	from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt# and intrst = '1'
+	union 
+	select 
+	'2' as incdtp,  b.intrcd, b.crcycd,	 b.depttm, b.efctdt, b.efcttm, b.inefdt, b.ineftm, b.intrst,  b.corpno,b.rfirtm,  b.rfircd 
+	from kup_bkir b where exists (
+		select 1 from kup_rfir r 
+		where r.efctdt > #stardt# 
+		and r.efctdt <= #trandt#  
+		and r.rfircd = b.rfircd and r.intrst = '1'
+		and r.rfirtm = b.rfirtm 
+	)   and b.intrst = '1' 
+	union 
+	select 
+	'1' as  incdtp, rfircd, crcycd,  rfirtm depttm,  efctdt, efcttm, inefdt, ineftm, intrst,  corpno, null,null
+	from kup_rfir where  efctdt > #stardt# and efctdt <= #trandt#  and intrst = '1'
+),
+R2 as (
+	select '3' as incdtp, t2.intrcd, t2.crcycd,  t2.rfirtm depttm, t2.efctdt, t2.efcttm, t2.inefdt, t2.ineftm, t2.intrst,  t2.corpno, null rfirtm,null rfircd 
+	from kup_rlir t2 where exists (
+		select 1 from R1 
+		where t2.rfircd = R1.intrcd 
+		and t2.rfirtm = R1.depttm
+	) and t2.intrst = '1' 
+	union 
+	select '3' as incdtp, t2.intrcd, t2.crcycd,  t2.rfirtm depttm, t2.efctdt, t2.efcttm, t2.inefdt, t2.ineftm, t2.intrst,  t2.corpno, null rfirtm,null rfircd 
+	from kup_rlir t2 where t2.efctdt > #stardt# and t2.efctdt <= #trandt#  and t2.intrst = '1'
+)
+select * from (
+select R1.* from R1 
+union 
+select R2.* from R2
+) order by incdtp asc,intrcd asc, depttm asc, efcttm desc, corpno desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="利率生效开始日期" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.IntrSubSection"/>
+    </select>
+    <update method="update" id="updbaseproqi" longname="将基础属性表中记录改为启用">
+        <sql><![CDATA[update kup_dppb set prodst='0',
+tmstmp=#tmstmp#
+ where efctdt<=#efctdt# and prodst=#prodst#]]></sql>
+        <sql type="mysql"><![CDATA[update kup_dppb set prodst='0',
+tmstmp=#tmstmp#
+ where efctdt<=#efctdt# and prodst=#prodst#]]></sql>
+        <sql type="oracle"><![CDATA[update kup_dppb set prodst='0',
+tmstmp=#tmstmp#
+ where efctdt<=#efctdt# and prodst=#prodst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="efctdt" ref="DpDict.Prod.efctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_JYSIJNZX" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updbaseproti" longname="将基础属性表中记录改为停用">
+        <sql><![CDATA[update kup_dppb set prodst='5',
+tmstmp=#tmstmp#
+ where inefdt<#inefdt# and prodst=#prodst#]]></sql>
+        <sql type="oracle"><![CDATA[update kup_dppb set prodst='5',
+tmstmp=#tmstmp#
+ where inefdt<#inefdt# and prodst=#prodst#]]></sql>
+        <sql type="mysql"><![CDATA[update kup_dppb set prodst='5',
+tmstmp=#tmstmp#
+ where inefdt<#inefdt# and prodst=#prodst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="inefdt" ref="DpDict.Prod.inefdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="失效日期" parameterType="condition"/>
+            <parameter property="tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_JYSIJNZX" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectFirst" type="sql" id="selbaseprocountqi" longname="查询基础属性表中记录条数">
+        <sql><![CDATA[select count(*) from kup_dppb where efctdt<=#efctdt# and prodst=#prodst#]]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from kup_dppb where efctdt<=#efctdt# and prodst=#prodst#]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from kup_dppb where efctdt<=#efctdt# and prodst=#prodst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="efctdt" ref="DpDict.Prod.efctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selbaseprocountti" longname="查询基础属性表中记录条数">
+        <sql><![CDATA[select count(*) from kup_dppb where inefdt<#inefdt# and prodst=#prodst#]]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from kup_dppb where inefdt<#inefdt# and prodst=#prodst#]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from kup_dppb where inefdt<#inefdt# and prodst=#prodst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="inefdt" ref="DpDict.Prod.inefdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="失效日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <update method="update" id="updbaseglqi" longname="将内部户产品表中记录改为启用">
+        <sql><![CDATA[update gl_knp_busi set busist='0',
+tmstmp=#tmstmp# 
+ where bgdate<=#bgdate# and busist=#busist#]]></sql>
+        <sql type="oracle"><![CDATA[update gl_knp_busi set busist='0',
+tmstmp=#tmstmp# 
+ where bgdate<=#bgdate# and busist=#busist#]]></sql>
+        <sql type="mysql"><![CDATA[update gl_knp_busi set busist='0',
+tmstmp=#tmstmp# 
+ where bgdate<=#bgdate# and busist=#busist#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busist" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="bgdate" ref="InDict.inac.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_JYSIJNZX" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updbaseglti" longname="将内部户产品表中记录改为停用">
+        <sql><![CDATA[update gl_knp_busi set busist='5',
+tmstmp=#tmstmp# 
+ where bgdate<#bgdate# and busist=#busist#]]></sql>
+        <sql type="oracle"><![CDATA[update gl_knp_busi set busist='5',
+tmstmp=#tmstmp# 
+ where bgdate<#bgdate# and busist=#busist#]]></sql>
+        <sql type="mysql"><![CDATA[update gl_knp_busi set busist='5',
+tmstmp=#tmstmp# 
+ where bgdate<#bgdate# and busist=#busist#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busist" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="bgdate" ref="InDict.inac.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_JYSIJNZX" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectFirst" type="sql" id="selbaseglcountqi" longname="查询基础属性表中记录条数">
+        <sql><![CDATA[select count(*) from gl_knp_busi where bgdate<=#bgdate# and busist=#busist#]]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from gl_knp_busi where bgdate<=#bgdate# and busist=#busist#]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from gl_knp_busi where bgdate<=#bgdate# and busist=#busist#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busist" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="bgdate" ref="InDict.inac.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selbaseglcountti" longname="查询基础属性表中记录条数">
+        <sql><![CDATA[select count(*) from gl_knp_busi where bgdate<#bgdate# and busist=#busist#]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from gl_knp_busi where bgdate<#bgdate# and busist=#busist#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busist" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="bgdate" ref="InDict.inac.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selbeinmaxacct" longname="查询已结息上一批次记录信息">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	max(acctno) as acctno,max(seqno) as seqno 
+    	from
+    	    	knb_bein_info 
+    	where
+    	    	trandt = #trandt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	max(acctno) as acctno,max(seqno) as seqno 
+    	from
+    	    	knb_bein_info 
+    	where
+    	    	trandt = #trandt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="acctno" javaType="BaseType.U_ACCTNO" jdbcType="VARCHAR" column="acctno" longname="上一批次最大账号"/>
+            <result property="seqno" javaType="BaseType.U_INTEGE" jdbcType="INTEGER" column="seqno" longname="上一批次序号"/>
+        </resultMap>
+    </select>
+    <insert id="insknbbein" longname="插入待结息批次账号信息">
+        <sql><![CDATA[
+    	Insert 
+    	Into
+    	    	knb_bein
+    	    	(corpno,trandt,acctno,intest,nxindt,beinst,tmstmp) select
+    	    	    	a.corpno,#trandt# as trandt,a.acctno,c.cabrin,a.ncindt,
+    	    	    	'1' as status, #tmstmp# 
+    	    	from
+    	    	    	knb_acin a, knb_cbdl c 
+    	    	where
+    	    	    	a.acctno between #minacct# and #maxacct# and a.ncindt <= #trandt# 
+    	    	    	and a.pddpfg= #pddpfg# and c.acctno = a.acctno 
+    	    	    	and c.cabrdt = #lastdt# 
+			and a.ncindt is not null 
+			and a.ncindt <> ''
+    	    	union
+    	    	select
+    	    	    	distinct e.corpno, e.trandt, e.acctno,
+    	    	    	e.intest, e.nxindt,'1' as status, #tmstmp# 
+    	    	from
+    	    	    	knb_bein_eror e 
+    	    	where
+    	    	    	e.trandt = #trandt# and e.beinst = '3' 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	Insert 
+    	Into
+    	    	knb_bein
+    	    	(corpno,trandt,acctno,intest,nxindt,beinst,tmstmp) select
+    	    	    	a.corpno,#trandt# as trandt,a.acctno,c.cabrin,a.ncindt,
+    	    	    	'1' as status, #tmstmp# 
+    	    	from
+    	    	    	knb_acin a, knb_cbdl c 
+    	    	where
+    	    	    	a.acctno between #minacct# and #maxacct# and a.ncindt <= #trandt# 
+    	    	    	and a.pddpfg= #pddpfg# and c.acctno = a.acctno 
+    	    	    	and c.cabrdt = #lastdt# 
+			and a.ncindt is not null 
+    	    	union
+    	    	select
+    	    	    	distinct e.corpno, e.trandt, e.acctno,
+    	    	    	e.intest, e.nxindt,'1' as status, #tmstmp# 
+    	    	from
+    	    	    	knb_bein_eror e 
+    	    	where
+    	    	    	e.trandt = #trandt# and e.beinst = '3' 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	Insert 
+    	Into
+    	    	knb_bein
+    	    	(corpno,trandt,acctno,intest,nxindt,beinst,tmstmp) select
+    	    	    	a.corpno,#trandt# as trandt,a.acctno,c.cabrin,a.ncindt,
+    	    	    	'1' as status, #tmstmp# 
+    	    	from
+    	    	    	knb_acin a, knb_cbdl c 
+    	    	where
+    	    	    	a.acctno between #minacct# and #maxacct# and a.ncindt <= #trandt# 
+    	    	    	and a.pddpfg= #pddpfg# and c.acctno = a.acctno 
+    	    	    	and c.cabrdt = #lastdt# 
+			and a.ncindt is not null 
+			and a.ncindt <> ''
+    	    	union
+    	    	select
+    	    	    	distinct e.corpno, e.trandt, e.acctno,
+    	    	    	e.intest, e.nxindt,'1' as status, #tmstmp# 
+    	    	from
+    	    	    	knb_bein_eror e 
+    	    	where
+    	    	    	e.trandt = #trandt# and e.beinst = '3' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+            <parameter property="pddpfg" jdbcType="VARCHAR" javaType="DpEnumType.E_FCFLAG" mode="in" longname="定活标志" parameterType="condition"/>
+            <parameter property="maxacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="最大账号" parameterType="condition"/>
+            <parameter property="minacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="最小账号" parameterType="condition"/>
+            <parameter property="lastdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上一日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectAll" type="sql" id="selbeinData" longname="获取结息账号信息">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	trandt,acctno,intest,corpno 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '1'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	trandt,acctno,intest,corpno 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '1'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.InBeinTranData"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selKnlCnapotDataCount" longname="大额对账文件下载统计总数">
+        <sql><![CDATA[select count(1) from knl_cnapot a where a.trandt = #trandt#]]></sql>
+        <sql type="oracle"><![CDATA[select count(1) from knl_cnapot a where a.trandt = #trandt#]]></sql>
+        <sql type="mysql"><![CDATA[select count(1) from knl_cnapot a where a.trandt = #trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnlCnapotData" longname="大额对账文件下载">
+        <sql><![CDATA[select a.* from knl_cnapot a where a.subsys =#subsys# and a.chfcnb=#chfcnb# and a.status ='2']]></sql>
+        <sql type="oracle"><![CDATA[select a.* from knl_cnapot a where a.subsys =#subsys# and a.chfcnb=#chfcnb# and a.status ='2']]></sql>
+        <sql type="mysql"><![CDATA[select a.* from knl_cnapot a where a.subsys =#subsys# and a.chfcnb=#chfcnb# and a.status ='2']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="subsys" jdbcType="VARCHAR" javaType="BaseType.U_CHAR01" mode="in" longname="清算渠道" parameterType="condition"/>
+            <parameter property="chfcnb" jdbcType="VARCHAR" javaType="KBaseType.U_LEIXIN15" mode="in" longname="对账分类编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlCnapot"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selbeinMaxAcct" longname="获取结息批次最大账号">
+        <sql><![CDATA[select acctno from knb_bein where substr(acctno,length(acctno)-14,length(acctno))=#maxacct# and trandt = #trandt#]]></sql>
+        <sql type="oracle"><![CDATA[select acctno from knb_bein where substr(acctno,length(acctno)-14,length(acctno))=#maxacct# and trandt = #trandt#]]></sql>
+        <sql type="mysql"><![CDATA[select acctno from knb_bein where substr(acctno,length(acctno)-14,length(acctno))=#maxacct# and trandt = #trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="maxacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="最大账号序号" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selbeinMaxSeq" longname="获取当前结息批次最大账号序号">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	max(acctno) as maxacct 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '1'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	max(acctno) as maxacct 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '1'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selbeincount" longname="获取待结息批次账号数量">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '1'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '1'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selbeinSuccCount" longname="获取结息成功批次账号数量">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	count(*) 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '0'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <delete method="delete" id="delbeinSucc" longname="删除结息批次内成功的数据">
+        <sql type="mysql"><![CDATA[
+    	delete 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	delete 
+    	from
+    	    	knb_bein 
+    	where
+    	    	trandt = #trandt# and beinst = '0'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+        </parameterMap>
+    </delete>
+    <select cache="none" method="selectOne" type="sql" id="selcountcbdlacct" longname="查询负债账号当日是否已预计提">
+        <sql><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno#]]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cabrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上一计提日期" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="seladdcbdlacct" longname="查询负债账号当日是否已增量计提">
+        <sql><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno# and isadd = '1']]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno# and isadd = '1']]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno# and isadd = '1']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cabrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上一计提日期" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selcabrinBycbdl" longname="获取结息金额">
+        <sql><![CDATA[select cabrin from knb_cbdl where cabrdt = #trandt# and acctno = #acctno#]]></sql>
+        <sql type="oracle"><![CDATA[select cabrin from knb_cbdl where cabrdt = #trandt# and acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[select cabrin from knb_cbdl where cabrdt = #trandt# and acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结息日期" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.math.BigDecimal"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChgSumAmtByTra" longname="根据交易日期查询费用汇总金额">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.TRANMS, a.PRODCD, a.CRCYCD, sum(a.TRANAM) TRANAM, a.AMNTCD 
+    	from
+    	    	kns_acsq a 
+    	where
+    	    	a.ATOWTP = '2' and a.TRANDT = #trandt# 
+    	group by
+    	    	a.TRANMS,
+    	    	a.PRODCD, a.CRCYCD, a.AMNTCD
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.TRANMS, a.PRODCD, a.CRCYCD, sum(a.TRANAM) TRANAM, a.AMNTCD 
+    	from
+    	    	kns_acsq a 
+    	where
+    	    	a.ATOWTP = '2' and a.TRANDT = #trandt# 
+    	group by
+    	    	a.TRANMS,
+    	    	a.PRODCD, a.CRCYCD, a.AMNTCD
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAccount.KnsAcsq"/>
+    </select>
+    <update method="update" id="updKnaFxac" longname="定期存款到期修改定期账户表">
+        <sql><![CDATA[update kna_fxac set bgindt=#trandt#, matudt=#matudt#,opendt=#trandt#, upbldt=#trandt#,lstrdt=#trandt#,lstrsq=#lstrsq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_fxac set bgindt=#trandt#, matudt=#matudt#,opendt=#trandt#, upbldt=#trandt#,lstrdt=#trandt#,lstrsq=#lstrsq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_fxac set bgindt=#trandt#, matudt=#matudt#,opendt=#trandt#, upbldt=#trandt#,lstrdt=#trandt#,lstrsq=#lstrsq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="matudt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="到期账号" parameterType="condition"/>
+            <parameter property="lstrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="到期流水" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaFxsv" longname="定期存款到期修改存入控制">
+        <sql><![CDATA[update kna_fxsv set reistm=0, resltm=0,resvam=0, resvnm=0,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_fxsv set reistm=0, resltm=0,resvam=0, resvnm=0,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_fxsv set reistm=0, resltm=0,resvam=0, resvnm=0,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaFxdr" longname="定期存款到期修改支取控制">
+        <sql><![CDATA[update kna_fxdr set redwnm=0, redqam=0  ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_fxdr set redwnm=0, redqam=0  ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_fxdr set redwnm=0, redqam=0  ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaFxacMatu" longname="定期存款到期修改到期控制">
+        <sql><![CDATA[update kna_fxac_matu set undump = undump+1,tmstmp=#tmstmp#  where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_fxac_matu set undump = undump+1,tmstmp=#tmstmp#  where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_fxac_matu set undump = undump+1,tmstmp=#tmstmp#  where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaFxacDetl" longname="修改定期明细起息日期和到期日期">
+        <sql><![CDATA[update kna_fxac_detl set opendt=#trandt#, opensq=#transq#, bgindt=#trandt#, matudt=#matudt#,lstrdt=#trandt#,lstrsq=#transq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and detlsq = #detlsq# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_fxac_detl set opendt=#trandt#, opensq=#transq#, bgindt=#trandt#, matudt=#matudt#,lstrdt=#trandt#,lstrsq=#transq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and detlsq = #detlsq# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_fxac_detl set opendt=#trandt#, opensq=#transq#, bgindt=#trandt#, matudt=#matudt#,lstrdt=#trandt#,lstrsq=#transq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and detlsq = #detlsq# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="流水号" parameterType="condition"/>
+            <parameter property="matudt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="到期日期" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="系统账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="detlsq" ref="DpDict.Acct.detlsq" jdbcType="VARCHAR" javaType="BaseType.U_LONGIN" mode="in" longname="明细序号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaAcct" longname="定期存款到期修改定期账户表">
+        <sql><![CDATA[update kna_acct set bgindt=#trandt#, matudt=#matudt#,opendt=#trandt#, upbldt=#trandt#,lstrdt=#trandt#,lstrsq=#lstrsq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct set bgindt=#trandt#, matudt=#matudt#,opendt=#trandt#, upbldt=#trandt#,lstrdt=#trandt#,lstrsq=#lstrsq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct set bgindt=#trandt#, matudt=#matudt#,opendt=#trandt#, upbldt=#trandt#,lstrdt=#trandt#,lstrsq=#lstrsq# ,tmstmp=#tmstmp#
+where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="matudt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="到期账号" parameterType="condition"/>
+            <parameter property="lstrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="到期流水" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaSave" longname="定期存款到期修改存入控制">
+        <sql><![CDATA[update kna_save set reistm=0, resltm=0,resvam=0, resvnm=0 ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_save set reistm=0, resltm=0,resvam=0, resvnm=0 ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_save set reistm=0, resltm=0,resvam=0, resvnm=0 ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaDraw" longname="定期存款到期修改支取控制">
+        <sql><![CDATA[update kna_draw set redwnm=0, redqam=0  ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_draw set redwnm=0, redqam=0  ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_draw set redwnm=0, redqam=0  ,tmstmp=#tmstmp# where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaAcctMatu" longname="定期存款到期修改到期控制">
+        <sql><![CDATA[update kna_acct_matu set undump = undump+1,tmstmp=#tmstmp#  where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct_matu set undump = undump+1,tmstmp=#tmstmp#  where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct_matu set undump = undump+1,tmstmp=#tmstmp#  where acctno=#acctno# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selAutoUnSignData" longname="获取自动解约的数据集">
+        <sql><![CDATA[select signno, acctno, fxacct, corpno,unsgtp from kna_sign_detl where signst=#signst# and effedt=#effedt# and corpno=#corpno# and (cncldt is null or cncldt = '')]]></sql>
+        <sql type="oracle"><![CDATA[select signno, acctno, fxacct, corpno,unsgtp from kna_sign_detl where signst=#signst# and effedt=#effedt# and corpno=#corpno# and (cncldt is null or cncldt = '')]]></sql>
+        <sql type="mysql"><![CDATA[select signno, acctno, fxacct, corpno,unsgtp from kna_sign_detl where signst=#signst# and effedt=#effedt# and corpno=#corpno# and (cncldt is null or cncldt = '')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="signst" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+            <parameter property="effedt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="失效日期" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.AutoUnSign"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAutoDepr" longname="查询存款证明到期数据">
+        <sql type="db2"><![CDATA[select a.* from knb_depr a , knb_froz b  where a.corpno = #corpno# and a.custac = b.custac and a.MNTRSQ = b.MNTRSQ  and b.FROZST = '0' and 
+   (a.deprtp = '1' or (a.deprtp = '2' and a.enddat is not null and a.enddat <> '' and  a.enddat <= #trandt#))]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from knb_depr a , knb_froz b  where a.corpno = #corpno# and a.custac = b.custac and a.MNTRSQ = b.MNTRSQ  and b.FROZST = '0' and 
+   (a.deprtp = '1' or (a.deprtp = '2' and a.enddat is not null and a.enddat <> '' and  a.enddat <= #trandt#))]]></sql>
+        <sql type="mysql"><![CDATA[select a.* from knb_depr a , knb_froz b  where a.corpno = #corpno# and a.custac = b.custac and a.MNTRSQ = b.MNTRSQ  and b.FROZST = '0' and 
+   (a.deprtp = '1' or (a.deprtp = '2' and a.enddat is not null and a.enddat <> '' and  a.enddat <= #trandt#))]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="deprtp" ref="DpDict.Depr.deprtp" jdbcType="VARCHAR" javaType="BaseEnumType.E_DEPRTP" mode="in" longname="存款证明书类型" parameterType="condition"/>
+            <parameter property="trandt" ref="DpDict.Froz.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoDpFrozComplexType.DpDeprInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selExtenAuunstInfo" longname="查询到期的外部止付（不包括紧急止付）">
+        <sql type="db2"><![CDATA[select a.* from knb_froz a where a.corpno = #corpno# and a.froztp = '4' and a.frozst = '0' and a.sttmct ='1' and (a.freddt is not null and a.freddt <> '' and a.freddt <= #trandt#) ]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from knb_froz a where a.corpno = #corpno# and a.froztp = '4' and a.frozst = '0' and a.sttmct ='1' and (a.freddt is not null and a.freddt <> '' and a.freddt <= #trandt#) ]]></sql>
+        <sql type="mysql"><![CDATA[select a.* from knb_froz a where a.corpno = #corpno# and a.froztp = '4' and a.frozst = '0' and a.sttmct ='1' and (a.freddt is not null and a.freddt <> '' and a.freddt <= #trandt#) ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpFroz.KnbFroz"/>
+    </select>
+    <update method="update" id="updKnaCustSleep" longname="更新电子账户状态为休眠">
+        <sql type="db2"><![CDATA[update kna_cust a set a.acctst = #acctst#, a.tmstmp=#tmstmp# where a.custac = #custac#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_cust a set a.acctst = #acctst#, a.tmstmp=#tmstmp# where a.custac = #custac#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_cust a set a.acctst = #acctst#, a.tmstmp=#tmstmp# where a.custac = #custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctst" ref="CaDict.Eacct.acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTST" mode="in" longname="电子账户状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnaAcctSleep" longname="更新电子账户负债子账户状态为休眠">
+        <sql type="db2"><![CDATA[update kna_acct a set a.acctst = #acctst#,a.tmstmp=#tmstmp# where a.custac = #custac# and a.acctst = #atnost#]]></sql>
+        <sql type="mysql"><![CDATA[update kna_acct a set a.acctst = #acctst#,a.tmstmp=#tmstmp# where a.custac = #custac# and a.acctst = #atnost#]]></sql>
+        <sql type="oracle"><![CDATA[update kna_acct a set a.acctst = #acctst#,a.tmstmp=#tmstmp# where a.custac = #custac# and a.acctst = #atnost#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTST" mode="in" longname="子账户状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="atnost" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTST" mode="in" longname="原子账户状态" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selBefCbdlAcct" longname="查询账号是否已经预计提">
+        <sql><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno# and isadd = '0']]></sql>
+        <sql type="oracle"><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno# and isadd = '0']]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from knb_cbdl where cabrdt = #cabrdt# and acctno = #acctno# and isadd = '0']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cabrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上一计提日期" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupIntxByTrandt" longname="通过交易日期查询税率代码列表">
+        <sql><![CDATA[select intxcd,taxrat,txunit,statax,mintax,maxtax ,corpno from kup_intx where efctdt=#trandt#]]></sql>
+        <sql type="oracle"><![CDATA[select intxcd,taxrat,txunit,statax,mintax,maxtax ,corpno from kup_intx where efctdt=#trandt#]]></sql>
+        <sql type="mysql"><![CDATA[select intxcd,taxrat,txunit,statax,mintax,maxtax ,corpno from kup_intx where efctdt=#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="DpDict.Acct.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.IntrTaxList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupIntxTranData" longname="查询税率调整的账户数据">
+        <sql><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+a.txbebs,a.taxecd intxcd,
+a.cutmam,a.laamdt,a.lsinop,a.corpno 
+		from knb_acin a 
+		where exists (
+			select 1 from kup_intx b where a.taxecd = b.intxcd and b.EFCTDT=#currdt#
+		)
+		and a.TXBEFG='1' 
+		and a.pddpfg='0204'  and a.luindt <> #currdt# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+a.txbebs,a.taxecd intxcd,
+a.cutmam,a.laamdt,a.lsinop,a.corpno 
+		from knb_acin a 
+		where exists (
+			select 1 from kup_intx b where a.taxecd = b.intxcd and b.EFCTDT=#currdt#
+		)
+		and a.TXBEFG='1' 
+		and a.pddpfg='0204'  and a.luindt <> #currdt# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+a.txbebs,a.taxecd intxcd,
+a.cutmam,a.laamdt,a.lsinop,a.corpno 
+		from knb_acin a 
+		where exists (
+			select 1 from kup_intx b where a.taxecd = b.intxcd and b.EFCTDT=#currdt#
+		)
+		and a.TXBEFG='1' 
+		and a.pddpfg='0204'  and a.luindt <> #currdt# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="currdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="当前日期" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.KtpAdinType"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnlCaryDelAcct" longname="获取电子账户转电子账户延时记账信息">
+        <sql type="db2"><![CDATA[select a.* from knl_cary a where a.ACDATE <= #trandt#  and a.ACTIME <= #trantm# and a.STATUS = '7'
+]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from knl_cary a where a.ACDATE <= #trandt#  and a.ACTIME <= #trantm# and a.STATUS = '7'
+]]></sql>
+        <sql type="mysql"><![CDATA[select a.* from knl_cary a where a.ACDATE <= #trandt#  and a.ACTIME <= #trantm# and a.STATUS = '7'
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trantm" ref="BaseDict.Comm.trantm" jdbcType="VARCHAR" javaType="BaseType.U_TRTMCH" mode="in" longname="交易时间" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlCary"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAdinTranDataByAcctno" longname="根据账号获取待调整利息账户数据集">
+        <sql type="oracle"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr acbsin,b.cuusin,b.isfavo,b.favovl,b.favort,b.irflby,b.inflpo,b.inflrt,
+a.cutmam,a.laamdt,a.lsinop,a.corpno,a.TAXECD intxcd
+		from knb_acin a 
+		join kub_inrt b on a.acctno = b.acctno 
+		where a.acctno=#acctno# 
+		and (a.luindt<>#currdt# or a.luindt is null)]]></sql>
+        <sql type="mysql"><![CDATA[select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+b.lyinwy,b.incdtp,b.intrwy,b.lvamot,b.lvindt,a.txbebs, b.bsintr acbsin,b.cuusin,b.isfavo,b.favovl,b.favort,b.irflby,b.inflpo,b.inflrt,
+a.cutmam,a.laamdt,a.lsinop,a.corpno,a.TAXECD intxcd
+		from knb_acin a 
+		join kub_inrt b on a.acctno = b.acctno 
+		where a.acctno=#acctno# 
+		and (a.luindt<>#currdt# or a.luindt is null)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="currdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="当前日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.KtpAdinType"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupRfirIntrByIntrcd" longname="根据利息代码获取基础利率信息">
+        <sql><![CDATA[        
+select 
+'1' as  incdtp, rfircd, crcycd, intrkd, rfirtm,   efctdt, efcttm, inefdt, ineftm, intrst,  corpno, null,null
+from kup_rfir where  efctdt >= #stardt# and efctdt < #trandt#  and rfirtm =#depttm# and rfircd=#intrcd#
+ 
+
+ ]]></sql>
+        <sql type="oracle"><![CDATA[        
+select 
+'1' as  incdtp, rfircd, crcycd, intrkd, rfirtm,   efctdt, efcttm, inefdt, ineftm, intrst, corpno, null,null
+from kup_rfir where  efctdt >= #stardt# and efctdt < #trandt#  and rfirtm =#depttm# and rfircd=#intrcd#
+ 
+
+ ]]></sql>
+        <sql type="mysql"><![CDATA[        
+select 
+'1' as  incdtp, rfircd, crcycd, intrkd, rfirtm,   efctdt, efcttm, inefdt, ineftm, intrst,  corpno, null,null
+from kup_rfir where  efctdt >= #stardt# and efctdt < #trandt#  and rfirtm =#depttm# and rfircd=#intrcd#
+ 
+
+ ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="利率生效开始日期" parameterType="condition"/>
+            <parameter property="intrcd" ref="DpDict.Prod.intrcd" jdbcType="VARCHAR" javaType="BaseType.U_INRTNO" mode="in" longname="利率编号" parameterType="condition"/>
+            <parameter property="depttm" ref="DpDict.Prod.depttm" jdbcType="VARCHAR" javaType="BaseEnumType.E_TERMCD" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.IntrSubSection"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupBkirIntrByIntrcd" longname="根据利息代码获取基础利率信息">
+        <sql><![CDATA[select 
+'2' as incdtp,  intrcd, crcycd,	intrkd, rfirtm,  efctdt,  efcttm, inefdt, ineftm, intrst, corpno, depttm, rfircd 
+from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt#  and rfirtm =#depttm# and intrcd=#intrcd# 
+union 
+select 
+'2' as incdtp,  b.intrcd, b.crcycd,	b.intrkd, b.rfirtm,   b.efctdt,  b.efcttm, b.inefdt, b.ineftm, b.intrst,  b.corpno, b.depttm, b.rfircd 
+from kup_bkir b where exists (
+	select 1 from kup_rfir r 
+	where r.efctdt > #stardt# 
+	and r.efctdt <= #trandt#   
+	and r.rfirtm =b.rfirtm 
+	and r.rfircd = b.rfircd
+)  
+and b.rfirtm =#depttm# and b.intrcd=#intrcd#]]></sql>
+        <sql type="oracle"><![CDATA[select 
+'2' as incdtp,  intrcd, crcycd,	intrkd, rfirtm,  efctdt,  efcttm, inefdt, ineftm, intrst,  corpno, depttm, rfircd 
+from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt#  and rfirtm =#depttm# and intrcd=#intrcd# 
+union 
+select 
+'2' as incdtp,  b.intrcd, b.crcycd,	b.intrkd, b.rfirtm,   b.efctdt,  b.efcttm, b.inefdt, b.ineftm, b.intrst,  b.corpno, b.depttm, b.rfircd 
+from kup_bkir b where exists (
+	select 1 from kup_rfir r 
+	where r.efctdt > #stardt# 
+	and r.efctdt <= #trandt#   
+	and r.rfirtm =b.rfirtm 
+	and r.rfircd = b.rfircd
+)  
+and b.rfirtm =#depttm# and b.intrcd=#intrcd#]]></sql>
+        <sql type="mysql"><![CDATA[select 
+'2' as incdtp,  intrcd, crcycd,	intrkd, rfirtm,  efctdt,  efcttm, inefdt, ineftm, intrst,  corpno, depttm, rfircd 
+from kup_bkir where  efctdt > #stardt# and efctdt <= #trandt#  and rfirtm =#depttm# and intrcd=#intrcd# 
+union 
+select 
+'2' as incdtp,  b.intrcd, b.crcycd,	b.intrkd, b.rfirtm,   b.efctdt,  b.efcttm, b.inefdt, b.ineftm, b.intrst,  b.corpno, b.depttm, b.rfircd 
+from kup_bkir b where exists (
+	select 1 from kup_rfir r 
+	where r.efctdt > #stardt# 
+	and r.efctdt <= #trandt#   
+	and r.rfirtm =b.rfirtm 
+	and r.rfircd = b.rfircd
+)  
+and b.rfirtm =#depttm# and b.intrcd=#intrcd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="利率生效开始日期" parameterType="condition"/>
+            <parameter property="intrcd" ref="DpDict.Prod.intrcd" jdbcType="VARCHAR" javaType="BaseType.U_INRTNO" mode="in" longname="利率编号" parameterType="condition"/>
+            <parameter property="depttm" ref="DpDict.Prod.depttm" jdbcType="VARCHAR" javaType="BaseEnumType.E_TERMCD" mode="in" longname="存期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.IntrSubSection"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAdinTranDataByAcctnoTax" longname="根据账号获取待调整利息税账户数据集">
+        <sql type="oracle"><![CDATA[
+        select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+a.txbebs,b.intxcd,b.taxrat,
+a.cutmam,a.laamdt,a.lsinop,a.corpno 
+		from knb_acin a 
+		join kup_intx b on a.TAXECD = b.INTXCD and b.EFCTDT=#currdt#
+		where  a.TXBEFG='1' and (a.pddpfg='0204' or (a.PDDPFG='0205' and a.DETLFG='1' )) and a.acctno = #acctno#
+		
+        ]]></sql>
+        <sql type="mysql"><![CDATA[
+        select 
+a.acctno,a.pddpfg, a.crcycd,a.intrtp,a.bgindt as instdt,a.intrcd,a.reprwy,a.inprwy,a.inadlv,a.luindt,a.opendt,a.levety,a.intrdt,
+a.txbebs,b.intxcd,b.taxrat,
+a.cutmam,a.laamdt,a.lsinop,a.corpno 
+		from knb_acin a 
+		join kup_intx b on a.TAXECD = b.INTXCD and b.EFCTDT=#currdt#
+		where  a.TXBEFG='1' and (a.pddpfg='0204' or (a.PDDPFG='0205' and a.DETLFG='1' )) and a.acctno = #acctno#
+		
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="currdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="当前日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.KtpAdinType"/>
+    </select>
+    <update method="update" id="updKnbParaMenuLV" longname="更新目录树内部户最后级为lv4">
+        <sql><![CDATA[update knb_para_menu set lecode = 'LEV4' where chcode = 'end' and SUBSTR(char(codevl),1,2) = '99']]></sql>
+        <sql type="oracle"><![CDATA[update knb_para_menu set lecode = 'LEV4' where chcode = 'end' and SUBSTR(char(codevl),1,2) = '99']]></sql>
+        <sql type="mysql"><![CDATA[update knb_para_menu set lecode = 'LEV4' where chcode = 'end' and SUBSTR(char(codevl),1,2) = '99']]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <insert id="insKnbBeinErorByFailure" longname="把批次失败的数据插入错误信息表">
+        <sql type="db2"><![CDATA[insert into knb_bein_eror(corpno,trandt,sequno,acctno,intest,nxindt,beinst,remark,tmstmp)
+select corpno,trandt,#sequno# as sequno,acctno,intest,nxindt,beinst,remark,tmstmp 
+from knb_bein
+where trandt = #trandt# and beinst = '3'
+and not exists (select 1 from knb_bein_eror a where a.trandt = trandt and a.acctno = acctno)]]></sql>
+        <sql type="oracle"><![CDATA[insert into knb_bein_eror(corpno,trandt,sequno,acctno,intest,nxindt,beinst,remark,tmstmp)
+select corpno,trandt,#sequno# as sequno,acctno,intest,nxindt,beinst,remark,tmstmp 
+from knb_bein
+where trandt = #trandt# and beinst = '3'
+and not exists (select 1 from knb_bein_eror a where a.trandt = trandt and a.acctno = acctno)]]></sql>
+        <sql type="mysql"><![CDATA[insert into knb_bein_eror(corpno,trandt,sequno,acctno,intest,nxindt,beinst,remark,tmstmp)
+select corpno,trandt,#sequno# as sequno,acctno,intest,nxindt,beinst,remark,tmstmp 
+from knb_bein
+where trandt = #trandt# and beinst = '3'
+and not exists (select 1 from knb_bein_eror a where a.trandt = trandt and a.acctno = acctno)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="sequno" jdbcType="VARCHAR" javaType="BaseType.U_INTEGE" mode="in" longname="批次序号" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <update method="update" id="truncateKnbBein" longname="清楚结息数据批次明细表数据">
+        <sql><![CDATA[ALTER TABLE knb_bein ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE]]></sql>
+        <sql type="mysql"><![CDATA[delete from knb_beinALTER TABLE knb_bein ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE]]></sql>
+        <sql type="oracle"><![CDATA[ALTER TABLE knb_bein ACTIVATE NOT LOGGED INITIALLY WITH EMPTY TABLE]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <update method="update" id="updKnbBeinErorForSucc" longname="更新结息批次数据为成功">
+        <sql type="db2"><![CDATA[update knb_bein_eror a set a.beinst = '0'
+where exists (select 1 from knb_bein where trandt = a.trandt and acctno = a.acctno and beinst = '0' and a.beinst = '3')]]></sql>
+        <sql type="oracle"><![CDATA[update knb_bein_eror a set a.beinst = '0'
+where exists (select 1 from knb_bein where trandt = a.trandt and acctno = a.acctno and beinst = '0' and a.beinst = '3')]]></sql>
+        <sql type="mysql"><![CDATA[update knb_bein_eror a set a.beinst = '0'
+where exists (select 1 from knb_bein where trandt = a.trandt and acctno = a.acctno and beinst = '0' and a.beinst = '3')]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selMaxAcctnoForKnaAcct" longname="查询当前活期账户最大账号">
+        <sql type="db2"><![CDATA[select max(acctno) as acctno from kna_acct]]></sql>
+        <sql type="oracle"><![CDATA[select max(acctno) as acctno from kna_acct]]></sql>
+        <sql type="mysql"><![CDATA[select max(acctno) as acctno from kna_acct]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbAcctAdjstAll" longname="查询所有待调账数据">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	bathno 
+    	from
+    	    	knb_acct_adjst 
+    	where
+    	    	corpno=#corpno# and transt = '2' 
+    	group by
+    	    	bathno
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	bathno 
+    	from
+    	    	knb_acct_adjst 
+    	where
+    	    	corpno=#corpno# and transt = '2' 
+    	group by
+    	    	bathno
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String">
+            <result property="bathno" javaType="BaseType.U_CHAR40" column="bathno"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbAcctAdjstInfo" longname="根据批次号查询批量调账明细">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_acct_adjst 
+    	where
+    	    	bathno = #bathno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_acct_adjst 
+    	where
+    	    	bathno = #bathno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="bathno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR200" mode="in" longname="批次编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnbAcctAdjst"/>
+    </select>
+    <update method="update" id="updKnbAcctAdjstSt" longname="更新同批次批量调账明细状态">
+        <sql><![CDATA[update knb_acct_adjst set transt = #transt# where  bathno = #bathno#]]></sql>
+        <sql type="oracle"><![CDATA[update knb_acct_adjst set transt = #transt# where  bathno = #bathno#]]></sql>
+        <sql type="mysql"><![CDATA[update knb_acct_adjst set transt = #transt# where  bathno = #bathno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transt" ref="PbDict.Cash.transt" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="交易状态" parameterType="condition"/>
+            <parameter property="bathno" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selAllDpbPwdErrors" longname="查询输错密码的用户">
+        <sql><![CDATA[select * from dpb_pswd where pwerct!=#pwerct# and psdwst=#psdwst# and corpno=#corpno#]]></sql>
+        <sql type="oracle"><![CDATA[select * from dpb_pswd where pwerct!=#pwerct# and psdwst=#psdwst# and corpno=#corpno#]]></sql>
+        <sql type="mysql"><![CDATA[select * from dpb_pswd where pwerct!=#pwerct# and psdwst=#psdwst# and corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="pwerct" jdbcType="VARCHAR" javaType="BaseType.U_INTEGE" mode="in" longname="密码错误次数" parameterType="condition"/>
+            <parameter property="psdwst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PSDWST" mode="in" longname="密码状态" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TabDpPassword.DpbPswd"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="seldepy" longname="定期账户结息批量">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.corpno,a.acctno,c.cabrin as intest,a.ncindt as trandt 
+    	from
+    	    	knb_acin a, knb_cbdl c 
+    	where
+    	    	a.ncindt <= #trandt# and a.pddpfg= #pddpfg# 
+    	    	and c.acctno = a.acctno and c.cabrdt = #lastdt# 
+    	    	and a.ncindt is not null and a.ncindt <> '' 
+    	    	and a.corpno = c.corpno and a.corpno = #corpno# 
+    	]]></sql>
+        <sql type="oracle" desc="原sql:and a.ncindt is not null and a.ncindt &lt;&gt; ''"><![CDATA[
+    	select
+    	    	a.corpno,a.acctno,c.cabrin as intest,a.ncindt as trandt 
+    	from
+    	    	knb_acin a, knb_cbdl c 
+    	where
+    	    	a.ncindt <= #trandt# and a.pddpfg= #pddpfg# 
+    	    	and c.acctno = a.acctno and c.cabrdt = #lastdt# 
+    	    	and a.ncindt is not null
+    	    	and a.corpno = c.corpno and a.corpno = #corpno# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.corpno,a.acctno,c.cabrin as intest,a.ncindt as trandt 
+    	from
+    	    	knb_acin a, knb_cbdl c 
+    	where
+    	    	a.ncindt <= #trandt# and a.pddpfg= #pddpfg# 
+    	    	and c.acctno = a.acctno and c.cabrdt = #lastdt# 
+    	    	and a.ncindt is not null and a.ncindt <> '' 
+    	    	and a.corpno = c.corpno and a.corpno = #corpno# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="pddpfg" jdbcType="VARCHAR" javaType="DpEnumType.E_FCFLAG" mode="in" longname="业务小类" parameterType="condition"/>
+            <parameter property="lastdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="上一日期" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDayEndType.InBeinTranData"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbFrozByProtect" longname="查询账户保护到期自动解止">
+        <sql><![CDATA[select a.* from knb_froz a where a.frozst = #frozst#  and a.sttmct = '1' and a.corpno = #corpno# and a.froztp = #froztp# and (a.freddt is not null and a.freddt <> '' and a.freddt <= #trandt#) ]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from knb_froz a where a.frozst = #frozst#  and a.sttmct = '1' and a.corpno = #corpno# and a.froztp = #froztp# and (a.freddt is not null and a.freddt <> '' and a.freddt <= #trandt#) ]]></sql>
+        <sql type="mysql"><![CDATA[select a.* from knb_froz a where a.frozst = #frozst#  and a.sttmct = '1' and a.corpno = #corpno# and a.froztp = #froztp# and (a.freddt is not null and a.freddt <> '' and a.freddt <= #trandt#) ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="frozst" ref="DpDict.Froz.frozst" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZST" mode="in" longname="冻结状态" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="froztp" ref="DpDict.Froz.froztp" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZTP" mode="in" longname="冻结业务类型" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpFroz.KnbFroz"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnpPromMessBatcCount" longname="查询文件批次读取提示信息数量">
+        <sql><![CDATA[select COUNT(1) from knp_prom_mess_batc where filesq = #filesq#]]></sql>
+        <sql type="oracle"><![CDATA[select COUNT(1) from knp_prom_mess_batc where filesq = #filesq#]]></sql>
+        <sql type="mysql"><![CDATA[select COUNT(1) from knp_prom_mess_batc where filesq = #filesq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="文件批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selDpKnbFrozByMadt" longname="查询金额冻结结果集">
+        <sql type="oracle"><![CDATA[select * from knb_froz where corpno = #corpno# and freddt <= #freddt# and frozst = #frozst# and (froztp = #froztp#) order by frozno,frozsq asc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="freddt" ref="DpDict.Froz.freddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="冻结终止日期" parameterType="condition"/>
+            <parameter property="frozst" ref="DpDict.Froz.frozst" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZST" mode="in" longname="冻结状态" parameterType="condition"/>
+            <parameter property="froztp" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZTP" mode="in" longname="冻结业务类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpFroz.KnbFroz"/>
+    </select>
+    <insert id="insknbsett" longname="插入结算单生成批次信息">
+        <sql type="oracle"><![CDATA[insert into knb_sett_begin_info(trandt,seqno,bgtime,minacct,maxacct)select trandt,#seqno#,#bgtime#,min(acctno) as minacct,max(acctno) as maxacct from 
+                                  (select distinct trandt,acctno from knl_iobl_cups where trandt >=#stardt# and trandt<=#endtdt#  and transt = '1' AND acctno is not null)  where rownum  >= #startnum# and rownum <= #endnum#  GROUP BY trandt 
+                                 ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="bgtime" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="系统日期" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易开始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易结束日期" parameterType="condition"/>
+            <parameter property="seqno" jdbcType="VARCHAR" javaType="BaseType.U_INTEGE" mode="in" longname="当前批次" parameterType="condition"/>
+            <parameter property="startnum" jdbcType="VARCHAR" javaType="BaseType.U_INTEGE" mode="in" longname="批次开始数量" parameterType="condition"/>
+            <parameter property="endnum" jdbcType="VARCHAR" javaType="BaseType.U_INTEGE" mode="in" longname="批次结束数量" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <delete method="delete" id="delKnbSett" longname="删除临时结算单批次明细表数据">
+        <sql type="mysql"><![CDATA[
+    	delete 
+    	from
+    	    	knb_sett_begin_info
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+    </delete>
+</sqls>

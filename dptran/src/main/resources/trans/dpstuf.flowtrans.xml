@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpstuf" longname="系统解冻" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[系统解冻]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" ref="DpDict.Acct.trandt"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" ref="DpDict.Froz.mntrsq"/>
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="remark" type="BaseType.U_SHORTS" required="false" multi="false" array="false" longname="备注" ref="DpDict.Froz.remark"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoDpFrozSvcType.IoDpStUf" id="ioDpStUf" longname="系统解冻" desc="系统解冻">
+            <in_mappings by_interface="true">
+                <mapping src="mntrsq" dest="cpliodpstufin.mntrsq" by_interface="true" on_top="true"/>
+                <mapping src="trandt" dest="cpliodpstufin.trandt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cpliodpstufot.remark" dest="remark" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

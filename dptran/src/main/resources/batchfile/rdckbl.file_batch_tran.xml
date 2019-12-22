@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rdckbl" longname="对账单读文件" kind="read" package="cn.sunline.ltts.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <fileTemplate id="rdckbl" longname="对账单读文件" mode="splitor" splitor="|@|" encoding="UTF-8" package="">
+        <description><![CDATA[]]></description>
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" prefix="" suffix="" startline="1">
+            <description><![CDATA[]]></description>
+            <field id="totanm" type="BaseType.U_LONGIN" longname="总记录数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="RpMgr.KnbStat" prefix="" suffix="" startline="2">
+            <description><![CDATA[]]></description>
+            <field id="userid" type="BaseType.U_CUSTID" longname="用户ID" leftPadding="false" mode="splitor"/>
+            <field id="cardno" type="BaseType.U_CARDNO" longname="客户账号" leftPadding="false" mode="splitor"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" longname="客户名称" leftPadding="false" mode="splitor"/>
+            <field id="maildr" type="PbBaseType.U_EMAILS" longname="邮箱地址" leftPadding="false" mode="splitor"/>
+            <field id="begndt" type="BaseType.U_DATE08" longname="起始日期" leftPadding="false" mode="splitor"/>
+            <field id="endddt" type="BaseType.U_DATE08" longname="终止日期" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" mapping="" prefix="" suffix="" startline="1">
+            <description><![CDATA[]]></description>
+        </foot>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="文件批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="dwname" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="文件名"/>
+            <field id="dwpath" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="文件下载路径"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

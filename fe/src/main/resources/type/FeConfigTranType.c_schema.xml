@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="FeConfigTranType" package="cn.sunline.ltts.busi.fe.type" longname="费种配置交易复合类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <complexType id="CgKcpChrg" longname="费种代码复合类型" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="费种代码" type="FeBaseType.U_CHRGCD" ref="FeDict.Chrg.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="费种代码名称" type="BaseType.U_CHAR80" ref="FeDict.Chrg.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="FeEnumType.E_CGPYRV" ref="FeDict.Chrg.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fetype" longname="费种大类" type="FeEnumType.E_FETYPE" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mndecm" longname="最低小数位数" type="FeBaseType.U_LONGIN" ref="FeDict.Chrg.mndecm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="carrtp" longname="四舍五入方式" type="FeEnumType.E_CARRTP" ref="FeDict.Chrg.carrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lysptp" longname="分层方式" type="FeEnumType.E_LYSPTP" ref="FeDict.Chrg.lysptp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="felytp" longname="收费分层取值类型" type="FeEnumType.E_FELYTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="isfavo" longname="是否允许优惠" type="FeEnumType.E_ISFAVO" ref="FeDict.Chrg.isfavo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mxfvrt" longname="最高优惠比例" type="FeBaseType.U_RATVAL" ref="FeDict.Chrg.mxfvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mnfvrt" longname="最低优惠比例" type="FeBaseType.U_RATVAL" ref="FeDict.Chrg.mnfvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fedive" longname="收费分润标志" type="FeEnumType.E_FEDIVE" ref="FeDict.Chrg.fedive" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgsr" longname="收费金额来源" type="FeEnumType.E_CHRGSR" ref="FeDict.Chrg.chrgsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cjsign" longname="县辖维护标志" type="FeEnumType.E_CJSIGN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="efctdt" longname="生效日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inefdt" longname="失效日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgKcpChrgFmdf" longname="计费公式定义复合类型" dict="false" abstract="false" introduct="false">
+        <element id="chrgfm" longname="计费公式代码" type="FeBaseType.U_FOMUCD" ref="FeDict.Chrg.chrgfm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fmunam" longname="公式名称" type="BaseType.U_CHAR200" ref="FeDict.Chrg.fmunam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="filebs" longname="文件依据" type="BaseType.U_CHAR200" ref="FeDict.Chrg.filebs" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="efctdt" longname="生效日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inefdt" longname="失效日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgkcpScevDefn" longname="场景事件复合类型" dict="false" abstract="false" introduct="false">
+        <element id="evetcd" longname="事件编号" type="BaseType.U_CHAR32" ref="FeDict.Chrg.evetcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="evetna" longname="事件名称" type="FeBaseType.U_MIDDDS" ref="FeDict.Chrg.evetna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgKcpFavoPldf" longname="优惠计划定义复合类型" dict="false" abstract="false" introduct="false">
+        <element id="diplcd" longname="优惠计划代码" type="BaseType.U_CHAR08" ref="FeDict.Chrg.diplcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="planna" longname="优惠计划名称" type="BaseType.U_CHAR80" ref="FeDict.Chrg.planna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="BaseDict.Comm.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="efctdt" longname="生效日期" type="FeBaseType.U_DATE08" ref="FeDict.Chrg.efctdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inefdt" longname="失效日期" type="FeBaseType.U_DATE08" ref="FeDict.Chrg.inefdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="explan" longname="备注" type="BaseType.U_CHAR80" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

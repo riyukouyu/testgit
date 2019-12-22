@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="uppayc" longname="银联全渠道代付清算" kind="account" package="cn.sunline.ltts.busi.intran.trans.setlle" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[银联全渠道代付清算]]></description>
+    <interface package="cn.sunline.ltts.busi.serv.trans.online.debt.intf">
+        <input packMode="true">
+            <field id="tranam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="代付总金额"/>
+            <field id="feeeam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="手续费"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" desc="货币代码" ref="BaseDict.Comm.crcycd"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="cpbsno" type="BaseType.U_BUSINO" required="false" fixed="'UN3001'" multi="false" array="false" longname="银联全渠道业务编码" desc="银联全渠道清算资金"/>
+            <field id="ppbsno" type="BaseType.U_BUSINO" required="false" fixed="'B3002'" multi="false" array="false" longname="备付金业务编码" desc="上存总行备付金"/>
+            <field id="febsno" type="BaseType.U_BUSINO" required="false" fixed="'6021'" multi="false" array="false" longname="手续费业务编码" desc="代理手续费支出"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+            <field id="cpsbac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="银联全渠道子户号"/>
+            <field id="ppsbac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="备付金子户号"/>
+            <field id="fesbac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="手续费子户号"/>
+            <field id="cpacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="银联全渠道内部账名称"/>
+            <field id="ppacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="备付金内部账名称"/>
+            <field id="feacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="手续费内部账名称"/>
+            <field id="cpacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="银联全渠道内部账号"/>
+            <field id="ppacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="备付金内部账号"/>
+            <field id="feacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="手续费内部账号"/>
+            <field id="summam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="代付及手续费总额"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="CheckTransBefore" id="CheckTransBefore" longname="交易前检查" desc="交易前检查"/>
+        <service mappingToProperty="true" serviceName="IoInAccount.IoInAcdr" id="inAcdr" test="tranam!=@java.math.BigDecimal@ZERO" longname="chinapay清算资金出账" desc="chinapay清算资金出账">
+            <in_mappings by_interface="true">
+                <mapping src="cpbsno" dest="input.busino" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="ppacno" dest="input.toacct" by_interface="true" on_top="true"/>
+                <mapping src="ppacna" dest="input.toacna" by_interface="true" on_top="true"/>
+                <mapping src="ppsbac" dest="input.tosbac" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="input.tranam" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="input.acbrch" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="output.acctno" dest="cpacno" by_interface="true" on_top="true"/>
+                <mapping src="output.acctna" dest="cpacna" by_interface="true" on_top="true"/>
+                <mapping src="output.subsac" dest="cpsbac" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service mappingToProperty="true" serviceName="IoInAccount.IoInAccr" id="inAccr" test="summam!=@java.math.BigDecimal@ZERO" longname="上存总行备付金记账" desc="上存总行备付金入账">
+            <in_mappings by_interface="true">
+                <mapping src="ppbsno" dest="input.busino" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="cpacno" dest="input.toacct" by_interface="true" on_top="true"/>
+                <mapping src="cpacna" dest="input.toacna" by_interface="true" on_top="true"/>
+                <mapping src="cpsbac" dest="input.tosbac" desc="子户号" by_interface="true" on_top="true"/>
+                <mapping src="summam" dest="input.tranam" desc="代付及手续费总额" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="input.acbrch" desc="机构号" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="output.acctno" dest="ppacno" by_interface="true" on_top="true"/>
+                <mapping src="output.acctna" dest="ppacna" by_interface="true" on_top="true"/>
+                <mapping src="output.subsac" dest="ppsbac" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service mappingToProperty="true" serviceName="IoInAccount.IoInAcdr" id="inAcdr" test="feeeam!=@java.math.BigDecimal@ZERO" longname="手续费出账" desc="手续费出账">
+            <in_mappings by_interface="true">
+                <mapping src="febsno" dest="input.busino" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="ppacno" dest="input.toacct" by_interface="true" on_top="true"/>
+                <mapping src="ppacna" dest="input.toacna" by_interface="true" on_top="true"/>
+                <mapping src="ppsbac" dest="input.tosbac" by_interface="true" on_top="true"/>
+                <mapping src="feeeam" dest="input.tranam" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="input.acbrch" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="output.acctno" dest="feacno" by_interface="true" on_top="true"/>
+                <mapping src="output.acctna" dest="feacna" by_interface="true" on_top="true"/>
+                <mapping src="output.subsac" dest="fesbac" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="CheckTransfAfter" id="checkTransfAfter" longname="交易后处理" desc="交易后处理"/>
+    </flow>
+</flowtran>

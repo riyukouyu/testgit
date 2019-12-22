@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knbunfr" longname="解冻登记簿数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knbunfr" longname="解冻登记簿数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="odfrno" type="BaseType.U_SEQUNO" longname="原冻结编号" length="64" leftPadding="false" padding=" " ref="DpDict.Froz.odfrno"/>
+            <field id="unfrsq" type="BaseType.U_LONGIN" longname="解冻序号" length="19" leftPadding="false" padding=" " ref="DpDict.Froz.unfrsq"/>
+            <field id="odfrsq" type="BaseType.U_LONGIN" longname="原冻结序号" length="19" leftPadding="false" padding=" " ref="DpDict.Froz.odfrsq"/>
+            <field id="custac" type="BaseType.U_CUACNO" longname="客户账号" length="64" leftPadding="false" padding=" " ref="DpDict.Acct.custac"/>
+            <field id="ufctno" type="BaseType.U_SHORDS" longname="解冻通知书编号" length="400" leftPadding="false" padding=" " ref="DpDict.Froz.ufctno"/>
+            <field id="ufcttp" type="BaseType.U_SHORDS" longname="解冻证明文书类别" length="400" leftPadding="false" padding=" " ref="DpDict.Froz.ufcttp"/>
+            <field id="ufreas" type="BaseType.U_SHORDS" longname="解冻原因" length="400" leftPadding="false" padding=" " ref="DpDict.Froz.ufreas"/>
+            <field id="ufexog" type="BaseEnumType.E_LAWCOP" longname="解冻执法部门" length="4" leftPadding="false" padding=" " ref="DpDict.Froz.ufexog"/>
+            <field id="ufogna" type="BaseType.U_SHORDS" longname="解冻执法部门名称" length="400" leftPadding="false" padding=" " ref="DpDict.Froz.ufogna"/>
+            <field id="idtp01" type="BaseEnumType.E_IDTFTP" longname="执法人员1证件种类" length="6" leftPadding="false" padding=" "/>
+            <field id="idno01" type="BaseType.U_IDTFNO" longname="执法人员1证件号码" length="40" leftPadding="false" padding=" " ref="DpDict.Froz.idno01"/>
+            <field id="ufna01" type="BaseType.U_CUSTNA" longname="解冻执法人员1姓名" length="160" leftPadding="false" padding=" " ref="DpDict.Froz.ufna01"/>
+            <field id="idtp02" type="BaseEnumType.E_IDTFTP" longname="执法人员2证件种类" length="6" leftPadding="false" padding=" "/>
+            <field id="idno02" type="BaseType.U_IDTFNO" longname="执法人员2证件号码" length="40" leftPadding="false" padding=" " ref="DpDict.Froz.idno02"/>
+            <field id="ufna02" type="BaseType.U_CUSTNA" longname="解冻执法人员2姓名" length="160" leftPadding="false" padding=" " ref="DpDict.Froz.ufna02"/>
+            <field id="tranbr" type="BaseType.U_BRCHNO" longname="交易机构" length="12" leftPadding="false" padding=" "/>
+            <field id="tranus" type="BaseType.U_USERID" longname="经办人" length="14" leftPadding="false" padding=" "/>
+            <field id="ckuser" type="BaseType.U_USERID" longname="复核人" length="14" leftPadding="false" padding=" "/>
+            <field id="pruser" type="BaseType.U_USERID" longname="审批人" length="14" leftPadding="false" padding=" "/>
+            <field id="cptrcd" type="BaseType.U_PRCSCD" longname="对账代码" length="60" leftPadding="false" padding=" "/>
+            <field id="lttscd" type="BaseType.U_LTTSCD" longname="内部交易码" length="120" leftPadding="false" padding=" "/>
+            <field id="unfrdt" type="BaseType.U_DATE08" longname="解冻日期" length="16" leftPadding="false" padding=" " ref="DpDict.Froz.unfrdt"/>
+            <field id="unfrtm" type="BaseType.U_TRTMCH" longname="解冻时间" length="42" leftPadding="false" padding=" "/>
+            <field id="ussqno" type="BaseType.U_SEQUNO" longname="柜员流水号" length="64" leftPadding="false" padding=" " ref="DpDict.Acct.ussqno"/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="交易渠道" length="4" leftPadding="false" padding=" "/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" longname="主交易流水" length="64" leftPadding="false" padding=" "/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" longname="账户钞汇标志" length="2" leftPadding="false" padding=" " ref="DpDict.Acct.csextg"/>
+            <field id="unmark" type="BaseType.U_SHORTS" longname="解冻备注" length="160" leftPadding="false" padding=" " ref="DpDict.Froz.unmark"/>
+            <field id="unfram" type="BaseType.U_TRANAM" longname="解冻金额" length="17" leftPadding="false" padding=" " ref="DpDict.Froz.unfram"/>
+            <field id="isflag" type="BaseEnumType.E_YES___" longname="是否冲正" length="2" leftPadding="false" padding=" "/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

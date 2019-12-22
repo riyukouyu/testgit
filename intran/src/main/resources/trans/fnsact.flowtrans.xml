@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="fnsact" longname="财务往来记账登记簿入账" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="commsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套帐号"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="记账日期"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="trandt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="记账日期"/>
+            <field id="transq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="记账流水"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="beforeAcct" id="beforeAcct" longname="入账前处理" desc="入账前处理"/>
+        <service serviceName="IoInFnsCmbk.FnsAccounting" id="FnsAccounting" longname="财务往来登记簿记账" desc="财务往来登记簿记账">
+            <in_mappings by_interface="true">
+                <mapping src="commsq" dest="commsq" by_interface="true" on_top="true"/>
+                <mapping src="trandt" dest="trandt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="out.trandt" dest="trandt" by_interface="true" on_top="true"/>
+                <mapping src="out.transq" dest="transq" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="afterAcct" id="afterAcct" longname="入账后处理" desc="入账后处理"/>
+    </flow>
+</flowtran>

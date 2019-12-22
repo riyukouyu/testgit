@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="clacct" longname="移动前端销户交易" kind="3" package="cn.sunline.ltts.busi.dptran.trans.close" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[移动前端销户交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="BaseDict.Comm.custna"/>
+            <field id="closam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户金额" ref="CaDict.Eacct.closam"/>
+            <field id="tracno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="转入账号"/>
+            <field id="tracna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="转入户名"/>
+            <field id="trbkno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="转入账户开户行号"/>
+            <field id="tractp" type="DpEnumType.E_CLSATP" required="false" multi="false" array="false" longname="收款人账户类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="closst" type="CaEnumType.E_CLOSST" required="false" multi="false" array="false" longname="销户状态" ref="CaDict.Eacct.closst"/>
+            <field id="pyindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="销户日期"/>
+            <field id="pyinsq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="销户流水"/>
+            <field id="settbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户金额"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类" ref="DpDict.Prod.accatp"/>
+        </output>
+        <property packMode="true">
+            <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号ID"/>
+            <field id="cuacst" type="CaEnumType.E_CUACST" required="false" multi="false" array="false" longname="客户状态"/>
+            <field id="chkot" type="IoDpProdQuery.IoDpClsChkOT" required="false" multi="false" array="false" longname="存款检查输出"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="cplClsAcctIn" type="DpProdSvc.ClsAcctIn" required="false" multi="false" array="false" longname="电子账户销户输入参数"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="归属机构" ref="CaDict.Eacct.brchno"/>
+            <field id="settbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户金额"/>
+            <field id="clstat" type="DpEnumType.E_CLSTAT" required="false" multi="false" array="false" longname="销户状态"/>
+            <field id="oldtat" type="DpEnumType.E_CLSTAT" required="false" multi="false" array="false" longname="原销户状态"/>
+            <field id="closdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="原销户日期"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+            <field id="obopfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否只开过户标志"/>
+            <field id="invofg" type="BaseEnumType.E_INSPFG" required="false" default="'0'" multi="false" array="false" longname="转出账号涉案可疑标识"/>
+            <field id="invofg1" type="BaseEnumType.E_INSPFG" required="false" default="'0'" multi="false" array="false" longname="转入账号涉案可疑标识"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="账户别名"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="prcCloseTransBefore" id="prcCloseTransBefore" longname="客户端销户交易前检查" desc="客户端销户交易前检查"/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryInwadeInfo" id="ioCaQryInwadeInfo" longname="销户账户恐怖名检查">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="cplClsAcctIn.idtfno" dest="idtfno" by_interface="true" on_top="true"/>
+                <mapping src="cplClsAcctIn.idtftp" dest="idtftp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="DpAcctSvcType.IoChkAmbl" id="ChkAmbl" longname="检查积数是否小于零">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <block id="block_1" test="clstat == #dict.DpEnumType.E_CLSTAT().DEAL" longname="涉案检查">
+            <service mappingToProperty="true" serviceName="IoCaSevQryAccout.IoCaQryInacInfo" id="ioCaQryInacInfo" longname="转出方涉案可疑账户查询">
+                <in_mappings by_interface="false">
+                    <mapping src="cardno" dest="cardno" desc="转出账号" by_interface="true" on_top="true"/>
+                    <mapping src="custna" dest="custna" desc="转出方户名" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="false">
+                    <mapping src="inspfg" dest="invofg" desc="转出方涉案可以标志" by_interface="true" on_top="true"/>
+                </out_mappings>
+            </service>
+            <service mappingToProperty="true" serviceName="IoCaSevQryAccout.IoCaQryInacInfo" id="ioCaQryInacInfo1" test="tracno != &quot;&quot; &amp;&amp; tracno != null &amp;&amp; tracna != &quot;&quot; &amp;&amp; tracna != null" longname="转入方涉案可疑账户查询">
+                <in_mappings by_interface="false">
+                    <mapping src="tracno" dest="cardno" desc="转入方账号" by_interface="true" on_top="true"/>
+                    <mapping src="tracna" dest="custna" desc="转入方户名" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="false">
+                    <mapping src="inspfg" dest="invofg1" desc="转入方涉案可疑标志" by_interface="true" on_top="true"/>
+                </out_mappings>
+            </service>
+            <method method="prcyInacRegister" id="prcyInacRegister" longname="涉案可疑账户检查"/>
+        </block>
+        <block id="block_2" test="clstat == #dict.DpEnumType.E_CLSTAT().DEAL" longname="其他销户检查">
+            <method method="chkRedpack" id="chkRedpack" longname="销户前检查是否有未领取红包"/>
+            <method method="chkNotChrgFee" id="chkNotChrgFee" longname="检查是否有未收讫费用"/>
+            <service serviceName="IoCaCloseSvc.IoCaChkLoan" id="caChkLoan" longname="检查是否有贷款" desc="检查是否有贷款">
+                <in_mappings by_interface="true"/>
+                <out_mappings by_interface="true"/>
+            </service>
+            <service serviceName="IoCaCloseSvc.IoCaChkOther" id="caChkOther" longname="检查是否有未结清的透支款项、贵金属等" desc="检查是否有未结清的透支款项、贵金属等">
+                <in_mappings by_interface="true"/>
+                <out_mappings by_interface="true"/>
+            </service>
+            <service serviceName="IoCaCloseSvc.IoCaChkFina" id="caChkFina" longname="销户前检查是否有未赎回理财" desc="销户前检查是否有未赎回理财">
+                <in_mappings by_interface="true">
+                    <mapping src="custac" dest="custac" desc="电子账户ID" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="true"/>
+            </service>
+        </block>
+        <service serviceName="DpAcctSvcType.IoDpCloseAcDpCheck" id="dpCloseAcDpCheck" test="clstat == #dict.DpEnumType.E_CLSTAT().DEAL" longname="客户端销户存款检查" desc="客户端销户存款检查">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="custac" desc="电子账号ID" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="prcCloseMidd" id="prcCloseMidd" longname="客户端销户交易中处理" desc="客户端销户交易中处理"/>
+        <method method="prcCloseTransAfter" id="prcCloseTransAfter" longname="客户端销户交易后处理" desc="客户端销户交易后处理"/>
+        <method method="sendCloseInfoMsg" id="sendCloseInfoMsg" longname="销户信息通知" desc="销户信息通知"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

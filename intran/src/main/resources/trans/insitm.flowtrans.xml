@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="insitm" longname="新增科目" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="true" multi="false" array="false" longname="科目" ref="InDict.inac.itemcd"/>
+            <field id="itemna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="科目名称" ref="InDict.inac.itemna"/>
+            <field id="itemlv" type="BaseType.U_CHAR01" required="false" multi="false" array="false" longname="科目层次" ref="InDict.inac.itemlv"/>
+            <field id="dtittg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否明细科目" ref="InDict.inac.dtittg"/>
+            <field id="blncdn" type="InEnumType.E_BLNCDN" required="false" multi="false" array="false" longname="余额方向CDR" ref="InDict.inac.blncdn"/>
+            <field id="ioflag" type="InEnumType.E_IOFLAG" required="false" multi="false" array="false" longname="表内外标志" ref="InDict.inac.ioflag"/>
+            <field id="upitem" type="BaseType.U_ITEMCD" required="false" multi="false" array="false" longname="上级科目号" ref="InDict.inac.upitem"/>
+            <field id="itemtp" type="InEnumType.E_ITEMTP" required="false" multi="false" array="false" longname="科目项目类型" ref="InDict.inac.itemtp"/>
+            <field id="aslbtp" type="InEnumType.E_ASLBTP" required="false" multi="false" array="false" longname="资产负债类型" ref="InDict.inac.aslbtp"/>
+            <field id="itemrg" type="InEnumType.E_ITEMRG" required="false" multi="false" array="false" longname="科目来源分类" ref="InDict.inac.itemrg"/>
+            <field id="ittype" type="InEnumType.E_ITTYPE" required="false" multi="false" array="false" longname="科目类别" ref="InDict.inac.ittype"/>
+            <field id="proftp" type="InEnumType.E_PROFTP" required="false" multi="false" array="false" longname="损益类别" ref="InDict.inac.proftp"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务代码" ref="InDict.inac.busino"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="ItemType.InsItemInfo" id="insertItem" longname="新增科目" desc="新增科目">
+            <in_mappings by_interface="true">
+                <mapping src="aslbtp" dest="inputItem.aslbtp" by_interface="true" on_top="true"/>
+                <mapping src="blncdn" dest="inputItem.blncdn" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="inputItem.busino" by_interface="true" on_top="true"/>
+                <mapping src="dtittg" dest="inputItem.dtittg" by_interface="true" on_top="true"/>
+                <mapping src="ioflag" dest="inputItem.ioflag" by_interface="true" on_top="true"/>
+                <mapping src="itemcd" dest="inputItem.itemcd" by_interface="true" on_top="true"/>
+                <mapping src="itemlv" dest="inputItem.itemlv" by_interface="true" on_top="true"/>
+                <mapping src="itemna" dest="inputItem.itemna" by_interface="true" on_top="true"/>
+                <mapping src="itemrg" dest="inputItem.itemrg" by_interface="true" on_top="true"/>
+                <mapping src="itemtp" dest="inputItem.itemtp" by_interface="true" on_top="true"/>
+                <mapping src="ittype" dest="inputItem.ittype" by_interface="true" on_top="true"/>
+                <mapping src="proftp" dest="inputItem.proftp" by_interface="true" on_top="true"/>
+                <mapping src="upitem" dest="inputItem.upitem" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

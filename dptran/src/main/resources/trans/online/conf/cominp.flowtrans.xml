@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="cominp" longname="存款产品录入提交" kind="2" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[存款产品录入提交]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="tyinno" type="BaseType.U_TYINNO" required="false" multi="false" array="false" longname="录入编号" ref="DpDict.Prod.tyinno"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="updinp" id="updinp" longname="存款产品录入提交" desc="存款产品录入提交"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

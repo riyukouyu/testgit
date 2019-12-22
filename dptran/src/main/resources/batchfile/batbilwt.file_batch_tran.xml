@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="batbilwt" longname="信用卡批量还款写文件" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <fileTemplate id="batbilwt" longname="信用卡批量还款写文件" mode="splitor" splitor="|" encoding="GBK">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="RpMgr.KnbCrcdBach" mode="splitor" splitor="|" startline="1">
+            <field id="bankcd" type="BaseType.U_CHAR04" longname="银行编号" length="4" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="regidt" type="BaseType.U_DATE08" longname="记录产生日期" length="8" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="cardno" type="BaseType.U_CHAR20" longname="扣账账户号码" length="20" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="tranam" type="BaseType.U_CHAR12" longname="扣账金额" length="12" leftPadding="true" padding="0" mode="splitor"/>
+            <field id="trancy" type="BaseType.U_CHAR03" longname="扣账币种" length="3" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="dealdt" type="BaseType.U_DATE08" longname="扣账日期" length="8" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="realam" type="BaseType.U_CHAR12" longname="实际扣账金额" length="12" leftPadding="true" padding="0" mode="splitor"/>
+            <field id="crcard" type="BaseType.U_CHAR19" longname="信用卡卡号" length="19" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="dealst" type="BaseType.U_CHAR02" longname="处理响应码" length="2" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="idtftp" type="BaseType.U_CHAR02" longname="借记卡证件类型" length="2" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="idtfno" type="BaseType.U_CHAR18" longname="借记卡证件号码" length="18" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="acctna" type="BaseType.U_CHAR30" longname="借记卡姓名" length="30" leftPadding="false" padding=" " mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

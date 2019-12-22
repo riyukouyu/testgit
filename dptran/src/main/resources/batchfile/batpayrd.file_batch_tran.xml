@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="batpayrd" longname="T1批量代发扣款反盘读文件" kind="read" package="cn.sunline.edsp.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <fileTemplate id="batpayrd" longname="batpayrd" mode="splitor" splitor="|" splitorAsEnd="true" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" startline="1">
+            <field id="sabkna" type="BaseType.U_CHAR80" longname="银行名称" leftPadding="false"/>
+            <field id="cardno" type="BaseType.U_CARDNO" longname="客户账号" leftPadding="false" ref="BaseDict.Comm.cardno"/>
+            <field id="custna" type="BaseType.U_ACCTNA" longname="客户名称" leftPadding="false" ref="BaseDict.Comm.custna"/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" leftPadding="false" ref="BaseDict.Comm.tranam"/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="交易日期" leftPadding="false" ref="BaseDict.Comm.trandt"/>
+            <field id="trantm" type="BaseType.U_TRTMCH" longname="交易时间" leftPadding="false" ref="BaseDict.Comm.trantm"/>
+            <field id="transq" type="BaseType.U_SEQUNO" longname="交易流水" leftPadding="false" ref="BaseDict.Comm.transq"/>
+            <field id="rtcode" type="BaseType.U_CHAR32" longname="返回码" leftPadding="false"/>
+            <field id="rtdesc" type="BaseType.U_CHAR200" longname="返回描述" leftPadding="false"/>
+            <field id="servna" type="BaseType.U_SHORDS" longname="渠道名称" leftPadding="false" ref="BaseDict.Comm.servna"/>
+            <field id="remark" type="BaseType.U_LONGDS" longname="备注信息" leftPadding="false" ref="BaseDict.Comm.remark"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.edsp.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="文件批次号"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="upecct" longname="电子账户信息修改" kind="maintain" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[后台管理系统调用]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="false">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.custac"/>
+            <field id="acctst" type="BaseEnumType.E_ACCTST" required="false" multi="false" array="false" longname="电子账户状态" ref="CaDict.Eacct.acctst"/>
+            <field id="emails" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="邮件" ref="DpDict.Acct.emails"/>
+            <field id="addres" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="地址" ref="PbDict.Brch.addres"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="ServEacctSvcType.UptEacctInfo" id="uptEacctInfo" longname="电子账户信息修改" desc="电子账户信息修改">
+            <in_mappings by_interface="true">
+                <mapping src="acctst" dest="acctst" by_interface="true" on_top="true"/>
+                <mapping src="addres" dest="addres" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="emails" dest="emails" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

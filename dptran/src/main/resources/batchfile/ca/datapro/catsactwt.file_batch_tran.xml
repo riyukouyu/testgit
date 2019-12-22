@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="catsactwt" longname="账户额度累计信息表数仓抽数" kind="write" package="cn.sunline.ltts.busi.catran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="catsactwt" longname="账户额度累计信息表数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" mode="fixAndSplitor" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno" mode="splitor"/>
+            <field id="custac" type="PbBaseType.U_CUSTAC" longname="电子账号" length="70" leftPadding="false" padding=" " ref="QtDict.Qt.custac" mode="splitor"/>
+            <field id="acctrt" type="BaseEnumType.E_ACCTROUTTYPE" longname="客户类型" length="4" leftPadding="false" padding=" " ref="BaseDict.Comm.acctrt" mode="splitor"/>
+            <field id="limttp" type="QtEnumType.E_LIMTTP" longname="额度类型" length="4" leftPadding="false" padding=" " ref="QtDict.Qt.limttp" mode="splitor"/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="渠道" length="4" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" longname="账户分类" length="2" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="sbactp" type="QtEnumType.E_SBACTP" longname="子账户类型" length="4" leftPadding="false" padding=" " ref="QtDict.Qt.sbactp" mode="splitor"/>
+            <field id="pytltp" type="QtEnumType.E_PYTLTP" longname="支付工具" length="4" leftPadding="false" padding=" " ref="QtDict.Qt.pytltp" mode="splitor"/>
+            <field id="lastdt" type="BaseType.U_DATE08" longname="最后交易日期" length="16" leftPadding="false" padding=" " ref="QtDict.Qt.lastdt" mode="splitor"/>
+            <field id="dytlam" type="BaseType.U_TRANAM" longname="日累计交易金额" length="17" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="dytltm" type="BaseType.U_LONGIN" longname="日累计交易次数" length="19" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="mhtlam" type="BaseType.U_TRANAM" longname="日累计交易金额" length="17" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="mhtltm" type="BaseType.U_LONGIN" longname="日累计交易次数" length="19" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="yrtlam" type="BaseType.U_TRANAM" longname="日累计交易金额" length="17" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="yrtltm" type="BaseType.U_LONGIN" longname="日累计交易次数" length="19" leftPadding="false" padding=" " mode="splitor"/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" mode="fixAndSplitor" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

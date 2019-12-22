@@ -1,0 +1,1666 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<errorConf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpAcError" longname="Dp父模块错误码定义" package="cn.sunline.edsp.busi.dp.errors" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <errors id="DpDeptComm" longname="负债公共错误码">
+        <error id="E9999" type="error" message="[${msg}]" errorCode="DP.CM039999">
+            <parameter id="msg" type="BaseType.U_SHORDS" longname="错误信息"/>
+        </error>
+        <error id="E9027" type="error" message="[${msg}]不能为空" errorCode="DP.CM039027">
+            <parameter id="msg" type="BaseType.U_LONGDS" longname="描述信息"/>
+        </error>
+        <error id="E9028" type="error" message="卡号、主交易流水不能同时为空" errorCode="DP.CM039028"/>
+        <error id="E9029" type="error" message="交易状态为“正在等待转账”时，才允许撤销" errorCode="DP.CM039029"/>
+        <error id="E9030" type="error" message="原撤销记录不存在,不允许撤销" errorCode="DP.CM039030"/>
+        <error id="BNAS0001" type="error" message="最小转入金额与存入控制金额不符" errorCode="DP.CM030001"/>
+        <error id="BNAS0005" type="error" message="最大支取次数不能小于最小支取次数" errorCode="DP.CM030005"/>
+        <error id="BNAS0007" type="error" message="最大交易金额不得小于最小交易金额！" errorCode="DP.CM030007"/>
+        <error id="BNAS0008" type="error" message="最大交易金额必须大于等于零！" errorCode="DP.CM030008"/>
+        <error id="BNAS0012" type="error" message="组织机构代码[${msg}]已开过户" errorCode="DP.CM030012">
+            <parameter id="msg" type="BaseType.U_LONGDS" longname="描述信息"/>
+        </error>
+        <error id="BNAS0018" type="error" message="子账号类型输入有误" errorCode="DP.CM030018"/>
+        <error id="BNAS0025" type="error" message="转入转出账号不能为同一个账号" errorCode="DP.CM030025"/>
+        <error id="BNAS0026" type="error" message="转入账户为客户账时，转入户名必须和存款人姓名或经办人姓名一致" errorCode="DP.CM030026"/>
+        <error id="BNAS0029" type="error" message="转入方子账号类型输入有误" errorCode="DP.CM030029"/>
+        <error id="BNAS0031" type="error" message="转入方机构与账户机构不一致!" errorCode="DP.CM030031"/>
+        <error id="BNAS0035" type="error" message="转存存款基础产品编号与基础产品不一致" errorCode="DP.CM030035"/>
+        <error id="BNAS0037" type="error" message="转出最小金额与支取控制最小金额不符" errorCode="DP.CM030037"/>
+        <error id="BNAS0040" type="error" message="转出方子账号类型输入有误" errorCode="DP.CM030040"/>
+        <error id="BNAS0042" type="error" message="转出方卡号/账号!" errorCode="DP.CM030042"/>
+        <error id="BNAS0043" type="error" message="转出方机构与账户机构不一致，请检查!" errorCode="DP.CM030043"/>
+        <error id="BNAS0048" type="error" message="转出保留最低余额与账户留存最小余额不符" errorCode="DP.CM030048"/>
+        <error id="BNAS0054" type="error" message="重订价利率处理方式与基础产品不一致" errorCode="DP.CM030054"/>
+        <error id="BNAS0055" type="error" message="重订价利率处理方式设置有误" errorCode="DP.CM030055"/>
+        <error id="BNAS0056" type="error" message="终止日期需大于起始日期" errorCode="DP.CM030056"/>
+        <error id="BNAS0058" type="error" message="终止日期格式错误" errorCode="DP.CM030058"/>
+        <error id="BNAS0059" type="error" message="终止日期不允许输入" errorCode="DP.CM030059"/>
+        <error id="BNAS0064" type="error" message="智能存款子账号" errorCode="DP.CM030064"/>
+        <error id="BNAS0067" type="error" message="止解方式为部止或者质押时，止付金额不允许为空" errorCode="DP.CM030067"/>
+        <error id="BNAS0068" type="error" message="止解方式为部止或者质押时，止付金额必须大于零" errorCode="DP.CM030068"/>
+        <error id="BNAS0070" type="error" message="止解方式不合法" errorCode="DP.CM030070"/>
+        <error id="BNAS0072" type="error" message="止付序号与止付类型不一致" errorCode="DP.CM030072"/>
+        <error id="BNAS0073" type="error" message="止付序号输入非法" errorCode="DP.CM030073"/>
+        <error id="BNAS0075" type="error" message="止付时长与原止付信息中止付时长不一致！" errorCode="DP.CM030075"/>
+        <error id="BNAS0076" type="error" message="止付时长不能超过48" errorCode="DP.CM030076"/>
+        <error id="BNAS0077" type="error" message="止付时间计算为按小时时，止付时长必输！" errorCode="DP.CM030077"/>
+        <error id="BNAS0078" type="error" message="止付时间计算为按小时时，解止/质押到期日期不得输入！！" errorCode="DP.CM030078"/>
+        <error id="BNAS0079" type="error" message="止付时间计算为按天时，解止/质押到期日期必输！" errorCode="DP.CM030079"/>
+        <error id="BNAS0081" type="error" message="止付时间按小时，止付时长必输" errorCode="DP.CM030081"/>
+        <error id="BNAS0082" type="error" message="止付时间按小时，止付时间不可录入" errorCode="DP.CM030082"/>
+        <error id="BNAS0083" type="error" message="止付时间按小时，止付(质押)到期日不可录入" errorCode="DP.CM030083"/>
+        <error id="BNAS0084" type="error" message="止付时间按天时，止付时长不可录入" errorCode="DP.CM030084"/>
+        <error id="BNAS0085" type="error" message="止付时间按天时，止付日期必输" errorCode="DP.CM030085"/>
+        <error id="BNAS0086" type="error" message="止付时间按天、止付类型为银行止付、客户止付，止付(质押)到期日不可录入" errorCode="DP.CM030086"/>
+        <error id="BNAS0087" type="error" message="止付时间按天、银行止付或客户止付时，止付(质押)到期日不可录入，默认为永久止付" errorCode="DP.CM030087"/>
+        <error id="BNAS0088" type="error" message="止付类型为银行止付或者客户止付时，止付措施不可选" errorCode="DP.CM030088"/>
+        <error id="BNAS0089" type="error" message="止付类型为外部止付时，止付措施不能为空" errorCode="DP.CM030089"/>
+        <error id="BNAS0090" type="error" message="止付类型客户止付或者外部止付时，止解方式不能为部止或质押" errorCode="DP.CM030090"/>
+        <error id="BNAS0091" type="error" message="止付类型和账户保护类型不能都为空" errorCode="DP.CM030091"/>
+        <error id="BNAS0094" type="error" message="止付(质押)到期日格式错误" errorCode="DP.CM030094"/>
+        <error id="BNAS0095" type="error" message="止付(质押)到期日格式不能小于当前系统日期" errorCode="DP.CM030095"/>
+        <error id="BNAS0105" type="error" message="执法部门名称必须为原执法部门名称" errorCode="DP.CM030105"/>
+        <error id="BNAS0107" type="error" message="只有外部止付才有紧急止付" errorCode="DP.CM030107"/>
+        <error id="BNAS0113" type="error" message="支取违约处理方式与基础产品不一致" errorCode="DP.CM030113"/>
+        <error id="BNAS0115" type="error" message="支取违约标准与基础产品不一致" errorCode="DP.CM030115"/>
+        <error id="BNAS0118" type="error" message="支取时结息处理标志与基础产品不一致" errorCode="DP.CM030118"/>
+        <error id="BNAS0120" type="error" message="支取控制信息与基础产品不一致" errorCode="DP.CM030120"/>
+        <error id="BNAS0121" type="error" message="支取控制方法有误" errorCode="DP.CM030121"/>
+        <error id="BNAS0122" type="error" message="支取控制方法" errorCode="DP.CM030122"/>
+        <error id="BNAS0123" type="error" message="支取金额控制方式与基础产品不一致" errorCode="DP.CM030123"/>
+        <error id="BNAS0124" type="error" message="支取金额控制方式有误" errorCode="DP.CM030124"/>
+        <error id="BNAS0125" type="error" message="支取金额控制方式" errorCode="DP.CM030125"/>
+        <error id="BNAS0126" type="error" message="支取计划生成周期设置有误" errorCode="DP.CM030126"/>
+        <error id="BNAS0127" type="error" message="支取计划生成方式与基础产品不一致" errorCode="DP.CM030127"/>
+        <error id="BNAS0129" type="error" message="支取计划设置标志设置有误" errorCode="DP.CM030129"/>
+        <error id="BNAS0130" type="error" message="支取计划控制方式与基础产品不一致" errorCode="DP.CM030130"/>
+        <error id="BNAS0132" type="error" message="支取规则与基础产品不一致" errorCode="DP.CM030132"/>
+        <error id="BNAS0133" type="error" message="支取规则设置有误" errorCode="DP.CM030133"/>
+        <error id="BNAS0135" type="error" message="支取次数控制方式与基础产品不一致" errorCode="DP.CM030135"/>
+        <error id="BNAS0136" type="error" message="支取次数控制方式有误" errorCode="DP.CM030136"/>
+        <error id="BNAS0141" type="error" message="证明金额输入有误" errorCode="DP.CM030141"/>
+        <error id="BNAS0142" type="error" message="证明金额不能为空且必须大于零" errorCode="DP.CM030142"/>
+        <error id="BNAS0143" type="error" message="证明金额不能大于账户可用余额" errorCode="DP.CM030143"/>
+        <error id="BNAS0144" type="error" message="证明金额不能大于当日账户可用余额" errorCode="DP.CM030144"/>
+        <error id="BNAS0145" type="error" message="证明金额必须大于零" errorCode="DP.CM030145"/>
+        <error id="BNAS0146" type="error" message="证明金额+手续费不能大于账户可用余额" errorCode="DP.CM030146"/>
+        <error id="BNAS0154" type="error" message="证件号码错误" errorCode="DP.CM030154"/>
+        <error id="BNAS0162" type="error" message="找不到利率信息" errorCode="DP.CM030162"/>
+        <error id="BNAS0164" type="error" message="账户状态为销户!" errorCode="DP.CM030164"/>
+        <error id="BNAS0165" type="error" message="账户状态为停用!" errorCode="DP.CM030165"/>
+        <error id="BNAS0167" type="error" message="账户新所属机构不存在" errorCode="DP.CM030167"/>
+        <error id="BNAS0172" type="error" message="账户下唯一标志与基础产品不一致" errorCode="DP.CM030172"/>
+        <error id="BNAS0175" type="error" message="账户可用余额不足收费金额" errorCode="DP.CM030175"/>
+        <error id="BNAS0177" type="error" message="账户可用余额不足" errorCode="DP.CM030177"/>
+        <error id="BNAS0180" type="error" message="账户解除保护或者外部止付解止，解止金额不可输" errorCode="DP.CM030180"/>
+        <error id="BNAS0181" type="error" message="账户积数小于零，不能销户！" errorCode="DP.CM030181"/>
+        <error id="BNAS0197" type="error" message="不存在该冻结编号!" errorCode="DP.CM030197"/>
+        <error id="BNAS0198" type="error" message="暂只支持智能储蓄解冻" errorCode="DP.CM030198"/>
+        <error id="BNAS0202" type="error" message="暂不支持预授权操作" errorCode="DP.CM030202"/>
+        <error id="BNAS0208" type="error" message="暂不支持的冻结模式[${frozow}]" errorCode="DP.CM030208">
+            <parameter id="frozow" type="BaseType.U_CHAR20" longname="冻结模式"/>
+        </error>
+        <error id="BNAS0209" type="error" message="暂不支持此交易" errorCode="DP.CM030209"/>
+        <error id="BNAS0211" type="error" message="暂不允许[只出不进]冻结。" errorCode="DP.CM030211"/>
+        <error id="BNAS0212" type="error" message="原止付是非部止时，则冻结金额不用输入" errorCode="DP.CM030212"/>
+        <error id="BNAS0213" type="error" message="原因不能为空" errorCode="DP.CM030213"/>
+        <error id="BNAS0214" type="error" message="原销户记录不存在" errorCode="DP.CM030214"/>
+        <error id="BNAS0215" type="error" message="原交易流水已存在" errorCode="DP.CM030215"/>
+        <error id="BNAS0217" type="error" message="原冻结序号不存在" errorCode="DP.CM030217"/>
+        <error id="BNAS0218" type="error" message="原冻结不是金额冻结，解冻金额必须为零" errorCode="DP.CM030218"/>
+        <error id="BNAS0219" type="error" message="原冻结编号无此电子账号记录" errorCode="DP.CM030219"/>
+        <error id="BNAS0223" type="error" message="遇节假日处理方式与基础产品不一致" errorCode="DP.CM030223"/>
+        <error id="BNAS0225" type="error" message="预警类型错误！" errorCode="DP.CM030225"/>
+        <error id="BNAS0226" type="error" message="预警类型不能为空" errorCode="DP.CM030226"/>
+        <error id="BNAS0231" type="error" message="有未赎回的理财产品" errorCode="DP.CM030231"/>
+        <error id="BNAS0232" type="error" message="有权机构名称非冻结对应的有权机构类型" errorCode="DP.CM030232"/>
+        <error id="BNAS0233" type="error" message="有权机构经办人证件类型不允许为空" errorCode="DP.CM030233"/>
+        <error id="BNAS0234" type="error" message="有权机构经办人姓名不允许为空" errorCode="DP.CM030234"/>
+        <error id="BNAS0235" type="error" message="有权机构经办人不能为同一人" errorCode="DP.CM030235"/>
+        <error id="BNAS0236" type="error" message="有冻结外部扣划，账户可扣划金额不足" errorCode="DP.CM030236"/>
+        <error id="BNAS0237" type="error" message="优惠后应收金额不能小于0" errorCode="DP.CM030237"/>
+        <error id="BNAS0238" type="error" message="优惠后应收金额不能为空或小于0!" errorCode="DP.CM030238"/>
+        <error id="BNAS0239" type="error" message="优惠后金额大于应收费用金额（未优惠），请检查数据!" errorCode="DP.CM030239"/>
+        <error id="BNAS0243" type="error" message="应收金额与收费总金额不一致" errorCode="DP.CM030243"/>
+        <error id="BNAS0244" type="error" message="应收费用金额（未优惠）不能小于0" errorCode="DP.CM030244"/>
+        <error id="BNAS0245" type="error" message="应收费用金额（未优惠）不能为空或小于等于0!" errorCode="DP.CM030245"/>
+        <error id="BNAS0246" type="error" message="银联清算核准统计类型错误" errorCode="DP.CM030246"/>
+        <error id="BNAS0249" type="error" message="页数不能为空！" errorCode="DP.CM030249"/>
+        <error id="BNAS0252" type="error" message="页容量不能为空" errorCode="DP.CM030252"/>
+        <error id="BNAS0254" type="error" message="业务中类与基础产品不一致" errorCode="DP.CM030254"/>
+        <error id="BNAS0256" type="error" message="业务小类与基础产品不一致" errorCode="DP.CM030256"/>
+        <error id="BNAS0257" type="error" message="业务小类输入有误" errorCode="DP.CM030257"/>
+        <error id="BNAS0259" type="error" message="业务细类与基础产品不一致" errorCode="DP.CM030259"/>
+        <error id="BNAS0260" type="error" message="业务细类输入有误" errorCode="DP.CM030260"/>
+        <error id="BNAS0261" type="error" message="业务细类不是活期智能存款" errorCode="DP.CM030261"/>
+        <error id="BNAS0263" type="error" message="业务编码未配置或配置错误，请检查参数配置" errorCode="DP.CM030263"/>
+        <error id="BNAS0264" type="error" message="续冻终止日期不能为空" errorCode="DP.CM030264"/>
+        <error id="BNAS0265" type="error" message="续冻原因不允许为空" errorCode="DP.CM030265"/>
+        <error id="BNAS0266" type="error" message="续冻通知书书编号不允许为空" errorCode="DP.CM030266"/>
+        <error id="BNAS0267" type="error" message="续冻日期不能为空" errorCode="DP.CM030267"/>
+        <error id="BNAS0268" type="error" message="续冻金额不可大于原冻结金额，请核实" errorCode="DP.CM030268"/>
+        <error id="BNAS0269" type="error" message="续冻金额必须大于零" errorCode="DP.CM030269"/>
+        <error id="BNAS0270" type="error" message="续冻交易有权机构类型必须是原冻结有权机构类型" errorCode="DP.CM030270"/>
+        <error id="BNAS0271" type="error" message="续冻到期日期必须大于系统日期 [${trandt}]" errorCode="DP.CM030271">
+            <parameter id="trandt" type="BaseType.U_CHAR20" longname="系统日期"/>
+        </error>
+        <error id="BNAS0272" type="error" message="续冻到期日期必须大于冻结日期" errorCode="DP.CM030272"/>
+        <error id="BNAS0273" type="error" message="新账户所属机构号" errorCode="DP.CM030273"/>
+        <error id="BNAS0274" type="error" message="新手机号已和该电子账号绑定！" errorCode="DP.CM030274"/>
+        <error id="BNAS0275" type="error" message="新绑定手机号不能为空！" errorCode="DP.CM030275"/>
+        <error id="BNAS0286" type="error" message="销户流水不能为空" errorCode="DP.CM030286"/>
+        <error id="BNAS0287" type="error" message="销户卡号不能为空" errorCode="DP.CM030287"/>
+        <error id="BNAS0288" type="error" message="销户金额与实际金额不一致！" errorCode="DP.CM030288"/>
+        <error id="BNAS0290" type="error" message="销户检查是否有未落地红包失败" errorCode="DP.CM030290"/>
+        <error id="BNAS0305" type="error" message="输入的销户金额不能为空！" errorCode="DP.CM030305"/>
+        <error id="BNAS0306" type="error" message="输入的收款人账户类型不能为空！" errorCode="DP.CM030306"/>
+        <error id="BNAS0307" type="error" message="输入的户名与该电子账户户名不一致，请检查!" errorCode="DP.CM030307"/>
+        <error id="BNAS0308" type="error" message="输入的冻结日期[${frozdt}]非当前交易日期，当前系统日期为:[${trandt}]" errorCode="DP.CM030308">
+            <parameter id="frozdt" type="BaseType.U_CHAR20" longname="冻结日期"/>
+            <parameter id="trandt" type="BaseType.U_CHAR20" longname="系统日期"/>
+        </error>
+        <error id="BNAS0310" type="error" message="输入的电子账号与存款子账号对应的账号不匹配，请检查" errorCode="DP.CM030310"/>
+        <error id="BNAS0312" type="error" message="输入存款人证件号码与电子账户所属客户证件号码必须一致" errorCode="DP.CM030312"/>
+        <error id="BNAS0313" type="error" message="输入币种与账户币种不一致" errorCode="DP.CM030313"/>
+        <error id="BNAS0315" type="error" message="手续费金额与费用信息的金额输入不一致" errorCode="DP.CM030315"/>
+        <error id="BNAS0316" type="error" message="手续费金额不可输入" errorCode="DP.CM030316"/>
+        <error id="BNAS0317" type="error" message="手续费金额必须大于零" errorCode="DP.CM030317"/>
+        <error id="BNAS0318" type="error" message="手续费不能大于账户可用余额" errorCode="DP.CM030318"/>
+        <error id="BNAS0323" type="error" message="收款人账户类型不能是电子账户" errorCode="DP.CM030323"/>
+        <error id="BNAS0327" type="error" message="收款人电子账号不存在或已销户" errorCode="DP.CM030327"/>
+        <error id="BNAS0328" type="error" message="收费总金额不能小于0" errorCode="DP.CM030328"/>
+        <error id="BNAS0329" type="error" message="收费总额与实收总额不一致，请检验数据!" errorCode="DP.CM030329"/>
+        <error id="BNAS0330" type="error" message="收费总额不能小于等于0!" errorCode="DP.CM030330"/>
+        <error id="BNAS0334" type="error" message="收费金额不足" errorCode="DP.CM030334"/>
+        <error id="BNAS0335" type="error" message="收费金额必须大于零！" errorCode="DP.CM030335"/>
+        <error id="BNAS0336" type="error" message="收费交易金额与销户金额不一致" errorCode="DP.CM030336"/>
+        <error id="BNAS0337" type="error" message="收费交易金额与出入金交易金额不一致" errorCode="DP.CM030337"/>
+        <error id="BNAS0338" type="error" message="收费交易金额不能小于0" errorCode="DP.CM030338"/>
+        <error id="BNAS0345" type="error" message="是否允许小于账户留存最小余额设置有误" errorCode="DP.CM030345"/>
+        <error id="BNAS0346" type="error" message="是否允许小于账户留存最小余额" errorCode="DP.CM030346"/>
+        <error id="BNAS0348" type="error" message="是否收费不能为空" errorCode="DP.CM030348"/>
+        <error id="BNAS0349" type="error" message="是否明细汇总与基础产品不一致" errorCode="DP.CM030349"/>
+        <error id="BNAS0350" type="error" message="是否可以更换转存产品号与基础产品不一致" errorCode="DP.CM030350"/>
+        <error id="BNAS0351" type="error" message="是否根据存款顺延到日与基础产品不一致" errorCode="DP.CM030351"/>
+        <error id="BNAS0352" type="error" message="是否登记分层明细与基础产品不一致" errorCode="DP.CM030352"/>
+        <error id="BNAS0353" type="error" message="是否登记分层明细不能为空" errorCode="DP.CM030353"/>
+        <error id="BNAS0355" type="error" message="实收金额不能小于0" errorCode="DP.CM030355"/>
+        <error id="BNAS0358" type="error" message="省中心机构不允许做此交易" errorCode="DP.CM030358"/>
+        <error id="BNAS0361" type="error" message="生效的冻结记录不存在，不允许续冻" errorCode="DP.CM030361"/>
+        <error id="BNAS0373" type="error" message="舍弃角分计息标志与基础产品不一致" errorCode="DP.CM030373"/>
+        <error id="BNAS0379" type="error" message="全止时，解/止付金额不可输" errorCode="DP.CM030379"/>
+        <error id="BNAS0396" type="error" message="请输入存款子账号" errorCode="DP.CM030396"/>
+        <error id="BNAS0398" type="error" message="请将尚未到期的定期智能存款予以提前支取处理，提前支取将造成您一定的利息损失，请谨慎操作！" errorCode="DP.CM030398"/>
+        <error id="BNAS0401" type="error" message="亲情关系ID不不能为空" errorCode="DP.CM030401"/>
+        <error id="BNAS0402" type="error" message="钱包电子户不能购买产品" errorCode="DP.CM030402"/>
+        <error id="BNAS0407" type="error" message="起始日期与原止付信息中的止付日期不一致。" errorCode="DP.CM030407"/>
+        <error id="BNAS0409" type="error" message="起始日期格式错误" errorCode="DP.CM030409"/>
+        <error id="BNAS0411" type="error" message="起始日期不能为空！" errorCode="DP.CM030411"/>
+        <error id="BNAS0415" type="error" message="起始日期[${bgindt}]不能大于终止日期[${endddt}]" errorCode="DP.CM030415">
+            <parameter id="bgindt" type="BaseType.U_CHAR20" longname="起始日期"/>
+            <parameter id="endddt" type="BaseType.U_CHAR20" longname="终止日期"/>
+        </error>
+        <error id="BNAS0416" type="error" message="起始日期[${bgindt}]不能大于系统日期[${sTime}]" errorCode="DP.CM030416">
+            <parameter id="bgindt" type="BaseType.U_CHAR20" longname="起始日期"/>
+            <parameter id="sTime" type="BaseType.U_CHAR20" longname="系统日期"/>
+        </error>
+        <error id="BNAS0421" type="error" message="凭证数量输入有误" errorCode="DP.CM030421"/>
+        <error id="BNAS0423" type="error" message="平均余额天数计算方式与基础产品不一致" errorCode="DP.CM030423"/>
+        <error id="BNAS0428" type="error" message="您还未开立电子账户或您的电子账户状态异常" errorCode="DP.CM030428"/>
+        <error id="BNAS0430" type="error" message="您的账户状态字为双冻，无法操作！" errorCode="DP.CM030430"/>
+        <error id="BNAS0437" type="error" message="您的账号已被公安机关列为黑名单" errorCode="DP.CM030437"/>
+        <error id="BNAS0438" type="error" message="您的电子账户状态字已账户保护，无法操作！" errorCode="DP.CM030438"/>
+        <error id="BNAS0439" type="error" message="您的电子账户状态字已全止(银行止付)，无法操作！" errorCode="DP.CM030439"/>
+        <error id="BNAS0441" type="error" message="您的电子账户状态异常，无法操作！" errorCode="DP.CM030441"/>
+        <error id="BNAS0442" type="error" message="您的电子账户当前可用余额不足!" errorCode="DP.CM030442"/>
+        <error id="BNAS0444" type="error" message="您的电子账号不存在，请检查！" errorCode="DP.CM030444"/>
+        <error id="BNAS0446" type="error" message="年化收益率(最高)不允许为空" errorCode="DP.CM030446"/>
+        <error id="BNAS0447" type="error" message="年化收益率(最低)不允许为空" errorCode="DP.CM030447"/>
+        <error id="BNAS0448" type="error" message="内部扣划时有权机构名称不可为空" errorCode="DP.CM030448"/>
+        <error id="BNAS0449" type="error" message="内部扣划时不需要输入有权机构类型" errorCode="DP.CM030449"/>
+        <error id="BNAS0450" type="error" message="内部扣划时不需要输入解冻编号" errorCode="DP.CM030450"/>
+        <error id="BNAS0451" type="error" message="内部扣划时不需要输入冻结序号" errorCode="DP.CM030451"/>
+        <error id="BNAS0452" type="error" message="内部扣划时不需要输入冻结日期" errorCode="DP.CM030452"/>
+        <error id="BNAS0453" type="error" message="内部扣划时,资金去向只能为结算暂收" errorCode="DP.CM030453"/>
+        <error id="BNAS0454" type="error" message="内部扣划，账户可扣划金额不足" errorCode="DP.CM030454"/>
+        <error id="BNAS0463" type="error" message="每页记录数不能为空" errorCode="DP.CM030463"/>
+        <error id="BNAS0469" type="error" message="联系方式长度不对，不够11位" errorCode="DP.CM030469"/>
+        <error id="BNAS0470" type="error" message="利息调整方式输入有误，请核查！" errorCode="DP.CM030470"/>
+        <error id="BNAS0472" type="error" message="利息类型与基础产品不一致" errorCode="DP.CM030472"/>
+        <error id="BNAS0474" type="error" message="利率重订价方式与基础产品不一致" errorCode="DP.CM030474"/>
+        <error id="BNAS0475" type="error" message="利率重订价方式输入有误" errorCode="DP.CM030475"/>
+        <error id="BNAS0477" type="error" message="利率确定日期与基础产品不一致" errorCode="DP.CM030477"/>
+        <error id="BNAS0479" type="error" message="利率靠档方式与基础产品不一致" errorCode="DP.CM030479"/>
+        <error id="BNAS0480" type="error" message="利率靠档方式设置超出范围" errorCode="DP.CM030480"/>
+        <error id="BNAS0482" type="error" message="利率靠档标志与基础产品不一致" errorCode="DP.CM030482"/>
+        <error id="BNAS0484" type="error" message="利率代码与基础产品不一致" errorCode="DP.CM030484"/>
+        <error id="BNAS0486" type="error" message="利率代码类型不为分档利率时，违约利率靠档标志必须为否或空" errorCode="DP.CM030486"/>
+        <error id="BNAS0488" type="error" message="利率代码定义记录为空" errorCode="DP.CM030488"/>
+        <error id="BNAS0491" type="error" message="理财功能户客户端销户转入账号必须为该电子账户的绑定账户！" errorCode="DP.CM030491"/>
+        <error id="BNAS0492" type="error" message="理财功能户，电子钱包账户必须绑定一张认证通过的账户" errorCode="DP.CM030492"/>
+        <error id="BNAS0493" type="error" message="理财到期日不允许为空" errorCode="DP.CM030493"/>
+        <error id="BNAS0494" type="error" message="来源方交易流水不能为空" errorCode="DP.CM030494"/>
+        <error id="BNAS0495" type="error" message="跨法人机构账户不允许查询打印！" errorCode="DP.CM030495"/>
+        <error id="BNAS0496" type="error" message="跨法人机构账户，拒绝操作！！" errorCode="DP.CM030496"/>
+        <error id="BNAS0497" type="error" message="扣划账号为涉案账户" errorCode="DP.CM030497"/>
+        <error id="BNAS0498" type="error" message="扣划书编号不允许为空" errorCode="DP.CM030498"/>
+        <error id="BNAS0500" type="error" message="扣划类型为外部扣划时，有权机构经办人2证件类型不允许为空" errorCode="DP.CM030500"/>
+        <error id="BNAS0501" type="error" message="扣划类型为外部扣划时，有权机构经办人2证件号码不允许为空" errorCode="DP.CM030501"/>
+        <error id="BNAS0502" type="error" message="扣划类型为外部扣划时，有权机构经办人2姓名不允许为空" errorCode="DP.CM030502"/>
+        <error id="BNAS0503" type="error" message="扣划类型为内部扣划时，冻结编号必须为空" errorCode="DP.CM030503"/>
+        <error id="BNAS0504" type="error" message="扣划类型非法" errorCode="DP.CM030504"/>
+        <error id="BNAS0505" type="error" message="扣划类型不允许为空" errorCode="DP.CM030505"/>
+        <error id="BNAS0506" type="error" message="扣划金额不允许为空或者为零" errorCode="DP.CM030506"/>
+        <error id="BNAS0507" type="error" message="扣划金额不能大于冻结余额" errorCode="DP.CM030507"/>
+        <error id="BNAS0508" type="error" message="扣划金额必须大于零" errorCode="DP.CM030508"/>
+        <error id="BNAS0509" type="error" message="扣划编号无对应记录" errorCode="DP.CM030509"/>
+        <error id="BNAS0511" type="error" message="扣费账户信息状态不正常" errorCode="DP.CM030511"/>
+        <error id="BNAS0512" type="error" message="客户账户类型是容器" errorCode="DP.CM030512"/>
+        <error id="BNAS0513" type="error" message="客户账号账户信息状态不正常" errorCode="DP.CM030513"/>
+        <error id="BNAS0514" type="error" message="客户账号与冻结的客户账号不匹配" errorCode="DP.CM030514"/>
+        <error id="BNAS0515" type="error" message="客户账号类型不在定义中" errorCode="DP.CM030515"/>
+        <error id="BNAS0516" type="error" message="客户账号类型[${csactp}]没有配置相关定义参数" errorCode="DP.CM030516">
+            <parameter id="csactp" type="BaseType.U_CHAR35" longname="客户账号类型"/>
+        </error>
+        <error id="BNAS0517" type="error" message="客户账号类型[${csactp}]不能为空!" errorCode="DP.CM030517">
+            <parameter id="csactp" type="BaseType.U_CHAR35" longname="客户账号类型"/>
+        </error>
+        <error id="BNAS0519" type="error" message="客户账号类型[${csactp}]没有配置产品信息" errorCode="DP.CM030519">
+            <parameter id="csactp" type="BaseType.U_CHAR35" longname="客户账号类型"/>
+        </error>
+        <error id="BNAS0520" type="error" message="客户账号不存在" errorCode="DP.CM030520"/>
+        <error id="BNAS0522" type="error" message="客户帐号类型与基础产品不一致" errorCode="DP.CM030522"/>
+        <error id="BNAS0523" type="error" message="客户姓名长度超过长度" errorCode="DP.CM030523"/>
+        <error id="BNAS0525" type="error" message="客户姓名不一致" errorCode="DP.CM030525"/>
+        <error id="BNAS0528" type="error" message="客户下唯一标志与基础产品不一致" errorCode="DP.CM030528"/>
+        <error id="BNAS0530" type="error" message="客户名和客户账号不匹配" errorCode="DP.CM030530"/>
+        <error id="BNAS0531" type="error" message="客户名称输入有误！" errorCode="DP.CM030531"/>
+        <error id="BNAS0532" type="error" message="客户名称不正确" errorCode="DP.CM030532"/>
+        <error id="BNAS0537" type="error" message="客户解止付时,证件号码必须为本人" errorCode="DP.CM030537"/>
+        <error id="BNAS0539" type="error" message="客户端销户收款人账户类型不能为内部户！" errorCode="DP.CM030539"/>
+        <error id="BNAS0540" type="error" message="客户端销户收款人账户类型不能为电子账户！" errorCode="DP.CM030540"/>
+        <error id="BNAS0544" type="error" message="可售产品名称不允许为空" errorCode="DP.CM030544"/>
+        <error id="BNAS0545" type="error" message="可售产品ID不允许为空" errorCode="DP.CM030545"/>
+        <error id="BNAS0546" type="error" message="可设区间(最小值)不能小于0" errorCode="DP.CM030546"/>
+        <error id="BNAS0550" type="error" message="靠档规则与基础产品不一致" errorCode="DP.CM030550"/>
+        <error id="BNAS0553" type="error" message="开始日期与终止日期跨度不能超过一年" errorCode="DP.CM030553"/>
+        <error id="BNAS0557" type="error" message="开始日期不能大于当前日期" errorCode="DP.CM030557"/>
+        <error id="BNAS0559" type="error" message="开立时期证明时起始日期必须等于当前日期" errorCode="DP.CM030559"/>
+        <error id="BNAS0560" type="error" message="开立时点证明时起始日期不能大于当前日期" errorCode="DP.CM030560"/>
+        <error id="BNAS0562" type="error" message="开户金额与步长值设置有误" errorCode="DP.CM030562"/>
+        <error id="BNAS0563" type="error" message="开户金额低于起存金额" errorCode="DP.CM030563"/>
+        <error id="BNAS0574" type="error" message="拒绝，该客户为恐怖融资活动嫌疑客户" errorCode="DP.CM030574"/>
+        <error id="BNAS0576" type="error" message="经办人证件种类不能为空" errorCode="DP.CM030576"/>
+        <error id="BNAS0578" type="error" message="解止信息与原止付信息中止付措施不一致！" errorCode="DP.CM030578"/>
+        <error id="BNAS0579" type="error" message="解止信息和止付信息中止付类型不一致" errorCode="DP.CM030579"/>
+        <error id="BNAS0580" type="error" message="解止金额必须等于止付余额" errorCode="DP.CM030580"/>
+        <error id="BNAS0581" type="error" message="解止/质押到期日期与原止付信息中不一致！" errorCode="DP.CM030581"/>
+        <error id="BNAS0582" type="error" message="解冻执法部门类型必须为原冻结执法部门类型" errorCode="DP.CM030582"/>
+        <error id="BNAS0584" type="error" message="解冻通知书编号不允许为空" errorCode="DP.CM030584"/>
+        <error id="BNAS0586" type="error" message="解冻金额不能大于原冻结余额" errorCode="DP.CM030586"/>
+        <error id="BNAS0587" type="error" message="解冻金额必须小于等于冻结余额" errorCode="DP.CM030587"/>
+        <error id="BNAS0588" type="error" message="解冻金额必须大于零" errorCode="DP.CM030588"/>
+        <error id="BNAS0590" type="error" message="解/止付原因不允许为空" errorCode="DP.CM030590"/>
+        <error id="BNAS0591" type="error" message="截止日期不能为空！" errorCode="DP.CM030591"/>
+        <error id="BNAS0592" type="error" message="截止日期不能大于系统日期" errorCode="DP.CM030592"/>
+        <error id="BNAS0593" type="error" message="结息频率与基础产品不一致" errorCode="DP.CM030593"/>
+        <error id="BNAS0594" type="error" message="结息金额与账户余额不一致" errorCode="DP.CM030594"/>
+        <error id="BNAS0595" type="error" message="结算日期不能为空!" errorCode="DP.CM030595"/>
+        <error id="BNAS0596" type="error" message="结算户存期设置有误" errorCode="DP.CM030596"/>
+        <error id="BNAS0597" type="error" message="结束日期格式错误" errorCode="DP.CM030597"/>
+        <error id="BNAS0602" type="error" message="交易信息不能为空！" errorCode="DP.CM030602"/>
+        <error id="BNAS0603" type="error" message="交易双方账户都涉案！" errorCode="DP.CM030603"/>
+        <error id="BNAS0604" type="error" message="交易日期格式错误" errorCode="DP.CM030604"/>
+        <error id="BNAS0613" type="error" message="交易类型输入错误" errorCode="DP.CM030613"/>
+        <error id="BNAS0616" type="error" message="交易类别只能选择：1-转账" errorCode="DP.CM030616"/>
+        <error id="BNAS0621" type="error" message="交易金额不能小于零" errorCode="DP.CM030621"/>
+        <error id="BNAS0625" type="error" message="交易金额不得小于或等于0！" errorCode="DP.CM030625"/>
+        <error id="BNAS0629" type="error" message="交易金额[${tranam}]必须大于起存金额[${srdpam}]" errorCode="DP.CM030629">
+            <parameter id="tranam" type="BaseType.U_CHAR35" longname="交易金额"/>
+            <parameter id="srdpam" type="BaseType.U_CHAR35" longname="起存金额"/>
+        </error>
+        <error id="BNAS0632" type="error" message="交易币种与客户账户币种不一致!" errorCode="DP.CM030632"/>
+        <error id="BNAS0639" type="error" message="计息频率与基础产品不一致" errorCode="DP.CM030639"/>
+        <error id="BNAS0641" type="error" message="计息金额模式与基础产品不一致" errorCode="DP.CM030641"/>
+        <error id="BNAS0644" type="error" message="计息基础与基础产品不一致" errorCode="DP.CM030644"/>
+        <error id="BNAS0646" type="error" message="计息标志与基础产品不一致" errorCode="DP.CM030646"/>
+        <error id="BNAS0648" type="error" message="计税标志与基础产品不一致" errorCode="DP.CM030648"/>
+        <error id="BNAS0652" type="error" message="基础产品号不存在" errorCode="DP.CM030652"/>
+        <error id="BNAS0654" type="error" message="机构控制信息为空" errorCode="DP.CM030654"/>
+        <error id="BNAS0661" type="error" message="获取的钱包负债账号为空" errorCode="DP.CM030661"/>
+        <error id="BNAS0664" type="error" message="货币代号为人民币时，钞汇属性不可录入" errorCode="DP.CM030664"/>
+        <error id="BNAS0673" type="error" message="红包所属机构不能为空" errorCode="DP.CM030673"/>
+        <error id="BNAS0674" type="error" message="红包交易类型输入错误" errorCode="DP.CM030674"/>
+        <error id="BNAS0675" type="error" message="红包交易类型不能为空" errorCode="DP.CM030675"/>
+        <error id="BNAS0677" type="error" message="核算代码与基础产品不一致" errorCode="DP.CM030677"/>
+        <error id="BNAS0685" type="error" message="柜面销户收款人账户类型不能为他行卡！" errorCode="DP.CM030685"/>
+        <error id="BNAS0689" type="error" message="购买产品币种" errorCode="DP.CM030689"/>
+        <error id="BNAS0690" type="error" message="根据原冻结编号查询的记录为空" errorCode="DP.CM030690"/>
+        <error id="BNAS0691" type="error" message="根据钱包负债账号查询负债账户附加信息表信息为空" errorCode="DP.CM030691"/>
+        <error id="BNAS0692" type="error" message="根据电子账号获取电子账号ID失败" errorCode="DP.CM030692"/>
+        <error id="BNAS0693" type="error" message="根据电子账号获取电子账号ID的状态不正常" errorCode="DP.CM030693"/>
+        <error id="BNAS0694" type="error" message="根据电子账号ID获取电子账户信息失败" errorCode="DP.CM030694"/>
+        <error id="BNAS0696" type="error" message="根据电子卡号未能查询到客户信息!" errorCode="DP.CM030696"/>
+        <error id="BNAS0700" type="error" message="该子订单号异常，请检查" errorCode="DP.CM030700"/>
+        <error id="BNAS0701" type="error" message="该智能存款账号不存在" errorCode="DP.CM030701"/>
+        <error id="BNAS0702" type="error" message="该止付序号无对应的止付记录" errorCode="DP.CM030702"/>
+        <error id="BNAS0703" type="error" message="该止付序号不存在或者非本行社止付信息不允许解止" errorCode="DP.CM030703"/>
+        <error id="BNAS0706" type="error" message="该账户异常，请咨询客服办理!" errorCode="DP.CM030706"/>
+        <error id="BNAS0707" type="error" message="该账户已签约智能存款" errorCode="DP.CM030707"/>
+        <error id="BNAS0711" type="error" message="该账户不存在" errorCode="DP.CM030711"/>
+        <error id="BNAS0712" type="error" message="该业务序号不存在 ！" errorCode="DP.CM030712"/>
+        <error id="BNAS0715" type="error" message="该凭证号[${i}]已使用，不能补打存款证明" errorCode="DP.CM030715">
+            <parameter id="i" type="BaseType.U_LONGIN" longname="凭证号"/>
+        </error>
+        <error id="BNAS0716" type="error" message="该凭证号[${i}]未做过当前存款证明的开立或者补打，不能进行存款证明撤销" errorCode="DP.CM030716">
+            <parameter id="i" type="BaseType.U_LONGIN" longname="凭证号"/>
+        </error>
+        <error id="BNAS0717" type="error" message="该凭证号[${i}]已用于存款证明撤销" errorCode="DP.CM030717">
+            <parameter id="i" type="BaseType.U_LONGIN" longname="凭证号"/>
+        </error>
+        <error id="BNAS0718" type="error" message="该凭证号 [${i}]已使用，不能开立存款证明" errorCode="DP.CM030718">
+            <parameter id="i" type="BaseType.U_LONGIN" longname="凭证号"/>
+        </error>
+        <error id="BNAS0724" type="error" message="该交易只支持账户解除保护" errorCode="DP.CM030724"/>
+        <error id="BNAS0726" type="error" message="该记录已解冻或已失效" errorCode="DP.CM030726"/>
+        <error id="BNAS0727" type="error" message="该记录已撤销" errorCode="DP.CM030727"/>
+        <error id="BNAS0728" type="error" message="该记录为补打存款证明" errorCode="DP.CM030728"/>
+        <error id="BNAS0729" type="error" message="该记录不存在" errorCode="DP.CM030729"/>
+        <error id="BNAS0732" type="error" message="该冻结序号已解冻" errorCode="DP.CM030732"/>
+        <error id="BNAS0734" type="error" message="该冻结记录不存在或非本行社冻结记录不允许解冻" errorCode="DP.CM030734"/>
+        <error id="BNAS0735" type="error" message="该冻结编号已做过续冻，不允许再次续冻" errorCode="DP.CM030735"/>
+        <error id="BNAS0736" type="error" message="该冻结编号已失效" errorCode="DP.CM030736"/>
+        <error id="BNAS0737" type="error" message="该冻结编号无对应的冻结状态记录，不能做续冻操作" errorCode="DP.CM030737"/>
+        <error id="BNAS0738" type="error" message="该冻结编号无冻结状态，不能解冻" errorCode="DP.CM030738"/>
+        <error id="BNAS0739" type="error" message="该冻结编号不存在" errorCode="DP.CM030739"/>
+        <error id="BNAS0743" type="error" message="该电子账户无此功能" errorCode="DP.CM030743"/>
+        <error id="BNAS0744" type="error" message="该电子账户未签约智能存款产品" errorCode="DP.CM030744"/>
+        <error id="BNAS0745" type="error" message="该电子账户为涉案账户" errorCode="DP.CM030745"/>
+        <error id="BNAS0746" type="error" message="该电子账户没有未解除的账户保护记录" errorCode="DP.CM030746"/>
+        <error id="BNAS0750" type="error" message="该电子账户不存在！" errorCode="DP.CM030750"/>
+        <error id="BNAS0753" type="error" message="该电子账号不存在或者该电子账号非本行社" errorCode="DP.CM030753"/>
+        <error id="BNAS0755" type="error" message="该存款证明止付记录不存在" errorCode="DP.CM030755"/>
+        <error id="BNAS0756" type="error" message="该存款证明已撤销" errorCode="DP.CM030756"/>
+        <error id="BNAS0757" type="error" message="该存款证明书编号无对应的存款证明主体登记簿记录" errorCode="DP.CM030757"/>
+        <error id="BNAS0758" type="error" message="该存款证明解止记录不存在" errorCode="DP.CM030758"/>
+        <error id="BNAS0759" type="error" message="该产品已结清" errorCode="DP.CM030759"/>
+        <error id="BNAS0761" type="error" message="该产品不存在!" errorCode="DP.CM030761"/>
+        <error id="BNAS0763" type="error" message="该编号不是冻结编号，冻结编号输入错误" errorCode="DP.CM030763"/>
+        <error id="BNAS0768" type="error" message="负债账号或电子账号输入有误" errorCode="DP.CM030768"/>
+        <error id="BNAS0772" type="error" message="分档利率到期转存利率调整方式设置有误" errorCode="DP.CM030772"/>
+        <error id="BNAS0773" type="error" message="分层明细积数调整方式与基础产品不一致" errorCode="DP.CM030773"/>
+        <error id="BNAS0774" type="error" message="分层明细积数调整方式不能为空" errorCode="DP.CM030774"/>
+        <error id="BNAS0775" type="error" message="分层计息方式与基础产品不一致" errorCode="DP.CM030775"/>
+        <error id="BNAS0776" type="error" message="费种代码为收费，不能用于付费交易！" errorCode="DP.CM030776"/>
+        <error id="BNAS0783" type="error" message="非外部止付，止付措施不能选" errorCode="DP.CM030783"/>
+        <error id="BNAS0784" type="error" message="非同一核算主体不一致" errorCode="DP.CM030784"/>
+        <error id="BNAS0788" type="error" message="非客户本人办理" errorCode="DP.CM030788"/>
+        <error id="BNAS0789" type="error" message="非开户行网点，不允许做账户解除保护。" errorCode="DP.CM030789"/>
+        <error id="BNAS0790" type="error" message="非开户行社不允许做此交易" errorCode="DP.CM030790"/>
+        <error id="BNAS0791" type="error" message="非核算主体内，不能办理" errorCode="DP.CM030791"/>
+        <error id="BNAS0793" type="error" message="非本行社电子账户，不允许操作" errorCode="DP.CM030793"/>
+        <error id="BNAS0796" type="error" message="非本行社电子账号，无法操作" errorCode="DP.CM030796"/>
+        <error id="BNAS0798" type="error" message="发红包类型输入错误" errorCode="DP.CM030798"/>
+        <error id="BNAS0799" type="error" message="发红包类型不能为空" errorCode="DP.CM030799"/>
+        <error id="BNAS0802" type="error" message="额度验证扣减标志" errorCode="DP.CM030802"/>
+        <error id="BNAS0814" type="error" message="冻解方式为续冻或者解冻的，不能调此交易" errorCode="DP.CM030814"/>
+        <error id="BNAS0815" type="error" message="冻解方式非法" errorCode="DP.CM030815"/>
+        <error id="BNAS0818" type="error" message="冻结终止日期格式错误" errorCode="DP.CM030818"/>
+        <error id="BNAS0819" type="error" message="冻结终止日期[${freddt}]不能小于交易日期" errorCode="DP.CM030819">
+            <parameter id="freddt" type="BaseType.U_CHAR20" longname="冻结终止日期"/>
+        </error>
+        <error id="BNAS0821" type="error" message="冻结序号与电子账号不匹配" errorCode="DP.CM030821"/>
+        <error id="BNAS0822" type="error" message="冻结序号和解冻序号必输只能输入一个" errorCode="DP.CM030822"/>
+        <error id="BNAS0823" type="error" message="冻结序号和解冻序号必输不能都为空" errorCode="DP.CM030823"/>
+        <error id="BNAS0824" type="error" message="冻结通知书编号不允许为空" errorCode="DP.CM030824"/>
+        <error id="BNAS0825" type="error" message="冻结日期与原冻结信息中的冻结日期不一致。" errorCode="DP.CM030825"/>
+        <error id="BNAS0826" type="error" message="冻结日期应该等于原冻结到期日" errorCode="DP.CM030826"/>
+        <error id="BNAS0827" type="error" message="冻结日期输入错误" errorCode="DP.CM030827"/>
+        <error id="BNAS0830" type="error" message="冻结金额必须大于零" errorCode="DP.CM030830"/>
+        <error id="BNAS0831" type="error" message="冻结分类码[${frozcd}]未在系统中定义" errorCode="DP.CM030831">
+            <parameter id="frozcd" type="BaseType.U_CHAR20" longname="冻结分类码"/>
+        </error>
+        <error id="BNAS0832" type="error" message="冻结到期日与原冻结信息中的冻结到期日不一致。" errorCode="DP.CM030832"/>
+        <error id="BNAS0836" type="error" message="冻结编号，电子账号，卡号不能都为空" errorCode="DP.CM030836"/>
+        <error id="BNAS0839" type="error" message="定期智能存款子账号" errorCode="DP.CM030839"/>
+        <error id="BNAS0841" type="error" message="定期存入控制信息表不存在!" errorCode="DP.CM030841"/>
+        <error id="BNAS0846" type="error" message="电子账户状态为预销户状态，无法操作！" errorCode="DP.CM030846"/>
+        <error id="BNAS0847" type="error" message="电子账户状态为休眠状态，无法操作！" errorCode="DP.CM030847"/>
+        <error id="BNAS0848" type="error" message="电子账户状态为未启用状态，无法操作！" errorCode="DP.CM030848"/>
+        <error id="BNAS0849" type="error" message="电子账户状态为为预开户状态，无法操作！" errorCode="DP.CM030849"/>
+        <error id="BNAS0850" type="error" message="电子账户状态为停用状态，无法操作！" errorCode="DP.CM030850"/>
+        <error id="BNAS0851" type="error" message="电子账户状态非预销户" errorCode="DP.CM030851"/>
+        <error id="BNAS0855" type="error" message="电子账户已质押!" errorCode="DP.CM030855"/>
+        <error id="BNAS0856" type="error" message="电子账户已账户保护!" errorCode="DP.CM030856"/>
+        <error id="BNAS0859" type="error" message="电子账户已双冻！" errorCode="DP.CM030859"/>
+        <error id="BNAS0860" type="error" message="电子账户已全止(银行止付)!" errorCode="DP.CM030860"/>
+        <error id="BNAS0862" type="error" message="电子账户已全止(外部止付)!" errorCode="DP.CM030862"/>
+        <error id="BNAS0863" type="error" message="电子账户已全止（外部止付）" errorCode="DP.CM030863"/>
+        <error id="BNAS0864" type="error" message="电子账户已全止(客户止付)" errorCode="DP.CM030864"/>
+        <error id="BNAS0865" type="error" message="电子账户已开立存款证明！" errorCode="DP.CM030865"/>
+        <error id="BNAS0866" type="error" message="电子账户已借冻！" errorCode="DP.CM030866"/>
+        <error id="BNAS0867" type="error" message="电子账户已部止(银行止付)" errorCode="DP.CM030867"/>
+        <error id="BNAS0870" type="error" message="电子账户已被保护" errorCode="DP.CM030870"/>
+        <error id="BNAS0878" type="error" message="电子账户未面签，仅支持绑定卡转入" errorCode="DP.CM030878"/>
+        <error id="BNAS0879" type="error" message="电子账户未购买该产品" errorCode="DP.CM030879"/>
+        <error id="BNAS0883" type="error" message="电子账户为销户" errorCode="DP.CM030883"/>
+        <error id="BNAS0884" type="error" message="电子账户为未启用,请先启用电子账户！" errorCode="DP.CM030884"/>
+        <error id="BNAS0885" type="error" message="电子账户为未激活" errorCode="DP.CM030885"/>
+        <error id="BNAS0887" type="error" message="电子账户所属机构与交易机构不一致" errorCode="DP.CM030887"/>
+        <error id="BNAS0889" type="error" message="电子账户客户端销户转入账户必须为同名账户！" errorCode="DP.CM030889"/>
+        <error id="BNAS0891" type="error" message="电子账户结算户不允许透支" errorCode="DP.CM030891"/>
+        <error id="BNAS0892" type="error" message="电子账户户名与账号不一致" errorCode="DP.CM030892"/>
+        <error id="BNAS0897" type="error" message="电子账户发生过除开户之外其他交易，不允许变更机构" errorCode="DP.CM030897"/>
+        <error id="BNAS0899" type="error" message="电子账户处于非正常状态" errorCode="DP.CM030899"/>
+        <error id="BNAS0900" type="error" message="电子账户处于[${cuacst}]状态，请核查" errorCode="DP.CM030900">
+            <parameter id="cuacst" type="BaseType.U_CHAR35" longname="电子账户状态"/>
+        </error>
+        <error id="BNAS0907" type="error" message="电子账号账户保护状态下，不允许账户保护" errorCode="DP.CM030907"/>
+        <error id="BNAS0908" type="error" message="电子账号与止付序号不一致。" errorCode="DP.CM030908"/>
+        <error id="BNAS0911" type="error" message="电子账号与账户保护序号不一致。" errorCode="DP.CM030911"/>
+        <error id="BNAS0912" type="error" message="电子账号与原冻结信息中的电子账号不一致。" errorCode="DP.CM030912"/>
+        <error id="BNAS0913" type="error" message="电子账号银行止付（全止）状态下，不允许银行止付（全止，部止）" errorCode="DP.CM030913"/>
+        <error id="BNAS0915" type="error" message="电子账号未开立该活期账户" errorCode="DP.CM030915"/>
+        <error id="BNAS0917" type="error" message="电子账号外部止付状态下，不允许银行止付（全止，部止）" errorCode="DP.CM030917"/>
+        <error id="BNAS0925" type="error" message="电子账号存在借冻或双冻，不允许银行止付" errorCode="DP.CM030925"/>
+        <error id="BNAS0928" type="error" message="电子账号不存在或者非本行社电子账号" errorCode="DP.CM030928"/>
+        <error id="BNAS0934" type="error" message="电子账号ID或负债子账号不能为空" errorCode="DP.CM030934"/>
+        <error id="BNAS0936" type="error" message="电子账号ID不存在" errorCode="DP.CM030936"/>
+        <error id="BNAS0943" type="error" message="电子账号[${custac}]未被冻结！" errorCode="DP.CM030943">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS0954" type="error" message="电子账号 [${custac}]下存在活期未结息记录" errorCode="DP.CM030954">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS0957" type="error" message="电子钱包户无此功能" errorCode="DP.CM030957"/>
+        <error id="BNAS0958" type="error" message="电子钱包户仅支出同名转出" errorCode="DP.CM030958"/>
+        <error id="BNAS0959" type="error" message="电子钱包户不能签约存款产品" errorCode="DP.CM030959"/>
+        <error id="BNAS0960" type="error" message="递增金额与开户控制步长值不符" errorCode="DP.CM030960"/>
+        <error id="BNAS0962" type="error" message="地税登记号不能为空" errorCode="DP.CM030962"/>
+        <error id="BNAS0963" type="error" message="到期转存方式不正确" errorCode="DP.CM030963"/>
+        <error id="BNAS0964" type="error" message="到期日确定方式与基础产品不一致" errorCode="DP.CM030964"/>
+        <error id="BNAS0965" type="error" message="到期日确定方式为2-指定到期日存期需为空" errorCode="DP.CM030965"/>
+        <error id="BNAS0966" type="error" message="到期日确定方式输入有误" errorCode="DP.CM030966"/>
+        <error id="BNAS0967" type="error" message="到期日确定方式不能为空" errorCode="DP.CM030967"/>
+        <error id="BNAS0968" type="error" message="当止付类型为银行止付时，止付书编号不允许为空" errorCode="DP.CM030968"/>
+        <error id="BNAS0969" type="error" message="当止付类型为银行止付或者客户止付时，止付时间计算必须为天" errorCode="DP.CM030969"/>
+        <error id="BNAS0970" type="error" message="当止付类型为银行止付或者客户止付时，止付部门类型不可输入" errorCode="DP.CM030970"/>
+        <error id="BNAS0971" type="error" message="当止付类型为银行止付或外部止付时，止付部门不允许为空" errorCode="DP.CM030971"/>
+        <error id="BNAS0972" type="error" message="当止付类型为外部止付时，止付书编号不允许为空" errorCode="DP.CM030972"/>
+        <error id="BNAS0973" type="error" message="当止付类型为外部止付时，止付部门类型不允许为空" errorCode="DP.CM030973"/>
+        <error id="BNAS0974" type="error" message="当止付类型为外部止付时,执法人员2证件号码不能为空" errorCode="DP.CM030974"/>
+        <error id="BNAS0975" type="error" message="当止付类型为外部止付时,执法人员2姓名不能为空" errorCode="DP.CM030975"/>
+        <error id="BNAS0976" type="error" message="当止付类型为外部止付时，解/止付部门类型不允许为空" errorCode="DP.CM030976"/>
+        <error id="BNAS0977" type="error" message="当前页数不能为空" errorCode="DP.CM030977"/>
+        <error id="BNAS0979" type="error" message="当前解止信息为存款证明止付信息，不允许解止" errorCode="DP.CM030979"/>
+        <error id="BNAS0980" type="error" message="当前交易机构不在机构控制中" errorCode="DP.CM030980"/>
+        <error id="BNAS0981" type="error" message="当前版本号不能为空" errorCode="DP.CM030981"/>
+        <error id="BNAS0984" type="error" message="单次支取最大金额不能小于单次支取最小金额" errorCode="DP.CM030984"/>
+        <error id="BNAS0988" type="error" message="单笔支付限额不能超过系统限额 [${sglmam}]" errorCode="DP.CM030988">
+            <parameter id="sglmam" type="BaseType.U_CHAR35" longname="系统限额"/>
+        </error>
+        <error id="BNAS0995" type="error" message="错误的交易信息[${trinfo}]，请核对！" errorCode="DP.CM030995">
+            <parameter id="trinfo" type="BaseType.U_CHAR35" longname="交易信息"/>
+        </error>
+        <error id="BNAS0997" type="error" message="存在未解除的产品协议" errorCode="DP.CM030997"/>
+        <error id="BNAS0998" type="error" message="存在未处理的销户记录，不能重复销户" errorCode="DP.CM030998"/>
+        <error id="BNAS0999" type="error" message="存在借冻或双冻的在先冻结，不允许扣划" errorCode="DP.CM030999"/>
+        <error id="BNAS1001" type="error" message="存入违约处理方式与基础产品不一致" errorCode="DP.CM031001"/>
+        <error id="BNAS1003" type="error" message="存入违约标准与基础产品不一致" errorCode="DP.CM031003"/>
+        <error id="BNAS1005" type="error" message="存入漏补方式与基础产品不一致" errorCode="DP.CM031005"/>
+        <error id="BNAS1007" type="error" message="存入控制方式与基础产品不一致" errorCode="DP.CM031007"/>
+        <error id="BNAS1008" type="error" message="存入控制方法有误" errorCode="DP.CM031008"/>
+        <error id="BNAS1010" type="error" message="存入金额控制方式与基础产品不一致" errorCode="DP.CM031010"/>
+        <error id="BNAS1011" type="error" message="存入金额控制方式有误" errorCode="DP.CM031011"/>
+        <error id="BNAS1013" type="error" message="存入计划生成周期设置有误" errorCode="DP.CM031013"/>
+        <error id="BNAS1015" type="error" message="存入计划设置标志设置有误" errorCode="DP.CM031015"/>
+        <error id="BNAS1016" type="error" message="存入计划控制方式与基础产品不一致" errorCode="DP.CM031016"/>
+        <error id="BNAS1018" type="error" message="存入计划金额类型与基础产品不一致" errorCode="DP.CM031018"/>
+        <error id="BNAS1020" type="error" message="存入次数控制方式与基础产品不一致" errorCode="DP.CM031020"/>
+        <error id="BNAS1021" type="error" message="存入次数控制方式有误" errorCode="DP.CM031021"/>
+        <error id="BNAS1022" type="error" message="存期为活期不能设置支取计划" errorCode="DP.CM031022"/>
+        <error id="BNAS1023" type="error" message="存期为活期不能设置存入计划" errorCode="DP.CM031023"/>
+        <error id="BNAS1024" type="error" message="存期输入有误" errorCode="DP.CM031024"/>
+        <error id="BNAS1026" type="error" message="存款子账号对应的币种与输入的币种不一致，请检查" errorCode="DP.CM031026"/>
+        <error id="BNAS1029" type="error" message="存款证明书编号的长度不合法" errorCode="DP.CM031029"/>
+        <error id="BNAS1032" type="error" message="存款证明撤销开立日期和存款证明开立日期不一致" errorCode="DP.CM031032"/>
+        <error id="BNAS1033" type="error" message="存款证明撤销到期日期和存款证明开立到期日期不一致" errorCode="DP.CM031033"/>
+        <error id="BNAS1034" type="error" message="存款账号对应的产品编号与输入的产品编号不一致，请检查" errorCode="DP.CM031034"/>
+        <error id="BNAS1035" type="error" message="存款余额利息试算输出不能为空！" errorCode="DP.CM031035"/>
+        <error id="BNAS1040" type="error" message="此客户信息已存在,输入用户ID[${custid1}]与原用户ID[${custid2}]不匹配" errorCode="DP.CM031040">
+            <parameter id="custid1" type="BaseType.U_CHAR35" longname="输入用户ID"/>
+            <parameter id="custid2" type="BaseType.U_CHAR35" longname="原用户ID"/>
+        </error>
+        <error id="BNAS1041" type="error" message="传入摘要码错误" errorCode="DP.CM031041"/>
+        <error id="BNAS1044" type="error" message="撤销的凭证张数，不能大于开立和补打的凭证张数" errorCode="DP.CM031044"/>
+        <error id="BNAS1045" type="error" message="超出账户最高限额" errorCode="DP.CM031045"/>
+        <error id="BNAS1046" type="error" message="超出冻结期限，请核实" errorCode="DP.CM031046"/>
+        <error id="BNAS1048" type="error" message="产品业务小类输入有误" errorCode="DP.CM031048"/>
+        <error id="BNAS1049" type="error" message="产品违约利息利率信息与基础产品不一致" errorCode="DP.CM031049"/>
+        <error id="BNAS1056" type="error" message="查询值不能为空" errorCode="DP.CM031056"/>
+        <error id="BNAS1057" type="error" message="查询账户类型不正确" errorCode="DP.CM031057"/>
+        <error id="BNAS1058" type="error" message="查询账户类型不能为空" errorCode="DP.CM031058"/>
+        <error id="BNAS1059" type="error" message="查询账号不能为空" errorCode="DP.CM031059"/>
+        <error id="BNAS1060" type="error" message="查询条数必须大于0" errorCode="DP.CM031060"/>
+        <error id="BNAS1061" type="error" message="查询条件非法" errorCode="DP.CM031061"/>
+        <error id="BNAS1062" type="error" message="查询条件不能为空" errorCode="DP.CM031062"/>
+        <error id="BNAS1063" type="error" message="查询起始日期不能大于结束日期" errorCode="DP.CM031063"/>
+        <error id="BNAS1066" type="error" message="查询可用余额子账号不能为空" errorCode="DP.CM031066"/>
+        <error id="BNAS1067" type="error" message="查询可用余额是否扣减冻结标志不能为空" errorCode="DP.CM031067"/>
+        <error id="BNAS1068" type="error" message="查询可用余额是否加锁标志不能为空" errorCode="DP.CM031068"/>
+        <error id="BNAS1069" type="error" message="查询可用余额电子账号不能为空" errorCode="DP.CM031069"/>
+        <error id="BNAS1070" type="error" message="查询可用余额币种不能为空" errorCode="DP.CM031070"/>
+        <error id="BNAS1071" type="error" message="查询卡号失败，无对应记录" errorCode="DP.CM031071"/>
+        <error id="BNAS1074" type="error" message="查询冻解冻/解止付信息交易" errorCode="DP.CM031074"/>
+        <error id="BNAS1075" type="error" message="查询冻结类型不能为空" errorCode="DP.CM031075"/>
+        <error id="BNAS1080" type="error" message="插入收费登记簿失败" errorCode="DP.CM031080"/>
+        <error id="BNAS1081" type="error" message="不支持的利率类型" errorCode="DP.CM031081"/>
+        <error id="BNAS1082" type="error" message="不支持的冻结主体类型" errorCode="DP.CM031082"/>
+        <error id="BNAS1083" type="error" message="不支持的产品定活标志。" errorCode="DP.CM031083"/>
+        <error id="BNAS1084" type="error" message="不支持的查询类型" errorCode="DP.CM031084"/>
+        <error id="BNAS1088" type="error" message="不是钱包账户" errorCode="DP.CM031088"/>
+        <error id="BNAS1093" type="error" message="补打开立日期和存款证明开立日期不一致" errorCode="DP.CM031093"/>
+        <error id="BNAS1094" type="error" message="补打到期日期和存款证明开立到期日期不一致" errorCode="DP.CM031094"/>
+        <error id="BNAS1096" type="error" message="变更机构查询绑定账户记录失败" errorCode="DP.CM031096"/>
+        <error id="BNAS1097" type="error" message="币种与基础产品不一致" errorCode="DP.CM031097"/>
+        <error id="BNAS1098" type="error" message="币种为人民币时账户钞汇标志不可输入" errorCode="DP.CM031098"/>
+        <error id="BNAS1099" type="error" message="币种为人民币时，钞汇属性不可输" errorCode="DP.CM031099"/>
+        <error id="BNAS1102" type="error" message="币种不为人民币时账户钞汇标志不能为空" errorCode="DP.CM031102"/>
+        <error id="BNAS1103" type="error" message="币种必须为原币种" errorCode="DP.CM031103"/>
+        <error id="BNAS1113" type="error" message="版本号不允许为空" errorCode="DP.CM031113"/>
+        <error id="BNAS1123" type="error" message="[${frozow}]不能为空" errorCode="DP.CM031123">
+            <parameter id="frozow" type="BaseType.U_BRCHNO" longname="冻结主体"/>
+        </error>
+        <error id="BNAS1124" type="error" message="交易密码超过最大错误次数[${maxerr}]，已被冻结" errorCode="DP.CM031124">
+            <parameter id="maxerr" type="BaseType.U_INTEGE" longname="最大错误次数"/>
+        </error>
+        <error id="BNAS1128" type="error" message="[${msg}]" errorCode="DP.CM031128">
+            <parameter id="msg" type="BaseType.U_CHAR200" longname="错误信息"/>
+        </error>
+        <error id="BNAS1132" type="error" message="交易密码不存在[${acctno}-${servtp}-${servno}]" errorCode="DP.CM031132">
+            <parameter id="acctno" type="BaseType.U_ACCTNO" longname="账号"/>
+            <parameter id="servtp" type="MsType.U_CHANNEL" longname="交易渠道"/>
+            <parameter id="servno" type="BaseType.U_CHAR50" longname="交易渠道号"/>
+        </error>
+        <error id="BNAS1133" type="error" message="[${acsetp}]余额不为0！" errorCode="DP.CM031133">
+            <parameter id="acsetp" type="BaseType.U_CHAR50" longname="子账户类型"/>
+        </error>
+        <error id="BNAS1134" type="error" message="Ⅲ类户最高限额参数未配置，请检查!" errorCode="DP.CM031134"/>
+        <error id="BNAS1136" type="error" message="Ⅲ类户客户设置限额[${maxbin}]大于参数表最高限额[${maxbin1}]，请检查!" errorCode="DP.CM031136">
+            <parameter id="maxbin" type="BaseType.U_CHAR50" longname="设置限额"/>
+            <parameter id="maxbin1" type="BaseType.U_CHAR50" longname="最高限额"/>
+        </error>
+        <error id="BNAS1137" type="error" message="[${frlmtp}]无需指定冻结金额" errorCode="DP.CM031137">
+            <parameter id="frlmtp" type="BaseType.U_CHAR50" longname="冻结限制类型"/>
+        </error>
+        <error id="BNAS1138" type="error" message="[${frlmtp}]无需指定冻结金额" errorCode="DP.CM031138">
+            <parameter id="frlmtp" type="BaseType.U_CHAR50" longname="冻结限制类型"/>
+        </error>
+        <error id="BNAS1141" type="error" message="账户限额不存在[${acrtsq}]" errorCode="DP.CM031141">
+            <parameter id="acrtsq" type="BaseType.U_CHAR50" longname="账户限额"/>
+        </error>
+        <error id="BNAS1142" type="error" message="账户[${acctno}]不允许手工记账" errorCode="DP.CM031142">
+            <parameter id="acctno" type="BaseType.U_CHAR50" longname="负债账户"/>
+        </error>
+        <error id="BNAS1144" type="error" message="账号[${acctno}]不允许冲正!" errorCode="DP.CM031144">
+            <parameter id="acctno" type="BaseType.U_CHAR50" longname="负债账号"/>
+        </error>
+        <error id="BNAS1145" type="error" message="暂不支持的冻结模式[${frozow}]" errorCode="DP.CM031145">
+            <parameter id="frozow" type="BaseType.U_CHAR50" longname="冻结模式"/>
+        </error>
+        <error id="BNAS1149" type="error" message="损益账户[${acctno}]不允许反向记账" errorCode="DP.CM031149">
+            <parameter id="acctno" type="BaseType.U_CHAR50" longname="负债账号"/>
+        </error>
+        <error id="BNAS1150" type="error" message="剩余挂账金额[${paydmn}]小于本次销账金额[${rsdlmn}]" errorCode="DP.CM031150">
+            <parameter id="paydmn" type="BaseType.U_CHAR50" longname="剩余挂账金额"/>
+            <parameter id="rsdlmn" type="BaseType.U_CHAR50" longname="本次销账金额"/>
+        </error>
+        <error id="BNAS1151" type="error" message="设置存入计划标志异常[${planfg}]" errorCode="DP.CM031151">
+            <parameter id="planfg" type="BaseType.U_CHAR50" longname="存入计划标志"/>
+        </error>
+        <error id="BNAS1152" type="error" message="日累计转账限额不能系统设置[${dllmam}]" errorCode="DP.CM031152">
+            <parameter id="dllmam" type="BaseType.U_CHAR50" longname="日累计转账限额"/>
+        </error>
+        <error id="BNAS1153" type="error" message="日累计取现限额不能超过系统设置[${dllmam}]" errorCode="DP.CM031153">
+            <parameter id="dllmam" type="BaseType.U_CHAR50" longname="日累计转账限额"/>
+        </error>
+        <error id="BNAS1155" type="error" message="内部户[${acctno}]信息不存在" errorCode="DP.CM031155">
+            <parameter id="acctno" type="BaseType.U_CHAR50" longname="内部户"/>
+        </error>
+        <error id="BNAS1157" type="error" message="没有找到基础利率信息[${intrcd}]" errorCode="DP.CM031157">
+            <parameter id="intrcd" type="BaseType.U_CHAR50" longname="基础利率信息"/>
+        </error>
+        <error id="BNAS1158" type="error" message="没有取到账户状态" errorCode="DP.CM031158"/>
+        <error id="BNAS1160" type="error" message="借贷方向必须为C/D/P/R" errorCode="DP.CM031160"/>
+        <error id="BNAS1161" type="error" message="交易事件" errorCode="DP.CM031161"/>
+        <error id="BNAS1162" type="error" message="交易类别[${trantp}]不合法！" errorCode="DP.CM031162">
+            <parameter id="trantp" type="BaseType.U_CHAR50" longname="交易类别"/>
+        </error>
+        <error id="BNAS1167" type="error" message="交易机构未启用[${brchno}]" errorCode="DP.CM031167">
+            <parameter id="brchno" type="BaseType.U_CHAR50" longname="交易机构"/>
+        </error>
+        <error id="BNAS1168" type="error" message="交易机构号不存在[${brchno}]" errorCode="DP.CM031168">
+            <parameter id="brchno" type="BaseType.U_CHAR50" longname="交易机构"/>
+        </error>
+        <error id="BNAS1174" type="error" message="汇总记账账户[${acctno}]不允许记账" errorCode="DP.CM031174">
+            <parameter id="acctno" type="BaseType.U_CHAR50" longname="汇总记账账户"/>
+        </error>
+        <error id="BNAS1175" type="error" message="挂账序号[${payasq}]下剩余挂账金额[${rsdlmn}]小于销账序号[${paydsq}]下销账金额" errorCode="DP.CM031175">
+            <parameter id="payasq" type="BaseType.U_CHAR50" longname="挂账序号"/>
+            <parameter id="rsdlmn" type="BaseType.U_CHAR50" longname="剩余挂账金额"/>
+            <parameter id="paydsq" type="BaseType.U_CHAR50" longname="销账序号"/>
+        </error>
+        <error id="BNAS1176" type="error" message="该凭证号[${i}]已使用，不能补打存款证明" errorCode="DP.CM031176">
+            <parameter id="i" type="BaseType.U_CHAR50" longname="凭证号"/>
+        </error>
+        <error id="BNAS1177" type="error" message="该凭证号[${i}]未做过当前存款证明的开立或者补打，不能进行存款证明撤销" errorCode="DP.CM031177">
+            <parameter id="i" type="BaseType.U_CHAR50" longname="凭证号"/>
+        </error>
+        <error id="BNAS1178" type="error" message="该凭证号[${i}]已用于存款证明撤销" errorCode="DP.CM031178">
+            <parameter id="i" type="BaseType.U_CHAR50" longname="凭证号"/>
+        </error>
+        <error id="BNAS1179" type="error" message="该凭证号[${i}]已使用，不能开立存款证明" errorCode="DP.CM031179">
+            <parameter id="i" type="BaseType.U_LONGIN" longname="凭证号"/>
+        </error>
+        <error id="BNAS1180" type="error" message="浮动利率：[${intrcd}]关联的基础利率代码：[${rfircd}]不存在或失效" errorCode="DP.CM031180">
+            <parameter id="intrcd" type="BaseType.U_CHAR50" longname="凭证号"/>
+            <parameter id="rfircd" type="BaseType.U_CHAR50" longname="凭证号"/>
+        </error>
+        <error id="BNAS1181" type="error" message="定活标志值异常[${fcflag}]" errorCode="DP.CM031181">
+            <parameter id="fcflag" type="BaseType.U_CHAR50" longname="定活标志值"/>
+        </error>
+        <error id="BNAS1184" type="error" message="资金去向不允许为空" errorCode="DP.CM031184"/>
+        <error id="BNAS1185" type="error" message="单笔转账限额不能超过系统设置[${sglmam}]" errorCode="DP.CM031185">
+            <parameter id="sglmam" type="BaseType.U_CHAR50" longname="电子帐号"/>
+        </error>
+        <error id="BNAS1186" type="error" message="存入控制方式不支持[${posttp}]" errorCode="DP.CM031186">
+            <parameter id="posttp" type="BaseType.U_CHAR50" longname="存入控制方式"/>
+        </error>
+        <error id="BNAS1188" type="error" message="不支持的交易类型:[${capitp}]" errorCode="DP.CM031188">
+            <parameter id="capitp" type="BaseType.U_CHAR50" longname="交易类型"/>
+        </error>
+        <error id="BNAS1190" type="error" message="系统未设置日累计支付账户限额，客户不得自行设置" errorCode="DP.CM031190"/>
+        <error id="BNAS1191" type="error" message="系统未设置日累计取现账户限额，客户不得自行设置" errorCode="DP.CM031191"/>
+        <error id="BNAS1192" type="error" message="系统未设置单笔转出账户限额，客户不得自行设置" errorCode="DP.CM031192"/>
+        <error id="BNAS1193" type="error" message="系统未设置单笔支付账户限额，客户不得自行设置" errorCode="DP.CM031193"/>
+        <error id="BNAS1194" type="error" message="系统未设置单笔取现账户限额，客户不得自行设置" errorCode="DP.CM031194"/>
+        <error id="BNAS1196" type="error" message="无对应记录" errorCode="DP.CM031196"/>
+        <error id="BNAS1197" type="error" message="无对应的亲情关系" errorCode="DP.CM031197"/>
+        <error id="BNAS1198" type="error" message="无冻结外部扣划，账户可扣划金额不足" errorCode="DP.CM031198"/>
+        <error id="BNAS1199" type="error" message="未做修改不能进行更新操作！" errorCode="DP.CM031199"/>
+        <error id="BNAS1200" type="error" message="未知账号类型" errorCode="DP.CM031200"/>
+        <error id="BNAS1205" type="error" message="未找到电子账户信息，请检查" errorCode="DP.CM031205"/>
+        <error id="BNAS1206" type="error" message="未找到电子账户客户化状态信息，请检查" errorCode="DP.CM031206"/>
+        <error id="BNAS1209" type="error" message="未配置产品号[${prodcd}]的违约支取利息定义信息，支取利息类型为[${drintp}]" errorCode="DP.CM031209">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品号"/>
+            <parameter id="drintp" type="BaseType.U_CHAR35" longname="支取利息类型"/>
+        </error>
+        <error id="BNAS1210" type="error" message="未配置参数，请检查参数配置" errorCode="DP.CM031210"/>
+        <error id="BNAS1212" type="error" message="未录入支取计划" errorCode="DP.CM031212"/>
+        <error id="BNAS1213" type="error" message="未录入存入计划" errorCode="DP.CM031213"/>
+        <error id="BNAS1217" type="error" message="违约支取利息类型重复" errorCode="DP.CM031217"/>
+        <error id="BNAS1220" type="error" message="违约利息调整类型设置有误" errorCode="DP.CM031220"/>
+        <error id="BNAS1223" type="error" message="违约利率代码" errorCode="DP.CM031223"/>
+        <error id="BNAS1228" type="error" message="违约计息起始日期或结束日来源设置有误" errorCode="DP.CM031228"/>
+        <error id="BNAS1229" type="error" message="违约计息结束日来源设置有误" errorCode="DP.CM031229"/>
+        <error id="BNAS1231" type="error" message="外部止付时,止付经办人2证件种类不允许为空" errorCode="DP.CM031231"/>
+        <error id="BNAS1232" type="error" message="外部止付时,止付经办人2姓名不允许为空" errorCode="DP.CM031232"/>
+        <error id="BNAS1233" type="error" message="外部扣划时有权机构名称不允许为空" errorCode="DP.CM031233"/>
+        <error id="BNAS1234" type="error" message="统一后管启用交易人脸识别标志必须为成功！" errorCode="DP.CM031234"/>
+        <error id="BNAS1235" type="error" message="停用原因是客户声明时声明人姓名和声明人联系方式都不能为空" errorCode="DP.CM031235"/>
+        <error id="BNAS1242" type="error" message="损益账户[${acctno}]不允许反向记账" errorCode="DP.CM031242">
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="子账号"/>
+        </error>
+        <error id="BNAS1244" type="error" message="税率编号与基础产品不一致" errorCode="DP.CM031244"/>
+        <error id="BNAS1246" type="error" message="数量不能小于零" errorCode="DP.CM031246"/>
+        <error id="BNAS1248" type="error" message="输入止付时长不正确，请重新输入" errorCode="DP.CM031248"/>
+        <error id="BNAS1251" type="error" message="输入特殊业务类型错误" errorCode="DP.CM031251"/>
+        <error id="BNAS2234" type="error" message="特殊业务编号不存在!" errorCode="DP.CM032234"/>
+        <error id="BNAS1253" type="error" message="输入卡号[${cardno}]与电子账号[${custac}]不匹配" errorCode="DP.CM031253">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="卡号"/>
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS1254" type="error" message="输入金额与账户余额不相等！" errorCode="DP.CM031254"/>
+        <error id="BNAS1255" type="error" message="输入机构非当前机构" errorCode="DP.CM031255"/>
+        <error id="BNAS1256" type="error" message="输入户名不正确！" errorCode="DP.CM031256"/>
+        <error id="BNAS1260" type="error" message="输入的转入户名不能为空！" errorCode="DP.CM031260"/>
+        <error id="BNAS1261" type="error" message="输入的证件类型与原开户信息中不符！" errorCode="DP.CM031261"/>
+        <error id="BNAS1262" type="error" message="实时收费最多支持5笔费用明细！" errorCode="DP.CM031262"/>
+        <error id="BNAS1263" type="error" message="人脸识别结果不正确" errorCode="DP.CM031263"/>
+        <error id="BNAS1264" type="error" message="请输入正确的电子账号ID" errorCode="DP.CM031264"/>
+        <error id="BNAS1265" type="error" message="利率代码类型不为分档利率时，利率靠档标志必须为否或空" errorCode="DP.CM031265"/>
+        <error id="BNAS1267" type="error" message="金额为负时，原交易日期不能为空！" errorCode="DP.CM031267"/>
+        <error id="BNAS1268" type="error" message="机构号不存在" errorCode="DP.CM031268"/>
+        <error id="BNAS1274" type="error" message="电子账户[${custac}]已经是销户状态，不需销户" errorCode="DP.CM031274">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS1275" type="error" message="电子账户[${custac}]的状态为挂失状态，不允许销户" errorCode="DP.CM031275">
+            <parameter id="custac" type="BaseType.U_CUACNO" longname="电子账号"/>
+        </error>
+        <error id="BNAS1276" type="error" message="内部卡号[${cardno}]对应的电子账户已经是销户状态，不需销户" errorCode="DP.CM031276">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="虚拟卡号"/>
+        </error>
+        <error id="BNAS1277" type="error" message="卡账号[${cardno}]的状态已为关闭状态" errorCode="DP.CM031277">
+            <parameter id="cardno" type="BaseType.U_CUACNO" longname="卡号"/>
+        </error>
+        <error id="BNAS1278" type="error" message="内部卡号[${cardno}]对应的状态为挂失状态，不允许销户" errorCode="DP.CM031278">
+            <parameter id="cardno" type="BaseType.U_CUACNO" longname="卡号"/>
+        </error>
+        <error id="BNAS1282" type="error" message="销户检查是否有未领取红包失败" errorCode="DP.CM031282"/>
+        <error id="BNAS1363" type="error" message="该分类编号暂无对应大额对账数据" errorCode="DP.CM031363"/>
+        <error id="BNAS1364" type="error" message="该分类编号暂无对应小额对账数据" errorCode="DP.CM031364"/>
+        <error id="BNAS1365" type="error" message="暂不支持该渠道对账文件" errorCode="DP.CM031365"/>
+        <error id="BNAS1366" type="error" message="您的电子账户只支持绑定卡转出!" errorCode="DP.CM031366"/>
+        <error id="BNAS1367" type="error" message="不支持钱包账户转出!" errorCode="DP.CM031367"/>
+        <error id="BNAS1368" type="error" message="三类户仅支持同名转入" errorCode="DP.CM031368"/>
+        <error id="BNAS1369" type="error" message="不支持清算渠道类型" errorCode="DP.CM031369"/>
+        <error id="BNAS1381" type="error" message="支付前置日期不能为空" errorCode="DP.CM031381"/>
+        <error id="BNAS1382" type="error" message="支付前置流水号不能为空" errorCode="DP.CM031382"/>
+        <error id="BNAS1385" type="error" message="付款人账号不能为空" errorCode="DP.CM031385"/>
+        <error id="BNAS1386" type="error" message="付款人名称不能为空" errorCode="DP.CM031386"/>
+        <error id="BNAS1387" type="error" message="往来标志错误!" errorCode="DP.CM031387"/>
+        <error id="BNAS1389" type="error" message="前置流水不能为空" errorCode="DP.CM031389"/>
+        <error id="BNAS1390" type="error" message="前置日期不能为空" errorCode="DP.CM031390"/>
+        <error id="BNAS1394" type="error" message="包委托日期不能为空!" errorCode="DP.CM031394"/>
+        <error id="BNAS1395" type="error" message="包标识序号不能为空!" errorCode="DP.CM031395"/>
+        <error id="BNAS1396" type="error" message="无对应的原大小额往来账记录!" errorCode="DP.CM031396"/>
+        <error id="BNAS1398" type="error" message="该产品不存在或已复核" errorCode="DP.CM031398"/>
+        <error id="BNAS1399" type="error" message="产品新增柜员不存在" errorCode="DP.CM031399"/>
+        <error id="BNAS1406" type="error" message="活期存入控制信息表不存在!" errorCode="DP.CM031406"/>
+        <error id="BNAS1416" type="error" message="存入控制方法与基础产品不一致" errorCode="DP.CM031416"/>
+        <error id="BNAS1417" type="error" message="支取控制方式与基础产品不一致" errorCode="DP.CM031417"/>
+        <error id="BNAS1418" type="error" message="支取控制方法与基础产品不一致" errorCode="DP.CM031418"/>
+        <error id="BNAS1419" type="error" message="是否允许小于账户留存最小余额与基础产品不一致" errorCode="DP.CM031419"/>
+        <error id="BNAS1420" type="error" message="利率代码类型与基础产品不一致" errorCode="DP.CM031420"/>
+        <error id="BNAS1445" type="error" message="产品启用方式为1-直接装配启用时，协议文本代码必输不能为空" errorCode="DP.CM031445"/>
+        <error id="BNAS1446" type="error" message="产品启用方式为2-销售工厂启用时，协议文本代码必须为空" errorCode="DP.CM031446"/>
+        <error id="BNAS1450" type="error" message="停用日期必须大于启用日期" errorCode="DP.CM031450"/>
+        <error id="BNAS1451" type="error" message="生效日期必须大于当前系统日期" errorCode="DP.CM031451"/>
+        <error id="BNAS1452" type="error" message="产品启用方式为 销售工厂启用时，启用日期、停用日期不允许设置" errorCode="DP.CM031452"/>
+        <error id="BNAS1453" type="error" message="产品启用方式为 销售工厂启用时，启用日期、停用日期不允许设置" errorCode="DP.CM031453"/>
+        <error id="BNAS1454" type="error" message="业务小类和业务中类不匹配" errorCode="DP.CM031454"/>
+        <error id="BNAS1455" type="error" message="业务小类和业务细类不匹配" errorCode="DP.CM031455"/>
+        <error id="BNAS1456" type="error" message="当产品新增为1-通用产品时 ，产品启用方式必输" errorCode="DP.CM031456"/>
+        <error id="BNAS1457" type="error" message="产品启用方式1-直接装配启用时，产品性质只能选1-通用产品" errorCode="DP.CM031457"/>
+        <error id="BNAS1458" type="error" message="产品启用方式为2-销售工厂启用时，产品性质必须为空" errorCode="DP.CM031458"/>
+        <error id="BNAS1459" type="error" message="产品启用方式自能选择1-直接装配启用时，机构控制标志必选" errorCode="DP.CM031459"/>
+        <error id="BNAS1460" type="error" message="产品启用方式自能选择2-销售工厂启用时，机构控制标志不可选" errorCode="DP.CM031460"/>
+        <error id="BNAS1461" type="error" message="基础属性部件未启用,无需录入数据" errorCode="DP.CM031461"/>
+        <error id="BNAS1462" type="error" message="机构控制部件已启用，但产品机构信息不存在请检查" errorCode="DP.CM031462"/>
+        <error id="BNAS1463" type="error" message="[产品机构表]机构号应该为空" errorCode="DP.CM031463"/>
+        <error id="BNAS1467" type="error" message="存款机构控制部件未启用,无需录入数据" errorCode="DP.CM031467"/>
+        <error id="BNAS1468" type="error" message="开户控制信息不存在" errorCode="DP.CM031468"/>
+        <error id="BNAS1473" type="error" message="最低起存金额不得小于0" errorCode="DP.CM031473"/>
+        <error id="BNAS1476" type="error" message="当存期为自定义时 需要录入具体的天数不得为空" errorCode="DP.CM031476"/>
+        <error id="BNAS1477" type="error" message="只有当存期为自定义时 需要录入具体的天数" errorCode="DP.CM031477"/>
+        <error id="BNAS1478" type="error" message="存款开户控制部件未启用,无需录入数据" errorCode="DP.CM031478"/>
+        <error id="BNAS1479" type="error" message="存入控制信息不存在" errorCode="DP.CM031479"/>
+        <error id="BNAS1483" type="error" message="业务小类为活期时，明细汇总必须为否" errorCode="DP.CM031483"/>
+        <error id="BNAS1484" type="error" message="账户留存最大余额不能小于0" errorCode="DP.CM031484"/>
+        <error id="BNAS1485" type="error" message="存款存入控制部件未启用,无需录入数据" errorCode="DP.CM031485"/>
+        <error id="BNAS1486" type="error" message="存入计划信息不存在" errorCode="DP.CM031486"/>
+        <error id="BNAS1488" type="error" message="当存入计划生成方式按周期分时，存入计划生成周期不能为空" errorCode="DP.CM031488"/>
+        <error id="BNAS1491" type="error" message="存入漏补方式为控制漏补次数时，最大补足次数必输" errorCode="DP.CM031491"/>
+        <error id="BNAS1492" type="error" message="存入漏补方式不为控制漏补次数时，最大补足次数应为空" errorCode="DP.CM031492"/>
+        <error id="BNAS1494" type="error" message="当存入违约标准为大于漏存次数时，漏存次数必输" errorCode="DP.CM031494"/>
+        <error id="BNAS1495" type="error" message="当存入违约标准不为大于漏存次数时，漏存次数应为空" errorCode="DP.CM031495"/>
+        <error id="BNAS1496" type="error" message="存款存入计划控制部件未启用,无需录入数据" errorCode="DP.CM031496"/>
+        <error id="BNAS1497" type="error" message="支取控制信息不存在" errorCode="DP.CM031497"/>
+        <error id="BNAS1499" type="error" message="请先新增存入控制部件信息" errorCode="DP.CM031499"/>
+        <error id="BNAS1500" type="error" message="明细汇总为是，支取规则必输" errorCode="DP.CM031500"/>
+        <error id="BNAS1501" type="error" message="明细汇总为否，支取规则不可输" errorCode="DP.CM031501"/>
+        <error id="BNAS1502" type="error" message="是否允许小于账户留存最小余额不能为空" errorCode="DP.CM031502"/>
+        <error id="BNAS1503" type="error" message="账户留存最小余额为0时，是否允许小于账户留存最小余额只能为否" errorCode="DP.CM031503"/>
+        <error id="BNAS1505" type="error" message="存款支取控制部件未启用,无需录入数据" errorCode="DP.CM031505"/>
+        <error id="BNAS1506" type="error" message="支取计划信息不存在" errorCode="DP.CM031506"/>
+        <error id="BNAS1507" type="error" message="当支取计划生成方式定义为按周期均分时，支取计划生成周期必输" errorCode="DP.CM031507"/>
+        <error id="BNAS1508" type="error" message="当支取计划生成方式定义为按周期均分时，支取计划生成周期应为空" errorCode="DP.CM031508"/>
+        <error id="BNAS1511" type="error" message="到期控制部件信息不存在" errorCode="DP.CM031511"/>
+        <error id="BNAS1513" type="error" message="是否根据存款顺延到期日" errorCode="DP.CM031513"/>
+        <error id="BNAS1521" type="error" message="到期控制部件未启用,无需录入数据" errorCode="DP.CM031521"/>
+        <error id="BNAS1522" type="error" message="存款利息利率信息不存在" errorCode="DP.CM031522"/>
+        <error id="BNAS1523" type="error" message="税率代码未定义" errorCode="DP.CM031523"/>
+        <error id="BNAS1526" type="error" message="分层计息方式不可设置" errorCode="DP.CM031526"/>
+        <error id="BNAS1527" type="error" message="是否登记分层明细不可设置" errorCode="DP.CM031527"/>
+        <error id="BNAS1528" type="error" message="分层明细积数调整方式不可设置" errorCode="DP.CM031528"/>
+        <error id="BNAS1529" type="error" message="利率靠档方式不可设置" errorCode="DP.CM031529"/>
+        <error id="BNAS1532" type="error" message="违约支取利息利率信息不存在" errorCode="DP.CM031532"/>
+        <error id="BNAS1538" type="error" message="输入违约利息调整类型错误，请重新输入" errorCode="DP.CM031538"/>
+        <error id="BNAS1541" type="error" message="存款违约支取利息利率部件未启用,无需录入数据" errorCode="DP.CM031541"/>
+        <error id="BNAS1542" type="error" message="存款核算部件信息不存在" errorCode="DP.CM031542"/>
+        <error id="BNAS1543" type="error" message="存款核算部件未启用,无需录入数据" errorCode="DP.CM031543"/>
+        <error id="BNAS1544" type="error" message="存入控制方法为次数控制，存入次数控制方式不能为空" errorCode="DP.CM031544"/>
+        <error id="BNAS1545" type="error" message="存入次数控制方式为控制最小次数，最小存入次数不能为空" errorCode="DP.CM031545"/>
+        <error id="BNAS1546" type="error" message="存入次数控制方式为控制最小次数，最大存入次数应为空" errorCode="DP.CM031546"/>
+        <error id="BNAS1547" type="error" message="存入次数控制方式为控制最大次数，最大存入次数不能为空" errorCode="DP.CM031547"/>
+        <error id="BNAS1548" type="error" message="存入次数控制方式为控制最大次数，最小存入次数应为空" errorCode="DP.CM031548"/>
+        <error id="BNAS1549" type="error" message="存入金额控制方式为控制次数范围，最小存入次数不能为空" errorCode="DP.CM031549"/>
+        <error id="BNAS1550" type="error" message="存入金额控制方式为控制次数范围，最大存入次数不能为空" errorCode="DP.CM031550"/>
+        <error id="BNAS1551" type="error" message="存入金额控制方式为控制金额范围，最小存入次数不能大于最大存入次数" errorCode="DP.CM031551"/>
+        <error id="BNAS1553" type="error" message="存入金额控制方式为控制最小金额，单次存入最小金额不能为空" errorCode="DP.CM031553"/>
+        <error id="BNAS1554" type="error" message="存入金额控制方式为控制最小金额，单次存入最大金额应为空" errorCode="DP.CM031554"/>
+        <error id="BNAS1555" type="error" message="存入金额控制方式为控制最大金额，单次存入最大金额不能为空" errorCode="DP.CM031555"/>
+        <error id="BNAS1556" type="error" message="存入金额控制方式为控制最大金额，单次存入最小金额应为空" errorCode="DP.CM031556"/>
+        <error id="BNAS1557" type="error" message="存入金额控制方式为控制金额范围，单次存入最小金额不能为空" errorCode="DP.CM031557"/>
+        <error id="BNAS1558" type="error" message="存入金额控制方式为控制金额范围，单次存入最大金额不能为空" errorCode="DP.CM031558"/>
+        <error id="BNAS1560" type="error" message="支取控制方法为金额控制，支取金额控制方式不能为空" errorCode="DP.CM031560"/>
+        <error id="BNAS1561" type="error" message="支取金额控制方式为控制最小金额，单次支取最小金额不能为空" errorCode="DP.CM031561"/>
+        <error id="BNAS1562" type="error" message="支取金额控制方式为控制最小金额，单次支取最大金额应为空" errorCode="DP.CM031562"/>
+        <error id="BNAS1563" type="error" message="支取金额控制方式为控制最大金额，单次支取最大金额不能为空" errorCode="DP.CM031563"/>
+        <error id="BNAS1564" type="error" message="支取金额控制方式为控制最大金额，单次支取最小金额应为空" errorCode="DP.CM031564"/>
+        <error id="BNAS1565" type="error" message="支取金额控制方式为控制金额范围，单次支取最小金额不能为空" errorCode="DP.CM031565"/>
+        <error id="BNAS1566" type="error" message="支取金额控制方式为控制金额范围，单次支取最大金额不能为空" errorCode="DP.CM031566"/>
+        <error id="BNAS1567" type="error" message="支取金额控制方式为控制金额范围，单次支取最小金额不能大于单次支取最大金额" errorCode="DP.CM031567"/>
+        <error id="BNAS1568" type="error" message="支取控制方法为次数控制，支取次数控制方式不能为空" errorCode="DP.CM031568"/>
+        <error id="BNAS1569" type="error" message="支取次数控制方式为控制最小次数，最小支取次数不能为空" errorCode="DP.CM031569"/>
+        <error id="BNAS1570" type="error" message="支取次数控制方式为控制最小次数，最大支取次数应为空" errorCode="DP.CM031570"/>
+        <error id="BNAS1571" type="error" message="支取次数控制方式为控制最大次数，最大支取次数不能为空" errorCode="DP.CM031571"/>
+        <error id="BNAS1572" type="error" message="支取次数控制方式为控制最大次数，最小支取次数应为空" errorCode="DP.CM031572"/>
+        <error id="BNAS1573" type="error" message="支取金额控制方式为控制次数范围，最小支取次数不能为空" errorCode="DP.CM031573"/>
+        <error id="BNAS1574" type="error" message="支取金额控制方式为控制次数范围，最大支取次数不能为空" errorCode="DP.CM031574"/>
+        <error id="BNAS1575" type="error" message="支取金额控制方式为控制金额范围，最小支取次数不能大于最大支取次数" errorCode="DP.CM031575"/>
+        <error id="BNAS1577" type="error" message="冲正负债账号不能为空" errorCode="DP.CM031577"/>
+        <error id="BNAS1578" type="error" message="冲正电子账号不能为空" errorCode="DP.CM031578"/>
+        <error id="BNAS1579" type="error" message="交易状态不正常不能冲正" errorCode="DP.CM031579"/>
+        <error id="BNAS1580" type="error" message="冲正金额与原交易不一致" errorCode="DP.CM031580"/>
+        <error id="BNAS1581" type="error" message="冲正借贷标志与原交易不一致" errorCode="DP.CM031581"/>
+        <error id="BNAS1582" type="error" message="现金不允许隔日冲账" errorCode="DP.CM031582"/>
+        <error id="BNAS1583" type="error" message="红蓝字标志异常[${colrfg}]" errorCode="DP.CM031583">
+            <parameter id="colrfg" type="BaseType.U_CUACNO" longname="红蓝字标志"/>
+        </error>
+        <error id="BNAS1584" type="error" message="积数变更日期不能大于当前日期" errorCode="DP.CM031584"/>
+        <error id="BNAS1585" type="error" message="转入账户无此功能" errorCode="DP.CM031585"/>
+        <error id="BNAS1586" type="error" message="转出方无此功能" errorCode="DP.CM031586"/>
+        <error id="BNAS1587" type="error" message="您的账户不是全功能账户，请先升级" errorCode="DP.CM031587"/>
+        <error id="BNAS1588" type="error" message="转入机构与账户机构不一致" errorCode="DP.CM031588"/>
+        <error id="BNAS1589" type="error" message="不支持清算渠道类型" errorCode="DP.CM031589"/>
+        <error id="BNAS1590" type="error" message="来账冲正失败挂账失败" errorCode="DP.CM031590"/>
+        <error id="BNAS1591" type="error" message="暂不支持前后段分别调整" errorCode="DP.CM031591"/>
+        <error id="BNAS1592" type="error" message="活期产品暂不支持账户余额靠档利率" errorCode="DP.CM031592"/>
+        <error id="BNAS1593" type="error" message="无对应该计息金额模式" errorCode="DP.CM031593"/>
+        <error id="BNAS1596" type="error" message="有权机构经办人证件号码不允许为空" errorCode="DP.CM031596"/>
+        <error id="BNAS1597" type="error" message="电子账户状态为销户状态，无法操作" errorCode="DP.CM031597"/>
+        <error id="BNAS1599" type="error" message="执法人员2证件号码不允许为空" errorCode="DP.CM031599"/>
+        <error id="BNAS1600" type="error" message="冻结终止日期[${freddt}]不能小于等于冻结日期[${frozdt}]" errorCode="DP.CM031600">
+            <parameter id="freddt" type="BaseType.U_CHAR50" longname="冻结终止日期"/>
+            <parameter id="frozdt" type="BaseType.U_CHAR50" longname="冻结日期"/>
+        </error>
+        <error id="BNAS1601" type="error" message="电子账户状态为未激活状态，无法操作！" errorCode="DP.CM031601"/>
+        <error id="BNAS1602" type="error" message="该交易只支持账户保护" errorCode="DP.CM031602"/>
+        <error id="BNAS1603" type="error" message="止付经办人1证件号码不允许为空" errorCode="DP.CM031603"/>
+        <error id="BNAS1604" type="error" message="止付经办人2证件号码不允许为空" errorCode="DP.CM031604"/>
+        <error id="BNAS1605" type="error" message="经办人证件号码不能为空" errorCode="DP.CM031605"/>
+        <error id="BNAS1606" type="error" message="结算主账户余额不足，不能支付手续费" errorCode="DP.CM031606"/>
+        <error id="BNAS1607" type="error" message="该三类钱包账户余额不足，不能支付手续费" errorCode="DP.CM031607"/>
+        <error id="BNAS1608" type="error" message="费种代码为付费，不能用于收费交易！" errorCode="DP.CM031608"/>
+        <error id="BNAS1609" type="error" message="费种代码不符合编码规则！" errorCode="DP.CM031609"/>
+        <error id="BNAS1610" type="error" message="业务编号输入错误" errorCode="DP.CM031610"/>
+        <error id="BNAS1611" type="error" message="特殊业务类型不能为空" errorCode="DP.CM031611"/>
+        <error id="BNAS1612" type="error" message="特殊业务状态不能为空" errorCode="DP.CM031612"/>
+        <error id="BNAS1613" type="error" message="特殊业务编号、电子账号、交易起始日期、止付措施、部门类型不能都为空" errorCode="DP.CM031613"/>
+        <error id="BNAS1614" type="error" message="起始交易日期格式错误" errorCode="DP.CM031614"/>
+        <error id="BNAS1615" type="error" message="终止交易日期格式错误" errorCode="DP.CM031615"/>
+        <error id="BNAS1616" type="error" message="起始交易日期不为空时，终止交易日期不能为空" errorCode="DP.CM031616"/>
+        <error id="BNAS1617" type="error" message="起始交易日期不能大于当前日期" errorCode="DP.CM031617"/>
+        <error id="BNAS1618" type="error" message="终止交易日期不能大于当前日期" errorCode="DP.CM031618"/>
+        <error id="BNAS1619" type="error" message="起始交易日期不能大于终止交易日期" errorCode="DP.CM031619"/>
+        <error id="BNAS1620" type="error" message="请输入正确的机构号" errorCode="DP.CM031620"/>
+        <error id="BNAS1621" type="error" message="非本行社机构，无法操作" errorCode="DP.CM031621"/>
+        <error id="BNAS1622" type="error" message="非本行社电子账号或电子账号不存在" errorCode="DP.CM031622"/>
+        <error id="BNAS1623" type="error" message="非本行社机构，必须输入电子账号或特殊业务编号" errorCode="DP.CM031623"/>
+        <error id="BNAS1624" type="error" message="根据电子账号获取电子账号ID状态不正常" errorCode="DP.CM031624"/>
+        <error id="BNAS1625" type="error" message="解止金额必须等于冻结余额" errorCode="DP.CM031625"/>
+        <error id="BNAS1626" type="error" message="获取冻结登记簿为空" errorCode="DP.CM031626"/>
+        <error id="BNAS1627" type="error" message="当止付类型为银行止付时，解/止付书编号不允许为空" errorCode="DP.CM031627"/>
+        <error id="BNAS1628" type="error" message="当止付类型为外部止付时,执法人员2证件类型不能为空" errorCode="DP.CM031628"/>
+        <error id="BNAS1629" type="error" message="当止付类型为银行止付或外部止付时，解/止付部门不允许为空" errorCode="DP.CM031629"/>
+        <error id="BNAS1630" type="error" message="根据流水号找不到对应的冻结记录" errorCode="DP.CM031630"/>
+        <error id="BNAS1631" type="error" message="根据电子账号ID获取电子账号失败" errorCode="DP.CM031631"/>
+        <error id="BNAS1634" type="error" message="冲正流水不能为空" errorCode="DP.CM031634"/>
+        <error id="BNAS1635" type="error" message="活期产品暂不支持账户余额靠档利率" errorCode="DP.CM031635"/>
+        <error id="BNAS1636" type="error" message="无对应该计息金额模式" errorCode="DP.CM031636"/>
+        <error id="BNAS1637" type="error" message="起始日期不能大于当前日期！" errorCode="DP.CM031637"/>
+        <error id="BNAS1648" type="error" message="电子账号不存在！电子账号：[${custac}]" errorCode="DP.CM031648">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS1649" type="error" message="传入卡号和开户时卡号不一致！传入卡号：[${idtfno}]" errorCode="DP.CM031649">
+            <parameter id="idtfno" type="BaseType.U_CHAR35" longname="卡号"/>
+        </error>
+        <error id="BNAS1650" type="error" message="未找到电子账户信息，请核查输入的电子账号！" errorCode="DP.CM031650"/>
+        <error id="BNAS1692" type="error" message="输入的电子账号和负债账号不匹配" errorCode="DP.CM031692"/>
+        <error id="BNAS1703" type="error" message="该冻结序号不存在 ！" errorCode="DP.CM031703"/>
+        <error id="BNAS1704" type="error" message="扣划冻结记录不存在 ！" errorCode="DP.CM031704"/>
+        <error id="BNAS1705" type="error" message="冻结明细记录不存在 ！" errorCode="DP.CM031705"/>
+        <error id="BNAS1706" type="error" message="冻结主体登记簿记录不存在 ！" errorCode="DP.CM031706"/>
+        <error id="BNAS1707" type="error" message="扣划记录不存在 ！" errorCode="DP.CM031707"/>
+        <error id="BNAS1708" type="error" message="电子账号[${custac}]不是销户状态, 不能冲正" errorCode="DP.CM031708">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="客户账号"/>
+        </error>
+        <error id="BNAS1709" type="error" message="卡号[${cardno}]不是销户状态, 不能冲正" errorCode="DP.CM031709">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="卡号"/>
+        </error>
+        <error id="BNAS1710" type="error" message="产品利息利率定义不存在[${prodcd}]" errorCode="DP.CM031710">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品号"/>
+        </error>
+        <error id="BNAS1799" type="error" message="复核失败，[${msg}]不匹配" errorCode="DP.CM031710">
+            <parameter id="msg" type="BaseType.U_CHAR35" longname="产品号"/>
+        </error>
+        <error id="BNAS1800" type="error" message="录入和复核不能为同一人" errorCode="DP.CM031800"/>
+        <error id="BNAS1801" type="error" message="该产品状态不能复核" errorCode="DP.CM031801"/>
+        <error id="BNAS1802" type="error" message="录入编号输入错误" errorCode="DP.CM031802"/>
+        <error id="BNAS1804" type="error" message="复核失败，请检查违约支取利息部件信息" errorCode="DP.CM031804"/>
+        <error id="BNAS1805" type="error" message="复核失败，未查询到该产品编号关联的币种" errorCode="DP.CM031805"/>
+        <error id="BNAS1816" type="error" message="复核失败，请检查产品利息利率部件信息" errorCode="DP.CM031816"/>
+        <error id="BNAS1830" type="error" message="复核失败，请检查产品到期控制部件信息" errorCode="DP.CM031830"/>
+        <error id="BNAS1839" type="error" message="复核失败，请检查产品支取控制部件信息" errorCode="DP.CM031839"/>
+        <error id="BNAS1847" type="error" message="复核失败，请检查存入计划控制部件信息" errorCode="DP.CM031847"/>
+        <error id="BNAS1852" type="error" message="复核失败，请检查产品存入控制部件信息" errorCode="DP.CM031852"/>
+        <error id="BNAS1858" type="error" message="复核失败，请检查产品基础部件信息" errorCode="DP.CM031858"/>
+        <error id="BNAS1859" type="error" message="复核失败，请检查产品开户控制部件部件信息" errorCode="DP.CM031859"/>
+        <error id="BNAS1863" type="error" message="复核失败，请检查产品开户控制部件存期信息" errorCode="DP.CM031863"/>
+        <error id="BNAS1874" type="error" message="复核失败，请检查机构控制部件信息" errorCode="DP.CM031874"/>
+        <error id="BNAS1877" type="error" message="电子账户分类不存在" errorCode="DP.CM031877"/>
+        <error id="BNAS1879" type="error" message="查询条件输入不能为空" errorCode="DP.CM031879"/>
+        <error id="BNAS1902" type="error" message="转出方电子账号不存在!" errorCode="DP.CM031902"/>
+        <error id="BNAS1903" type="error" message="转出方电子账号已销户!" errorCode="DP.CM031903"/>
+        <error id="BNAS1904" type="error" message="转入方电子账号不存在!" errorCode="DP.CM031904"/>
+        <error id="BNAS1905" type="error" message="转入方电子账号已销户!" errorCode="DP.CM031905"/>
+        <error id="BNAS1906" type="error" message="转出方子账号与电子账户子账号不一致！" errorCode="DP.CM031906"/>
+        <error id="BNAS1907" type="error" message="转入方子账号与电子账户子账号不一致！" errorCode="DP.CM031907"/>
+        <error id="BNAS1908" type="error" message="交易币种与转出账号币种不一致" errorCode="DP.CM031908"/>
+        <error id="BNAS1909" type="error" message="计算延时到账时间错误" errorCode="DP.CM031909"/>
+        <error id="BNAS1912" type="error" message="只支持实时转账" errorCode="DP.CM031912"/>
+        <error id="BNAS1913" type="error" message="请重新输入客户电子账号" errorCode="DP.CM031913"/>
+        <error id="BNAS1914" type="error" message="前置流水号不能为空" errorCode="DP.CM031914"/>
+        <error id="BNAS1916" type="error" message="前置交易日期不能为空" errorCode="DP.CM031916"/>
+        <error id="BNAS1917" type="error" message="银联清算日期不能为空" errorCode="DP.CM031917"/>
+        <error id="BNAS1918" type="error" message="转出账号不能为空" errorCode="DP.CM031918"/>
+        <error id="BNAS1919" type="error" message="银联交易码不能为空" errorCode="DP.CM031919"/>
+        <error id="BNAS1920" type="error" message="全渠道流水号不能为空" errorCode="DP.CM031920"/>
+        <error id="BNAS1921" type="error" message="银联流水不能为空" errorCode="DP.CM031921"/>
+        <error id="BNAS1923" type="error" message="钱包账号输入错误" errorCode="DP.CM031923"/>
+        <error id="BNAS1924" type="error" message="钱包账户可用余额不足" errorCode="DP.CM031924"/>
+        <error id="BNAS1926" type="error" message="主账户可用余额不足" errorCode="DP.CM031926"/>
+        <error id="BNAS1927" type="error" message="钱包账号不存在" errorCode="DP.CM031927"/>
+        <error id="BNAS1929" type="error" message="原交易金额不能小于等于0" errorCode="DP.CM031929"/>
+        <error id="BNAS1930" type="error" message="子账户类型不匹配" errorCode="DP.CM031930"/>
+        <error id="BNAS1931" type="error" message="您的电子账户状态字已全止(外部止付)，无法操作！" errorCode="DP.CM031931"/>
+        <error id="BNAS1932" type="error" message="该客户号不存在，请检查" errorCode="DP.CM031932"/>
+        <error id="BNAS1933" type="error" message="资金交易类型错误!" errorCode="DP.CM031933"/>
+        <error id="BNAS1934" type="error" message="只支出全功能户还他行信用卡!" errorCode="DP.CM031934"/>
+        <error id="BNAS1935" type="error" message="钱包账户只支持同名转入" errorCode="DP.CM031935"/>
+        <error id="BNAS1940" type="error" message="收款人账户类型错误" errorCode="DP.CM031940"/>
+        <error id="BNAS1947" type="error" message="业务大类输入值错误" errorCode="DP.CM031947"/>
+        <error id="BNAS1948" type="error" message="登记[产品模板表]失败，模板记录已存在" errorCode="DP.CM031948"/>
+        <error id="BNAS1951" type="error" message="存款产品基础部件必选" errorCode="DP.CM031951"/>
+        <error id="BNAS1952" type="error" message="存款产品开户控制部件必须选择" errorCode="DP.CM031952"/>
+        <error id="BNAS1953" type="error" message="存款产品存入控制部件必须选择" errorCode="DP.CM031953"/>
+        <error id="BNAS1954" type="error" message="存款产品支取控制部件必须选择" errorCode="DP.CM031954"/>
+        <error id="BNAS1955" type="error" message="存款产品利率利率控制部件必须选择" errorCode="DP.CM031955"/>
+        <error id="BNAS1956" type="error" message="存款产品核算控制部件必须选择" errorCode="DP.CM031956"/>
+        <error id="BNAS1958" type="error" message="输入的部件信息不正确，请重新输入" errorCode="DP.CM031958"/>
+        <error id="BNAS1959" type="error" message="内部账属性控制部件必选" errorCode="DP.CM031959"/>
+        <error id="BNAS1960" type="error" message="业务大类输入值有误，请重新输入" errorCode="DP.CM031960"/>
+        <error id="BNAS1962" type="error" message="业务大类必须为存款" errorCode="DP.CM031962"/>
+        <error id="BNAS1964" type="error" message="删除[产品账户类型控制表]失败，无对应记录" errorCode="DP.CM031964"/>
+        <error id="BNAS1965" type="error" message="登记[产品存入控制表]失败，无对应记录" errorCode="DP.CM031965"/>
+        <error id="BNAS1966" type="error" message="删除[产品核算定义表]失败，无对应记录" errorCode="DP.CM031966"/>
+        <error id="BNAS1967" type="error" message="删除[产品机构控制表]失败，无对应记录" errorCode="DP.CM031967"/>
+        <error id="BNAS1968" type="error" message="新增和删除的机构不能全都为空" errorCode="DP.CM031968"/>
+        <error id="BNAS1969" type="error" message="机构控制部件信息不存在，请先新增" errorCode="DP.CM031969"/>
+        <error id="BNAS1970" type="error" message="删除机构号不能为空" errorCode="DP.CM031970"/>
+        <error id="BNAS1971" type="error" message="产品号[${prodcd}]不存在适用机构 [${brchno}]" errorCode="DP.CM031971">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品号"/>
+            <parameter id="brchno" type="BaseType.U_BRCHNO" longname="机构号"/>
+        </error>
+        <error id="BNAS1972" type="error" message="新增机构号不能为空" errorCode="DP.CM031972"/>
+        <error id="BNAS1973" type="error" message="产品号[${prodcd}]已存在适用机构 [${brchno}]" errorCode="DP.CM031973">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品号"/>
+            <parameter id="brchno" type="BaseType.U_BRCHNO" longname="机构号"/>
+        </error>
+        <error id="BNAS1974" type="error" message="删除[产品开户控制表]失败，无对应记录" errorCode="DP.CM031974"/>
+        <error id="BNAS1975" type="error" message="开户控制临时表记录不存在" errorCode="DP.CM031975"/>
+        <error id="BNAS1977" type="error" message="删除[产品违约支取利息定义]失败，无对应记录" errorCode="DP.CM031977"/>
+        <error id="BNAS1978" type="error" message="登记[产品违约支取利息定义]失败，无对应记录" errorCode="DP.CM031978"/>
+        <error id="BNAS1979" type="error" message="删除[产品支取控制表]失败，无对应记录" errorCode="DP.CM031979"/>
+        <error id="BNAS1980" type="error" message="登记[产品支取控制表]失败，无对应记录" errorCode="DP.CM031980"/>
+        <error id="BNAS1983" type="error" message="删除[产品模板表]失败，无对应记录" errorCode="DP.CM031983"/>
+        <error id="BNAS1984" type="error" message="漏存补足宽限期格式不对" errorCode="DP.CM031984"/>
+        <error id="BNAS1985" type="error" message="漏存补足宽限期不能小于0" errorCode="DP.CM031985"/>
+        <error id="BNAS1987" type="error" message="当存入计划生成方式按计划分时，存入计划生成周期应为空" errorCode="DP.CM031987"/>
+        <error id="BNAS1994" type="error" message="当存入违约标准为大于漏存次数时，漏存次数不得小于0" errorCode="DP.CM031994"/>
+        <error id="BNAS1996" type="error" message="该产品基础属性已存在" errorCode="DP.CM031996"/>
+        <error id="BNAS1997" type="error" message="产品信息不存在" errorCode="DP.CM031997"/>
+        <error id="BNAS1998" type="error" message="该产品存入计划控制信息已存在" errorCode="DP.CM031998"/>
+        <error id="BNAS1999" type="error" message="该产品基础属性不存在" errorCode="DP.CM031999"/>
+        <error id="BNAS2000" type="error" message="该产品存入计划控制信息已存在，不能重复新增" errorCode="DP.CM032000"/>
+        <error id="BNAS2001" type="error" message="该存款产品存入控制部件信息不存在" errorCode="DP.CM032001"/>
+        <error id="BNAS2002" type="error" message="该存款产品存入控制部件未启用，不允许新增" errorCode="DP.CM032002"/>
+        <error id="BNAS2003" type="error" message="该产品存入计划控制信息不存在，不能修改" errorCode="DP.CM032003"/>
+        <error id="BNAS2008" type="error" message="存入控制方法为金额控制，存入次数控制应为空" errorCode="DP.CM032008"/>
+        <error id="BNAS2009" type="error" message="存入控制方法为次数控制，存入金额控制应为空" errorCode="DP.CM032009"/>
+        <error id="BNAS2010" type="error" message="存入控制方式为无条件允许存入，其他条件应为空" errorCode="DP.CM032010"/>
+        <error id="BNAS2011" type="error" message="该产品为已生效产品，不允许修改" errorCode="DP.CM032011"/>
+        <error id="BNAS2012" type="error" message="该产品基础属性临时表不存在" errorCode="DP.CM032012"/>
+        <error id="BNAS2014" type="error" message="存入控制方法为金额控制，存入金额控制方式不能为空" errorCode="DP.CM032014"/>
+        <error id="BNAS2016" type="error" message="存入金额控制方式为控制最小金额，单次存入最小金额不能小于0" errorCode="DP.CM032016"/>
+        <error id="BNAS2019" type="error" message="存入金额控制方式为控制最大金额，单次存入最大金额不能小于0" errorCode="DP.CM032019"/>
+        <error id="BNAS2022" type="error" message="存入金额控制方式为控制金额范围，单次存入最小金额不能小于0" errorCode="DP.CM032022"/>
+        <error id="BNAS2024" type="error" message="存入金额控制方式为控制金额范围，单次存入最大金额不能小于0" errorCode="DP.CM032024"/>
+        <error id="BNAS2025" type="error" message="存入金额控制方式为控制金额范围，单次存入最小金额不能大于单次存入最大金额" errorCode="DP.CM032025"/>
+        <error id="BNAS2028" type="error" message="存入次数控制方式为控制最小次数，最小存入次数不能小于0" errorCode="DP.CM032028"/>
+        <error id="BNAS2031" type="error" message="存入次数控制方式为控制最大次数，最大存入次数不能小于0" errorCode="DP.CM032031"/>
+        <error id="BNAS2034" type="error" message="存入金额控制方式为控制次数范围，最小存入次数不能小于0" errorCode="DP.CM032034"/>
+        <error id="BNAS2036" type="error" message="存入金额控制方式为控制次数范围，最大存入次数不能小于0" errorCode="DP.CM032036"/>
+        <error id="BNAS2038" type="error" message="存入控制方法为金额控制，存入次数应为空" errorCode="DP.CM032038"/>
+        <error id="BNAS2039" type="error" message="存入控制方法为次数控制，存入金额应为空" errorCode="DP.CM032039"/>
+        <error id="BNAS2040" type="error" message="该产品存入控制信息不存在，不能修改" errorCode="DP.CM032040"/>
+        <error id="BNAS2041" type="error" message="删除[产品利息利率定义]失败，无对应记录" errorCode="DP.CM032041"/>
+        <error id="BNAS2042" type="error" message="利息类型必须为正利息" errorCode="DP.CM032042"/>
+        <error id="BNAS2043" type="error" message="税率代码未定义不能为空" errorCode="DP.CM032043"/>
+        <error id="BNAS2044" type="error" message="计税标志为0-否时，税率编号为空" errorCode="DP.CM032044"/>
+        <error id="BNAS2046" type="error" message="[${tebehz}]计息频率输入不合法" errorCode="DP.CM032046">
+            <parameter id="tebehz" type="BaseType.U_CHAR35" longname="计息频率"/>
+        </error>
+        <error id="BNAS2047" type="error" message="[${txbefr}]结息频率输入不合法" errorCode="DP.CM032047">
+            <parameter id="txbefr" type="BaseType.U_CHAR35" longname="结息频率"/>
+        </error>
+        <error id="BNAS2048" type="error" message="利率调整频率输入不合法" errorCode="DP.CM032048"/>
+        <error id="BNAS2049" type="error" message="只有利率代码类型为3-分档利率代码需要录入" errorCode="DP.CM032049"/>
+        <error id="BNAS2051" type="error" message="分层计息方式不可设置" errorCode="DP.CM032051"/>
+        <error id="BNAS2052" type="error" message="是否登记分层明细不可设置" errorCode="DP.CM032052"/>
+        <error id="BNAS2053" type="error" message="分层明细积数调整方式不可设置" errorCode="DP.CM032053"/>
+        <error id="BNAS2054" type="error" message="利率靠档方式不可设置" errorCode="DP.CM032054"/>
+        <error id="BNAS2055" type="error" message="分层明细积数调整方式需为空" errorCode="DP.CM032055"/>
+        <error id="BNAS2057" type="error" message="利率重定价方式选择错误，请重新选项" errorCode="DP.CM032057"/>
+        <error id="BNAS2058" type="error" message="平均余额天数计算方式不可输" errorCode="DP.CM032058"/>
+        <error id="BNAS2060" type="error" message="重定价利率处理方式选择错误" errorCode="DP.CM032060"/>
+        <error id="BNAS2061" type="error" message="产品利息利率部件未启用" errorCode="DP.CM032061"/>
+        <error id="BNAS2062" type="error" message="不存在产品部件信息，请检查" errorCode="DP.CM032062"/>
+        <error id="BNAS2063" type="error" message="平均余额天数计算方式不能为空" errorCode="DP.CM032063"/>
+        <error id="BNAS2064" type="error" message="登记[产品利息利率临时定义]失败，无对应记录" errorCode="DP.CM032064"/>
+        <error id="BNAS2065" type="error" message="删除[产品到期控制表]失败，无对应记录" errorCode="DP.CM032065"/>
+        <error id="BNAS2066" type="error" message="遇节假日处理方式不能为空" errorCode="DP.CM032066"/>
+        <error id="BNAS2067" type="error" message="是否根据存款顺延到期日不能为空" errorCode="DP.CM032067"/>
+        <error id="BNAS2069" type="error" message="到期宽限期格式错误" errorCode="DP.CM032069"/>
+        <error id="BNAS2070" type="error" message="到期宽限期必须大于0 " errorCode="DP.CM032070"/>
+        <error id="BNAS2077" type="error" message="到期控制部件未启用 " errorCode="DP.CM032077"/>
+        <error id="BNAS2078" type="error" message="登记[产品到期控制临时表]失败，无对应记录 " errorCode="DP.CM032078"/>
+        <error id="BNAS2079" type="error" message="删除[产品存入计划]失败，无对应记录 " errorCode="DP.CM032079"/>
+        <error id="BNAS2080" type="error" message="登记[产品存入计划]失败，无对应记录 " errorCode="DP.CM032080"/>
+        <error id="BNAS2081" type="error" message="删除[产品基础属性表]失败，无对应记录" errorCode="DP.CM032081"/>
+        <error id="BNAS2090" type="error" message="产品启用方式为1-直接装配启用时，协议文本代码必输不能为空" errorCode="DP.CM032090"/>
+        <error id="BNAS2091" type="error" message="产品启用方式为2-销售工厂启用时，协议文本代码必须为空" errorCode="DP.CM032091"/>
+        <error id="BNAS2092" type="error" message="产品性质选择错误" errorCode="DP.CM032092"/>
+        <error id="BNAS2093" type="error" message="产品启用方式选择错误" errorCode="DP.CM032093"/>
+        <error id="BNAS2094" type="error" message="该产品名称已被使用，请重新输入！" errorCode="DP.CM032094"/>
+        <error id="BNAS2095" type="error" message="业务中类与产品部件中类不一致" errorCode="DP.CM032095"/>
+        <error id="BNAS2096" type="error" message="业务小类与产品部件小类不一致" errorCode="DP.CM032096"/>
+        <error id="BNAS2097" type="error" message="业务细类与产品部件细类不一致" errorCode="DP.CM032097"/>
+        <error id="BNAS2098" type="error" message="产品启用方式为 直接装配启用时，启用日期、停用日期必须设置" errorCode="DP.CM032098"/>
+        <error id="BNAS2099" type="error" message="业务小类为020404-电子账户智能活期存款,账户分类须为空" errorCode="DP.CM032099"/>
+        <error id="BNAS2100" type="error" message="停用日期必须大于启用日期" errorCode="DP.CM032100"/>
+        <error id="BNAS2101" type="error" message="启用日期必须大于当前系统日期" errorCode="DP.CM032101"/>
+        <error id="BNAS2102" type="error" message="产品启用方式为 销售工厂启用时，启用日期、停用日期不允许设置" errorCode="DP.CM032102"/>
+        <error id="BNAS2103" type="error" message="业务小类和业务中类不匹配" errorCode="DP.CM032103"/>
+        <error id="BNAS2104" type="error" message="业务小类和业务细类不匹配" errorCode="DP.CM032104"/>
+        <error id="BNAS2105" type="error" message="业务小类不是个人电子账户活期存款时账户分类不能输入" errorCode="DP.CM032105"/>
+        <error id="BNAS2106" type="error" message="当产品新增为1-通用产品时 ，产品启用方式必输" errorCode="DP.CM032106"/>
+        <error id="BNAS2107" type="error" message="当产品新增为2-销售工厂启用时 ，产品启用方式自能选择2-销售工厂启用" errorCode="DP.CM032107"/>
+        <error id="BNAS2108" type="error" message="产品启用方式自能选择1-直接装配启用时，机构控制标志必选" errorCode="DP.CM032108"/>
+        <error id="BNAS2109" type="error" message="产品启用方式自能选择2-销售工厂启用时，机构控制标志不可选" errorCode="DP.CM032109"/>
+        <error id="BNAS2110" type="error" message="已存在，请勿重复新增" errorCode="DP.CM032110"/>
+        <error id="BNAS2111" type="error" message="登记[产品账户类型控制临时表]失败，记录重复" errorCode="DP.CM032111"/>
+        <error id="BNAS2112" type="error" message="登记[产品附加属性临时表]失败，记录重复" errorCode="DP.CM032112"/>
+        <error id="BNAS2113" type="error" message="该产品已复核，不能修改" errorCode="DP.CM032113"/>
+        <error id="BNAS2114" type="error" message="修改记录失败，记录不存在" errorCode="DP.CM032114"/>
+        <error id="BNAS2115" type="error" message="修改记录失败，基础产品币种不允许修改" errorCode="DP.CM032115"/>
+        <error id="BNAS2116" type="error" message="业务小类不是个人电子账户定期存款时账户分类不能输入" errorCode="DP.CM032116"/>
+        <error id="BNAS2117" type="error" message="产品启用方式1-直接装配启用时，产品性质只能选1-通用产品" errorCode="DP.CM032117"/>
+        <error id="BNAS2118" type="error" message="产品启用方式为2-销售工厂启用时，产品性质必须为空" errorCode="DP.CM032118"/>
+        <error id="BNAS2119" type="error" message="删除[活期资金产品池]失败，无对应记录" errorCode="DP.CM032119"/>
+        <error id="BNAS2120" type="error" message="登记[活期资金产品池]失败，记录重复" errorCode="DP.CM032120"/>
+        <error id="BNAS2121" type="error" message="登记[活期资金产品池]失败，无对应记录" errorCode="DP.CM032121"/>
+        <error id="BNAS2122" type="error" message="账户留存最小余额不能小于0" errorCode="DP.CM032122"/>
+        <error id="BNAS2123" type="error" message="是否允许小于账户留存最小余额不能为空" errorCode="DP.CM032123"/>
+        <error id="BNAS2124" type="error" message="账户留存最小余额为0时，是否允许小于账户留存最小余额只能为否" errorCode="DP.CM032124"/>
+        <error id="BNAS2126" type="error" message="支取控制方法为金额控制，支取次数控制应为空" errorCode="DP.CM032126"/>
+        <error id="BNAS2127" type="error" message="支取控制方法为次数控制，支取金额控制应为空" errorCode="DP.CM032127"/>
+        <error id="BNAS2128" type="error" message="支取控制方式为无条件允许支取，其他条件应为空" errorCode="DP.CM032128"/>
+        <error id="BNAS2129" type="error" message="该产品支取控制信息已存在" errorCode="DP.CM032129"/>
+        <error id="BNAS2130" type="error" message="请先新增存入控制部件信息" errorCode="DP.CM032130"/>
+        <error id="BNAS2131" type="error" message="明细汇总为是，支取规则必输" errorCode="DP.CM032131"/>
+        <error id="BNAS2132" type="error" message="明细汇总为否，支取规则不可输" errorCode="DP.CM032132"/>
+        <error id="BNAS2133" type="error" message="该产品支取控制临时信息已存在" errorCode="DP.CM032133"/>
+        <error id="BNAS2135" type="error" message="支取金额控制方式为控制最小金额，单次支取最小金额不能小于0" errorCode="DP.CM032135"/>
+        <error id="BNAS2138" type="error" message="支取金额控制方式为控制最大金额，单次支取最大金额不能小于0" errorCode="DP.CM032138"/>
+        <error id="BNAS2141" type="error" message="支取金额控制方式为控制金额范围，单次支取最小金额不能小于0" errorCode="DP.CM032141"/>
+        <error id="BNAS2143" type="error" message="支取金额控制方式为控制金额范围，单次支取最大金额不能小于0" errorCode="DP.CM032143"/>
+        <error id="BNAS2147" type="error" message="支取次数控制方式为控制最小次数，最小支取次数不能小于0" errorCode="DP.CM032147"/>
+        <error id="BNAS2150" type="error" message="支取次数控制方式为控制最大次数，最大支取次数不能小于0" errorCode="DP.CM032150"/>
+        <error id="BNAS2153" type="error" message="支取金额控制方式为控制次数范围，最小支取次数不能小于0" errorCode="DP.CM032153"/>
+        <error id="BNAS2155" type="error" message="支取金额控制方式为控制次数范围，最大支取次数不能小于0" errorCode="DP.CM032155"/>
+        <error id="BNAS2157" type="error" message="该产品支取控制信息不存在" errorCode="DP.CM032157"/>
+        <error id="BNAS2158" type="error" message="支取计划生成周期输入不合法" errorCode="DP.CM032158"/>
+        <error id="BNAS2160" type="error" message="当支取计划生成方式定义为按计划均分时，支取计划生成周期应为空" errorCode="DP.CM032160"/>
+        <error id="BNAS2163" type="error" message="产品支取计划控制信息已存在" errorCode="DP.CM032163"/>
+        <error id="BNAS2164" type="error" message="产品支取计划控制临时信息已存在" errorCode="DP.CM032164"/>
+        <error id="BNAS2165" type="error" message="产品支取计划控制临时信息不存在" errorCode="DP.CM032165"/>
+        <error id="BNAS2166" type="error" message="登记[产品存期控制表]失败，无对应记录" errorCode="DP.CM032166"/>
+        <error id="BNAS2167" type="error" message="登记[产品支取计划表]失败，无对应记录" errorCode="DP.CM032167"/>
+        <error id="BNAS2170" type="error" message="业务小类不在所选业务中类之内，请检查数据！" errorCode="DP.CM032170"/>
+        <error id="BNAS2171" type="error" message="业务细类不在所选业务小类之内，请检查数据！" errorCode="DP.CM032171"/>
+        <error id="BNAS2173" type="error" message="产品核算代码错误或未发布" errorCode="DP.CM032173"/>
+        <error id="BNAS2174" type="error" message="直接新增模式，产品编号需为空！" errorCode="DP.CM032174"/>
+        <error id="BNAS2175" type="error" message="产品编号已存在！" errorCode="DP.CM032175"/>
+        <error id="BNAS2176" type="error" message="直接装配启用的产品机构控制部件必须选择" errorCode="DP.CM032176"/>
+        <error id="BNAS2177" type="error" message="销售工厂启用的产品机构控制部件不能选择" errorCode="DP.CM032177"/>
+        <error id="BNAS2178" type="error" message="存款产品基础属性部件必须选择" errorCode="DP.CM032178"/>
+        <error id="BNAS2179" type="error" message="传入部件信息有重复！" errorCode="DP.CM032179"/>
+        <error id="BNAS2180" type="error" message="传入部件数量不符" errorCode="DP.CM032180"/>
+        <error id="BNAS2181" type="error" message="该产品已经新增产品部件，请勿重复操作" errorCode="DP.CM032181"/>
+        <error id="BNAS2183" type="error" message="模板编号必须为空" errorCode="DP.CM032183"/>
+        <error id="BNAS2184" type="error" message="业务大类必须为空" errorCode="DP.CM032184"/>
+        <error id="BNAS2185" type="error" message="业务中类必须为空！" errorCode="DP.CM032185"/>
+        <error id="BNAS2186" type="error" message="业务小类必须为空！" errorCode="DP.CM032186"/>
+        <error id="BNAS2187" type="error" message="业务细类必须为空！" errorCode="DP.CM032187"/>
+        <error id="BNAS2188" type="error" message="部件列表需为空！" errorCode="DP.CM032188"/>
+        <error id="BNAS2189" type="error" message="原产品编号产品部件不存在" errorCode="DP.CM032189"/>
+        <error id="BNAS2190" type="error" message="原产品号无对应已复核的记录！" errorCode="DP.CM032190"/>
+        <error id="BNAS2191" type="error" message="产品启用方式与原产品启用方式不一致" errorCode="DP.CM032191"/>
+        <error id="BNAS2192" type="error" message="原产品编号必须为空！" errorCode="DP.CM032192"/>
+        <error id="BNAS2193" type="error" message="未找到模板信息，请检查输入数据！" errorCode="DP.CM032193"/>
+        <error id="BNAS2194" type="error" message="产品号已存在，请勿重复新增" errorCode="DP.CM032194"/>
+        <error id="BNAS2197" type="error" message="启用日期不能小于等于当前日期" errorCode="DP.CM032197"/>
+        <error id="BNAS2198" type="error" message="该存款产品号不存在或未复核" errorCode="DP.CM032198"/>
+        <error id="BNAS2199" type="error" message="产品启用日期必须小于等于所有适用机构的启用日期，请检查" errorCode="DP.CM032199"/>
+        <error id="BNAS2200" type="error" message="产品停用日期必须大于等于所有适用机构的停用日期，请检查" errorCode="DP.CM032200"/>
+        <error id="BNAS2201" type="error" message="只有产品状态为装配生效或装配停用才可做产品启用" errorCode="DP.CM032201"/>
+        <error id="BNAS2202" type="error" message="该内部户产品号不存在" errorCode="DP.CM032202"/>
+        <error id="BNAS2203" type="error" message="产品启用异常" errorCode="DP.CM032203"/>
+        <error id="BNAS2204" type="error" message="该业务大类不支持" errorCode="DP.CM032204"/>
+        <error id="BNAS2205" type="error" message="停用日期不能小于当前日期" errorCode="DP.CM032205"/>
+        <error id="BNAS2206" type="error" message="该产品号不存在" errorCode="DP.CM032206"/>
+        <error id="BNAS2207" type="error" message="只有产品状态为装配生效或装配启用才可做产品停用" errorCode="DP.CM032207"/>
+        <error id="BNAS2208" type="error" message="内部户产品停用日期必须等与当前日期" errorCode="DP.CM032208"/>
+        <error id="BNAS2209" type="error" message="只有产品状态为装配生效或装配启用才可做产品启用" errorCode="DP.CM032209"/>
+        <error id="BNAS2210" type="error" message="该内部账产品存在生效账户，请检查" errorCode="DP.CM032210"/>
+        <error id="BNAS2211" type="error" message="产品停用异常！" errorCode="DP.CM032211"/>
+        <error id="BNAS2212" type="error" message="新增机构和删除机构不能都为空" errorCode="DP.CM032212"/>
+        <error id="BNAS2213" type="error" message="机构控制标志为[2-全部机构]，不能做适用机构调整" errorCode="DP.CM032213"/>
+        <error id="BNAS2214" type="error" message="产品启用方式为[2-销售工厂启用]，不能做适用机构调整" errorCode="DP.CM032214"/>
+        <error id="BNAS2215" type="error" message="启用日期必须大于等于产品启用日期" errorCode="DP.CM032215"/>
+        <error id="BNAS2216" type="error" message="停用日期必须小于等于产品停用日期" errorCode="DP.CM032216"/>
+        <error id="BNAS2217" type="error" message="产品机构控制标志为2-适用机构时,适用机构最少保留一个" errorCode="DP.CM032217"/>
+        <error id="BNAS2218" type="error" message="目录编号不能只输入一个" errorCode="DP.CM032218"/>
+        <error id="BNAS2219" type="error" message="启用日期不能大于等于停用日期" errorCode="DP.CM032219"/>
+        <error id="BNAS2220" type="error" message="适用机构列表不能为空" errorCode="DP.CM032220"/>
+        <error id="BNAS2221" type="error" message="产品机构控制标志为[2-适用机构]时，才可以做存款产品适用机构启用日期调整" errorCode="DP.CM032221"/>
+        <error id="BNAS2222" type="error" message="根据产品编号和机构号获取产品机构控制表信息为空" errorCode="DP.CM032222"/>
+        <error id="BNAS2223" type="error" message="启用日期不能小于产品生效日期" errorCode="DP.CM032223"/>
+        <error id="BNAS2224" type="error" message="停用日期不能大于产品失效日期" errorCode="DP.CM032224"/>
+        <error id="BNAS2225" type="error" message="产品机构控制标志为[2-适用机构]时，才可以做存款产品适用机构停用日期调整" errorCode="DP.CM032225"/>
+        <error id="BNAS2226" type="error" message="停用日期不能小于于产品生效日期" errorCode="DP.CM032226"/>
+        <error id="BNAS2227" type="error" message="不存在待复核的产品" errorCode="DP.CM032227"/>
+        <error id="BNAS2228" type="error" message="该部件信息不存在[${partcd}]" errorCode="DP.CM032228">
+            <parameter id="partcd" type="BaseType.U_CHAR35" longname="部件编号"/>
+        </error>
+        <error id="BNAS2229" type="error" message="新增模式为模板模式或者复制模式的不能修改！" errorCode="DP.CM032229"/>
+        <error id="BNAS2230" type="error" message="该模板记录不存在" errorCode="DP.CM032230"/>
+        <error id="BNAS2231" type="error" message="该模板名称已存在" errorCode="DP.CM032231"/>
+        <error id="BNAS2232" type="error" message="传入的部件编号与部件定义表中不一致" errorCode="DP.CM032232"/>
+        <error id="BNAS2233" type="error" message="该模板部件记录不存在" errorCode="DP.CM032233"/>
+    </errors>
+    <errors id="DpDeptAcct" longname="负债账户错误码">
+        <error id="E0002" type="error" message="新增余额变更信息数据失败，增加数据记录条数[${cnt}]" errorCode="DP.AC030002">
+            <parameter id="cnt" type="BaseType.U_LONGIN"/>
+        </error>
+        <error id="E0005" type="error" message="协议利率类型，开户利率必须大于零" errorCode="DP.AC030005"/>
+        <error id="BNAS0003" type="error" message="最小交易金额不得小于0！" errorCode="DP.AC030003"/>
+        <error id="BNAS0004" type="error" message="暂不支持的起息日来源" errorCode="DP.AC030004"/>
+        <error id="BNAS0027" type="error" message="转入账号类型不能为空" errorCode="DP.AC030027"/>
+        <error id="BNAS0139" type="error" message="证明文件名称不能为空" errorCode="DP.AC030139"/>
+        <error id="BNAS0140" type="error" message="证明文件编号不能为空" errorCode="DP.AC030140"/>
+        <error id="BNAS0174" type="error" message="账户利率信息为空" errorCode="DP.AC030174"/>
+        <error id="BNAS0193" type="error" message="账号[${cardno}]不存在！" errorCode="DP.AC030193">
+            <parameter id="cardno" type="BaseType.U_CHAR200" longname="卡号"/>
+        </error>
+        <error id="BNAS0201" type="error" message="暂时不支持其他利率重定价方式" errorCode="DP.AC030201"/>
+        <error id="BNAS0205" type="error" message="暂不支持历史库" errorCode="DP.AC030205"/>
+        <error id="BNAS0207" type="error" message="暂不支持的记账类型!" errorCode="DP.AC030207"/>
+        <error id="BNAS0247" type="error" message="已购买过[${prodtx}]，不能再购买" errorCode="DP.AC030247">
+            <parameter id="prodtx" type="BaseType.U_CHAR20" longname="产品名称"/>
+        </error>
+        <error id="BNAS0283" type="error" message="销户支取方式请选择空" errorCode="DP.AC030283"/>
+        <error id="BNAS0284" type="error" message="销户原因不能为空" errorCode="DP.AC030284"/>
+        <error id="BNAS0291" type="error" message="销户方式不能为空" errorCode="DP.AC030291"/>
+        <error id="BNAS0296" type="error" message="县级机构只能查本机构和上级机构" errorCode="DP.AC030296"/>
+        <error id="BNAS0297" type="error" message="县级行社仅能查询省级机构和本机构" errorCode="DP.AC030297"/>
+        <error id="BNAS0298" type="error" message="县级行社仅能查询本机构" errorCode="DP.AC030298"/>
+        <error id="BNAS0299" type="error" message="县级行社不能修改省联社记录" errorCode="DP.AC030299"/>
+        <error id="BNAS0300" type="error" message="系统未设置日累计转出账户限额，客户不得自行设置" errorCode="DP.AC030300"/>
+        <error id="BNAS0301" type="error" message="输入的证件号码与用户ID不匹配" errorCode="DP.AC030301"/>
+        <error id="BNAS0302" type="error" message="输入的证件号码与电子账号不匹配" errorCode="DP.AC030302"/>
+        <error id="BNAS0309" type="error" message="输入的电子账号与用户ID不匹配" errorCode="DP.AC030309"/>
+        <error id="BNAS0318" type="error" message="手续费不能大于账户可用余额" errorCode="DP.AC030318"/>
+        <error id="BNAS0319" type="error" message="手机号不全为数字！" errorCode="DP.AC030319"/>
+        <error id="BNAS0320" type="error" message="收入入账、支出入账，必须输入内部户！" errorCode="DP.AC030320"/>
+        <error id="BNAS0321" type="error" message="收款账户已被公安机关列为黑名单" errorCode="DP.AC030321"/>
+        <error id="BNAS0385" type="error" message="请输入转入方账户户名！" errorCode="DP.AC030385"/>
+        <error id="BNAS0386" type="error" message="请输入转入方账号！" errorCode="DP.AC030386"/>
+        <error id="BNAS0387" type="error" message="请输入转出方账户户名！" errorCode="DP.AC030387"/>
+        <error id="BNAS0388" type="error" message="请输入转出方账号！" errorCode="DP.AC030388"/>
+        <error id="BNAS0413" type="error" message="起始日期不能大于系统日期" errorCode="DP.AC030413"/>
+        <error id="BNAS0445" type="error" message="您存在为他人开通的亲情钱包，请先关闭！" errorCode="DP.AC030445"/>
+        <error id="BNAS0470" type="error" message="利息调整方式输入有误，请核查！" errorCode="DP.AC030470"/>
+        <error id="BNAS0495" type="error" message="跨法人机构账户不允许查询打印！" errorCode="DP.AC030495"/>
+        <error id="BNAS0515" type="error" message="客户账号类型不在定义中" errorCode="DP.AC030515"/>
+        <error id="BNAS0535" type="error" message="客户类型不能为空" errorCode="DP.AC030535"/>
+        <error id="BNAS0554" type="error" message="开始日期不能为空" errorCode="DP.AC030554"/>
+        <error id="BNAS0598" type="error" message="结束日期不能小于起始日期！" errorCode="DP.AC030598"/>
+        <error id="BNAS0624" type="error" message="交易金额不能等于零" errorCode="DP.AC030624"/>
+        <error id="BNAS0626" type="error" message="交易金额必须不小于0" errorCode="DP.AC030626"/>
+        <error id="BNAS0633" type="error" message="交易币种和电子账号币种不同，无法交易！" errorCode="DP.AC030633"/>
+        <error id="BNAS0657" type="error" message="机构号，产品编号，利率编号至少输入一个" errorCode="DP.AC030657"/>
+        <error id="BNAS0668" type="error" message="活期账户信息不存在" errorCode="DP.AC030668"/>
+        <error id="BNAS0710" type="error" message="该账户的账户计息定义信息不存在" errorCode="DP.AC030710"/>
+        <error id="BNAS0760" type="error" message="该产品不是活期期产品" errorCode="DP.AC030760"/>
+        <error id="BNAS0767" type="error" message="负债账户不存在" errorCode="DP.AC030767"/>
+        <error id="BNAS0769" type="error" message="负债活期账户[${acctno}]信息表不存在" errorCode="DP.AC030769">
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="负债活期账户"/>
+        </error>
+        <error id="BNAS0770" type="error" message="付款账户已被公安机关列为黑名单!" errorCode="DP.AC030770"/>
+        <error id="BNAS0792" type="error" message="非电子账号所属机构，无法调息！" errorCode="DP.AC030792"/>
+        <error id="BNAS0813" type="error" message="对不起，您的电子账户不是全功能账户或理财功能户，请先做升级处理！" errorCode="DP.AC030813"/>
+        <error id="BNAS0838" type="error" message="定期子账号[${acctno}]不存在" errorCode="DP.AC030838">
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="子账号"/>
+        </error>
+        <error id="BNAS0842" type="error" message="定期存款信息不存在" errorCode="DP.AC030842"/>
+        <error id="BNAS0843" type="error" message="定活标志值异常 [${fcflag}]" errorCode="DP.AC030843">
+            <parameter id="fcflag" type="BaseType.U_CHAR35" longname="定活标志值"/>
+        </error>
+        <error id="BNAS0854" type="error" message="电子账户有未收讫的费用" errorCode="DP.AC030854"/>
+        <error id="BNAS0903" type="error" message="电子账户ID不匹配" errorCode="DP.AC030903"/>
+        <error id="BNAS0905" type="error" message="电子账号状态[${acctst}]为不正常" errorCode="DP.AC030905">
+            <parameter id="acctst" type="BaseType.U_CHAR35" longname="电子账号状态"/>
+        </error>
+        <error id="BNAS0918" type="error" message="电子账号名称不正确！" errorCode="DP.AC030918"/>
+        <error id="BNAS0922" type="error" message="电子账号和调息账号非统一客户下，不允许操作！" errorCode="DP.AC030922"/>
+        <error id="BNAS0944" type="error" message="电子账号[${acctno}]对应卡号未找到！" errorCode="DP.AC030944">
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="负债账号"/>
+        </error>
+        <error id="BNAS0945" type="error" message="电子账号[${custac}]与定期账号[${acctno}]对应的电子账号不一致" errorCode="DP.AC030945">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="负债账号"/>
+        </error>
+        <error id="BNAS0946" type="error" message="电子账号[${custac}]客户信息不存在" errorCode="DP.AC030946">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS0947" type="error" message="电子账号[${custac}]的状态为[${acctst}],状态不正常" errorCode="DP.AC030947">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+            <parameter id="acctst" type="BaseType.U_CHAR35" longname="账户状态"/>
+        </error>
+        <error id="BNAS0948" type="error" message="电子账号[${custac}]不存在" errorCode="DP.AC030948">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS0953" type="error" message="电子账号[${custac}]下存在智能储蓄未结息记录" errorCode="DP.AC030953">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS0996" type="error" message="存在智能储蓄签约，请先前往合约管理手工解约！" errorCode="DP.AC030996"/>
+        <error id="BNAS1050" type="error" message="产品类型细分不能为空" errorCode="DP.AC031050"/>
+        <error id="BNAS1065" type="error" message="查询利率失败" errorCode="DP.AC031065"/>
+        <error id="BNAS1073" type="error" message="查询发行份数失败" errorCode="DP.AC031073"/>
+        <error id="BNAS1078" type="error" message="查询产品份数信息失败" errorCode="DP.AC031078"/>
+        <error id="BNAS1092" type="error" message="不存在此机构" errorCode="DP.AC031092"/>
+        <error id="BNAS1118" type="error" message="需销户的卡号[${cardno}]不存在" errorCode="DP.AC031118">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="虚拟卡号"/>
+        </error>
+        <error id="BNAS1125" type="error" message="负债账户不存在，电子账户[${custac}]，负债账号[${acctno}]" errorCode="DP.AC031125">
+            <parameter id="custac" type="BaseType.U_CUACNO" longname="电子账号"/>
+            <parameter id="acctno" type="BaseType.U_ACCTNO" longname="负债账户"/>
+        </error>
+        <error id="BNAS1126" type="error" message="需销户的电子账号[${custac}]不存在！" errorCode="DP.AC031126">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="客户账号"/>
+        </error>
+        <error id="BNAS1131" type="error" message="支取后余额[${acctbl}]小于最低留存[${minibl}]，请全额支取" errorCode="DP.AC031131">
+            <parameter id="acctbl" type="BaseType.U_TRANAM" longname="支取后余额"/>
+            <parameter id="minibl" type="BaseType.U_TRANAM" longname="最低留存余额"/>
+        </error>
+        <error id="BNAS1135" type="error" message="Ⅲ类户客户设置限额[${maxbin}]大于参数表最高限额[${maxbin1}]，请检查!" errorCode="DP.AC031135">
+            <parameter id="maxbin" type="BaseType.U_CHAR50" longname="设置限额"/>
+            <parameter id="maxbin1" type="BaseType.U_CHAR50" longname="最高限额"/>
+        </error>
+        <error id="BNAS1140" type="error" message="支取金额控制方式参数异常[${amntwy}]" errorCode="DP.AC031140">
+            <parameter id="amntwy" type="BaseType.U_CHAR50" longname="支取金额控制方式"/>
+        </error>
+        <error id="BNAS1148" type="error" message="您好，本产品只允许一次性全额支取，请录入正确金额！" errorCode="DP.AC031148"/>
+        <error id="BNAS1159" type="error" message="逻辑错误：应入账日期[${acctdt}]不能小于交易日期[${inpudt}]" errorCode="DP.AC031159">
+            <parameter id="acctdt" type="BaseType.U_CHAR50" longname="应入账日期"/>
+            <parameter id="inpudt" type="BaseType.U_CHAR50" longname="交易日期"/>
+        </error>
+        <error id="BNAS1187" type="error" message="存入金额控制方式参数异常[${amntwy}]" errorCode="DP.AC031187">
+            <parameter id="amntwy" type="BaseType.U_CHAR50" longname="存入金额控制方式"/>
+        </error>
+        <error id="BNAS1207" type="error" message="未找到[${acctno}]对应的定期账户信息" errorCode="DP.AC031207">
+            <parameter id="acctno" type="BaseType.U_ACCTNO" longname="子账号"/>
+        </error>
+        <error id="BNAS1209" type="error" message="未配置产品号[${prodcd}]的违约支取利息定义信息，支取利息类型为[${drintp}]" errorCode="DP.AC031209">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品号"/>
+            <parameter id="drintp" type="BaseType.U_CHAR35" longname="支取利息类型"/>
+        </error>
+        <error id="BNAS1271" type="error" message="查询类型输入错误" errorCode="DP.AC031271"/>
+        <error id="BNAS1273" type="error" message="电子账号[${custac}]下账户余额不全为0，不允许销户" errorCode="DP.AC031273">
+            <parameter id="custac" type="BaseType.U_CUACNO" longname="电子账号"/>
+        </error>
+        <error id="BNAS1400" type="error" message="保险账号不存在:[${custac}]" errorCode="DP.AC031400">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS1401" type="error" message="活期存款账户不存在:[${custac}]" errorCode="DP.AC031401">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS1402" type="error" message="定期存款账户不存在:[${custac}]" errorCode="DP.AC031402">
+            <parameter id="custac" type="BaseType.U_CHAR35" longname="电子账号"/>
+        </error>
+        <error id="BNAS1403" type="error" message="定期支取控制信息表不存在" errorCode="DP.AC031403"/>
+        <error id="BNAS1404" type="error" message="支取控制规则不支持:[${drrule}]" errorCode="DP.AC031404">
+            <parameter id="drrule" type="BaseType.U_CHAR35" longname="取控制规则"/>
+        </error>
+        <error id="BNAS1405" type="error" message="账户[${acctno}]余额[${onlnbl}]不对" errorCode="DP.AC031405">
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="账户"/>
+            <parameter id="onlnbl" type="BaseType.U_CHAR35" longname="余额"/>
+        </error>
+        <error id="BNAS1409" type="error" message="违约后不允许支取，请到期后支取！" errorCode="DP.AC031409"/>
+        <error id="BNAS1410" type="error" message="支取控制方式不支持" errorCode="DP.AC031410"/>
+        <error id="BNAS1411" type="error" message="存入次数控制方式参数异常[${timewy}]" errorCode="DP.AC031411">
+            <parameter id="timewy" type="BaseType.U_CHAR35" longname="次数"/>
+        </error>
+        <error id="BNAS1412" type="error" message="产品[${prodcd}]需要收取利息税，产品利息率定义表税率编号不能为空" errorCode="DP.AC031412">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品"/>
+        </error>
+        <error id="BNAS1413" type="error" message="产品[${prodcd}]按利率按周期重定价，未设置重定价周期" errorCode="DP.AC031413">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品"/>
+        </error>
+        <error id="BNAS1414" type="error" message="产品[${prodcd}]利率遇优惠调整，未设置优惠调整频率" errorCode="DP.AC031414">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品"/>
+        </error>
+        <error id="BNAS1421" type="error" message="负债账号不存在" errorCode="DP.AC031421"/>
+        <error id="BNAS1422" type="error" message="负债账号开户不支持隔日冲正" errorCode="DP.AC031422"/>
+        <error id="BNAS1423" type="error" message="负债账号开户只支出零余额冲正" errorCode="DP.AC031423"/>
+        <error id="BNAS1695" type="error" message="电子账户已销户，不允许交易！" errorCode="DP.AC031695"/>
+        <error id="BNAS1696" type="error" message="卡号[${cardno}]下电子账户已被双冻，不允许交易！" errorCode="DP.AC031696">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="卡号"/>
+        </error>
+        <error id="BNAS1697" type="error" message="卡号[${cardno}]下电子账户已被全止，不允许交易！" errorCode="DP.AC031697">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="卡号"/>
+        </error>
+        <error id="BNAS1698" type="error" message="卡号[${cardno}]下电子账户状态为[${status}],非正常状态！" errorCode="DP.AC031698">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="卡号"/>
+            <parameter id="status" type="BaseType.U_CHAR35" longname="电子账户状态"/>
+        </error>
+        <error id="BNAS1700" type="error" message="卡号[${cardno}]下电子账户已被借冻，不允许交易" errorCode="DP.AC031700">
+            <parameter id="cardno" type="BaseType.U_CHAR35" longname="卡号"/>
+        </error>
+        <error id="BNAS1702" type="error" message="借贷标志[${amntcd}]不正确!" errorCode="DP.AC031702">
+            <parameter id="amntcd" type="BaseType.U_CHAR35" longname="借贷标志"/>
+        </error>
+        <error id="BNAS1735" type="error" message="插入负债账户利率明细表失败" errorCode="DP.AC031735"/>
+        <error id="BNAS1736" type="error" message="更新负债账户利率明细表失败" errorCode="DP.AC031736"/>
+        <error id="BNAS1738" type="error" message="暂不支持批量开立Ⅰ类户" errorCode="DP.AC031738"/>
+        <error id="BNAS1739" type="error" message="定活标志异常" errorCode="DP.AC031739"/>
+        <error id="BNAS1740" type="error" message="结息批次账号分段数量未配置" errorCode="DP.AC031740"/>
+        <error id="BNAS1741" type="error" message="生效时间已小于当前时间，不能复核！" errorCode="DP.AC031741"/>
+        <error id="BNAS1742" type="error" message="更新活期账户记录失败，更新数据记录条数[${cnt}]" errorCode="DP.AC031742">
+            <parameter id="cnt" type="BaseType.U_LONGIN" longname="数据记录条数"/>
+        </error>
+        <error id="BNAS1743" type="error" message="日期计算计算错误, 周期频率[${freqcy}]计算完等于原日期[${nextdt}]" errorCode="DP.AC031743">
+            <parameter id="freqcy" type="BaseType.U_CHAR10"/>
+            <parameter id="nextdt" type="BaseType.U_DATE08"/>
+        </error>
+        <error id="BNAS1744" type="error" message="定活标志错误[${fcflag}]" errorCode="DP.AC031744">
+            <parameter id="fcflag" type="DpEnumType.E_FCFLAG" longname="定活标志"/>
+        </error>
+        <error id="BNAS1745" type="error" message="存入计划已违约，拒绝存入" errorCode="DP.AC031745"/>
+        <error id="BNAS1746" type="error" message="不存在未处理存入计划，拒绝存入" errorCode="DP.AC031746"/>
+        <error id="BNAS1747" type="error" message="已漏存的次数未达到违约控制的漏存次数，但漏存的不允许补齐" errorCode="DP.AC031747"/>
+        <error id="BNAS1748" type="error" message="存入金额不够补足漏存金额" errorCode="DP.AC031748"/>
+        <error id="BNAS1749" type="error" message="实际存入次数已经等于计划存入次数，不可再存入" errorCode="DP.AC031749"/>
+        <error id="BNAS1750" type="error" message="实际存入总额已经大于等于计划存入总额，不可再存入" errorCode="DP.AC031750"/>
+        <error id="BNAS1751" type="error" message="漏存补足次数已达到最大补足次数，不允许补足" errorCode="DP.AC031751"/>
+        <error id="BNAS1752" type="error" message="存入金额大于计划中应该存入金额，交易拒绝" errorCode="DP.AC031752"/>
+        <error id="BNAS1753" type="error" message="漏补方式为[${svbkad}]时，实际漏存次数不正常" errorCode="DP.AC031753">
+            <parameter id="svbkad" type="BaseType.U_CHAR20" longname="漏补方式描述"/>
+        </error>
+        <error id="BNAS1754" type="error" message="交易日期小于计划起始日期！" errorCode="DP.AC031754"/>
+        <error id="BNAS1755" type="error" message="支取违约标准值异常[${drcrwy}]" errorCode="DP.AC031755">
+            <parameter id="drcrwy" type="BaseEnumType.E_SVPLFG" longname="支取计划完成方式"/>
+        </error>
+        <error id="BNAS1756" type="error" message="红蓝字标志异常[${colour}]" errorCode="DP.AC031756">
+            <parameter id="colour" type="BaseEnumType.E_COLOUR" longname="红蓝字标志"/>
+        </error>
+        <error id="BNAS1880" type="error" message="钞汇标志不正确" errorCode="DP.AC031880"/>
+        <error id="BNAS1882" type="error" message="记录已经存在，请勿重复提交" errorCode="DP.AC031882"/>
+        <error id="BNAS1883" type="error" message="子账号不存在" errorCode="DP.AC031883"/>
+        <error id="BNAS1884" type="error" message="子账号状态不正常" errorCode="DP.AC031884"/>
+        <error id="BNAS1885" type="error" message="输入电子账号和子账号不匹配" errorCode="DP.AC031885"/>
+        <error id="BNAS1886" type="error" message="输入币种与子账号币种不相符" errorCode="DP.AC031886"/>
+        <error id="BNAS1887" type="error" message="输入客户名称与客户电子帐号名称不相符" errorCode="DP.AC031887"/>
+        <error id="BNAS1888" type="error" message="子账号与子账号类型不匹配" errorCode="DP.AC031888"/>
+        <error id="BNAS1889" type="error" message="子账号类型为亲情钱包时额度验证扣减标志必须为否" errorCode="DP.AC031889"/>
+        <error id="BNAS1890" type="error" message="您的电子账户已停用" errorCode="DP.AC031890"/>
+        <error id="BNAS1891" type="error" message="您的电子账户已被保护" errorCode="DP.AC031891"/>
+        <error id="BNAS1892" type="error" message="是否验密不能为空" errorCode="DP.AC031892"/>
+        <error id="BNAS1893" type="error" message="不支持验密" errorCode="DP.AC031893"/>
+        <error id="BNAS1894" type="error" message="是否验密为否时,密码类型必须为空" errorCode="DP.AC031894"/>
+        <error id="BNAS1895" type="error" message="是否验密为否时,加密因子必须为空" errorCode="DP.AC031895"/>
+        <error id="BNAS1896" type="error" message="是否验密为否时,密码必须为空" errorCode="DP.AC031896"/>
+        <error id="BNAS1897" type="error" message="额度验证扣减标志不能为空" errorCode="DP.AC031897"/>
+        <error id="BNAS1898" type="error" message="额度验证扣减标志为否时，额度其他信息应为空" errorCode="DP.AC031898"/>
+        <error id="BNAS1899" type="error" message="付款方证件类型不能为空" errorCode="DP.AC031899"/>
+        <error id="BNAS1900" type="error" message="付款方证件号不能为空" errorCode="DP.AC031900"/>
+        <error id="BNAS1901" type="error" message="付款方手机号不能为空" errorCode="DP.AC031901"/>
+        <error id="BNAS1910" type="error" message="付款账号已被公安机关列为黑名单" errorCode="DP.AC031910"/>
+        <error id="BNAS1911" type="error" message="收款账号已被公安机关列为黑名单" errorCode="DP.AC031911"/>
+        <error id="BNAS1936" type="error" message="销户支取方式不能为空" errorCode="DP.AC031936"/>
+        <error id="BNAS1937" type="error" message="经办人证件类型不能为空" errorCode="DP.AC031937"/>
+        <error id="BNAS1938" type="error" message="经办人证件号码不能为空" errorCode="DP.AC031938"/>
+        <error id="BNAS1939" type="error" message="您存在为别人开通的亲情钱包，请先关闭！" errorCode="DP.AC031939"/>
+        <error id="BNAS3003" type="error" message="代理销户时密挂支取方式应为密挂支取" errorCode="DP.AC033003"/>
+        <error id="BNAS3004" type="error" message="电子账户为可疑账户，不允许面签" errorCode="DP.AC033004"/>
+        <error id="BNAS3005" type="error" message="电子账户为全止或借冻状态！" errorCode="DP.AC033005"/>
+        <error id="BNAS3006" type="error" message="电子账户可用余额小于冲正金额！" errorCode="DP.AC033006"/>
+        <error id="BNAS3007" type="error" message="存款人证件类型不能为空" errorCode="DP.AC033007"/>
+        <error id="BNAS3008" type="error" message="存款人证件号码不能为空" errorCode="DP.AC033008"/>
+        <error id="BNAS3009" type="error" message="卡号/负债账号、主交易流水不能同时为空" errorCode="DP.AC033009"/>
+        <error id="BNAS3010" type="error" message="账户日期大于当前系统日期" errorCode="DP.AC033010"/>
+    </errors>
+    <errors id="DpDeptFroz" longname="负债冻结错误码">
+        <error id="E0001" type="error" message="[${frozow}][${frowid}]已被冻结[${msg}]" errorCode="DP.FZ030001">
+            <parameter id="frozow" type="BaseType.U_SHORDS" longname="冻结主体类型"/>
+            <parameter id="frowid" type="BaseType.U_ACCTNO" longname="冻结主体id"/>
+            <parameter id="msg" type="BaseType.U_SHORDS" longname="错误信息"/>
+        </error>
+        <error id="E0002" type="error" message="客户账号[${custac}]无存款证明止付记录" errorCode="DP.FZ030002">
+            <parameter id="custac" type="BaseType.U_CUACNO" longname="客户账号"/>
+        </error>
+        <error id="BNAS3003" type="error" message="暂不支持多个钱包账户的扣划" errorCode="DP.FZ033003"/>
+    </errors>
+    <errors id="DpDeptProd" longname="负债产品错误码">
+        <error id="E0001" type="error" message="产品有效期过期" errorCode="DP.PD030001"/>
+        <error id="E0002" type="error" message="产品无效" errorCode="DP.PD030002"/>
+        <error id="E0003" type="error" message="客户下已存在相同负债产品" errorCode="DP.PD030003"/>
+        <error id="E0004" type="error" message="该机构被限制不能办理该负债产品" errorCode="DP.PD030004"/>
+        <error id="E0005" type="error" message="该产品不支持该存期" errorCode="DP.PD030005"/>
+        <error id="E0006" type="error" message="请输入交易金额" errorCode="DP.PD030006"/>
+        <error id="E0007" type="error" message="账户[${cust_no}]已销户或状态不正常，请检查账户信息" errorCode="DP.PD030007">
+            <parameter id="cust_no" type="BaseType.U_CUSTNO" longname="客户号"/>
+        </error>
+        <error id="E0008" type="error" message="账户[${cust_no}]的户名[${cust_name}]不正确" errorCode="DP.PD030008">
+            <parameter id="cust_no" type="BaseType.U_CUSTNO"/>
+            <parameter id="cust_name" type="BaseType.U_CHAR100"/>
+        </error>
+        <error id="E0009" type="error" message="币种[${crcycd}]与账户[${custac}]默认币种不一致" errorCode="DP.PD030009">
+            <parameter id="crcycd" type="BaseType.U_CRCYCD" longname="币种"/>
+            <parameter id="custac" type="BaseType.U_CHAR35"/>
+        </error>
+        <error id="E0010" type="error" message="[${msg}]" errorCode="DP.PD030010">
+            <parameter id="msg" type="BaseType.U_CHAR200" longname="输入信息"/>
+        </error>
+        <error id="E0015" type="error" message="存入次数[${count}]小于最小存入次数[${minitm}]" errorCode="DP.PD030015">
+            <parameter id="count" type="BaseType.U_LONGIN" longname="存入次数"/>
+            <parameter id="minitm" type="BaseType.U_LONGIN" longname="最小存入次数"/>
+        </error>
+        <error id="E0016" type="error" message="存入次数[${count}]大于最大存入次数[${maxitm}]" errorCode="DP.PD030016">
+            <parameter id="count" type="BaseType.U_LONGIN" longname="存入次数"/>
+            <parameter id="maxitm" type="BaseType.U_LONGIN" longname="最大存入次数"/>
+        </error>
+        <error id="E0017" type="error" message="存入次数[${count}]必须在[${minitm}]和[${maxitm}]之间" errorCode="DP.PD030017">
+            <parameter id="count" type="BaseType.U_LONGIN" longname="存入次数"/>
+            <parameter id="minitm" type="BaseType.U_LONGIN" longname="最小存入次数"/>
+            <parameter id="maxitm" type="BaseType.U_LONGIN" longname="最大存入次数"/>
+        </error>
+        <error id="E0018" type="error" message="客户下该账号已存在相同负债产品" errorCode="DP.PD030018"/>
+        <error id="E0019" type="error" message="其他类型产品下账户余额暂未实现" errorCode="DP.PD030019"/>
+        <error id="E0021" type="error" message="存支取次数[${count}]大于最大支取次数[${maxitm}]" errorCode="DP.PD030021">
+            <parameter id="count" type="BaseType.U_LONGIN" longname="支取次数"/>
+            <parameter id="maxitm" type="BaseType.U_LONGIN" longname="最大支取次数"/>
+        </error>
+        <error id="E0023" type="error" message="交易金额[${tranam}]小于最小支取金额[${miniam}]" errorCode="DP.PD030023">
+            <parameter id="tranam" type="BaseType.U_TRANAM" longname="交易金额"/>
+            <parameter id="miniam" type="BaseType.U_TRANAM" longname="最小支取金额"/>
+        </error>
+        <error id="E0026" type="error" message="该产品[${prodcd}]销售份额已达到预售份额[${presal}]" errorCode="DP.PD030026">
+            <parameter id="prodcd" type="BaseType.U_PRODCD" longname="产品编码"/>
+            <parameter id="presal" type="BaseType.U_LONGIN" longname="预售份数"/>
+        </error>
+        <error id="E0027" type="error" message="该产品[${prodcd}]每人只能购买[${svrule}]份" errorCode="DP.PD030027">
+            <parameter id="prodcd" type="BaseType.U_PRODCD" longname="产品编号"/>
+            <parameter id="svrule" type="BaseType.U_LONGIN" longname="限购份数"/>
+        </error>
+        <error id="BNAS0314" type="error" message="首开户时负债账户产品必须是活期" errorCode="DP.PD030314"/>
+        <error id="BNAS0845" type="error" message="定活标志[${fcflag}]异常 " errorCode="DP.PD030845">
+            <parameter id="fcflag" type="BaseType.U_CHAR35" longname="定活标志值"/>
+        </error>
+        <error id="BNAS0872" type="error" message="电子账户信息不存在或者状态不正常" errorCode="DP.PD030872"/>
+        <error id="BNAS1055" type="error" message="产品[${prodcd}]信息异常" errorCode="DP.PD031055">
+            <parameter id="prodcd" type="BaseType.U_CHAR35" longname="产品"/>
+        </error>
+        <error id="BNAS1116" type="error" message="交易金额[${tranam}]大于最大存入金额[${maxiam}]" errorCode="DP.PD031116">
+            <parameter id="tranam" type="BaseType.U_TRANAM" longname="交易金额"/>
+            <parameter id="maxiam" type="BaseType.U_TRANAM" longname="最大存入金额"/>
+        </error>
+        <error id="BNAS1117" type="error" message="[${pmval5}]的客户暂时不能购买该产品" errorCode="DP.PD031117">
+            <parameter id="pmval5" type="BaseType.U_CHAR35" longname="最大存入金额"/>
+        </error>
+        <error id="BNAS1298" type="error" message="基础属性部件中不存在该产品，请先新增基础属性部件" errorCode="DP.PD031298"/>
+        <error id="BNAS1299" type="error" message="核算代码填写错误请检查" errorCode="DP.PD031299"/>
+        <error id="BNAS1300" type="error" message="未配置存款核算部件，请先配置该部件" errorCode="DP.PD031300"/>
+        <error id="BNAS1301" type="error" message="存款产品核算部件未启用，请先启用该部件" errorCode="DP.PD031301"/>
+        <error id="BNAS1302" type="error" message="不存在开户控制部件信息，请先新增开户控制部件信息" errorCode="DP.PD031302"/>
+        <error id="BNAS1303" type="error" message="核算部件已经存在，请勿重复提交" errorCode="DP.PD031303"/>
+        <error id="BNAS1304" type="error" message="不存在存期信息，请先新增存期信息" errorCode="DP.PD031304"/>
+        <error id="BNAS1305" type="error" message="产品号对应的核算部件不存在" errorCode="DP.PD031305"/>
+        <error id="BNAS1313" type="error" message="违约支取利息类型为提前销户，违约利息调整类型只能选择1-全额调整" errorCode="DP.PD031313"/>
+        <error id="BNAS1314" type="error" message="利率调整类型与违约支取利息类型不匹配" errorCode="DP.PD031314"/>
+        <error id="BNAS1315" type="error" message="输入违约起始日来源错误，请重新输入" errorCode="DP.PD031315"/>
+        <error id="BNAS1316" type="error" message="输入违约结息终止日来源错误，请重新输入" errorCode="DP.PD031316"/>
+        <error id="BNAS1317" type="error" message="输入违约支取结息金额来源错误，请重新输入" errorCode="DP.PD031317"/>
+        <error id="BNAS1318" type="error" message="未配置存款产品违约部件，请先配置该部件" errorCode="DP.PD031318"/>
+        <error id="BNAS1319" type="error" message="存款产品违约部件未启用，请先启用该部件" errorCode="DP.PD031319"/>
+        <error id="BNAS1320" type="error" message="未查询到该产品编号关联的币种" errorCode="DP.PD031320"/>
+        <error id="BNAS1321" type="error" message="利率代码不存在" errorCode="DP.PD031321"/>
+        <error id="BNAS1323" type="error" message="违约利率代码类型有误" errorCode="DP.PD031323"/>
+        <error id="BNAS1325" type="error" message="违约利率靠档方式不可设置" errorCode="DP.PD031325"/>
+        <error id="BNAS1326" type="error" message="靠档规则不可设置" errorCode="DP.PD031326"/>
+        <error id="BNAS1327" type="error" message="该违约产品支取利息信息已存在，不可新增" errorCode="DP.PD031327"/>
+        <error id="BNAS1329" type="error" message="该产品编号不存在" errorCode="DP.PD031329"/>
+        <error id="BNAS1330" type="error" message="机构控制部件信息已存在，请勿重复新增" errorCode="DP.PD031330"/>
+        <error id="BNAS1331" type="error" message="机构控制部件不存在或未启用" errorCode="DP.PD031331"/>
+        <error id="BNAS1332" type="error" message="销售工厂启用的产品不允许添加适用机构" errorCode="DP.PD031332"/>
+        <error id="BNAS1333" type="error" message="机构控制标志为1-全部机构时，不允许添加适用机构" errorCode="DP.PD031333"/>
+        <error id="BNAS1335" type="error" message="适用机构号已存在" errorCode="DP.PD031335"/>
+        <error id="BNAS1336" type="error" message="机构号不存在" errorCode="DP.PD031336"/>
+        <error id="BNAS1337" type="error" message="未找到基础部件信息，请先新增基础部件信息" errorCode="DP.PD031337"/>
+        <error id="BNAS1339" type="error" message="当早起息标志为1-是，则早起息天数必填" errorCode="DP.PD031339"/>
+        <error id="BNAS1340" type="error" message="早起息天数必须大于0" errorCode="DP.PD031340"/>
+        <error id="BNAS1341" type="error" message="当早起息标志为0-否，则早起息天数必须为空" errorCode="DP.PD031341"/>
+        <error id="BNAS1343" type="error" message="到期日确定方式选择错误，只能为无到期日" errorCode="DP.PD031343"/>
+        <error id="BNAS1344" type="error" message="到期日确定方式不为指定到期日和无到期日时，存期信息不能为空" errorCode="DP.PD031344"/>
+        <error id="BNAS1346" type="error" message="该存期暂不支持" errorCode="DP.PD031346"/>
+        <error id="BNAS1347" type="error" message="当属性为根据开户日计算到期日或者根据首次存入日计算到期日时，存期可选 活期除外的其他存期" errorCode="DP.PD031347"/>
+        <error id="BNAS1348" type="error" message="当存期为自定义时，需要录入具体的天数不能为空" errorCode="DP.PD031348"/>
+        <error id="BNAS1349" type="error" message="只有当存期为自定义时，需要录入具体的天数" errorCode="DP.PD031349"/>
+        <error id="BNAS1350" type="error" message="存期重复" errorCode="DP.PD031350"/>
+        <error id="BNAS1351" type="error" message="存期天数重复" errorCode="DP.PD031351"/>
+        <error id="BNAS1353" type="error" message="最低起存金额不能小于0" errorCode="DP.PD031353"/>
+        <error id="BNAS1354" type="error" message="步长值不能小于0" errorCode="DP.PD031354"/>
+        <error id="BNAS1355" type="error" message="存款产品部件不存在或未启用" errorCode="DP.PD031355"/>
+        <error id="BNAS1356" type="error" message="记录已存在" errorCode="DP.PD031356"/>
+        <error id="BNAS1357" type="error" message="请选择违约支取利息类型" errorCode="DP.PD031357"/>
+        <error id="BNAS1358" type="error" message="该违约产品支取利息信息不存在，不可删除" errorCode="DP.PD031358"/>
+        <error id="BNAS1359" type="error" message="该违约产品支取利息信息不存在，不可修改" errorCode="DP.PD031359"/>
+        <error id="BNAS1360" type="error" message="违约支取利息类型不可修改" errorCode="DP.PD031360"/>
+        <error id="BNAS1407" type="error" message="开户机构非产品适用机构" errorCode="DP.PD031407"/>
+        <error id="BNAS1408" type="error" message="自定义存期产品存期天数必须大于0" errorCode="DP.PD031408"/>
+        <error id="BNAS1434" type="error" message="积数变更日期[${lsamdt}]不能大于当前日期[${currdt}]" errorCode="DP.PD031434">
+            <parameter id="lsamdt" type="BaseType.U_CHAR35" longname="数变更日期"/>
+            <parameter id="currdt" type="BaseType.U_CHAR35" longname="当前日期"/>
+        </error>
+        <error id="BNAS1435" type="error" message="负债账户[${acctno}]对应联机余额不存在" errorCode="DP.PD031435">
+            <parameter id="acctno" type="BaseType.U_CHAR35" longname="负债账户"/>
+        </error>
+        <error id="BNAS1436" type="error" message="查询联机余额失败，记录过多" errorCode="DP.PD031436"/>
+        <error id="BNAS1437" type="error" message="查询联机余额失败，其他错误" errorCode="DP.PD031437"/>
+        <error id="BNAS1439" type="error" message="该交易必须要省级产品配置操作岗维护！" errorCode="DP.PD031439"/>
+        <error id="BNAS1440" type="error" message="产品修改柜员只能为新增柜员" errorCode="DP.PD031440"/>
+        <error id="BNAS1441" type="error" message="请先做录入提交" errorCode="DP.PD031441"/>
+        <error id="BNAS1442" type="error" message="产品基础信息,不存在" errorCode="DP.PD031442"/>
+        <error id="BNAS1712" type="error" message="产品有效期过期" errorCode="DP.PD031712"/>
+        <error id="BNAS1713" type="error" message="产品无效" errorCode="DP.PD031713"/>
+        <error id="BNAS1714" type="error" message="客户下已存在相同负债产品" errorCode="DP.PD031714"/>
+        <error id="BNAS1715" type="error" message="该机构被限制不能办理该负债产品" errorCode="DP.PD031715"/>
+        <error id="BNAS1716" type="error" message="该产品不支持该存期" errorCode="DP.PD031716"/>
+        <error id="BNAS1717" type="error" message="电子账户[${custac}]状态已关闭，拒绝交易" errorCode="DP.PD031717">
+            <parameter id="custac" type="BaseType.U_CHAR35"/>
+        </error>
+        <error id="BNAS1718" type="error" message="交易金额[${tranam}]小于最小存入金额[${miniam}]" errorCode="DP.PD031718">
+            <parameter id="tranam" type="BaseType.U_TRANAM" longname="交易金额"/>
+            <parameter id="miniam" type="BaseType.U_TRANAM" longname="最小存入金额"/>
+        </error>
+        <error id="BNAS1720" type="error" message="交易金额[${tranam}]必须在[${miniam}]和[${maxiam}]之间" errorCode="DP.PD031720">
+            <parameter id="tranam" type="BaseType.U_TRANAM" longname="交易金额"/>
+            <parameter id="miniam" type="BaseType.U_TRANAM" longname="最小存入金额"/>
+            <parameter id="maxiam" type="BaseType.U_TRANAM" longname="最大存入金额"/>
+        </error>
+        <error id="BNAS1726" type="error" message="支取次数[${count}]小于最小支取次数[${minitm}]" errorCode="DP.PD031726">
+            <parameter id="count" type="BaseType.U_LONGIN" longname="支取次数"/>
+            <parameter id="minitm" type="BaseType.U_LONGIN" longname="最小支取次数"/>
+        </error>
+        <error id="BNAS1727" type="error" message="您好，您的提前支取次数累计已经达到[${redwnm}]次，现本产品只允许您一次性全额支取。" errorCode="DP.PD031727">
+            <parameter id="redwnm" type="BaseType.U_LONGIN" longname="累计支取次数"/>
+        </error>
+        <error id="BNAS1728" type="error" message="支取次数[${count}]必须在[${minitm}]和[${maxitm}]之间" errorCode="DP.PD031728">
+            <parameter id="count" type="BaseType.U_LONGIN" longname="支取次数"/>
+            <parameter id="minitm" type="BaseType.U_LONGIN" longname="最小支取次数"/>
+            <parameter id="maxitm" type="BaseType.U_LONGIN" longname="最大支取次数"/>
+        </error>
+        <error id="BNAS1729" type="error" message="交易金额[${tranam}]大于最大支取金额[${maxiam}]" errorCode="DP.PD031729">
+            <parameter id="tranam" type="BaseType.U_TRANAM" longname="交易金额"/>
+            <parameter id="maxiam" type="BaseType.U_TRANAM" longname="最大支取金额"/>
+        </error>
+        <error id="BNAS1733" type="error" message="存入金额[${tranam}]小于该产品的起存金额[${srdpam}]" errorCode="DP.PD031733">
+            <parameter id="tranam" type="BaseType.U_ACBLTP" longname="存入金额"/>
+            <parameter id="srdpam" type="BaseType.U_ACBLTP" longname="起存金额"/>
+        </error>
+        <error id="BNAS1757" type="error" message="账号信息不存在" errorCode="DP.PD031757"/>
+        <error id="BNAS1758" type="error" message="不支持该产品" errorCode="DP.PD031758"/>
+        <error id="BNAS1761" type="error" message="拒绝！产品已生成，无法删除！" errorCode="DP.PD031761"/>
+        <error id="BNAS1762" type="error" message="基础信息表中未找到该产品信息！" errorCode="DP.PD031762"/>
+        <error id="BNAS1763" type="error" message="暂不支持该业务大类删除" errorCode="DP.PD031763"/>
+        <error id="BNAS1765" type="error" message="业务大类必须为存款" errorCode="DP.PD031765"/>
+        <error id="BNAS1766" type="error" message="失效日期格式不对，请检查！" errorCode="DP.PD031766"/>
+        <error id="BNAS1767" type="error" message="失效日期不能小于生效日期" errorCode="DP.PD031767"/>
+        <error id="BNAS1768" type="error" message="生效日期格式不对，请核查！" errorCode="DP.PD031768"/>
+        <error id="BNAS1772" type="error" message="产品[${prodcd}]配置为通知存款，存期只支持一天通知和七天通知，当前配置为[${depttm}]" errorCode="DP.PD031772">
+            <parameter id="prodcd" type="BaseType.U_PRODCD"/>
+            <parameter id="depttm" type="BaseEnumType.E_TERMCD"/>
+        </error>
+    </errors>
+</errorConf>

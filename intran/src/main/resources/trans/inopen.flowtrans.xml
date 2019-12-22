@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="inopen" longname="内部户开户交易" kind="2" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[内部户开户交易]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务代码" ref="InDict.inac.busino"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="内部户名称" ref="InDict.inac.acctna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="opbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户机构"/>
+            <field id="ovmony" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="透支限额" ref="InDict.inac.ovmony"/>
+            <field id="beintp" type="InEnumType.E_BEINTP" required="false" multi="false" array="false" longname="结息方式" ref="InDict.inac.beintp"/>
+            <field id="inrate" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="利率" ref="InDict.inac.inrate"/>
+            <field id="ovrate" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="透支利率" ref="InDict.inac.ovrate"/>
+            <field id="ispaya" type="InEnumType.E_ISPAYA" required="false" multi="false" array="false" longname="是否采用销账管理 " ref="InDict.inac.ispaya"/>
+            <field id="isbein" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="计息标志" ref="InDict.inac.isbein"/>
+            <field id="reveac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="收息账号" ref="InDict.inac.reveac"/>
+            <field id="paymac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="付息账号" ref="InDict.inac.paymac"/>
+            <field id="inactp" type="BaseEnumType.E_INACTP" required="false" default="'1'" multi="false" array="false" longname="内部户账户类型" ref="InDict.inac.inactp"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号" ref="InDict.inac.subsac"/>
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="false" multi="false" array="false" longname="科目" ref="InDict.inac.itemcd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="beforeTransCheck" id="BeforeTransCheck" longname="交易前检查" desc="交易前检查 1、输入为空检查"/>
+        <service serviceName="IoInOpenClose.IoInacOpen" id="openInac" longname="内部户开户逻辑" desc="内部户开户逻辑">
+            <in_mappings by_interface="true">
+                <mapping src="opbrch" dest="inacopIn.acbrch" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="inacopIn.acctna" by_interface="true" on_top="true"/>
+                <mapping src="beintp" dest="inacopIn.beintp" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="inacopIn.busino" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="inacopIn.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="inactp" dest="inacopIn.inactp" by_interface="true" on_top="true"/>
+                <mapping src="inrate" dest="inacopIn.inrate" by_interface="true" on_top="true"/>
+                <mapping src="isbein" dest="inacopIn.isbein" by_interface="true" on_top="true"/>
+                <mapping src="ispaya" dest="inacopIn.ispaya" by_interface="true" on_top="true"/>
+                <mapping src="itemcd" dest="inacopIn.itemcd" by_interface="true" on_top="true"/>
+                <mapping src="ovmony" dest="inacopIn.ovmony" by_interface="true" on_top="true"/>
+                <mapping src="ovrate" dest="inacopIn.ovrate" by_interface="true" on_top="true"/>
+                <mapping src="paymac" dest="inacopIn.paymac" by_interface="true" on_top="true"/>
+                <mapping src="reveac" dest="inacopIn.reveac" by_interface="true" on_top="true"/>
+                <mapping src="subsac" dest="inacopIn.subsac" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

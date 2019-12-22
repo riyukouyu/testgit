@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="batranrd" longname="电子账户批量转账读文件" kind="read" package="cn.sunline.ltts.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="batranrd" longname="电子账户批量转账读文件" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1">
+            <field id="totanm" type="ApBaseType.U_CHANZXLX" longname="总笔数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="DpDepoBusiMain.KnbAcctBach" startline="2">
+            <field id="accttp" type="BaseType.U_CHAR01" longname="归集账户类型" leftPadding="false" mode="splitor"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" longname="归集账号" leftPadding="false" mode="splitor"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" longname="归集账户名称" leftPadding="false" mode="splitor"/>
+            <field id="acbrch" type="BaseType.U_BRCHNO" longname="归集账户机构" leftPadding="false" mode="splitor"/>
+            <field id="pyacct" type="BaseType.U_CARDNO" longname="被归集账号" leftPadding="false" mode="splitor"/>
+            <field id="pyacna" type="BaseType.U_ACCTNA" longname="被归集账户名称" leftPadding="false" mode="splitor"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="被归集账户开户行机构" leftPadding="false" mode="splitor"/>
+            <field id="sweptp" type="BaseType.U_CHAR01" longname="归集方式" leftPadding="false" mode="splitor"/>
+            <field id="swpamt" type="BaseType.U_TRANAM" longname="归集金额" leftPadding="false" mode="splitor"/>
+            <field id="soursq" type="BaseType.U_SEQUNO" longname="来源方流水" leftPadding="false" mode="splitor"/>
+            <field id="sourdt" type="BaseType.U_DATE08" longname="来源方日期" leftPadding="false" mode="splitor"/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="交易渠道" leftPadding="false"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="dwname" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="文件路径"/>
+            <field id="dwpath" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="文件名"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

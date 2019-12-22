@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="seldeg" longname="电子账户降级登记簿查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[电子账户降级登记簿查询]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" fixed="" default="" multi="false" array="false" longname="证件号码" desc="" ref="DpDict.Acct.idtfno"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" fixed="" default="" multi="false" array="false" longname="证件类型" desc="" ref="DpDict.Acct.idtftp"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" fixed="" default="" multi="false" array="false" longname="账户所属机构" desc="" ref="DpDict.Acct.brchno"/>
+            <field id="stardt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="起始日期" desc="" ref=""/>
+            <field id="stopdt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="终止日期" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="true">
+        	<!-- <field id="degInfoList" type="IoCaTypGenEAccountInfo.IoCaQryDeRegOut" required="false" fixed="" default="" multi="true" array="false" longname="电子账户降级登记簿查询信息列表" desc="" ref=""/> -->
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" fixed="" default="" multi="false" array="false" longname="页码" desc="" ref=""/>
+            <field id="pgsize" type="BaseType.U_INTEGE" required="false" fixed="" default="" multi="false" array="false" longname="页容量" desc="" ref=""/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="prcQryDeRegBefore" id="prcQryDeRegBefore" test="" longname="交易前处理" desc="查询电子账户降级登记簿交易前处理"/>
+        <!-- 
+        <service mappingToProperty="false" serviceName="IoCaSevQryAccout.IoCaQryDeRegistry" id="caQryDeRegistry" test="" longname="查询电子账户降级登记簿" desc="查询电子账户降级登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="brchno" dest="cplDegInfo.brchno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="cplDegInfo.idtfno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="cplDegInfo.idtftp" desc="" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="cplDegInfo.pageno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="pgsize" dest="cplDegInfo.pgsize" desc="" by_interface="true" on_top="true"/>
+                <mapping src="stardt" dest="cplDegInfo.stardt" desc="" by_interface="true" on_top="true"/>
+                <mapping src="stopdt" dest="cplDegInfo.stopdt" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="degInfoList" dest="degInfoList" desc="" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service> -->
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

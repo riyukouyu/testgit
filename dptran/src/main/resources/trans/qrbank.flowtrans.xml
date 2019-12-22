@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrbank" longname="存款资产查询（修改后查询）" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款子账号"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号"/>
+            <field id="pddpfg" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="定活期标识"/>
+            <field id="sprdid" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="可售产品ID"/>
+            <field id="sprdna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="可售产品名称"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="totbal" type="LnBaseType.U_ACBLTP" required="false" multi="false" array="false" longname="存款总额"/>
+            <field id="curbal" type="LnBaseType.U_ACBLTP" required="false" multi="false" array="false" longname="活期总额"/>
+            <field id="fxabal" type="LnBaseType.U_ACBLTP" required="false" multi="false" array="false" longname="定期总额"/>
+            <field id="cerbal" type="LnBaseType.U_ACBLTP" required="false" multi="false" array="false" longname="大额存单"/>
+            <field id="doubal" type="LnBaseType.U_ACBLTP" required="false" multi="false" array="false" longname="双整存单"/>
+            <field id="iscurr" type="string" required="false" multi="false" array="false" longname="是否有签约活期"/>
+            <field id="lsisnl" type="string" required="false" multi="false" array="false" longname="存款列表是否为空"/>
+            <field id="pddetl" type="IoDpTable.IoDpDpAssetsQry" required="false" multi="true" array="false" longname="存款资产明细"/>
+            <field id="counts" type="long" required="false" multi="false" array="false" longname="记录数"/>
+            <field id="onlnbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="普通活期"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pagesize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="每页记录数"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qryTranInfo" id="qryTranInfo" longname="交易前处理及客户端电子账户分户账查询"/>
+        <method method="qrdeal" id="qrdeal" longname="查询电子账户信息"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="caswqy" longname="查询未启用电子账户信息" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="false">
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号" ref=""/>
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号ID" ref=""/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="BaseDict.Comm.custna"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="电子账户分类" ref=""/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户归属机构" ref=""/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="selwqyInfo" id="selwqyInfo" test="" longname="查询未启用电子账户信息" desc="查询未启用电子账户信息"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="ProdClearBatch" longname="电子账户清算和机构相关SQL" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectOne" type="sql" id="selBatchCountByfilesq" longname="查询目录树总笔数">
+        <sql type="db2"><![CDATA[select count(1) from knb_para_menu_temp a where a.filesq = #filesq# ]]></sql>
+        <sql type="oracle"><![CDATA[select count(1) from knb_para_menu_temp a where a.filesq = #filesq# ]]></sql>
+        <sql type="mysql"><![CDATA[select count(1) from knb_para_menu_temp a where a.filesq = #filesq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selProdCountByfilesq" longname="查询总账产品核算笔数">
+        <sql type="db2"><![CDATA[select count(1) from kns_prod_cler a where a.filesq = #filesq# ]]></sql>
+        <sql type="oracle"><![CDATA[select count(1) from kns_prod_cler a where a.filesq = #filesq# ]]></sql>
+        <sql type="mysql"><![CDATA[select count(1) from kns_prod_cler a where a.filesq = #filesq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="文件批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnsAcsqClerByClerdt" longname="根据清算日期区间查询清算信息">
+        <sql><![CDATA[select * from kns_acsq_cler 
+where (clerdt between #stardt# and #endtdt#) 
+and prodcd = #prodcd# 
+and clactp = #clactp# 
+order by clerdt]]></sql>
+        <sql type="oracle"><![CDATA[select * from kns_acsq_cler 
+where (clerdt between #stardt# and #endtdt#) 
+and prodcd = #prodcd# 
+and clactp = #clactp# 
+order by clerdt]]></sql>
+        <sql type="mysql"><![CDATA[select * from kns_acsq_cler 
+where (clerdt between #stardt# and #endtdt#) 
+and prodcd = #prodcd# 
+and clactp = #clactp# 
+order by clerdt]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="内部户产品" parameterType="condition"/>
+            <parameter property="clactp" jdbcType="VARCHAR" javaType="BaseEnumType.E_CLACTP" mode="in" longname="清算账户类型" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="清算开始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="清算结束日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAccount.KnsAcsqCler"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnlIoblCupsByClerdt" longname="根据银联清算日期区间查询CUPS交易登记簿">
+        <sql><![CDATA[select * from knl_iobl_cups 
+where (unkpdt between #stardt# and #endtdt#) 
+and transt=#transt# 
+order by cnkpdt desc ]]></sql>
+        <sql type="mysql"><![CDATA[select * from knl_iobl_cups 
+where (unkpdt between #stardt# and #endtdt#) 
+and transt=#transt# 
+order by cnkpdt desc ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="清算开始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="清算结束日期" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="DpEnumType.E_CUPSST" mode="in" longname="交易状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblCups"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selTransList" longname="查询交易记录">
+        <sql><![CDATA[SELECT kc.tranam,
+kc.toanam,
+kc.transt,
+ke.TRANST edtrst,
+svcode,
+frteno,
+teleno,
+pabkno,
+ke.sacdno,
+JNANAM feanam,
+kc.PREPDT trandt,
+kc.PREPTM mntrtm,
+kc.FLOWID,
+kc.ACFIST,
+ordeno FROM knl_iobl_cups kc LEFT JOIN Knl_Iobl_Edm ke ON kc.MNTRSQ = ke.RETRSQ 
+WHERE kc.inmeid = #inmeid# and kc.PREPDT >= #trandt#
+ORDER BY kc.PREPDT DESC,kc.PREPTM desc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="string" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="三个月前日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpTrans"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selTrans" longname="查询详情">
+        <sql><![CDATA[SELECT kc.tranam,
+kc.toanam,
+kc.transt,
+ke.TRANST edtrst,
+svcode,
+frteno,
+teleno,
+pabkno,
+ke.sacdno,
+JNANAM feanam,
+kc.PREPDT trandt,
+kc.PREPTM mntrtm,
+kc.FLOWID,
+kc.ACFIST,
+ordeno FROM knl_iobl_cups kc LEFT JOIN Knl_Iobl_Edm ke ON kc.MNTRSQ = ke.RETRSQ
+WHERE kc.FLOWID = #flowid#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="flowid" jdbcType="VARCHAR" javaType="string" mode="in" longname="流水号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpTrans"/>
+    </select>
+</sqls>

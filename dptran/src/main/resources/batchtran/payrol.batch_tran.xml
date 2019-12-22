@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="payrol" longname="代发工资" dataItem="BaseType.U_CHAR30" jobDataItem="DpDepoBusiMain.KnbAcctBach" package="cn.sunline.ltts.busi.dptran.batchtran" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="文件批次号"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+            <field id="sourdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="业务日期"/>
+            <field id="frzout" type="IoDpFrozComplexType.IoDpStFzOt" required="false" multi="false" array="false" longname="系统冻结输出"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

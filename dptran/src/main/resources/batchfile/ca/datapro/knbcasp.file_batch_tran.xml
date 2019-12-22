@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knbcasp" longname="电子账户停用登记簿数仓抽数" kind="write" package="cn.sunline.ltts.busi.catran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knbcasp" longname="电子账户停用登记簿数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="custac" type="BaseType.U_CUSTAC" longname="电子账号" length="64" leftPadding="false" padding=" "/>
+            <field id="custna" type="BaseType.U_ACCTNA" longname="客户名称" length="160" leftPadding="false" padding=" " ref="DpDict.Acct.custna"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" longname="电子账户分类" length="2" leftPadding="false" padding=" "/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="账户所属机构" length="12" leftPadding="false" padding=" " ref="DpDict.Acct.brchno"/>
+            <field id="bkupdt" type="BaseType.U_DATE08" longname="停用日期" length="16" leftPadding="false" padding=" "/>
+            <field id="bkuptm" type="BaseType.U_TIME06" longname="停用时间" length="12" leftPadding="false" padding=" "/>
+            <field id="transq" type="BaseType.U_SEQUNO" longname="交易流水" length="64" leftPadding="false" padding=" "/>
+            <field id="bkuprs" type="CaEnumType.E_BKUPRS" longname="停用原因" length="2" leftPadding="false" padding=" "/>
+            <field id="dclrna" type="BaseType.U_ACCTNA" longname="声明人姓名" length="160" leftPadding="false" padding=" "/>
+            <field id="dcidtp" type="BaseEnumType.E_IDTFTP" longname="声明人证件类型" length="6" leftPadding="false" padding=" "/>
+            <field id="dcidno" type="BaseType.U_IDTFNO" longname="声明人证件号码" length="40" leftPadding="false" padding=" "/>
+            <field id="dclrtl" type="BaseType.U_CHAR30" longname="声明人联系方式" length="60" leftPadding="false" padding=" "/>
+            <field id="userid" type="BaseType.U_USERID" longname="操作柜员" length="14" leftPadding="false" padding=" "/>
+            <field id="ussqno" type="BaseType.U_USERSQ" longname="操作柜员流水" length="24" leftPadding="false" padding=" "/>
+            <field id="authus" type="BaseType.U_USERID" longname="授权柜员" length="14" leftPadding="false" padding=" "/>
+            <field id="authsq" type="BaseType.U_USERSQ" longname="授权柜员流水" length="24" leftPadding="false" padding=" "/>
+            <field id="dlhdid" type="BaseType.U_USERID" longname="处理操作柜员" length="14" leftPadding="false" padding=" "/>
+            <field id="dlussq" type="BaseType.U_USERSQ" longname="处理操作柜员流水" length="24" leftPadding="false" padding=" "/>
+            <field id="dlatid" type="BaseType.U_USERID" longname="处理授权柜员" length="14" leftPadding="false" padding=" "/>
+            <field id="dlatsq" type="BaseType.U_USERSQ" longname="处理授权柜员流水" length="24" leftPadding="false" padding=" "/>
+            <field id="procdt" type="BaseType.U_DATE08" longname="处理日期" length="16" leftPadding="false" padding=" "/>
+            <field id="proctm" type="BaseType.U_TIME06" longname="处理时间" length="12" leftPadding="false" padding=" "/>
+            <field id="procrs" type="BaseEnumType.E_RESULT" longname="处理结果" length="2" leftPadding="false" padding=" "/>
+            <field id="procst" type="BaseEnumType.E_DEALST" longname="处理状态" length="2" leftPadding="false" padding=" "/>
+            <field id="procds" type="BaseType.U_SHORDS" longname="处理说明" length="400" leftPadding="false" padding=" "/>
+            <field id="procsq" type="BaseType.U_SEQUNO" longname="处理流水" length="64" leftPadding="false" padding=" "/>
+            <field id="remark" type="BaseType.U_SHORDS" longname="备注" length="400" leftPadding="false" padding=" " ref="DpDict.Acct.remark"/>
+            <field id="odacst" type="CaEnumType.E_CUACST" longname="原客户账户状态" length="2" leftPadding="false" padding=" "/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

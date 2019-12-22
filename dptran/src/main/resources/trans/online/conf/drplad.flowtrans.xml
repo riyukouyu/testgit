@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="drplad" longname="新增存款支取计划控制部件信息" kind="2" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[新增存款支取计划控制部件信息]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="dradwy" type="BaseEnumType.E_SVPLGN" required="false" multi="false" array="false" longname="支取计划生成方式"/>
+            <field id="gendpd" type="BaseType.U_PERIOD" required="false" multi="false" array="false" longname="支取计划生成周期"/>
+            <field id="drcrwy" type="BaseEnumType.E_SVPLFG" required="false" multi="false" array="false" longname="支取计划控制方式" ref="DpDict.Prod.drcrwy"/>
+            <field id="drdfsd" type="BaseEnumType.E_DWBKLI" required="false" multi="false" array="false" longname="支取违约标准" ref="DpDict.Prod.drdfsd"/>
+            <field id="drdfwy" type="BaseEnumType.E_DWBKDL" required="false" multi="false" array="false" longname="支取违约处理方式" ref="DpDict.Prod.drdfwy"/>
+            <field id="beinfg" type="DpEnumType.E_BEINFG" required="false" multi="false" array="false" longname="支取时结息处理标志" ref="DpDict.Prod.beinfg"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="drpadd" id="drpadd" test="" longname="新增存款支取计划控制部件信息" desc=""/>
+    </flow>
+</flowtran>

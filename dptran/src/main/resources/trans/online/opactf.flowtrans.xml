@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="opactf" longname="商户开户" kind="2" package="cn.sunline.ltts.busi.dptran.trans.online" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.intf">
+        <input packMode="true">
+            <field id="cacttp" type="DpEnumType.E_CUSACT" required="false" default="'1'" multi="false" array="false" longname="客户账号类型" ref="DpDict.Prod.cacttp"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" default="'2'" multi="false" array="false" longname="账户分类"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="DpDict.Acct.custno"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="tlphno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="手机号码" ref="DpDict.Acct.tlphno"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="agisln" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="证件是否长期有效"/>
+            <field id="agstdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="证件生效日期"/>
+            <field id="agendt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="证件失效日期"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户所属机构" ref="DpDict.Acct.brchno"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" default="'CNY'" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="chnlid" type="BaseEnumType.E_CHNLID" required="false" multi="false" array="false" longname="渠道"/>
+            <field id="uschnl" type="BaseEnumType.E_USCHNL" required="false" multi="false" array="false" longname="开户渠道" ref="DpDict.Acct.uschnl"/>
+            <field id="idckrt" type="CaEnumType.E_IDCKRT" required="false" multi="false" array="false" longname="身份核查结果" ref="CaDict.Eacct.idckrt"/>
+            <field id="mpckrt" type="CaEnumType.E_MPCKRT" required="false" multi="false" array="false" longname="人脸识别结果" ref="CaDict.Eacct.mpckrt"/>
+            <field id="facesg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="面签标识"/>
+            <field id="worktp" type="BaseEnumType.E_WORKTP" required="false" multi="false" array="false" longname="职业"/>
+            <field id="cutycd" type="BaseType.U_COUNCD" required="false" multi="false" array="false" longname="国籍"/>
+            <field id="sextyp" type="BaseEnumType.E_SEXTYP" required="false" multi="false" array="false" longname="性别"/>
+            <field id="addres" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="地址"/>
+            <field id="prsnpr" type="BaseEnumType.E_PRSNPR" required="false" multi="false" array="false" longname="存款人类别"/>
+            <field id="worktx" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="工作单位"/>
+            <field id="custcd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="客户内码" ref="BaseDict.Comm.custcd"/>
+            <field id="ckrtsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="核查流水号" ref="CaDict.Eacct.ckrtsq"/>
+            <field id="agrtno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="协议模版编号"/>
+            <field id="vesion" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="版本号"/>
+            <field id="mactid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="电子主账户开户标识" ref="DpDict.Acct.mactid"/>
+            <field id="usertp" type="BaseEnumType.E_USTYPE" required="false" multi="false" array="false" longname="客户标识" ref="DpDict.Acct.usertp"/>
+            <field id="ispswd" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否有交易密码"/>
+            <field id="passwd" type="BaseType.U_TRANPW" required="false" multi="false" array="false" longname="交易密码" ref="ApDict.Aplt.passwd"/>
+            <field id="acpwst" type="BaseEnumType.E_PSDWST" required="false" multi="false" array="false" longname="密码状态"/>
+            <field id="authif" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="加密因子"/>
+            <field id="sbrand" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="开放支付机构" ref="DsDict.Ds.sbrand"/>
+            <field id="bradna" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="pos品牌名称" ref="DsDict.Ds.bradna"/>
+            <field id="acctid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="子账户开户标识" ref="DpDict.Acct.acctid"/>
+            <field id="mrchno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="商户ID" ref="DsDict.Ds.mrchno"/>
+            <field id="mrchna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="商户名称" ref="DsDict.Ds.mrchna"/>
+            <field id="centid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="上级服务商ID" ref="DsDict.Ds.centid"/>
+            <field id="centna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="上级服务商名称" ref="DsDict.Ds.centna"/>
+            <field id="tempno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="模板编号" ref="DsDict.Ds.tempno"/>
+            <field id="bindcaInfo" type="IoCaTypeGenBindCard.IoCaSrvGenBindCard" required="false" multi="false" array="false" longname="绑定账户信息列表"/>
+            <field id="mrchRateList" type="DsComplex.MrchRateSetlist" required="false" multi="true" array="false" longname="费率信息列表"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="子账户名称" ref="DpDict.Acct.acctna"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号" alias_name="虚拟卡号" ref="DpDict.Acct.cardno"/>
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" alias_name="电子账号" ref="CaDict.Eacct.custac"/>
+            <field id="opacrt" type="CaEnumType.E_OPACRT" required="false" multi="false" array="false" longname="开户结果" ref="CaDict.Eacct.opacrt"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+            <field id="accatp" type="yht.E_ACCATP" required="false" multi="false" array="false" longname="账户类型"/>
+            <field id="mactid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="电子主账户开户标识" ref="DpDict.Acct.mactid"/>
+            <field id="acctid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="子账户开户标识" ref="DpDict.Acct.acctid"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="子账号" ref="DpDict.Acct.acctno"/>
+        </output>
+        <property packMode="true">
+            <field id="ifflag" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否新增标志"/>
+            <field id="adsbfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否新增子户"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="DpDict.Acct.custno"/>
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="CaDict.Eacct.custac"/>
+            <field id="opendt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="开户日期"/>
+            <field id="opensq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="开户流水"/>
+            <field id="baprcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="基础负债产品" ref="CaDict.CardAcc.baprcd"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="子账号" ref="DpDict.Acct.acctno"/>
+            <field id="pddpfg" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="产品定活标志" ref="DpDict.Prod.pddpfg"/>
+            <field id="waacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="钱包子账号"/>
+            <field id="wapdfg" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="钱包定活标志"/>
+            <field id="prodtp" type="DpEnumType.E_PRODTP" required="false" enums="DEPO" fixed="'DEPO'" multi="false" array="false" longname="产品类型" desc="存款开户交易，产品类型设为存款"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" default="'01010101001'" multi="false" array="false" longname="产品号" desc="产品号"/>
+            <field id="depttm" type="BaseEnumType.E_TERMCD" required="false" enums="T000" fixed="'000'" multi="false" array="false" longname="存期" desc="开电子账户时默认为活期" ref="DpDict.Prod.depttm"/>
+            <field id="opacfg" type="BaseEnumType.E_YES___" required="false" fixed="'YES'" multi="false" array="false" longname="首开户标志" desc="判定是否是首次开户，是则负债账户必须是活期"/>
+            <field id="chckfs" type="DpEnumType.E_CHCKFS" required="false" enums="SWCHECK" fixed="'1'" multi="false" array="false" longname="检验方式" desc="暂时默认为软件校验"/>
+            <field id="custtp" type="BaseEnumType.E_CUSTTP" required="false" enums="PERSON" fixed="'11'" multi="false" array="false" longname="客户类型" desc="客户类型暂时默认为个人"/>
+            <field id="signtp" type="CaEnumType.E_SIGNTP" required="false" fixed="'01'" multi="false" array="false" longname="签约类型" desc="签约类型默认为智能储蓄"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.cardno"/>
+            <field id="acaltp" type="CaEnumType.E_ACALTP" required="false" fixed="'1'" multi="false" array="false" longname="账户别名类型" desc="暂时默认绑定手机号" ref="CaDict.Eacct.acaltp"/>
+            <field id="waprcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="钱包产品号"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志" ref="CaDict.Eacct.csextg"/>
+            <field id="opacwy" type="CaEnumType.E_OPACWY" required="false" enums="SINGLE" default="'1'" multi="false" array="false" longname="开户方式" desc="联机交易默认为单笔开户" ref="CaDict.Eacct.opacwy"/>
+            <field id="cktntp" type="CaEnumType.E_CKTNTP" required="false" enums="OPEN" default="'1'" multi="false" array="false" longname="核查交易类型" ref="CaDict.Eacct.cktntp"/>
+            <field id="adacfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="新增电子账号标志"/>
+            <field id="bdrtfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否有绑卡认证通过标志"/>
+            <field id="ionefg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否只开一个账户"/>
+            <field id="bindfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否绑卡标识"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="chkOpaccInfo" id="chkOpaccInfo" longname="检查开户信息" desc="检查开户信息"/>
+        <method method="chkBdcart" id="chkBdcart" longname="绑卡认证结果" desc="绑卡认证结果"/>
+        <case id="opat" longname="新增电子账号" desc="新增电子账号">
+            <when id="YES" longname="新增电子账号">
+                <service mappingToProperty="true" serviceName="IoCaSrvGenEAccountInfo.IoCaAddEAccount" id="addEAccount" test="ifflag==#dict.BaseEnumType.E_YES___().YES" longname="新增电子账户" desc="先根据客户账户类型检查容器账户标志，看是否容器账户，容器账户可开多个电子账户，单一账户只能开一个电子账户；再新增相关卡信息，并建立卡与电子账户关联关系。">
+                    <in_mappings by_interface="true">
+                        <mapping src="cacttp" dest="cplAddEAccountIn.cacttp" desc="客户账号类型" by_interface="true" on_top="true"/>
+                        <mapping src="custna" dest="cplAddEAccountIn.custna" desc="客户名称" by_interface="true" on_top="true"/>
+                        <mapping src="custno" dest="cplAddEAccountIn.custno" desc="客户号" by_interface="true" on_top="true"/>
+                        <mapping src="brchno" dest="cplAddEAccountIn.brchno" desc="账户归属机构" by_interface="true" on_top="true"/>
+                        <mapping src="idckrt" dest="cplAddEAccountIn.idckrt" desc="身份核查结果" by_interface="true" on_top="true"/>
+                        <mapping src="mpckrt" dest="cplAddEAccountIn.mpckrt" desc="人脸识别结果" by_interface="true" on_top="true"/>
+                        <mapping src="tlphno" dest="cplAddEAccountIn.tlphno" desc="电话号码" by_interface="true" on_top="true"/>
+                        <mapping src="accatp" dest="cplAddEAccountIn.accttp" desc="账户分类" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="cplAddEAccountIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                        <mapping src="csextg" dest="cplAddEAccountIn.csextg" desc="钞汇标志" by_interface="true" on_top="true"/>
+                        <mapping src="opacwy" dest="cplAddEAccountIn.opacwy" desc="开户方式" by_interface="true" on_top="true"/>
+                        <mapping src="ckrtsq" dest="cplAddEAccountIn.ckrtsq" desc="核查流水号" by_interface="true" on_top="true"/>
+                        <mapping src="facesg" dest="cplAddEAccountIn.facesg" desc="面签标识" by_interface="true" on_top="true"/>
+                        <mapping src="bdrtfg" dest="cplAddEAccountIn.bdrtfg" desc="是否有绑卡认证通过标志" by_interface="true" on_top="true"/>
+                        <mapping src="idtfno" dest="cplAddEAccountIn.idtfno" desc="证件号码" by_interface="true" on_top="true"/>
+                        <mapping src="idtftp" dest="cplAddEAccountIn.idtftp" desc="证件类型" by_interface="true" on_top="true"/>
+                        <mapping src="passwd" dest="cplAddEAccountIn.tranpw" desc="交易密码" by_interface="true" on_top="true"/>
+                        <mapping src="authif" dest="cplAddEAccountIn.authif" desc="加密因子" by_interface="true" on_top="true"/>
+                        <mapping src="uschnl" dest="cplAddEAccountIn.uschnl" desc="即富开户渠道" by_interface="true" on_top="true"/>
+                        <mapping src="usertp" dest="cplAddEAccountIn.usertp" desc="客户类型" by_interface="true" on_top="true"/>
+                        <mapping src="mactid" dest="cplAddEAccountIn.mactid" desc="开户主体ID" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true">
+                        <mapping src="cplAddEAccountOut.custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+                        <mapping src="cplAddEAccountOut.custno" dest="custno" desc="客户号" by_interface="true" on_top="true"/>
+                        <mapping src="cplAddEAccountOut.opendt" dest="opendt" desc="开户日期" by_interface="true" on_top="true"/>
+                        <mapping src="cplAddEAccountOut.opensq" dest="opensq" desc="开户流水" by_interface="true" on_top="true"/>
+                        <mapping src="cplAddEAccountOut.cardno" dest="cardno" desc="卡号" by_interface="true" on_top="true"/>
+                        <mapping src="cplAddEAccountOut.adacfg" dest="adacfg" desc="新增电子账号标志" by_interface="true" on_top="true"/>
+                    </out_mappings>
+                </service>
+                <case id="prcOpenAccatp" test="idckrt == #dict.CaEnumType.E_IDCKRT().SUCCESS &amp;&amp; mpckrt == #dict.CaEnumType.E_MPCKRT().SUCCESS" longname="判断开立电子账户分类" desc="判断开立电子账户分类">
+                    <when id="prcOpenWallet" test="accatp == #dict.BaseEnumType.E_ACCATP().WALLET" longname="开立Ⅲ类电子账户" desc="开立Ⅲ类电子账户">
+                        <service mappingToProperty="true" serviceName="DpAcctSvcType.AddAcct" id="addWalletAcct" longname="开立Ⅲ类钱包账户" desc="开立Ⅲ类钱包账户">
+                            <in_mappings by_interface="true">
+<mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+<mapping src="custna" dest="acctna" desc="客户名称" by_interface="true" on_top="true"/>
+<mapping src="cacttp" dest="cacttp" desc="客户账号类型" by_interface="true" on_top="true"/>
+<mapping src="crcycd" dest="crcycd" desc="币种" by_interface="true" on_top="true"/>
+<mapping src="custno" dest="custno" desc="客户号" by_interface="true" on_top="true"/>
+<mapping src="depttm" dest="depttm" desc="存期" by_interface="true" on_top="true"/>
+<mapping src="opacfg" dest="opacfg" desc="首开户标志" by_interface="true" on_top="true"/>
+<mapping src="waprcd" dest="prodcd" desc="钱包账户产品号" by_interface="true" on_top="true"/>
+<mapping src="custtp" dest="custtp" desc="客户类型" by_interface="true" on_top="true"/>
+                            </in_mappings>
+                            <out_mappings by_interface="true">
+<mapping src="cplAddSubAcctOut.acctno" dest="waacno" desc="负债账号" by_interface="true" on_top="true"/>
+<mapping src="cplAddSubAcctOut.pddpfg" dest="wapdfg" desc="定活标志" by_interface="true" on_top="true"/>
+                            </out_mappings>
+                        </service>
+                        <service serviceName="IoCaSrvGenEAccountInfo.IoCaAddEARela" id="addWalletEARela" longname="电子账号与钱包子账户关联">
+                            <in_mappings by_interface="true">
+<mapping src="custac" dest="cplAddEARelaIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+<mapping src="waacno" dest="cplAddEARelaIn.acctno" desc="子账号" by_interface="true" on_top="true"/>
+<mapping src="crcycd" dest="cplAddEARelaIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+<mapping src="csextg" dest="cplAddEARelaIn.csextg" desc="钞汇标志" by_interface="true" on_top="true"/>
+<mapping src="wapdfg" dest="cplAddEARelaIn.fcflag" desc="定活标志" by_interface="true" on_top="true"/>
+<mapping src="waprcd" dest="cplAddEARelaIn.prodcd" desc="钱包账户产品编号" by_interface="true" on_top="true"/>
+<mapping src="prodtp" dest="cplAddEARelaIn.prodtp" desc="产品类型" by_interface="true" on_top="true"/>
+                            </in_mappings>
+                            <out_mappings by_interface="true"/>
+                        </service>
+                    </when>
+                    <when id="prcOpenGlobalOrFinance" test="accatp == #dict.BaseEnumType.E_ACCATP().GLOBAL || accatp == #dict.BaseEnumType.E_ACCATP().FINANCE" longname="开立Ⅰ或Ⅱ类电子账户" desc="开立Ⅰ或Ⅱ类电子账户">
+                        <block id="openSubAccount" test="adsbfg==#dict.BaseEnumType.E_YES___().YES" longname="是否新增负债子账户">
+                            <service mappingToProperty="true" serviceName="DpAcctSvcType.AddAcct" id="addAccount" longname="开立结算负债子帐户" desc="开立结算负债子帐户">
+<in_mappings by_interface="true">
+    <mapping src="acctna" dest="acctna" desc="客户名称" by_interface="true" on_top="true"/>
+    <mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+    <mapping src="custno" dest="custno" desc="客户号" by_interface="true" on_top="true"/>
+    <mapping src="depttm" dest="depttm" desc="存期" by_interface="true" on_top="true"/>
+    <mapping src="baprcd" dest="prodcd" desc="产品编号" by_interface="true" on_top="true"/>
+    <mapping src="cacttp" dest="cacttp" desc="客户账号类型" by_interface="true" on_top="true"/>
+    <mapping src="opacfg" dest="opacfg" desc="首开户标志" by_interface="true" on_top="true"/>
+    <mapping src="crcycd" dest="crcycd" desc="币种" by_interface="true" on_top="true"/>
+    <mapping src="custtp" dest="custtp" desc="客户类型" by_interface="true" on_top="true"/>
+</in_mappings>
+<out_mappings by_interface="true">
+    <mapping src="cplAddSubAcctOut.acctno" dest="acctno" desc="负债子账号" by_interface="true" on_top="true"/>
+    <mapping src="cplAddSubAcctOut.pddpfg" dest="pddpfg" desc="定活标志" by_interface="true" on_top="true"/>
+    <mapping src="cplAddSubAcctOut.prodcd" dest="prodcd" desc="产品号" by_interface="true" on_top="true"/>
+</out_mappings>
+                            </service>
+                            <method method="registKnaSbad" id="registKnaSbad" longname="登记电子子账户附加信息"/>
+                            <service serviceName="IoCaSrvGenEAccountInfo.IoCaAddEARela" id="addEARelation" longname="建立电子账号与结算负债账号关联" desc="建立电子账号与结算负债账号关联">
+<in_mappings by_interface="true">
+    <mapping src="acctno" dest="cplAddEARelaIn.acctno" desc="负债账号" by_interface="true" on_top="true"/>
+    <mapping src="custac" dest="cplAddEARelaIn.custac" desc="电子账户" by_interface="true" on_top="true"/>
+    <mapping src="pddpfg" dest="cplAddEARelaIn.fcflag" desc="定活标志" by_interface="true" on_top="true"/>
+    <mapping src="prodtp" dest="cplAddEARelaIn.prodtp" desc="产品类型" by_interface="true" on_top="true"/>
+    <mapping src="prodcd" dest="cplAddEARelaIn.prodcd" desc="产品编号" by_interface="true" on_top="true"/>
+    <mapping src="crcycd" dest="cplAddEARelaIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+</in_mappings>
+<out_mappings by_interface="true"/>
+                            </service>
+                            <service serviceName="IoDsManage.setMrchRate" id="setMrchRate" longname="商户分润设置">
+<in_mappings by_interface="true">
+    <mapping src="sbrand" dest="sbrand" by_interface="true" on_top="true"/>
+    <mapping src="bradna" dest="bradna" by_interface="true" on_top="true"/>
+    <mapping src="centid" dest="centid" by_interface="true" on_top="true"/>
+    <mapping src="centna" dest="centna" by_interface="true" on_top="true"/>
+    <mapping src="mrchna" dest="mrchna" by_interface="true" on_top="true"/>
+    <mapping src="mrchno" dest="mrchno" by_interface="true" on_top="true"/>
+    <mapping src="tempno" dest="tempno" by_interface="true" on_top="true"/>
+    <mapping src="mrchRateList" dest="mrchRateList" by_interface="true" on_top="true"/>
+</in_mappings>
+<out_mappings by_interface="true"/>
+                            </service>
+                        </block>
+                        <block id="IsOpacctOne" test="ionefg==#dict.BaseEnumType.E_YES___().NO" longname="是否只开立一个账户">
+                            <service mappingToProperty="true" serviceName="DpAcctSvcType.AddAcct" id="addWalletAcct" longname="开立Ⅲ类钱包账户" desc="开立Ⅲ类钱包账户">
+<in_mappings by_interface="true">
+    <mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+    <mapping src="custna" dest="acctna" desc="客户名称" by_interface="true" on_top="true"/>
+    <mapping src="cacttp" dest="cacttp" desc="客户账号类型" by_interface="true" on_top="true"/>
+    <mapping src="crcycd" dest="crcycd" desc="币种" by_interface="true" on_top="true"/>
+    <mapping src="custno" dest="custno" desc="客户号" by_interface="true" on_top="true"/>
+    <mapping src="depttm" dest="depttm" desc="存期" by_interface="true" on_top="true"/>
+    <mapping src="opacfg" dest="opacfg" desc="首开户标志" by_interface="true" on_top="true"/>
+    <mapping src="waprcd" dest="prodcd" desc="钱包账户产品号" by_interface="true" on_top="true"/>
+    <mapping src="custtp" dest="custtp" desc="客户类型" by_interface="true" on_top="true"/>
+</in_mappings>
+<out_mappings by_interface="true">
+    <mapping src="cplAddSubAcctOut.acctno" dest="waacno" desc="负债账号" by_interface="true" on_top="true"/>
+    <mapping src="cplAddSubAcctOut.pddpfg" dest="wapdfg" desc="定活标志" by_interface="true" on_top="true"/>
+</out_mappings>
+                            </service>
+                            <service serviceName="IoCaSrvGenEAccountInfo.IoCaAddEARela" id="addWalletEARela" longname="电子账号与钱包子账户关联">
+<in_mappings by_interface="true">
+    <mapping src="custac" dest="cplAddEARelaIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+    <mapping src="waacno" dest="cplAddEARelaIn.acctno" desc="子账号" by_interface="true" on_top="true"/>
+    <mapping src="crcycd" dest="cplAddEARelaIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+    <mapping src="csextg" dest="cplAddEARelaIn.csextg" desc="钞汇标志" by_interface="true" on_top="true"/>
+    <mapping src="wapdfg" dest="cplAddEARelaIn.fcflag" desc="定活标志" by_interface="true" on_top="true"/>
+    <mapping src="waprcd" dest="cplAddEARelaIn.prodcd" desc="钱包账户产品编号" by_interface="true" on_top="true"/>
+    <mapping src="prodtp" dest="cplAddEARelaIn.prodtp" desc="产品类型" by_interface="true" on_top="true"/>
+</in_mappings>
+<out_mappings by_interface="true"/>
+                            </service>
+                        </block>
+                    </when>
+                </case>
+                <service serviceName="IoCaSevAliasBindChange.IoSevAliasBinding" id="prcAliasBind" test="ifflag==#dict.BaseEnumType.E_YES___().YES" longname="绑定手机号" desc="绑定手机号">
+                    <in_mappings by_interface="true">
+                        <mapping src="tlphno" dest="tlphno" desc="账户别名" by_interface="true" on_top="true"/>
+                        <mapping src="acaltp" dest="acaltp" desc="账户别名类型" by_interface="true" on_top="true"/>
+                        <mapping src="cardno" dest="cardno" desc="内部卡号" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+                <method method="sendOpenMessage" id="sendOpenMessage" longname="开户短信通知"/>
+            </when>
+        </case>
+        <service serviceName="IoCaSevGenBindCard.IoCaSevGenBindCarList" id="genBindCardList" test="bindfg==#dict.BaseEnumType.E_YES___().YES" longname="绑定账户信息" desc="绑定账户信息">
+            <in_mappings by_interface="true">
+                <mapping src="accatp" dest="accatp" desc="账户分类" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.acbdtp" dest="bindcaInfo.acbdtp" by_interface="true" on_top="true"/>
+                <mapping src="acctid" dest="bindcaInfo.acctid" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.bankph" dest="bindcaInfo.bankph" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.bdcart" dest="bindcaInfo.bdcart" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.bdcatp" dest="bindcaInfo.bdcatp" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.brchna" dest="bindcaInfo.brchna" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.cardtp" dest="bindcaInfo.cardtp" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.cdopac" dest="bindcaInfo.cdopac" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.cdopna" dest="bindcaInfo.cdopna" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.copefg" dest="bindcaInfo.copefg" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.idtfna" dest="bindcaInfo.idtfna" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.idtfno" dest="bindcaInfo.idtfno" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.idtftp" dest="bindcaInfo.idtftp" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.isdflt" dest="bindcaInfo.isdflt" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.mactid" dest="bindcaInfo.mactid" by_interface="true" on_top="true"/>
+                <mapping src="bindcaInfo.opbrch" dest="bindcaInfo.opbrch" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="bindmq" id="bindmq" test="idckrt == #dict.CaEnumType.E_IDCKRT().SUCCESS &amp;&amp; mpckrt == #dict.CaEnumType.E_MPCKRT().SUCCESS &amp;&amp; bdrtfg == #dict.BaseEnumType.E_YES___().YES" longname="电子账户绑定账户通知服务MQ"/>
+        <method method="sedOpenInfoMessage" id="sedOpenInfoMessage" test="idckrt == #dict.CaEnumType.E_IDCKRT().SUCCESS &amp;&amp; mpckrt == #dict.CaEnumType.E_MPCKRT().SUCCESS &amp;&amp; bdrtfg == #dict.BaseEnumType.E_YES___().YES" longname="通知开户信息" desc="通知开户信息"/>
+        <service serviceName="IoCaSevAccountManager.IoCaCheckSqReg" id="ioCaCheckSqReg" test="idckrt != #dict.CaEnumType.E_IDCKRT().SUCCESS" longname="身份核查流水登记" desc="身份核查流水登记">
+            <in_mappings by_interface="true">
+                <mapping src="accatp" dest="tblKnbCksq.accatp" by_interface="true" on_top="true"/>
+                <mapping src="ckrtsq" dest="tblKnbCksq.ckrtsq" by_interface="true" on_top="true"/>
+                <mapping src="cktntp" dest="tblKnbCksq.cktntp" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="tblKnbCksq.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="tblKnbCksq.csextg" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="tblKnbCksq.custac" by_interface="true" on_top="true"/>
+                <mapping src="custno" dest="tblKnbCksq.custid" by_interface="true" on_top="true"/>
+                <mapping src="idckrt" dest="tblKnbCksq.idckrt" by_interface="true" on_top="true"/>
+                <mapping src="agrtno" dest="tblKnbCksq.agrtno" by_interface="true" on_top="true"/>
+                <mapping src="vesion" dest="tblKnbCksq.vesion" by_interface="true" on_top="true"/>
+                <mapping src="#run.tranus" dest="tblKnbCksq.userid" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="prcOpaccdOut" id="prcOpaccdOut" longname="设置输出接口数据" desc="设置输出接口数据"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

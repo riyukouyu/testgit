@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="busick" longname="内部户产品复核" kind="2" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务属性"/>
+            <field id="busitp" type="InEnumType.E_BUSITP" required="false" multi="false" array="false" longname="核算性质"/>
+            <field id="blncdn" type="InEnumType.E_BLNCDN" required="false" multi="false" array="false" longname="余额方向CDR"/>
+            <field id="pmodtg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="透支许可"/>
+            <field id="ispaya" type="InEnumType.E_ISPAYA" required="false" multi="false" array="false" longname="是否采用销账"/>
+            <field id="isbein" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="计息标志"/>
+            <field id="beintp" type="InEnumType.E_BEINTP" required="false" multi="false" array="false" longname="结息方式"/>
+            <field id="nobusi" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="正常利息归属业务代码"/>
+            <field id="ovbusi" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="透支利息归属业务代码"/>
+            <field id="isopen" type="InEnumType.E_ISOPEN" required="false" multi="false" array="false" longname="是否允许开内部帐"/>
+            <field id="kpacfg" type="InEnumType.E_KPACFG" required="false" multi="false" array="false" longname="入账方式"/>
+            <field id="rlbltg" type="InEnumType.E_RLBLTG" required="false" multi="false" array="false" longname="入分户标记"/>
+            <field id="etactp" type="InEnumType.E_ETACTP" required="false" multi="false" array="false" longname="入账明细方式"/>
+            <field id="cractp" type="InEnumType.E_CRACTP" required="false" multi="false" array="false" longname="冲销标志"/>
+            <field id="bgdate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="生效日期"/>
+            <field id="eddate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="失效日期"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoCheckBusiInfo" id="IoCheckBusiInfo" longname="业务代码复核" desc="业务代码复核">
+            <in_mappings by_interface="true">
+                <mapping src="beintp" dest="beintp" by_interface="true" on_top="true"/>
+                <mapping src="bgdate" dest="bgdate" by_interface="true" on_top="true"/>
+                <mapping src="blncdn" dest="blncdn" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="busitp" dest="busitp" by_interface="true" on_top="true"/>
+                <mapping src="cractp" dest="cractp" by_interface="true" on_top="true"/>
+                <mapping src="eddate" dest="eddate" by_interface="true" on_top="true"/>
+                <mapping src="etactp" dest="etactp" by_interface="true" on_top="true"/>
+                <mapping src="isbein" dest="isbein" by_interface="true" on_top="true"/>
+                <mapping src="isopen" dest="isopen" by_interface="true" on_top="true"/>
+                <mapping src="ispaya" dest="ispaya" by_interface="true" on_top="true"/>
+                <mapping src="kpacfg" dest="kpacfg" by_interface="true" on_top="true"/>
+                <mapping src="nobusi" dest="nobusi" by_interface="true" on_top="true"/>
+                <mapping src="ovbusi" dest="ovbusi" by_interface="true" on_top="true"/>
+                <mapping src="pmodtg" dest="pmodtg" by_interface="true" on_top="true"/>
+                <mapping src="rlbltg" dest="rlbltg" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

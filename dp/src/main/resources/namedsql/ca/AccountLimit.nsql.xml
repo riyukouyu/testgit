@@ -1,0 +1,3432 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="AccountLimit" longname="账户限额sql" package="cn.sunline.ltts.busi.ca.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selKupAcrtBrch" longname="查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) from kup_acrt_brch ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="brchno!=null &amp;&amp; brchno!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                    <if test="acctrt!=null" type="If">
+                        <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    </if>
+                    <if test="limttp!=null" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by brchno]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) from kup_acrt_brch ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="brchno!=null &amp;&amp; brchno!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                    <if test="acctrt!=null" type="If">
+                        <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    </if>
+                    <if test="limttp!=null" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by brchno]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) from kup_acrt_brch ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="brchno!=null &amp;&amp; brchno!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                    <if test="acctrt!=null" type="If">
+                        <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    </if>
+                    <if test="limttp!=null" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by brchno]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selKupAcrtBrch1" longname="查询账户限额配置相同记录">
+        <sql><![CDATA[
+    	select
+    	    	brchno,acctrt,limttp,limtkd,servtp,
+    	    	accttp,sbactp,pytltp,lmtmax,lmtmin,
+    	    	lmtval,acrtsq,tranus,authus,substr(tmstmp,
+    	    	1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt like '%'||#acctrt#||'%' and limttp like '%'||#limttp#||'%' 
+    	    	and limtkd like '%'||#limtkd#||'%' and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtno 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	brchno,acctrt,limttp,limtkd,servtp,
+    	    	accttp,sbactp,pytltp,lmtmax,lmtmin,
+    	    	lmtval,acrtsq,tranus,authus,substr(tmstmp,
+    	    	1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt like '%'||#acctrt#||'%' and limttp like '%'||#limttp#||'%' 
+    	    	and limtkd like '%'||#limtkd#||'%' and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtno ]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	brchno,acctrt,limttp,limtkd,servtp,
+    	    	accttp,sbactp,pytltp,lmtmax,lmtmin,
+    	    	lmtval,acrtsq,tranus,authus,substr(tmstmp,
+    	    	1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt like '%'+#acctrt#+'%' and limttp like '%'+#limttp#+'%' 
+    	    	and limtkd like '%'+#limtkd#+'%' and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtno ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selKupAcrtBrch2" longname="查询账户限额配置相同记录">
+        <sql><![CDATA[
+    	select
+    	    	info.* 
+    	from
+    	    	( select
+    	    	    	brchno,acctrt,limttp,limtkd,servtp,
+    	    	    	accttp,sbactp,pytltp,lmtmax,lmtmin,
+    	    	    	lmtval,acrtsq,tranus,authus,substr(tmstmp,
+    	    	    	1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	    	from
+    	    	    	kup_acrt_brch 
+    	    	where
+    	    	    	acctrt like '%'||#acctrt#||'%' and limttp like '%'||#limttp#||'%' 
+    	    	    	and limtkd like '%'||#limtkd#||'%' and brchno=#brchno# 
+    	    	    	and limtst='0' 
+    	    	union
+    	    	select
+    	    	    	brchno,acctrt,limttp,
+    	    	    	limtkd,servtp,accttp,sbactp,pytltp,
+    	    	    	lmtmax,lmtmin,lmtval,acrtsq,tranus,
+    	    	    	authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	    	from
+    	    	    	kup_acrt_brch 
+    	    	where
+    	    	    	acctrt like '%'||#acctrt#||'%' and limttp like '%'||#limttp#||'%' 
+    	    	    	and limtkd like '%'||#limtkd#||'%' and brchno=#upbrch# 
+    	    	    	and limtst='0' and acrtno not in (
+    	    	    	    	select
+    	    	    	    	    	acrtno 
+    	    	    	    	from
+    	    	    	    	    	kup_acrt_brch 
+    	    	    	    	where
+    	    	    	    	    	acctrt like '%'||#acctrt#||'%' 
+    	    	    	    	    	and limttp like '%'||#limttp#||'%' and limtkd like '%'||#limtkd#||'%' 
+    	    	    	    	    	and brchno=#brchno# and limtst='0'
+    	    	    	) 
+    	    	) info 
+    	order by
+    	    	info.acrtno 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	info.* 
+    	from
+    	    	( select
+    	    	    	brchno,acctrt,limttp,limtkd,servtp,
+    	    	    	accttp,sbactp,pytltp,lmtmax,lmtmin,
+    	    	    	lmtval,acrtsq,tranus,authus,substr(tmstmp,
+    	    	    	1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	    	from
+    	    	    	kup_acrt_brch 
+    	    	where
+    	    	    	acctrt like '%'||#acctrt#||'%' and limttp like '%'||#limttp#||'%' 
+    	    	    	and limtkd like '%'||#limtkd#||'%' and brchno=#brchno# 
+    	    	    	and limtst='0' 
+    	    	union
+    	    	select
+    	    	    	brchno,acctrt,limttp,
+    	    	    	limtkd,servtp,accttp,sbactp,pytltp,
+    	    	    	lmtmax,lmtmin,lmtval,acrtsq,tranus,
+    	    	    	authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	    	from
+    	    	    	kup_acrt_brch 
+    	    	where
+    	    	    	acctrt like '%'||#acctrt#||'%' and limttp like '%'||#limttp#||'%' 
+    	    	    	and limtkd like '%'||#limtkd#||'%' and brchno=#upbrch# 
+    	    	    	and limtst='0' and acrtno not in (
+    	    	    	    	select
+    	    	    	    	    	acrtno 
+    	    	    	    	from
+    	    	    	    	    	kup_acrt_brch 
+    	    	    	    	where
+    	    	    	    	    	acctrt like '%'||#acctrt#||'%' 
+    	    	    	    	    	and limttp like '%'||#limttp#||'%' and limtkd like '%'||#limtkd#||'%' 
+    	    	    	    	    	and brchno=#brchno# and limtst='0'
+    	    	    	) 
+    	    	) info 
+    	order by
+    	    	info.acrtno 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	info.* 
+    	from
+    	    	( select
+    	    	    	brchno,acctrt,limttp,limtkd,servtp,
+    	    	    	accttp,sbactp,pytltp,lmtmax,lmtmin,
+    	    	    	lmtval,acrtsq,tranus,authus,substr(tmstmp,
+    	    	    	1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	    	from
+    	    	    	kup_acrt_brch 
+    	    	where
+    	    	    	acctrt like '%'+#acctrt#+'%' and limttp like '%'+#limttp#+'%' 
+    	    	    	and limtkd like '%'+#limtkd#+'%' and brchno=#brchno# 
+    	    	    	and limtst='0' 
+    	    	union
+    	    	select
+    	    	    	brchno,acctrt,limttp,
+    	    	    	limtkd,servtp,accttp,sbactp,pytltp,
+    	    	    	lmtmax,lmtmin,lmtval,acrtsq,tranus,
+    	    	    	authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno 
+    	    	from
+    	    	    	kup_acrt_brch 
+    	    	where
+    	    	    	acctrt like '%'+#acctrt#+'%' and limttp like '%'+#limttp#+'%' 
+    	    	    	and limtkd like '%'+#limtkd#+'%' and brchno=#upbrch# 
+    	    	    	and limtst='0' and acrtno not in (
+    	    	    	    	select
+    	    	    	    	    	acrtno 
+    	    	    	    	from
+    	    	    	    	    	kup_acrt_brch 
+    	    	    	    	where
+    	    	    	    	    	acctrt like '%'+#acctrt#+'%' 
+    	    	    	    	    	and limttp like '%'+#limttp#+'%' and limtkd like '%'+#limtkd#+'%' 
+    	    	    	    	    	and brchno=#brchno# and limtst='0' 
+    	    	    	) 
+    	    	) info 
+    	order by
+    	    	info.acrtno 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="upbrch" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selLimitValue" longname="查询账户限额值">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                            <str type="Str"><![CDATA[pytltp is null]]></str>
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                        </or>
+                    </if>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by corpno]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                            <str type="Str"><![CDATA[pytltp is null]]></str>
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                        </or>
+                    </if>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by corpno]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                            <str type="Str"><![CDATA[pytltp is null]]></str>
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                        </or>
+                    </if>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by corpno]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selSameRecord" longname="查询相同记录">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="servtp!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                            <str type="Str"><![CDATA[servtp='99']]></str>
+                        </or>
+                    </if>
+                    <if test="pytltp!=null and pytltp.value!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='03']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='04']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="servtp!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                            <str type="Str"><![CDATA[servtp='99']]></str>
+                        </or>
+                    </if>
+                    <if test="pytltp!=null and pytltp.value!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='03']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='04']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="servtp!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%']]></str>
+                            <str type="Str"><![CDATA[servtp='99']]></str>
+                        </or>
+                    </if>
+                    <if test="pytltp!=null and pytltp.value!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='03']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='04']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selSameRecord2" longname="查询相同记录">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="acrtsq" ref="QtDict.Qt.acrtsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="账户限额序号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="servtp!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                            <str type="Str"><![CDATA[servtp='99']]></str>
+                        </or>
+                    </if>
+                    <if test="pytltp!=null and pytltp.value!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='03']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='04']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acrtsq<>#acrtsq#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="servtp!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                            <str type="Str"><![CDATA[servtp='99']]></str>
+                        </or>
+                    </if>
+                    <if test="pytltp!=null and pytltp.value!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='03']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='04']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acrtsq<>#acrtsq#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="servtp!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%']]></str>
+                            <str type="Str"><![CDATA[servtp='99']]></str>
+                        </or>
+                    </if>
+                    <if test="pytltp!=null and pytltp.value!=&quot;99&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp='99']]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='03']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[limttp='04']]></str>
+                            <str type="Str"><![CDATA[limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acrtsq<>#acrtsq#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selLimttpRecord" longname="额度类型检查sql">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selServtpRecord" longname="渠道检查sql">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selSbactpRecord" longname="子账户类型检查sql">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selPytltpRecord" longname="支付工具检查sql">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <or type="Or">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                        <str type="Str"><![CDATA[pytltp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <or type="Or">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                        <str type="Str"><![CDATA[pytltp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <or type="Or">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                        <str type="Str"><![CDATA[pytltp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <update method="updateOne" id="updLimtst" longname="更新限额状态">
+        <sql><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	limtst=#limtst#, tranus=#tranus#, authus=#authus#,tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and limtst='0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	limtst=#limtst#, tranus=#tranus#, authus=#authus#,tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and limtst='0']]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	limtst=#limtst#, tranus=#tranus#, authus=#authus#,tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and limtst='0']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtsq" ref="QtDict.Qt.acrtsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="账户限额序号" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+            <parameter property="tranus" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="交易柜员" parameterType="condition"/>
+            <parameter property="authus" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="授权柜员" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selKubBrchLevel" longname="根据机构号查询机构信息">
+        <sql><![CDATA[
+    	select
+    	    	brchlv 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <sql type="db2"><![CDATA[select brchlv from kub_brch where brchno = #brchno#]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	brchlv 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	brchlv 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="brchlv" javaType="PbEnumType.E_BRCHLV" jdbcType="VARCHAR" column="brchlv" longname="机构级别"/>
+        </resultMap>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selAcrtBrchQt" longname="查询账户限额配置">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.limttp='03']]></str>
+                            <str type="Str"><![CDATA[a.limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.limttp='04']]></str>
+                            <str type="Str"><![CDATA[a.limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[a.servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[a.servtp='99']]></str>
+                    </or>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.pytltp='99']]></str>
+                            <str type="Str"><![CDATA[a.pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp is null]]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[a.accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.corpno, a.brchno, a.limtkd]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.limttp='03']]></str>
+                            <str type="Str"><![CDATA[a.limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.limttp='04']]></str>
+                            <str type="Str"><![CDATA[a.limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[a.servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[a.servtp='99']]></str>
+                    </or>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.pytltp='99']]></str>
+                            <str type="Str"><![CDATA[a.pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp is null]]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[a.accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.corpno, a.brchno, a.limtkd]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp!=null and limttp.value==&quot;03&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.limttp='03']]></str>
+                            <str type="Str"><![CDATA[a.limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.limttp='04']]></str>
+                            <str type="Str"><![CDATA[a.limttp='05']]></str>
+                        </or>
+                    </if>
+                    <if test="limttp!=null and limttp.value!=&quot;03&quot; and limttp.value!=&quot;04&quot;" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <or type="Or">
+                        <str type="Str"><![CDATA[a.servtp like '%'+#servtp#+'%']]></str>
+                        <str type="Str"><![CDATA[a.servtp='99']]></str>
+                    </or>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot;" type="If">
+                        <or type="Or">
+                            <str type="Str"><![CDATA[a.pytltp='99']]></str>
+                            <str type="Str"><![CDATA[a.pytltp=#pytltp#]]></str>
+                            <str type="Str"><![CDATA[pytltp is null]]></str>
+                        </or>
+                    </if>
+                    <str type="Str"><![CDATA[a.accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[a.sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.corpno, a.brchno, a.limtkd]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKubTsscAcct2" longname="查询电子账户额度累计">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="QtDict.Qt.custac" jdbcType="VARCHAR" javaType="PbBaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KubTsscAcct"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select a.* from kub_tssc_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.custac=#custac#]]></str>
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="servtp != null &amp;&amp; servtp != ''" type="If">
+                        <str type="Str"><![CDATA[a.servtp=#servtp#]]></str>
+                    </if>
+                    <if test="sbactp != null " type="If">
+                        <str type="Str"><![CDATA[a.sbactp = #sbactp#]]></str>
+                    </if>
+                    <if test="pytltp != null " type="If">
+                        <str type="Str"><![CDATA[a.pytltp=#pytltp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kub_tssc_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.custac=#custac#]]></str>
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="servtp != null &amp;&amp; servtp != ''" type="If">
+                        <str type="Str"><![CDATA[a.servtp=#servtp#]]></str>
+                    </if>
+                    <if test="sbactp != null " type="If">
+                        <str type="Str"><![CDATA[a.sbactp = #sbactp#]]></str>
+                    </if>
+                    <if test="pytltp != null " type="If">
+                        <str type="Str"><![CDATA[a.pytltp=#pytltp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kub_tssc_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.custac=#custac#]]></str>
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="servtp != null &amp;&amp; servtp != ''" type="If">
+                        <str type="Str"><![CDATA[a.servtp=#servtp#]]></str>
+                    </if>
+                    <if test="sbactp != null " type="If">
+                        <str type="Str"><![CDATA[a.sbactp = #sbactp#]]></str>
+                    </if>
+                    <if test="pytltp != null " type="If">
+                        <str type="Str"><![CDATA[a.pytltp=#pytltp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKubTsscAcct3" longname="查询当日电子账户额度累计">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kub_tssc_acct 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and servtp=#servtp# and sbactp=#sbactp# 
+    	    	and pytltp like concat('%',#pytltp#,'%') and custac=#custac# 
+    	    	and lastdt =#lastdt# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kub_tssc_acct 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and servtp=#servtp# and sbactp=#sbactp# 
+    	    	and pytltp like '%'||#pytltp#||'%' and custac=#custac# 
+    	    	and lastdt =#lastdt# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kub_tssc_acct 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and servtp=#servtp# and sbactp=#sbactp# 
+    	    	and pytltp like concat('%',#pytltp#,'%') and custac=#custac# 
+    	    	and lastdt =#lastdt# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="QtDict.Qt.custac" jdbcType="VARCHAR" javaType="PbBaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="lastdt" ref="QtDict.Qt.lastdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="最后交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KubTsscAcct"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKupAcrtBrchList" longname="根据维度类型查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot; and pytltp!=null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot; and pytltp!=null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <if test="limttp!=null and limttp.value==&quot;04&quot; and pytltp!=null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selAcrtLimit" longname="查询账户限额值">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by corpno]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by corpno]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <or type="Or">
+                        <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%']]></str>
+                        <str type="Str"><![CDATA[servtp='99']]></str>
+                    </or>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by corpno]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selAcLimitInfo" longname="账户限额查询">
+        <sql><![CDATA[
+    	select
+    	    	min(lmtval) 
+    	from
+    	    	kup_aurt_brch a 
+    	where
+    	    	a.acctrt = #acctrt# and a.limttp = #limttp# 
+    	    	and a.limtkd = #limtkd# and a.servtp = #servtp# 
+    	    	and a.accttp = #accttp# and a.sbactp = #sbactp# 
+    	    	and a.limtst = #limtst#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	min(lmtval) 
+    	from
+    	    	kup_aurt_brch a 
+    	where
+    	    	a.acctrt = #acctrt# and a.limttp = #limttp# 
+    	    	and a.limtkd = #limtkd# and a.servtp = #servtp# 
+    	    	and a.accttp = #accttp# and a.sbactp = #sbactp# 
+    	    	and a.limtst = #limtst#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	min(lmtval) 
+    	from
+    	    	kup_aurt_brch a 
+    	where
+    	    	a.acctrt = #acctrt# and a.limttp = #limttp# 
+    	    	and a.limtkd = #limtkd# and a.servtp = #servtp# 
+    	    	and a.accttp = #accttp# and a.sbactp = #sbactp# 
+    	    	and a.limtst = #limtst#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selAcLogInfo" longname="账户限额日志查询">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	( select
+    	    	    	a.CORPNO, a.BRCHNO, a.ACRTSQ, a.ACRTNO, a.acctrt,
+    	    	    	a.LIMTTP, a.LIMTKD, a.SERVTP, a.ACCTTP, a.SBACTP,
+    	    	    	a.PYTLTP, a.LMTMAX, a.LMTMIN, a.LMTVAL, a.TRANUS,
+    	    	    	a.AUTHUS, a.tmstmp, case when a.corpno <> '999' then '1' when b.ACRTSQ is not null then '0' when a.limtst = '2' then '1' else '1' end as limtst 
+    	    	from
+    	    	    	kup_acrt_brch a 
+    	    	left join
+    	    	    	(
+    	    	    	    	select
+    	    	    	    	    	min(ACRTSQ) as ACRTSQ 
+    	    	    	    	from
+    	    	    	    	    	kup_acrt_brch 
+    	    	    	    	where
+    	    	    	    	    	corpno='999' 
+    	    	    	    	group by
+    	    	    	    	    	ACRTNO
+    	    	    	) b 
+    	    	    	    	on (
+    	    	    	    	    	a.ACRTSQ = b.ACRTSQ
+    	    	    	    	) 
+    	    	where
+    	    	    	a.brchno=#brchno# and a.tmstmp>= concat((substr(#trandt#,1,4) -1),substr(#trandt#,5,4)) 
+    	    	    	and substr(a.tmstmp,1,8) >= #staday# and substr(a.tmstmp,1,8) <= #endday# 
+    	    	union
+    	    	select
+    	    	    	a.CORPNO, a.BRCHNO, a.ACRTSQ,
+    	    	    	a.ACRTNO, a.acctrt, a.LIMTTP, a.LIMTKD, a.SERVTP,
+    	    	    	a.ACCTTP, a.SBACTP, a.PYTLTP, a.LMTMAX, a.LMTMIN,
+    	    	    	a.LMTVAL, a.TRANUS, a.AUTHUS, a.tmstmp,a.LIMTST 
+    	    	from
+    	    	    	kup_acrt_brch a 
+    	    	where
+    	    	    	a.LIMTST = '2' 
+    	    	    	and a.brchno=#brchno# and a.corpno='999' 
+    	    	    	and a.tmstmp>= concat((substr(#trandt#,1,4) -1),substr(#trandt#,5,4)) and substr(a.tmstmp,1,8) >= #staday# 
+    	    	    	and substr(a.tmstmp,1,8) <= #endday# 
+    	) ttm 
+order by
+    	tmstmp desc,
+    	LIMTST desc,ACRTSQ
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	( select
+    	    	    	a.CORPNO, a.BRCHNO, a.ACRTSQ, a.ACRTNO, a.acctrt,
+    	    	    	a.LIMTTP, a.LIMTKD, a.SERVTP, a.ACCTTP, a.SBACTP,
+    	    	    	a.PYTLTP, a.LMTMAX, a.LMTMIN, a.LMTVAL, a.TRANUS,
+    	    	    	a.AUTHUS, a.tmstmp, case when a.corpno <> '999' then '1' when b.ACRTSQ is not null then '0' when a.limtst = '2' then '1' else '1' end as limtst 
+    	    	from
+    	    	    	kup_acrt_brch a 
+    	    	left join
+    	    	    	(
+    	    	    	    	select
+    	    	    	    	    	min(ACRTSQ) as ACRTSQ 
+    	    	    	    	from
+    	    	    	    	    	kup_acrt_brch 
+    	    	    	    	where
+    	    	    	    	    	corpno='999' 
+    	    	    	    	group by
+    	    	    	    	    	ACRTNO
+    	    	    	) b 
+    	    	    	    	on (
+    	    	    	    	    	a.ACRTSQ = b.ACRTSQ
+    	    	    	    	) 
+    	    	where
+    	    	    	a.brchno=#brchno# and a.tmstmp>= concat((substr(#trandt#,1,4) -1),substr(#trandt#,5,4)) 
+    	    	    	and substr(a.tmstmp,1,8) >= #staday# and substr(a.tmstmp,1,8) <= #endday# 
+    	    	union
+    	    	select
+    	    	    	a.CORPNO, a.BRCHNO, a.ACRTSQ,
+    	    	    	a.ACRTNO, a.acctrt, a.LIMTTP, a.LIMTKD, a.SERVTP,
+    	    	    	a.ACCTTP, a.SBACTP, a.PYTLTP, a.LMTMAX, a.LMTMIN,
+    	    	    	a.LMTVAL, a.TRANUS, a.AUTHUS, a.tmstmp,a.LIMTST 
+    	    	from
+    	    	    	kup_acrt_brch a 
+    	    	where
+    	    	    	a.LIMTST = '2' 
+    	    	    	and a.brchno=#brchno# and a.corpno='999' 
+    	    	    	and a.tmstmp>= concat((substr(#trandt#,1,4) -1),substr(#trandt#,5,4)) and substr(a.tmstmp,1,8) >= #staday# 
+    	    	    	and substr(a.tmstmp,1,8) <= #endday# 
+    	) ttm 
+order by
+    	tmstmp desc,
+    	LIMTST desc,ACRTSQ
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	( select
+    	    	    	a.CORPNO, a.BRCHNO, a.ACRTSQ, a.ACRTNO, a.acctrt,
+    	    	    	a.LIMTTP, a.LIMTKD, a.SERVTP, a.ACCTTP, a.SBACTP,
+    	    	    	a.PYTLTP, a.LMTMAX, a.LMTMIN, a.LMTVAL, a.TRANUS,
+    	    	    	a.AUTHUS, a.tmstmp, case when a.corpno <> '999' then '1' when b.ACRTSQ is not null then '0' when a.limtst = '2' then '1' else '1' end as limtst 
+    	    	from
+    	    	    	kup_acrt_brch a 
+    	    	left join
+    	    	    	(
+    	    	    	    	select
+    	    	    	    	    	min(ACRTSQ) as ACRTSQ 
+    	    	    	    	from
+    	    	    	    	    	kup_acrt_brch 
+    	    	    	    	where
+    	    	    	    	    	corpno='999' 
+    	    	    	    	group by
+    	    	    	    	    	ACRTNO
+    	    	    	) b 
+    	    	    	    	on (
+    	    	    	    	    	a.ACRTSQ = b.ACRTSQ
+    	    	    	    	) 
+    	    	where
+    	    	    	a.brchno=#brchno# and a.tmstmp>= concat((substr(#trandt#,1,4) -1),substr(#trandt#,5,4)) 
+    	    	    	and substr(a.tmstmp,1,8) >= #staday# and substr(a.tmstmp,1,8) <= #endday# 
+    	    	union
+    	    	select
+    	    	    	a.CORPNO, a.BRCHNO, a.ACRTSQ,
+    	    	    	a.ACRTNO, a.acctrt, a.LIMTTP, a.LIMTKD, a.SERVTP,
+    	    	    	a.ACCTTP, a.SBACTP, a.PYTLTP, a.LMTMAX, a.LMTMIN,
+    	    	    	a.LMTVAL, a.TRANUS, a.AUTHUS, a.tmstmp,a.LIMTST 
+    	    	from
+    	    	    	kup_acrt_brch a 
+    	    	where
+    	    	    	a.LIMTST = '2' 
+    	    	    	and a.brchno=#brchno# and a.corpno='999' 
+    	    	    	and a.tmstmp>= concat((substr(#trandt#,1,4) -1),substr(#trandt#,5,4)) and substr(a.tmstmp,1,8) >= #staday# 
+    	    	    	and substr(a.tmstmp,1,8) <= #endday# 
+    	) ttm 
+order by
+    	tmstmp desc,
+    	LIMTST desc,ACRTSQ
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="staday" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+            <parameter property="endday" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAcrtBrchBysq" longname="根据序号查询认证方式限额">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtsq=#acrtsq# and brchno=#brchno# 
+    	    	and limtst='0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtsq=#acrtsq# and brchno=#brchno# 
+    	    	and limtst='0'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtsq=#acrtsq# and brchno=#brchno# 
+    	    	and limtst='0'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtsq" ref="QtDict.Qt.acrtsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="账户限额序号" parameterType="condition"/>
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAcrtBrchBysq2" longname="根据序号查询认证方式限额">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtsq=#acrtsq# and limtst='0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtsq=#acrtsq# and limtst='0']]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtsq=#acrtsq# and limtst='0']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtsq" ref="QtDict.Qt.acrtsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="账户限额序号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcrtBrchByno" longname="根据序号查询认证方式限额">
+        <sql><![CDATA[
+    	select
+    	    	acrtsq 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtno=#acrtno# and limtst='0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	acrtsq 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtno=#acrtno# and limtst='0'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	acrtsq 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtno=#acrtno# and limtst='0'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="账户限额编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAcrtLimitApp" longname="查询账户限额">
+        <sql><![CDATA[
+    	select
+    	    	limttp,lmtval,servtp,sbactp 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and limtkd=#limtkd# and (
+    	    	    	servtp like '%'||#servtp#||'%' or servtp='99'
+    	    	) 
+    	    	and accttp like '%'||#accttp#||'%' and sbactp like '%'||#sbactp#||'%' 
+    	    	and (
+    	    	    	pytltp like '%'||#pytltp#||'%' or pytltp='99' or pytltp is null
+    	    	) and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtsq 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	limttp,lmtval,servtp,sbactp 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and limtkd=#limtkd# and (
+    	    	    	servtp like '%'||#servtp#||'%' or servtp='99'
+    	    	) 
+    	    	and accttp like '%'||#accttp#||'%' and sbactp like '%'||#sbactp#||'%' 
+    	    	and (
+    	    	    	pytltp like '%'||#pytltp#||'%' or pytltp='99' or pytltp is null
+    	    	) and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtsq 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	limttp,lmtval,servtp,sbactp 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and limtkd=#limtkd# and (
+    	    	    	servtp like '%'+#servtp#+'%' or servtp='99' 
+    	    	) 
+    	    	and accttp like '%'+#accttp#+'%' and sbactp like '%'+#sbactp#+'%' 
+    	    	and (
+    	    	    	pytltp like '%'+#pytltp#+'%' or pytltp='99' or pytltp is null 
+    	    	) and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtsq 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.SelLimitOut"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selAcrtLimitAppPayOrTrans" longname="查询账户限额_转账或支付">
+        <sql><![CDATA[
+    	select
+    	    	limttp,lmtval,servtp,sbactp 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt=#acctrt# and (
+    	    	    	limttp=#limttp# or limttp='05'
+    	    	) 
+    	    	and limtkd=#limtkd# and (
+    	    	    	servtp like '%'||#servtp#||'%' or servtp='99'
+    	    	) 
+    	    	and accttp like '%'||#accttp#||'%' and sbactp like '%'||#sbactp#||'%' 
+    	    	and (
+    	    	    	pytltp like '%'||#pytltp#||'%' or pytltp='99' or pytltp is null
+    	    	) and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtsq 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	limttp,lmtval,servtp,sbactp 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt=#acctrt# and (
+    	    	    	limttp=#limttp# or limttp='05'
+    	    	) 
+    	    	and limtkd=#limtkd# and (
+    	    	    	servtp like '%'||#servtp#||'%' or servtp='99'
+    	    	) 
+    	    	and accttp like '%'||#accttp#||'%' and sbactp like '%'||#sbactp#||'%' 
+    	    	and (
+    	    	    	pytltp like '%'||#pytltp#||'%' or pytltp='99' or pytltp is null
+    	    	) and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtsq 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[select
+    	    	limttp,lmtval,servtp,sbactp 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acctrt=#acctrt# and (
+    	    	    	limttp=#limttp# or limttp='05'
+    	    	) 
+    	    	and limtkd=#limtkd# and (
+    	    	    	servtp like '%'+#servtp#+'%' or servtp='99'
+    	    	) 
+    	    	and accttp like '%'+#accttp#+'%' and sbactp like '%'+#sbactp#+'%' 
+    	    	and (
+    	    	    	pytltp like '%'+#pytltp#+'%' or pytltp='99' or pytltp is null
+    	    	) and brchno=#brchno# 
+    	    	and limtst='0' 
+    	order by
+    	    	acrtsq ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" ref="QtDict.Qt.sbactp" jdbcType="VARCHAR" javaType="QtEnumType.E_SBACTP" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.SelLimitOut"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcrtByAcrtno" longname="根据编号查询账户限额">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtno=#acrtno# and limtst='0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtno=#acrtno# and limtst='0']]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	acrtno=#acrtno# and limtst='0']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="账户限额编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+    </select>
+    <update method="updateOne" id="updAcrtByAcrtsq" longname="根据编号更新账户限额">
+        <sql><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	servtp=#servtp#, accttp=#accttp#, sbactp=#sbactp#, pytltp=#pytltp#, lmtmax=#lmtmax#,
+    	    	lmtmin=#lmtmin#, lmtval=#lmtval#, tranus=#tranus#, authus=#authus#,tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and corpno=#corpno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	servtp=#servtp#, accttp=#accttp#, sbactp=#sbactp#, pytltp=#pytltp#, lmtmax=#lmtmax#,
+    	    	lmtmin=#lmtmin#, lmtval=#lmtval#, tranus=#tranus#, authus=#authus#,tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and corpno=#corpno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	servtp=#servtp#, accttp=#accttp#, sbactp=#sbactp#, pytltp=#pytltp#, lmtmax=#lmtmax#,
+    	    	lmtmin=#lmtmin#, lmtval=#lmtval#, tranus=#tranus#, authus=#authus#,tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and corpno=#corpno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtsq" ref="QtDict.Qt.acrtsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="账户限额序号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="收款行范围" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="风险承受等级" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="lmtmax" ref="QtDict.Qt.lmtmax" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="可设区间(最大值)" parameterType="condition"/>
+            <parameter property="lmtmin" ref="QtDict.Qt.lmtmin" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="可设区间(最小值)" parameterType="condition"/>
+            <parameter property="lmtval" ref="QtDict.Qt.lmtval" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="限额" parameterType="condition"/>
+            <parameter property="tranus" ref="PbDict.Charge.tranus" jdbcType="VARCHAR" javaType="PbBaseType.U_USERID" mode="in" longname="交易柜员" parameterType="condition"/>
+            <parameter property="authus" ref="PbDict.Dcmt.authus" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="受理用户" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="updateOne" id="updAcrtByAcrtsq2" longname="根据编号更新账户限额">
+        <sql><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	lmtmax=#lmtmax#, lmtmin=#lmtmin#, lmtval=#lmtval#, tranus=#tranus#, authus=#authus#,
+    	    	tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and corpno=#corpno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	lmtmax=#lmtmax#, lmtmin=#lmtmin#, lmtval=#lmtval#, tranus=#tranus#, authus=#authus#,
+    	    	tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and corpno=#corpno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	kup_acrt_brch 
+    	set
+    	    	lmtmax=#lmtmax#, lmtmin=#lmtmin#, lmtval=#lmtval#, tranus=#tranus#, authus=#authus#,
+    	    	tmstmp=#tmstmp# 
+    	where
+    	    	acrtsq=#acrtsq# and corpno=#corpno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acrtsq" ref="QtDict.Qt.acrtsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="账户限额序号" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人" parameterType="condition"/>
+            <parameter property="lmtmax" ref="QtDict.Qt.lmtmax" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="可设区间(最大值)" parameterType="condition"/>
+            <parameter property="lmtmin" ref="QtDict.Qt.lmtmin" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="可设区间(最小值)" parameterType="condition"/>
+            <parameter property="lmtval" ref="QtDict.Qt.lmtval" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="限额" parameterType="condition"/>
+            <parameter property="tranus" ref="PbDict.Charge.tranus" jdbcType="VARCHAR" javaType="PbBaseType.U_USERID" mode="in" longname="交易柜员" parameterType="condition"/>
+            <parameter property="authus" ref="PbDict.Dcmt.authus" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="受理用户" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selAcrtBrchAll" longname="根据维度类型查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <if test="pytltp!=null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <if test="pytltp!=null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp=#sbactp#]]></str>
+                    <if test="pytltp!=null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selKupAcrtBrchInfo" longname="查询账户限额信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.servtp like '%'||#servtp#||'%']]></str>
+                    <if test="a.pytltp != null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp like '%'||#pytltp#||'%']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.sbactp like '%'||#sbactp#||'%']]></str>
+                    <str type="Str"><![CDATA[a.servtp like '%'||#servtp#||'%']]></str>
+                    <if test="a.pytltp != null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp like '%'||#pytltp#||'%']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[a.sbactp like '%'+#sbactp#+'%']]></str>
+                    <str type="Str"><![CDATA[a.servtp like '%'+#servtp#+'%']]></str>
+                    <if test="a.pytltp != null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp like '%'+#pytltp#+'%']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selKupAcrtBrchCounts" longname="查询账户限额信息集合">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Integer"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select count(1) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%' or servtp = '99']]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp like '%'||#pytltp#||'%']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(1) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[servtp like '%'||#servtp#||'%' or servtp = '99']]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'||#accttp#||'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'||#sbactp#||'%']]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp like '%'||#pytltp#||'%']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(1) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[servtp like '%'+#servtp#+'%' or servtp = '99']]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[accttp like '%'+#accttp#+'%']]></str>
+                    <str type="Str"><![CDATA[sbactp like '%'+#sbactp#+'%']]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp like '%'+#pytltp#+'%']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selCntKupAcrtBrch" longname="查询支付工具全部的记录">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	pytltp='99' and brchno in (
+    	    	    	'999000', #brchno#
+    	    	) 
+    	    	and acctrt=#acctrt# and accttp=#accttp# 
+    	    	and servtp like '%'||#servtp#||'%'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	pytltp='99' and brchno in (
+    	    	    	'999000', #brchno#
+    	    	) 
+    	    	and acctrt=#acctrt# and accttp=#accttp# 
+    	    	and servtp like '%'||#servtp#||'%'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	kup_acrt_brch 
+    	where
+    	    	pytltp='99' and brchno in (
+    	    	    	'999000', #brchno#
+    	    	) 
+    	    	and acctrt=#acctrt# and accttp=#accttp# 
+    	    	and servtp like '%'+#servtp#+'%'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="accttp" ref="BaseDict.Comm.accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupTsscAcct2" longname="查询多子账户电子账户额度累计">
+        <sql><![CDATA[
+    	select
+    	    	dytlam, dytltm, mhtlam, mhtltm, yrtlam,
+    	    	yrtltm, lastdt 
+    	from
+    	    	kub_tssc_acct 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and servtp=#servtp# and sbactp in (
+    	    	    	#sbactp#
+    	    	) 
+    	    	and pytltp like '%'||#pytltp#||'%' and custac=#custac# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	dytlam, dytltm, mhtlam, mhtltm, yrtlam,
+    	    	yrtltm, lastdt 
+    	from
+    	    	kub_tssc_acct 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and servtp=#servtp# and sbactp in (
+    	    	    	#sbactp#
+    	    	) 
+    	    	and pytltp like '%'||#pytltp#||'%' and custac=#custac# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	dytlam, dytltm, mhtlam, mhtltm, yrtlam,
+    	    	yrtltm, lastdt 
+    	from
+    	    	kub_tssc_acct 
+    	where
+    	    	acctrt=#acctrt# and limttp=#limttp# 
+    	    	and servtp=#servtp# and sbactp in (
+    	    	    	#sbactp#
+    	    	) 
+    	    	and pytltp like '%'+#pytltp#+'%' and custac=#custac# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKupTsscAcct22" longname="查询多子账户累计">
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="QtDict.Qt.custac" jdbcType="VARCHAR" javaType="PbBaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="渠道" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select dytlam, dytltm, mhtlam, mhtltm, yrtlam, yrtltm, lastdt from kub_tssc_acct ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    <str type="Str"><![CDATA[pytltp like '%'||#pytltp#||'%']]></str>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select dytlam, dytltm, mhtlam, mhtltm, yrtlam, yrtltm, lastdt from kub_tssc_acct ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    <str type="Str"><![CDATA[pytltp like '%'||#pytltp#||'%']]></str>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select dytlam, dytltm, mhtlam, mhtltm, yrtlam, yrtltm, lastdt from kub_tssc_acct ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    <str type="Str"><![CDATA[pytltp like '%'+#pytltp#+'%']]></str>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selAcrtLimitAppPayOrTrans2" longname="查询行社账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="客户类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.SelLimitOut"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select a.limttp,a.lmtval,a.servtp,a.sbactp, a.acrtno from kup_acrt_brch a ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[a.accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[a.sbactp in (${sbactp})]]></str>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                    <if test="rebktp!=null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp = #pytltp# or a.pytltp='99']]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.lmtval asc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.limttp,a.lmtval,a.servtp,a.sbactp, a.acrtno from kup_acrt_brch a ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[a.accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[a.sbactp in (${sbactp})]]></str>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                    <if test="rebktp!=null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp = #pytltp# or a.pytltp='99']]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.lmtval asc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.limttp,a.lmtval,a.servtp,a.sbactp, a.acrtno from kup_acrt_brch a ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[a.accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[a.sbactp in (${sbactp})]]></str>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                    <if test="rebktp!=null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp = #pytltp# or a.pytltp='99']]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.lmtval asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selKupAcrtBrchInfo2" longname="查询账户限额信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" ref="QtDict.Qt.limttp" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTTP" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.accttp =#accttp#]]></str>
+                    <str type="Str"><![CDATA[a.sbactp in (#sbactp#)]]></str>
+                    <str type="Str"><![CDATA[a.servtp in (#servtp#)]]></str>
+                    <if test="a.pytltp != null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp = #pytltp# or pytltp='99']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.accttp =#accttp#]]></str>
+                    <str type="Str"><![CDATA[a.sbactp in (#sbactp#)]]></str>
+                    <str type="Str"><![CDATA[a.servtp in (#servtp#)]]></str>
+                    <if test="a.pytltp != null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp = #pytltp# or pytltp='99']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kup_acrt_brch a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[a.accttp =#accttp#]]></str>
+                    <str type="Str"><![CDATA[a.sbactp in (#sbactp#)]]></str>
+                    <str type="Str"><![CDATA[a.servtp in (#servtp#)]]></str>
+                    <if test="a.pytltp != null" type="If">
+                        <str type="Str"><![CDATA[a.pytltp = #pytltp# or pytltp='99']]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selKupAcrtBrch3" longname="查询账户限额信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0' order by acrtno]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0' order by acrtno]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[limtst='0' order by acrtno]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCmqtInfo" longname="额度组合查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="cmqttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="组合代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtCmqt"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_curt_cmqt]]></str>
+            <where type="Where">
+                <if test="cmqttp!=null&amp;&amp;cmqttp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[cmqttp = #cmqttp#]]></str>
+                </if>
+            </where>
+            <str type="Str"><![CDATA[order by cmqttp]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_curt_cmqt]]></str>
+            <where type="Where">
+                <if test="cmqttp!=null&amp;&amp;cmqttp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[cmqttp = #cmqttp#]]></str>
+                </if>
+            </where>
+            <str type="Str"><![CDATA[order by cmqttp]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_curt_cmqt]]></str>
+            <where type="Where">
+                <if test="cmqttp!=null&amp;&amp;cmqttp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[cmqttp = #cmqttp#]]></str>
+                </if>
+            </where>
+            <str type="Str"><![CDATA[order by cmqttp]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selLmqtInfo" longname="额度组合明细查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="明细代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoQtCustLimitInfo.IoCmqtInfo"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select b.cmqttp as cmcode,b.cmqttx as cmname,a.limttp as idcode from kup_curt_limt a,KUP_CURT_CMQT b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmqttp = b.cmqttp ]]></str>
+                    <if test="limttp!=null&amp;&amp;limttp!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.limttp = #limttp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.cmqttp]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select b.cmqttp as cmcode,b.cmqttx as cmname,a.limttp as idcode from kup_curt_limt a,KUP_CURT_CMQT b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmqttp = b.cmqttp ]]></str>
+                    <if test="limttp!=null&amp;&amp;limttp!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.limttp = #limttp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.cmqttp]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select b.cmqttp as cmcode,b.cmqttx as cmname,a.limttp as idcode from kup_curt_limt a,KUP_CURT_CMQT b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmqttp = b.cmqttp ]]></str>
+                    <if test="limttp!=null&amp;&amp;limttp!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.limttp = #limttp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.cmqttp]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCmsvInfo" longname="渠道组合查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="cmsvtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="组合代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtCmsv"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_curt_cmsv]]></str>
+            <where type="Where">
+                <if test="cmqttp!=null&amp;&amp;cmqttp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[cmsvtp = #cmsvtp#]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_curt_cmsv]]></str>
+            <where type="Where">
+                <if test="cmqttp!=null&amp;&amp;cmqttp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[cmsvtp = #cmsvtp#]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_curt_cmsv]]></str>
+            <where type="Where">
+                <if test="cmqttp!=null&amp;&amp;cmqttp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[cmsvtp = #cmsvtp#]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selLsqtInfo" longname="渠道组合明细查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="渠道代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoQtCustLimitInfo.IoCmqtInfo"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select b.cmsvtp as cmcode,b.servtx as cmname,a.servtp as idcode from kup_curt_serv a,kup_curt_cmsv b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmsvtp = b.cmsvtp ]]></str>
+                    <if test="servtp!=null&amp;&amp;servtp!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.servtp = #servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select b.cmsvtp as cmcode,b.servtx as cmname,a.servtp as idcode from kup_curt_serv a,kup_curt_cmsv b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmsvtp = b.cmsvtp ]]></str>
+                    <if test="servtp!=null&amp;&amp;servtp!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.servtp = #servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select b.cmsvtp as cmcode,b.servtx as cmname,a.servtp as idcode from kup_curt_serv a,kup_curt_cmsv b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmsvtp = b.cmsvtp ]]></str>
+                    <if test="servtp!=null&amp;&amp;servtp!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.servtp = #servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCmacInfo" longname="子账户组合查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="组合代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtCmsa"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_curt_cmsa]]></str>
+            <where type="Where">
+                <if test="sbactp!=null&amp;&amp;sbactp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[sbactp = #sbactp#]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_curt_cmsa]]></str>
+            <where type="Where">
+                <if test="sbactp!=null&amp;&amp;sbactp!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[sbactp = #sbactp#]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selAcrtBrchOne" longname="根据维度类型查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="账户类型" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[SELECT * FROM kup_acrt_brch ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst=#limtst#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by lmtval  asc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[SELECT * FROM kup_acrt_brch ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst=#limtst#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by lmtval  asc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[SELECT * FROM kup_acrt_brch ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst=#limtst#]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by lmtval  asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selAcrtBrchAll2" longname="根据维度类型查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+            <parameter property="limtst" ref="QtDict.Qt.limtst" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTST" mode="in" longname="限额状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[SELECT * FROM kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst=#limtst#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[SELECT * FROM kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst=#limtst#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[SELECT * FROM kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst=#limtst#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCmsaInfo" longname="子账户组合明细查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="子账户代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoQtCustLimitInfo.IoCmqtInfo"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select b.cmsatp as cmcode,b.cmsana as cmname,a.sbactp as idcode from kup_curt_sbac a, kup_curt_cmsa b]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmsatp = b.cmsatp]]></str>
+                    <if test="sbactp!=null &amp;&amp; sbactp!=''" type="If">
+                        <str type="Str"><![CDATA[a.sbactp=#sbactp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select b.cmsatp as cmcode,b.cmsana as cmname,a.sbactp as idcode from kup_curt_sbac a, kup_curt_cmsa b]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmsatp = b.cmsatp]]></str>
+                    <if test="sbactp!=null &amp;&amp; sbactp!=''" type="If">
+                        <str type="Str"><![CDATA[a.sbactp=#sbactp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select b.cmsatp as cmcode,b.cmsana as cmname,a.sbactp as idcode from kup_curt_sbac a, kup_curt_cmsa b]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.cmsatp = b.cmsatp]]></str>
+                    <if test="sbactp!=null &amp;&amp; sbactp!=''" type="If">
+                        <str type="Str"><![CDATA[a.sbactp=#sbactp#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selKupAcrtBrch4" longname="查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctrt!=null " type="If">
+                        <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#
+]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp!=''" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by acrtno ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) as datetm,cast(acrtno as signed) acrtno from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctrt!=null " type="If">
+                        <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#
+]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp!=''" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by acrtno ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select brchno,acctrt,limttp,limtkd,servtp,accttp,sbactp,pytltp,lmtmax,lmtmin,lmtval,acrtsq,tranus,authus,substr(tmstmp,1, 8) as datetm,TO_NUMBER(acrtno) acrtno from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctrt!=null " type="If">
+                        <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[brchno=#brchno#
+]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp!=''" type="If">
+                        <str type="Str"><![CDATA[limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by acrtno ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selSbacSgrpByCmsatp" longname="根据组合或子类型查询子类型或组合相关信息">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_curt_sbac 
+    	where
+    	    	sbactp in (
+    	    	    	select
+    	    	    	    	sbactp 
+    	    	    	from
+    	    	    	    	kup_curt_sbac 
+    	    	    	where
+    	    	    	    	cmsatp = #cmsatp#
+    	    	) and '1' in (
+    	    	    	select
+    	    	    	    	distinct case when cmsatp = sbactp then '0' else '1' end 
+    	    	    	from
+    	    	    	    	kup_curt_sbac 
+    	    	    	where
+    	    	    	    	cmsatp = #cmsatp# 
+    	    	) or cmsatp = #cmsatp#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_curt_sbac 
+    	where
+    	    	sbactp in (
+    	    	    	select
+    	    	    	    	sbactp 
+    	    	    	from
+    	    	    	    	kup_curt_sbac 
+    	    	    	where
+    	    	    	    	cmsatp = #cmsatp#
+    	    	) and '1' in (
+    	    	    	select
+    	    	    	    	distinct case when cmsatp = sbactp then '0' else '1' end 
+    	    	    	from
+    	    	    	    	kup_curt_sbac 
+    	    	    	where
+    	    	    	    	cmsatp = #cmsatp# 
+    	    	) or cmsatp = #cmsatp#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_curt_sbac 
+    	where
+    	    	sbactp in (
+    	    	    	select
+    	    	    	    	sbactp 
+    	    	    	from
+    	    	    	    	kup_curt_sbac 
+    	    	    	where
+    	    	    	    	cmsatp = #cmsatp#
+    	    	) and '1' in (
+    	    	    	select
+    	    	    	    	distinct case when cmsatp = sbactp then '0' else '1' end 
+    	    	    	from
+    	    	    	    	kup_curt_sbac 
+    	    	    	where
+    	    	    	    	cmsatp = #cmsatp# 
+    	    	) or cmsatp = #cmsatp#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cmsatp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="组合子账户类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtSbac"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCurtServByServtp" longname="根据渠道查渠道组合信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="渠道" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtServ"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_curt_serv]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_curt_serv]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_curt_serv]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCurtLimt" longname="查询额度类型组合信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="cmqttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="额度组合类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtLimt"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_curt_limt]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp != null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    </if>
+                    <if test="cmqttp != null &amp;&amp; cmqttp != ''" type="If">
+                        <str type="Str"><![CDATA[cmqttp in (${cmqttp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_curt_limt]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp != null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    </if>
+                    <if test="cmqttp != null &amp;&amp; cmqttp != ''" type="If">
+                        <str type="Str"><![CDATA[cmqttp in (${cmqttp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_curt_limt]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="limttp != null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp in (${limttp})]]></str>
+                    </if>
+                    <if test="cmqttp != null &amp;&amp; cmqttp != ''" type="If">
+                        <str type="Str"><![CDATA[cmqttp in (${cmqttp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selCurtSbacByCmsatp" longname="根据组合信息查询所以">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_curt_sbac 
+    	where
+    	    	cmsatp = #cmsatp# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_curt_sbac 
+    	where
+    	    	cmsatp = #cmsatp# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_curt_sbac 
+    	where
+    	    	cmsatp = #cmsatp# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cmsatp" jdbcType="VARCHAR" javaType="PbBaseType.U_CHAR30" mode="in" longname="子账户组合类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtSbac"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selPrcsLimtByRemak" longname="根据收付方标志查询额度类型">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_prcs_limt 
+    	where
+    	    	prcscd =#prcscd# and remak1 = #remak1#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_prcs_limt 
+    	where
+    	    	prcscd =#prcscd# and remak1 = #remak1#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kup_prcs_limt 
+    	where
+    	    	prcscd =#prcscd# and remak1 = #remak1#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prcscd" jdbcType="VARCHAR" javaType="BaseType.U_PRCSCD" mode="in" longname="处理码" parameterType="condition"/>
+            <parameter property="remak1" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="收付方标志" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupPrcsLimt"/>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selCntKupAcrtBrch2" longname="查询支付工具全部的记录">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="accttp" ref="BaseDict.Comm.accttp" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCATP" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR100" mode="in" longname="渠道" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(1) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[pytltp='99']]></str>
+                    <str type="Str"><![CDATA[brchno in ('999000', #brchno#)]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <if test="servtp != null &amp;&amp; servtp !=''" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(1) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[pytltp='99']]></str>
+                    <str type="Str"><![CDATA[brchno in ('999000', #brchno#)]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <if test="servtp != null &amp;&amp; servtp !=''" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(1) from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[pytltp='99']]></str>
+                    <str type="Str"><![CDATA[brchno in ('999000', #brchno#)]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    <if test="servtp != null &amp;&amp; servtp !=''" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCurtServ" longname="渠道组合信息查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="cmsvtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtServ"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select *from kup_curt_serv]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cmsvtp!=null &amp;&amp; cmsvtp!=''" type="If">
+                        <str type="Str"><![CDATA[cmsvtp in (${cmsvtp})
+]]></str>
+                    </if>
+                    <if test="servtp!=null &amp;&amp; servtp!=''" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select *from kup_curt_serv]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cmsvtp!=null &amp;&amp; cmsvtp!=''" type="If">
+                        <str type="Str"><![CDATA[cmsvtp in (${cmsvtp})
+]]></str>
+                    </if>
+                    <if test="servtp!=null &amp;&amp; servtp!=''" type="If">
+                        <str type="Str"><![CDATA[servtp in (${servtp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selCurtSmb" longname="子账户组合信息查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="cmsatp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="组合子账户类型" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR04" mode="in" longname="子账户类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupCurtSbac"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_curt_sbac]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cmsatp!=null &amp;&amp; cmsatp!=''" type="If">
+                        <str type="Str"><![CDATA[cmsatp in (${cmsatp})]]></str>
+                    </if>
+                    <if test="sbactp!=null &amp;&amp; sbactp!=''" type="If">
+                        <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_curt_sbac]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cmsatp!=null &amp;&amp; cmsatp!=''" type="If">
+                        <str type="Str"><![CDATA[cmsatp in (${cmsatp})]]></str>
+                    </if>
+                    <if test="sbactp!=null &amp;&amp; sbactp!=''" type="If">
+                        <str type="Str"><![CDATA[sbactp in (${sbactp})]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selKupAcrtBrch5" longname="查询账户限额">
+        <parameterMap class="java.util.Map">
+            <parameter property="upbrchno" jdbcType="VARCHAR" javaType="PbBaseType.U_CHAR30" mode="in" longname="省联社机构号" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR02" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoAccountLimitInfo.IoKupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[
+             select  
+case when  b.brchno is not null  then b.brchno else  a.brchno end as brchno,
+case when  b.acrtsq is not null  then b.acrtsq else  a.acrtsq end as acrtsq,
+a.acctrt, a.limttp, a.limtkd, a.servtp, a.accttp, a.sbactp,a.pytltp, 
+case when  b.lmtmax is not null then b.lmtmax else  a.lmtmax end as lmtmax, 
+case when  b.lmtmin is not null then b.lmtmin else  a.lmtmin end as lmtmin, 
+case when  b.lmtval is not null then b.lmtval else  a.lmtval end as lmtval, a.limtst,
+case when  b.tranus is not null then b.tranus else  a.tranus end as tranus, 
+case when  b.authus is not null then b.authus else  a.authus end as authus, 
+case when  b.corpno is not null then b.corpno else  a.corpno end as corpno,cast(a.acrtno as signed) acrtno, 
+substr(case when  b.tmstmp is not null then b.tmstmp else  a.tmstmp end ,1,8) as datetm 
+from  kup_acrt_brch a  left join kup_acrt_brch b  on (a.acrtno = b.acrtno and b.brchno=#brchno# and b.limtst='0')]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctrt!=null " type="If">
+                        <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#upbrchno#]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp!=''" type="If">
+                        <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.acrtno  ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[
+             select  
+case when  b.brchno is not null  then b.brchno else  a.brchno end as brchno,
+case when  b.acrtsq is not null  then b.acrtsq else  a.acrtsq end as acrtsq,
+a.acctrt, a.limttp, a.limtkd, a.servtp, a.accttp, a.sbactp,a.pytltp, 
+case when  b.lmtmax is not null then b.lmtmax else  a.lmtmax end as lmtmax, 
+case when  b.lmtmin is not null then b.lmtmin else  a.lmtmin end as lmtmin, 
+case when  b.lmtval is not null then b.lmtval else  a.lmtval end as lmtval, a.limtst,
+case when  b.tranus is not null then b.tranus else  a.tranus end as tranus, 
+case when  b.authus is not null then b.authus else  a.authus end as authus, 
+case when  b.corpno is not null then b.corpno else  a.corpno end as corpno,TO_NUMBER(acrtno) acrtno , 
+substr(case when  b.tmstmp is not null then b.tmstmp else  a.tmstmp end ,1,8) as datetm 
+from  kup_acrt_brch a  left join kup_acrt_brch b  on (a.acrtno = b.acrtno and b.brchno=#brchno# and b.limtst='0')]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctrt!=null " type="If">
+                        <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#upbrchno#]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp!=''" type="If">
+                        <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.acrtno  ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[
+             select  
+case when  b.brchno is not null  then b.brchno else  a.brchno end as brchno,
+case when  b.acrtsq is not null  then b.acrtsq else  a.acrtsq end as acrtsq,
+a.acctrt, a.limttp, a.limtkd, a.servtp, a.accttp, a.sbactp,a.pytltp, 
+case when  b.lmtmax is not null then b.lmtmax else  a.lmtmax end as lmtmax, 
+case when  b.lmtmin is not null then b.lmtmin else  a.lmtmin end as lmtmin, 
+case when  b.lmtval is not null then b.lmtval else  a.lmtval end as lmtval, a.limtst,
+case when  b.tranus is not null then b.tranus else  a.tranus end as tranus, 
+case when  b.authus is not null then b.authus else  a.authus end as authus, 
+case when  b.corpno is not null then b.corpno else  a.corpno end as corpno,cast(a.acrtno as signed) acrtno, 
+substr(case when  b.tmstmp is not null then b.tmstmp else  a.tmstmp end ,1,8) as datetm 
+from  kup_acrt_brch a  left join kup_acrt_brch b  on (a.acrtno = b.acrtno and b.brchno=#brchno# and b.limtst='0')]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctrt!=null " type="If">
+                        <str type="Str"><![CDATA[a.acctrt=#acctrt#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.brchno=#upbrchno#]]></str>
+                    <if test="limttp!=null &amp;&amp; limttp!=''" type="If">
+                        <str type="Str"><![CDATA[a.limttp=#limttp#]]></str>
+                    </if>
+                    <if test="limtkd!=null" type="If">
+                        <str type="Str"><![CDATA[a.limtkd=#limtkd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.acrtno  ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <update method="update" id="updTsscAcct" longname="清除累计限额表金额">
+        <sql><![CDATA[
+    	update
+    	    	kub_tssc_acct 
+    	set
+    	    	dytlam=0,mhtlam=0,dytltm=0,mhtltm=0,yrtlam=0,
+    	    	yrtltm=0 
+    	where
+    	    	custac=#custac#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	kub_tssc_acct 
+    	set
+    	    	dytlam=0,mhtlam=0,dytltm=0,mhtltm=0,yrtlam=0,
+    	    	yrtltm=0 
+    	where
+    	    	custac=#custac#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	kub_tssc_acct 
+    	set
+    	    	dytlam=0,mhtlam=0,dytltm=0,mhtltm=0,yrtlam=0,
+    	    	yrtltm=0 
+    	where
+    	    	custac=#custac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="QtDict.Qt.custac" jdbcType="VARCHAR" javaType="PbBaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selKnaCust" longname="查询电子账户表">
+        <sql><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kna_cust 
+    	where
+    	    	custac=#custac#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kna_cust 
+    	where
+    	    	custac=#custac#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kna_cust 
+    	where
+    	    	custac=#custac#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="QtDict.Qt.custac" jdbcType="VARCHAR" javaType="PbBaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnaCust"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKubTsdt" longname="查询额度扣减登记表">
+        <sql><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kub_tsdt_acct 
+    	where
+    	    	custac=#custac# and servsq=#servsq# 
+    	    	and servdt=#servdt# and quottp='0'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kub_tsdt_acct 
+    	where
+    	    	custac=#custac# and servsq=#servsq# 
+    	    	and servdt=#servdt# and quottp='0'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kub_tsdt_acct 
+    	where
+    	    	custac=#custac# and servsq=#servsq# 
+    	    	and servdt=#servdt# and quottp='0'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="servdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="渠道日期" parameterType="condition"/>
+            <parameter property="servsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KubTsdtAcct"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKupAcrtBrchAll" longname="查询账户限额配置信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="acctrt" ref="BaseDict.Comm.acctrt" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTROUTTYPE" mode="in" longname="账号路由类型" parameterType="condition"/>
+            <parameter property="limttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="额度类型" parameterType="condition"/>
+            <parameter property="limtkd" ref="QtDict.Qt.limtkd" jdbcType="VARCHAR" javaType="QtEnumType.E_LIMTKD" mode="in" longname="额度种类" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="渠道" parameterType="condition"/>
+            <parameter property="accttp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="账户分类" parameterType="condition"/>
+            <parameter property="sbactp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户类型" parameterType="condition"/>
+            <parameter property="pytltp" ref="QtDict.Qt.pytltp" jdbcType="VARCHAR" javaType="QtEnumType.E_PYTLTP" mode="in" longname="支付工具" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="AccountLimit.KupAcrtBrch"/>
+        <dynamicSql type="db2">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <if test="limttp != null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp =#limttp#]]></str>
+                    </if>
+                    <if test="limtkd != null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <if test="servtp != null &amp;&amp; servtp != ''" type="If">
+                        <str type="Str"><![CDATA[servtp = #servtp#]]></str>
+                    </if>
+                    <if test="accttp != null &amp;&amp; accttp != ''" type="If">
+                        <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    </if>
+                    <if test="sbactp != null &amp;&amp; sbactp != ''" type="If">
+                        <str type="Str"><![CDATA[sbactp =#sbactp#]]></str>
+                    </if>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by servtp desc,limtkd asc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <if test="limttp != null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp =#limttp#]]></str>
+                    </if>
+                    <if test="limtkd != null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <if test="servtp != null &amp;&amp; servtp != ''" type="If">
+                        <str type="Str"><![CDATA[servtp = #servtp#]]></str>
+                    </if>
+                    <if test="accttp != null &amp;&amp; accttp != ''" type="If">
+                        <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    </if>
+                    <if test="sbactp != null &amp;&amp; sbactp != ''" type="If">
+                        <str type="Str"><![CDATA[sbactp =#sbactp#]]></str>
+                    </if>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by servtp desc,limtkd asc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kup_acrt_brch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    <str type="Str"><![CDATA[acctrt=#acctrt#]]></str>
+                    <if test="limttp != null &amp;&amp; limttp != ''" type="If">
+                        <str type="Str"><![CDATA[limttp =#limttp#]]></str>
+                    </if>
+                    <if test="limtkd != null" type="If">
+                        <str type="Str"><![CDATA[limtkd=#limtkd#]]></str>
+                    </if>
+                    <if test="servtp != null &amp;&amp; servtp != ''" type="If">
+                        <str type="Str"><![CDATA[servtp = #servtp#]]></str>
+                    </if>
+                    <if test="accttp != null &amp;&amp; accttp != ''" type="If">
+                        <str type="Str"><![CDATA[accttp=#accttp#]]></str>
+                    </if>
+                    <if test="sbactp != null &amp;&amp; sbactp != ''" type="If">
+                        <str type="Str"><![CDATA[sbactp =#sbactp#]]></str>
+                    </if>
+                    <if test="pytltp != null" type="If">
+                        <str type="Str"><![CDATA[pytltp=#pytltp#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[limtst='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by servtp desc,limtkd asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

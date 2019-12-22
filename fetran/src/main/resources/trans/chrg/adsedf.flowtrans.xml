@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="adsedf" longname="新增场景事件定义" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="evetna" type="FeBaseType.U_MIDDDS" required="true" multi="false" array="false" longname="事件名称" ref="FeDict.Chrg.evetna"/>
+            <field id="remark" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="备注信息" ref="FeDict.Chrg.remark"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="evetcd" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="事件编号" ref="FeDict.Chrg.evetcd"/>
+        </output>
+        <property packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetCenterBranch" id="IoGetCenterBranch" longname="获取中心机构清算中心">
+            <in_mappings by_interface="true">
+                <mapping src="#run.tranbr" dest="brchno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="brchInfo.brchno" dest="brchno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="adsedf" id="adsedf" longname="新增场景事件定义" desc="新增场景事件定义"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

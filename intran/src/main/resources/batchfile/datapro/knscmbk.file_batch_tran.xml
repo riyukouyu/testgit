@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knscmbk" longname="传票录入数仓抽数" kind="write" package="cn.sunline.ltts.busi.inltran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knscmbk" longname="传票录入数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="acstno" type="BaseType.U_SEQUNO" longname="套号" length="64" leftPadding="false" padding=" " ref="InDict.inac.acstno"/>
+            <field id="payseq" type="BaseType.U_INTEGE" longname="序号" length="8" leftPadding="false" padding=" " ref="InDict.inac.payseq"/>
+            <field id="iavctp" type="InEnumType.E_IAVCTP" longname="传票类型" length="2" leftPadding="false" padding=" " ref="InDict.inac.iavctp"/>
+            <field id="otacno" type="BaseType.U_ACCTNO" longname="转出帐号" length="80" leftPadding="false" padding=" "/>
+            <field id="otacna" type="BaseType.U_ACCTNA" longname="转出户名" length="160" leftPadding="false" padding=" "/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" "/>
+            <field id="otamcd" type="BaseEnumType.E_AMNTCD" longname="借贷标志" length="2" leftPadding="false" padding=" "/>
+            <field id="tranam" type="BaseType.U_HAPPBL" longname="发生额" length="17" leftPadding="false" padding=" "/>
+            <field id="payatp" type="InEnumType.E_PAYATP" longname="挂销账标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.payatp"/>
+            <field id="smrytx" type="BaseType.U_SHORDS" longname="摘要" length="400" leftPadding="false" padding=" " ref="InDict.inac.smrytx"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" longname="钞汇标志" length="2" leftPadding="false" padding=" "/>
+            <field id="inacno" type="BaseType.U_ACCTNO" longname="转入账号" length="80" leftPadding="false" padding=" "/>
+            <field id="inacna" type="BaseType.U_ACCTNA" longname="实际转入户名" length="160" leftPadding="false" padding=" " ref="InDict.inac.inacna"/>
+            <field id="acctbr" type="BaseType.U_BRCHNO" longname="记账机构" length="12" leftPadding="false" padding=" " ref="InDict.inac.acctbr"/>
+            <field id="inamcd" type="BaseEnumType.E_AMNTCD" longname="借贷标志" length="2" leftPadding="false" padding=" "/>
+            <field id="iavcst" type="InEnumType.E_CMBK_TRANST" longname="传票状态" length="2" leftPadding="false" padding=" " ref="InDict.inac.iavcst"/>
+            <field id="cntsys" type="InEnumType.E_CNTSYS" longname="是否跨系统转账" length="2" leftPadding="false" padding=" " ref="InDict.inac.cntsys"/>
+            <field id="tranus" type="BaseType.U_USERID" longname="记账柜员" length="14" leftPadding="false" padding=" " ref="InDict.inac.tranus"/>
+            <field id="ckbsus" type="BaseType.U_USERID" longname="复核柜员" length="14" leftPadding="false" padding=" " ref="InDict.inac.ckbsus"/>
+            <field id="transq" type="BaseType.U_SEQUNO" longname="交易流水" length="64" leftPadding="false" padding=" " ref="InDict.inac.transq"/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="交易日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.trandt"/>
+            <field id="platsq" type="BaseType.U_SEQUNO" longname="支付平台流水" length="64" leftPadding="false" padding=" "/>
+            <field id="platdt" type="BaseType.U_DATE08" longname="支付平台日期" length="16" leftPadding="false" padding=" "/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm"/>
+            <field id="intype" type="ApBaseEnumType.E_INTYPE" longname="跨机构转入类型" length="2" leftPadding="false" padding=" " ref="InDict.inac.intype"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

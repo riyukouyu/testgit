@@ -1,0 +1,1017 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="In" package="cn.sunline.ltts.busi.in.tables" longname="内部户" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="GlKnaAcct" name="gl_kna_acct" longname="表名：内部户账户表" param="false" category="2" virtual="false" extension="SysCommFieldTable.KapCommSpec" abstract="false">
+        <fields>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctna" longname="内部户名称" type="BaseType.U_ACCTNA" ref="InDict.inac.acctna" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="核算机构" type="BaseType.U_BRCHNO" ref="InDict.inac.brchno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="inactp" longname="内部户账户类型" type="BaseEnumType.E_INACTP" ref="InDict.inac.inactp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busino" longname="业务编码" type="BaseType.U_BUSINO" ref="PbDict.Dcmt.busino" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="openbr" longname="开户机构" type="BaseType.U_BRCHNO" ref="InDict.inac.openbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opendt" longname="开户日期" type="BaseType.U_DATE08" ref="InDict.inac.opendt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="optrsq" longname="开户流水号" type="BaseType.U_SEQUNO" ref="InDict.inac.optrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="lstrdt" longname="最后交易日期" type="BaseType.U_DATE08" ref="InDict.inac.lstrdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="lstrsq" longname="最后交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.lstrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="closdt" longname="销户日期" type="BaseType.U_DATE08" ref="InDict.inac.closdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cltrsq" longname="销户流水号" type="BaseType.U_SEQUNO" ref="InDict.inac.cltrsq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="drctbl" longname="联机借方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.drctbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crctbl" longname="联机贷方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.crctbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctst" longname="账户状态" type="InEnumType.E_INACST" ref="InDict.inac.acctst" primarykey="false" length="1" fraction="0" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busidn" longname="业务代码方向" type="InEnumType.E_BLNCDN" ref="InDict.inac.busidn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="subsac" longname="子户号" type="BaseType.U_CUACNO" ref="InDict.inac.subsac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="pmodtg" longname="透支许可" type="BaseEnumType.E_YES___" ref="InDict.inac.pmodtg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="kpacfg" longname="记账控制" type="InEnumType.E_KPACFG" ref="InDict.inac.kpacfg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="dredbl" longname="当日借方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.dredbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="credbl" longname="当日贷方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.credbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ispaya" longname="是否采用销账管理 " type="InEnumType.E_ISPAYA" ref="InDict.inac.ispaya" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rlbltg" longname="余额更新方式" type="InEnumType.E_RLBLTG" ref="InDict.inac.rlbltg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="kpacbr" longname="核算机构" type="BaseType.U_BRCHNO" ref="InDict.inac.kpacbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busitp" longname="核算属性" type="InEnumType.E_BUSITP" ref="InDict.inac.busitp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="isbein" longname="计息标志" type="BaseEnumType.E_YES___" ref="InDict.inac.isbein" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="beintp" longname="结息方式" type="InEnumType.E_BEINTP" ref="InDict.inac.beintp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cractp" longname="冲销标志" type="InEnumType.E_CRACTP" ref="InDict.inac.cractp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ovmony" longname="透支限额" type="BaseType.U_ACBLTP" ref="InDict.inac.ovmony" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="inrate" longname="利率" type="BaseType.U_INSTRT" ref="InDict.inac.inrate" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ovrate" longname="透支利率" type="BaseType.U_INSTRT" ref="InDict.inac.ovrate" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="reveac" longname="收息账号" type="BaseType.U_ACCTNO" ref="InDict.inac.reveac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="paymac" longname="付息账号" type="BaseType.U_ACCTNO" ref="InDict.inac.paymac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="acctno" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="brchno crcycd inactp busino" operate="selectFirst"/>
+            <index id="odb3" type="index" fields="brchno crcycd busino acctst" operate="selectFirst"/>
+            <index id="odb4" type="index" fields="busino" operate="selectFirst"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_kna_acct_uk1" type="unique" fields="acctno">
+                <ddls/>
+            </index>
+            <index id="gl_kna_acct_idx1" type="index" fields="busino">
+                <ddls/>
+            </index>
+            <index id="gl_kna_acct_idx2" type="index" fields="brchno crcycd inactp">
+                <ddls/>
+            </index>
+            <index id="gl_kna_acct_idx3" type="index" fields="brchno crcycd busino acctst corpno">
+                <ddls/>
+            </index>
+            <index id="gl_kna_acct_idx4" type="index" fields="busino corpno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnaLsbl" name="gl_kna_lsbl" longname="表名：内部户上日余额表" category="2" virtual="false" extension="SysCommFieldTable.KapCommSpec" abstract="false">
+        <fields>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lastdt" longname="上日余额日期" type="BaseType.U_DATE08" ref="InDict.inac.lastdt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lastdn" longname="上日余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.lastdn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="drltbl" longname="上日借方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.drltbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crltbl" longname="上日贷方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.crltbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="acctno" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_kna_lsbl_uk1" type="unique" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnaAmbl" name="gl_kna_ambl" longname="表名：系统内账户积数表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acmldt" longname="积数日期" type="BaseType.U_DATE08" ref="InDict.inac.acmldt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acmlbl" longname="积数" type="BaseType.U_ACBLTP" ref="InDict.inac.acmlbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ovacml" longname="透支积数" type="BaseType.U_ACBLTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="acctno" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_kna_ambl_uk1" type="unique" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnpItem" name="gl_knp_item" longname="表名：科目表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="itemna" longname="科目名称" type="BaseType.U_CHAR200" ref="InDict.inac.itemna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="itemlv" longname="科目层次" type="BaseType.U_CHAR01" ref="InDict.inac.itemlv" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="dtittg" longname="是否明细科目" type="BaseEnumType.E_YES___" ref="InDict.inac.dtittg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="pmodtg" longname="透支许可" type="BaseEnumType.E_YES___" ref="InDict.inac.pmodtg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="upitem" longname="上级科目号" type="BaseType.U_ITEMCD" ref="InDict.inac.upitem" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="itemtp" longname="科目项目类型" type="InEnumType.E_ITEMTP" ref="InDict.inac.itemtp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="aslbtp" longname="资产负债类型" type="InEnumType.E_ASLBTP" ref="InDict.inac.aslbtp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="itemrg" longname="科目来源分类" type="InEnumType.E_ITEMRG" ref="InDict.inac.itemrg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ittype" longname="科目类别" type="InEnumType.E_ITTYPE" ref="InDict.inac.ittype" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="proftp" longname="损益类别" type="InEnumType.E_PROFTP" ref="InDict.inac.proftp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="itemcd" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knp_item_uk1" type="unique" fields="itemcd">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnpBusi" name="gl_knp_busi" longname="表名：内部户产品表" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busina" longname="业务代码中文名称说明" type="BaseType.U_CHAR80" ref="InDict.inac.busina" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busien" longname="业务代码英文名称" type="BaseType.U_CHAR80" ref="InDict.inac.busien" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="busitp" longname="核算属性" type="InEnumType.E_BUSITP" ref="InDict.inac.busitp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="pmodtg" longname="透支许可" type="BaseEnumType.E_YES___" ref="InDict.inac.pmodtg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ispaya" longname="是否采用销账管理 " type="InEnumType.E_ISPAYA" ref="InDict.inac.ispaya" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rmsign" longname="人民币专用账户" type="BaseEnumType.E_YES___" ref="InDict.inac.rmsign" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="fnsign" longname="外币专用账户" type="BaseEnumType.E_YES___" ref="InDict.inac.fnsign" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="isbein" longname="计息标志" type="BaseEnumType.E_YES___" ref="InDict.inac.isbein" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="beintp" longname="结息方式" type="InEnumType.E_BEINTP" ref="InDict.inac.beintp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="nobusi" longname="正常利息归属业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.nobusi" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ovbusi" longname="透支利息归属业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.ovbusi" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="isopen" longname="是否允许开内部户" type="InEnumType.E_ISOPEN" ref="InDict.inac.isopen" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="provop" longname="省中心设立标志" type="InEnumType.E_AUTOOP" ref="InDict.inac.provop" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="counop" longname="县中心设立标志" type="InEnumType.E_AUTOOP" ref="InDict.inac.counop" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="offiop" longname="办事处设立标志" type="InEnumType.E_AUTOOP" ref="InDict.inac.offiop" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="credop" longname="信用社设立标志" type="InEnumType.E_AUTOOP" ref="InDict.inac.credop" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="kpacfg" longname="记账控制" type="InEnumType.E_KPACFG" ref="InDict.inac.kpacfg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="etactp" longname="入明细账方式" type="InEnumType.E_ETACTP" ref="InDict.inac.etactp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="rlbltg" longname="余额更新方式" type="InEnumType.E_RLBLTG" ref="InDict.inac.rlbltg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="cractp" longname="冲销标志" type="InEnumType.E_CRACTP" ref="InDict.inac.cractp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acbrlv" longname="核算机构级别" type="InEnumType.E_ACBRLV" ref="InDict.inac.acbrlv" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="asgnbr" longname="参考部门号/特殊部门号" type="BaseType.U_BRCHNO" ref="InDict.inac.asgnbr" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="subsac" longname="子户号" type="BaseType.U_CUACNO" ref="InDict.inac.subsac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bgdate" longname="生效日期" type="BaseType.U_DATE08" ref="InDict.inac.bgdate" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="eddate" longname="失效日期" type="BaseType.U_DATE08" ref="InDict.inac.eddate" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busist" longname="产品状态" type="BaseEnumType.E_PRODST" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tyinno" longname="录入编号" type="BaseType.U_TYINNO" ref="DpDict.Prod.tyinno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranus" longname="交易柜员" type="BaseType.U_USERID" ref="BaseDict.Comm.tranus" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="busino" operate="selectOne deleteOne updateOne" longname="查询"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knp_busi_uk1" type="unique" fields="corpno,busino">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnpBztp" name="gl_knp_bztp" longname="表名：业务代码的属性表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="bzprtp" longname="属性类型" type="BaseType.U_CHAR02" ref="InDict.inac.bzprtp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payatg" longname="待销账方向 " type="InEnumType.E_PAYATG" ref="InDict.inac.payatg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="pauntg" longname="待销账必须全额销账标志" type="InEnumType.E_PAUNTG" ref="InDict.inac.pauntg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rlbltg" longname="余额更新方式" type="InEnumType.E_RLBLTG" ref="InDict.inac.rlbltg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ovdftg" longname="余额红字标志" type="BaseEnumType.E_YES___" ref="InDict.inac.ovdftg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="totltg" longname="汇总标志" type="InEnumType.E_TOTLTG" ref="InDict.inac.totltg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="kpacfg" longname="记账控制" type="InEnumType.E_KPACFG" ref="InDict.inac.kpacfg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="billtg" longname="账单控制方式" type="InEnumType.E_BILLTG" ref="InDict.inac.billtg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="usdcmt" longname="是否使用开户凭证" type="InEnumType.E_USDCMT" ref="InDict.inac.usdcmt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="usdctg" longname="是否使用交易凭证" type="InEnumType.E_USDCTG" ref="InDict.inac.usdctg" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trcrlm" longname="内部帐户贷方交易检查条件" type="InEnumType.E_TRCRLM" ref="InDict.inac.trcrlm" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trdrlm" longname="内部帐户借方交易检查条件" type="InEnumType.E_TRDRLM" ref="InDict.inac.trdrlm" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="desctx" longname="描述" type="BaseType.U_SHORDS" ref="InDict.inac.desctx" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="bzprtp" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knp_bztp_uk1" type="unique" fields="bzprtp">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnlBill" name="gl_knl_bill" longname="表名：内部户账单" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="billsq" longname="账单流水" type="BaseType.U_SEQUNO" ref="InDict.inac.billsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.transq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="核算机构" type="BaseType.U_BRCHNO" ref="InDict.inac.brchno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trantp" longname="交易类型" type="BaseEnumType.E_TRANTP" ref="InDict.inac.trantp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="amntcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" ref="BaseDict.Comm.amntcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="InDict.inac.crcycd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="交易金额" type="BaseType.U_ACBLTP" ref="InDict.inac.tranam" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranbl" longname="本次余额" type="BaseType.U_ACBLTP" ref="InDict.inac.tranbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranbr" longname="交易部门" type="BaseType.U_BRCHNO" ref="InDict.inac.tranbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="smrycd" longname="摘要代码" type="BaseType.U_SMRYCD" ref="BaseDict.Comm.smrycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cqtpid" longname="交易凭证管理ID" type="BaseType.U_CHAR40" ref="InDict.inac.cqtpid" primarykey="false" length="3" fraction="0" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cheqtp" longname="交易凭证种类" type="BaseType.U_DCMTTP" ref="InDict.inac.cheqtp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cheqno" longname="交易凭证号码" type="BaseType.U_DCMTNO" ref="InDict.inac.cheqno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" ref="InDict.inac.toacct" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tosbac" longname="对方子账号" type="BaseType.U_CUACNO" ref="InDict.inac.tosbac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacna" longname="对方户名" type="BaseType.U_ACCTNA" ref="InDict.inac.toacna" primarykey="false" length="80" fraction="0" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bkusid" longname="记帐用户" type="BaseType.U_USERID" ref="InDict.inac.bkusid" primarykey="false" length="10" fraction="0" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ckbkus" longname="复核用户" type="BaseType.U_USERID" ref="InDict.inac.ckbkus" primarykey="false" length="10" fraction="0" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="corrtg" longname="抹账标志" type="InEnumType.E_CORRTG" ref="InDict.inac.corrtg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="dscrtx" longname="备注" type="BaseType.U_SHORDS" ref="InDict.inac.dscrtx" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <indexes>
+            <index id="gl_knl_bill_uk1" type="unique" fields="trandt,billsq">
+                <ddls/>
+            </index>
+            <index id="gl_knl_bill_idx1" type="index" fields="trandt,transq">
+                <ddls/>
+            </index>
+            <index id="gl_knl_bill_idx2" type="index" fields="trandt,acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnsGlvc" name="gl_kns_glvc" longname="表名：传票流水表(表内外)" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="glvcsq" longname="传票流水" type="BaseType.U_SEQUNO" ref="InDict.inac.glvcsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="stacno" longname="套号" type="BaseType.U_SEQUNO" ref="InDict.inac.stacno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="stacsq" longname="套内序号" type="BaseType.U_INTEGE" ref="InDict.inac.stacsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="核算机构" type="BaseType.U_BRCHNO" ref="InDict.inac.brchno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trantp" longname="交易类型" type="BaseEnumType.E_TRANTP" ref="InDict.inac.trantp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acuttp" longname="记账类型" type="InEnumType.E_ACUTTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="amntcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" ref="BaseDict.Comm.amntcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="交易金额" type="BaseType.U_ACBLTP" ref="InDict.inac.tranam" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranbl" longname="本次余额" type="BaseType.U_ACBLTP" ref="InDict.inac.tranbl" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.transq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctbr" longname="记账机构" type="BaseType.U_BRCHNO" ref="InDict.inac.acctbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranus" longname="记账柜员" type="BaseType.U_USERID" ref="InDict.inac.tranus" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ckbsus" longname="复核柜员" type="BaseType.U_CHAR100" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="smrytx" longname="摘要" type="BaseType.U_SHORDS" ref="InDict.inac.smrytx" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="inptsr" longname="交易来源类别" type="InEnumType.E_INPTSR" ref="InDict.inac.inptsr" primarykey="false" length="1" fraction="0" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="status" longname="帐务状态" type="InEnumType.E_GLTRST" ref="InDict.inac.status" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="kpacbr" longname="核算机构" type="BaseType.U_BRCHNO" ref="InDict.inac.kpacbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ckvcfg" longname="实时帐务类别" type="InEnumType.E_CKVCFG" ref="InDict.inac.ckvcfg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trannm" longname="交易笔数" type="BaseType.U_INTEGE" ref="InDict.inac.trannm" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="cmmdsq" longname="指令流水" type="BaseType.U_SEQUNO" ref="InDict.inac.cmmdsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="prcscd" longname="处理码" type="BaseType.U_PRCSCD" ref="InDict.inac.prcscd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="rlbltg" longname="余额更新方式" type="InEnumType.E_RLBLTG" ref="InDict.inac.rlbltg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cqtpid" longname="交易凭证管理ID" type="BaseType.U_CHAR40" ref="InDict.inac.cqtpid" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cheqtp" longname="交易凭证种类" type="BaseType.U_DCMTTP" ref="InDict.inac.cheqtp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cheqno" longname="交易凭证号码" type="BaseType.U_DCMTNO" ref="InDict.inac.cheqno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" ref="InDict.inac.toacct" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tosbac" longname="对方子账号" type="BaseType.U_CUACNO" ref="InDict.inac.tosbac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacna" longname="对方户名" type="BaseType.U_ACCTNA" ref="InDict.inac.toacna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bkfnst" longname="总账过账标志" type="InEnumType.E_BKFNST" ref="InDict.inac.bkfnst" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="exacct" longname="原账号" type="BaseType.U_ACCTNO" ref="InDict.inac.exacct" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="exdpac" longname="原子账户" type="BaseType.U_CUACNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ussqno" longname="柜员流水号" type="BaseType.U_SEQUNO" ref="DpDict.Acct.ussqno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ussrdt" longname="柜员日期" type="PbBaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="auttel" longname="授权柜员" type="BaseType.U_CHAR100" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="authseq" longname="授权流水" type="BaseType.U_CHAR32" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="gl_kns_glvc_odx1" type="unique" fields="trandt glvcsq" operate="updateOne" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_kns_glvc_uk1" type="unique" fields="trandt,glvcsq">
+                <ddls/>
+            </index>
+            <index id="gl_kns_glvc_idx1" type="index" fields="trandt,transq">
+                <ddls/>
+            </index>
+            <index id="gl_kns_glvc_idx2" type="index" fields="trandt,stacno">
+                <ddls/>
+            </index>
+            <index id="gl_kns_glvc_idx3" type="index" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKtpGlvc" name="gl_ktp_glvc" longname="内部户余额过账临时表" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="amntcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" ref="BaseDict.Comm.amntcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="交易金额" type="BaseType.U_ACBLTP" ref="InDict.inac.tranam" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <indexes>
+            <index id="gl_ktp_glvc_uk1" type="unique" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKtpRlbl" name="gl_ktp_rlbl" longname="内部户非实时余额入账临时表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="amntcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" ref="BaseDict.Comm.amntcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="入账金额" type="BaseType.U_ACBLTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="record" longname="记录数" type="int" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes/>
+        <indexes>
+            <index id="gl_ktp_rlbl_uk1" type="unique" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnbOcac" name="gl_knb_ocac" longname="表名：内部帐户开销户登记簿" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="opendt" longname="开户日期" type="BaseType.U_DATE08" ref="InDict.inac.opendt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opiasq" longname="开销户流水" type="BaseType.U_SEQUNO" ref="InDict.inac.opiasq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opensq" longname="开户交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.opensq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="opactp" longname="开户方式" type="InEnumType.E_OPACTP" ref="InDict.inac.opactp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opbrno" longname="开户行" type="BaseType.U_BRCHNO" ref="InDict.inac.opbrno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opener" longname="开户柜员" type="PbBaseType.U_USERID" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctna" longname="内部户名称" type="BaseType.U_ACCTNA" ref="InDict.inac.acctna" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="closdt" longname="销户日期" type="BaseType.U_DATE08" ref="InDict.inac.closdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clossq" longname="销户交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.clossq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clactp" longname="销户方式" type="InEnumType.E_CLACTP" ref="InDict.inac.clactp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clbrno" longname="销户行" type="BaseType.U_BRCHNO" ref="InDict.inac.clbrno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="closer" longname="销户柜员" type="PbBaseType.U_USERID" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tmstmp" longname="时间戳" type="ApBaseType.U_TMSTMP" ref="ApDict.Aplt.tmstmp" primarykey="false" final="true" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="acctno" operate="selectOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knb_ocac_uk1" type="unique" fields="opendt,opiasq">
+                <ddls/>
+            </index>
+            <index id="gl_knb_ocac_idx1" type="index" fields="acctno"/>
+        </indexes>
+    </table>
+    <table id="GlKnsRlbl" name="gl_kns_rlbl" longname="表名：非实时余额账户发生汇总表" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="acctno" longname="账号" type="BaseType.U_CHAR40" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="sessid" longname="会话ID" type="BaseType.U_MIDDDS" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="借方发生" type="BaseType.U_ACBLTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="最后交易流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes/>
+        <indexes>
+            <index id="gl_kns_rlbl_uk1" type="unique" fields="acctno,trandt,sessid">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnaAcex" name="gl_kna_acex" longname="表名：一般非货币性项目账户补充信息" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="InDict.inac.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="exchcn" longname="人民币即期汇率" type="BaseType.U_INSTRT" ref="InDict.inac.exchcn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="exchus" longname="美元即期汇率" type="BaseType.U_INSTRT" ref="InDict.inac.exchus" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="折算汇率最后日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <indexes>
+            <index id="gl_kna_acex_uk1" type="unique" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KtpKdbPaya" name="ktp_kdb_paya" longname="表名：待销帐全额销账临时表" category="2" virtual="true" abstract="false">
+        <fields>
+            <field id="payasq" longname="待销账流水" type="BaseType.U_SEQUNO" ref="InDict.inac.payasq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <indexes/>
+    </table>
+    <table id="GlKnpCont" name="gl_knp_cont" longname="表名：内部户开销户控制表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" default="*" nullable="false" identity="false" allowSubType="true"/>
+            <field id="opentg" longname="开户标志" type="BaseEnumType.E_YES___" ref="InDict.inac.opentg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clostg" longname="销户标志" type="BaseEnumType.E_YES___" ref="InDict.inac.clostg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="kppsfg" longname="通用记账标识" type="BaseEnumType.E_YES___" ref="InDict.inac.kppsfg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <indexes>
+            <index id="gl_knp_cont_uk1" type="unique" fields="itemcd,acctno">
+                <ddls/>
+            </index>
+            <index id="gl_knp_cont_idx1" type="index" fields="itemcd">
+                <ddls/>
+            </index>
+            <index id="gl_knp_cont_idx2" type="index" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnpBusiDtit" name="knp_busi_dtit" longname="存款核算表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="dtitcd" longname="存款核算码" type="BaseType.U_DTITCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accttp" longname="存款核算类型" type="InEnumType.E_ACCTTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acbrlv" longname="核算机构级别" type="InEnumType.E_ACBRLV" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="dtitcd accttp" operate="selectOne deleteOne updateOne selectOneWithLock" longname="存款" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="knp_busi_dtit_uk1" type="unique" fields="dtitcd,accttp">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnlUpbl" name="gl_knl_upbl" longname="内部户账户维护登记簿" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranno" longname="交易序号" type="BaseType.U_LONGIN" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="mnitem" longname="维护项目" type="BaseType.U_CNSMSP" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bfdesc" longname="维护前内容" type="BaseType.U_MIDDDS" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="afdesc" longname="维护后内容" type="BaseType.U_MIDDDS" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranus" longname="维护柜员" type="BaseType.U_USERID" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranbr" longname="维护机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="trandt transq tranno" operate="selectOne deleteOne updateOne selectOneWithLock"/>
+            <index id="odb2" type="index" fields="acctno" operate="selectAll selectPage"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knl_upbl_uk1" type="unique" fields="trandt,transq,tranno">
+                <ddls/>
+            </index>
+            <index id="gl_knl_upbl_idx1" type="index" fields="acctno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnpBusiLoan" name="knp_busi_loan" longname="贷款核算表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="dtitcd" longname="贷款核算码" type="BaseType.U_DTITCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lnactp" longname="贷款核算类型" type="LnEnumType.E_LNACTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acbrlv" longname="核算机构级别" type="InEnumType.E_ACBRLV" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="dtitcd lnactp" operate="selectOne deleteOne updateOne selectOneWithLock" longname="贷款" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="knp_busi_loan_uk1" type="unique" fields="dtitcd,lnactp">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnpLoanAnas" name="knp_loan_anas" longname="贷款指令分析表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="trancd" longname="贷款交易代码" type="LnEnumType.E_TRANCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="devltg" longname="减值标识" type="BaseEnumType.E_YES___" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lnbltp" longname="余额组件类型" type="LnEnumType.E_LNBLTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="vchrsq" longname="顺序号" type="int" primarykey="true" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lnactg" longname="核算标志" type="BaseEnumType.E_YES___" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="记账方式(表内外标志)" type="InEnumType.E_IOFLAG" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctdn" longname="记账方向" type="InEnumType.E_ACCTDN" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lnactp" longname="核算类型" type="LnEnumType.E_LNACTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="desctx" longname="中文注释" type="BaseType.U_SHORDS" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+    </table>
+    <table id="GlKnpItemVice" name="gl_knp_item_vice" longname="表名：科目表副表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="itemna" longname="科目名称" type="BaseType.U_CHAR200" ref="InDict.inac.itemna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="itemlv" longname="科目层次" type="BaseType.U_CHAR01" ref="InDict.inac.itemlv" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="dtittg" longname="是否明细科目" type="BaseEnumType.E_YES___" ref="InDict.inac.dtittg" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="upitem" longname="上级科目号" type="BaseType.U_ITEMCD" ref="InDict.inac.upitem" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="aslbtp" longname="资产负债类型" type="InEnumType.E_ASLBTP" ref="InDict.inac.aslbtp" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="itemcd" operate="selectOne deleteOne updateOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knp_item_vice_uk1" type="unique" fields="itemcd">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="FnsCmbk" name="fns_cmbk" longname="财务往来记账登记簿" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="commdt" longname="录入日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="commsq" longname="套帐号" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="commnm" longname="传票顺序" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="inptsq" longname="录入流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranbr" longname="交易机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="itemcd" longname="科目号" type="BaseType.U_ITEMCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="subsac" longname="子户号" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="busino" longname="核心业务码" type="BaseType.U_BUSINO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctna" longname="户名" type="BaseType.U_ACCTNA" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="amntcd" longname="记账方向" type="BaseEnumType.E_AMNTCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="记账金额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="smrytx" longname="摘要" type="BaseType.U_SMRYDS" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="transt" longname="传票状态" type="InEnumType.E_CMBK_TRANST" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="记账日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="记账流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="userid" longname="交易柜员或者删除柜员" type="BaseType.U_USERID" primarykey="false" final="true" nullable="true" identity="false" allowSubType="true"/>
+            <field id="corrdt" longname="冲正日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="corrsq" longname="冲正流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="commdt commsq commnm" operate="selectOne updateOne"/>
+            <index id="odb2" type="index" fields="commsq transt trandt" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="fns_cmbk_uk1" type="unique" fields="commdt,commsq,commnm">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsCmbk" name="kns_cmbk" longname="传票录入登记簿" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="acstno" longname="套号" type="BaseType.U_SEQUNO" ref="InDict.inac.acstno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="payseq" longname="序号" type="BaseType.U_INTEGE" ref="InDict.inac.payseq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="iavctp" longname="传票类型" type="InEnumType.E_IAVCTP" ref="InDict.inac.iavctp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="otacno" longname="转出帐号" type="BaseType.U_ACCTNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="otacna" longname="转出户名" type="BaseType.U_ACCTNA" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="otamcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="发生额" type="BaseType.U_HAPPBL" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payatp" longname="挂销账标志" type="InEnumType.E_PAYATP" ref="InDict.inac.payatp" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="smrytx" longname="摘要" type="BaseType.U_SHORDS" ref="InDict.inac.smrytx" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="csextg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="inacno" longname="转入账号" type="BaseType.U_ACCTNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="inacna" longname="实际转入户名" type="BaseType.U_ACCTNA" ref="InDict.inac.inacna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acctbr" longname="记账机构" type="BaseType.U_BRCHNO" ref="InDict.inac.acctbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="inamcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="iavcst" longname="传票状态" type="InEnumType.E_CMBK_TRANST" ref="InDict.inac.iavcst" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="cntsys" longname="是否跨系统转账" type="InEnumType.E_CNTSYS" ref="InDict.inac.cntsys" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranus" longname="记账柜员" type="BaseType.U_USERID" ref="InDict.inac.tranus" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ckbsus" longname="复核柜员" type="BaseType.U_USERID" ref="InDict.inac.ckbsus" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.transq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="platsq" longname="支付平台流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="platdt" longname="支付平台日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="intype" longname="跨机构转入类型" type="ApBaseEnumType.E_INTYPE" ref="InDict.inac.intype" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="kns_cmbk_odx1" type="unique" fields="acstno payseq trandt" operate="selectOne deleteOne updateOne" longname="传票录入查询索引" cache="none"/>
+            <index id="kns_cmbk_odx2" type="index" fields="acstno trandt" operate="selectFirst selectAll update delete" longname="传票套号查询" cache="none"/>
+            <index id="kns_cmbk_odx3" type="index" fields="transq trandt" operate="selectFirst selectAll update" longname="通过交易流水查询" cache="none"/>
+            <index id="kns_cmbk_odx4" type="index" fields="platsq" operate="selectAll" longname="支付流水查询" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="kns_cmbk_uk1" type="unique" fields="acstno payseq trandt">
+                <ddls/>
+            </index>
+            <index id="kns_cmbk_idx1" type="index" fields="acstno trandt">
+                <ddls/>
+            </index>
+            <index id="kns_cmbk_idx2" type="index" fields="transq">
+                <ddls/>
+            </index>
+            <index id="kns_cmbk_idx3" type="index" fields="platsq">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsPaya" name="kns_paya" longname="挂账登记簿" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="payasq" longname="挂账序号" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acstno" longname="套号" type="BaseType.U_SEQUNO" ref="InDict.inac.acstno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payseq" longname="序号" type="BaseType.U_INTEGE" ref="InDict.inac.payseq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" ref="InDict.inac.toacct" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="toacna" longname="对方户名" type="BaseType.U_ACCTNA" ref="InDict.inac.toacna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="payamn" longname="挂账金额" type="BaseType.U_BALANC" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rsdlmn" longname="剩余挂账金额" type="BaseType.U_BALANC" ref="InDict.inac.rsdlmn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payaac" longname="挂账账号" type="BaseType.U_ACCTNO" ref="InDict.inac.payaac" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payabr" longname="挂账机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payast" longname="挂账状态" type="InEnumType.E_PAYAST" ref="InDict.inac.payast" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranus" longname="记账柜员" type="BaseType.U_USERID" ref="InDict.inac.tranus" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.transq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="paydnm" longname="销账笔数" type="BaseType.U_INTEGE" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="temp01" longname="备用字段1" type="BaseType.U_CHAR300" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="kns_paya_odx1" type="unique" fields="payasq" operate="selectOne deleteOne updateOne" longname="挂账序号唯一索引" cache="none"/>
+            <index id="kns_paya_odx2" type="index" fields="acstno trandt" operate="selectFirst selectAll update delete" longname="套号查找挂账记录" cache="none"/>
+            <index id="kns_paya_odx3" type="index" fields="acstno payaac trandt" operate="selectFirst selectAll update delete" longname="套号对方账号索引" cache="none"/>
+            <index id="kns_paya_odx4" type="index" fields="acstno trandt" operate="selectAll update delete" longname="套号索引" cache="none"/>
+            <index id="kns_paya_odx5" type="index" fields="acstno payseq trandt" operate="selectAll delete" longname="套号套内序号索引" cache="none"/>
+            <index id="kns_paya_odx6" type="index" fields="trandt transq" operate="selectAll" longname="交易日期交易流水" cache="trans"/>
+            <index id="kns_paya_odx7" type="index" fields="payasq payast" operate="selectAll" longname="挂账序号挂账状态" cache="none"/>
+            <index id="kns_paya_odx8" type="index" fields="acstno payseq payaac trandt" operate="selectFirst selectAll update delete" longname="挂账序号挂账状态日期" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="kns_paya_uk1" type="unique" fields="payasq">
+                <ddls/>
+            </index>
+            <index id="kns_paya_idx1" type="index" fields="acstno trandt">
+                <ddls/>
+            </index>
+            <index id="kns_paya_idx2" type="index" fields="acstno payaac trandt">
+                <ddls/>
+            </index>
+            <index id="kns_paya_idx3" type="index" fields="corpno acstno payseq trandt">
+                <ddls/>
+            </index>
+            <index id="kns_paya_idx4" type="index" fields="corpno,payasq,payast">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsPayd" name="kns_payd" longname="销账登记簿" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="paydsq" longname="销账序号" type="BaseType.U_PAYASQ" ref="InDict.inac.paydsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="payasq" longname="挂账序号" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acstno" longname="套号" type="BaseType.U_SEQUNO" ref="InDict.inac.acstno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="payseq" longname="序号" type="BaseType.U_INTEGE" ref="InDict.inac.payseq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="payamn" longname="本次销账金额" type="BaseType.U_CHARAM" ref="InDict.inac.payamn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="rsdlmn" longname="剩余挂账金额" type="BaseType.U_BALANC" ref="InDict.inac.rsdlmn" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="totlmn" longname="原未销金额" type="BaseType.U_BALANC" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="paydac" longname="销账账号" type="BaseType.U_ACCTNO" ref="InDict.inac.paydac" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="paydst" longname="销账状态" type="InEnumType.E_PAYDST" ref="InDict.inac.paydst" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="untius" longname="销帐柜员" type="BaseType.U_USERID" ref="InDict.inac.untius" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.transq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="paydbr" longname="销账机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="payabr" longname="挂账机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" ref="InDict.inac.toacct" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacna" longname="对方户名" type="BaseType.U_ACCTNA" ref="InDict.inac.toacna" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="temp01" longname="备用字段1" type="BaseType.U_CHAR300" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="kns_payd_odx1" type="unique" fields="paydsq" operate="selectOne deleteOne updateOne" longname="销账序号唯一索引" cache="none"/>
+            <index id="kns_payd_odx2" type="index" fields="acstno trandt" operate="selectFirst selectAll update delete" longname="套号搜索销账记录" cache="none"/>
+            <index id="kns_payd_odx3" type="index" fields="acstno paydac trandt" operate="selectFirst selectAll update delete" longname="套号账号索引" cache="none"/>
+            <index id="kns_payd_odx4" type="index" fields="acstno trandt" operate="selectAll" longname="套号索引" cache="none"/>
+            <index id="kns_payd_odx5" type="index" fields="acstno payseq trandt" operate="selectAll delete" longname="套号套内序号索引" cache="none"/>
+            <index id="kns_payd_odx6" type="index" fields="trandt transq" operate="selectAll" longname="日期流水查询" cache="none"/>
+            <index id="kns_payd_odx7" type="index" fields="acstno payseq paydac trandt" operate="selectFirst selectAll update delete" longname="套号套内序号索引" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="kns_payd_uk1" type="unique" fields="paydsq">
+                <ddls/>
+            </index>
+            <index id="kns_payd_idx1" type="index" fields="acstno trandt">
+                <ddls/>
+            </index>
+            <index id="kns_payd_idx2" type="index" fields="acstno paydac trandt">
+                <ddls/>
+            </index>
+            <index id="kns_payd_idx3" type="index" fields="corpno acstno payseq trandt">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsStrk" name="kns_strk" longname="隔日冲正登记簿" virtual="false" extension="SysCommFieldTable.KapComm" changelog="true" abstract="false">
+        <fields>
+            <field id="prtrdt" longname="原交易日期" type="BaseType.U_DATE08" ref="InDict.wrac.prtrdt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="prtrsq" longname="原交易流水" type="BaseType.U_SEQUNO" ref="InDict.wrac.prtrsq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="wronbr" longname="原错账机构" type="BaseType.U_WRONBR" ref="InDict.wrac.wronbr" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="numbsq" longname="套号" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="serlno" longname="序号" type="BaseType.U_INTEGE" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="wronte" longname="原错账经办柜员" type="BaseType.U_USERID" ref="InDict.wrac.wronte" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="reason" longname="错账原因" type="BaseType.U_SHORDS" ref="InDict.wrac.reason" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="adamcl" longname="调整积数" type="BaseType.U_ACMLBL" ref="InDict.wrac.adamcl" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="adinst" longname="调整利息" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="custac" longname="账号1" type="BaseType.U_ACCTNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctna" longname="内部户名称" type="BaseType.U_ACCTNA" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="csextg" longname="钞汇属性" type="BaseEnumType.E_CSEXTG" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acctbl" longname="余额" type="BaseType.U_BALANC" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="bldire" longname="账户余额方向" type="InEnumType.E_BLNCDN" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="rebuwo" longname="红蓝字" type="InEnumType.E_REBUWA" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="amntcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" ref="BaseDict.Comm.amntcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="happbl" longname="发生额" type="BaseType.U_HAPPBL" ref="InDict.wrac.happbl" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="charlg" longname="挂销账标志" type="InEnumType.E_PAYATP" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="InDict.inac.trandt" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="InDict.inac.transq" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranus" longname="操作柜员" type="BaseType.U_USERID" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="strkst" longname="错账冲正状态" type="InEnumType.E_STRKST" ref="InDict.wrac.strkst" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="chckus" longname="复核柜员" type="BaseType.U_USERID" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trantp" longname="交易类型" type="BaseEnumType.E_STTRTP" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ussqno" longname="柜员流水号" type="BaseType.U_SEQUNO" ref="DpDict.Acct.ussqno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ussrdt" longname="柜员日期" type="PbBaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="auttel" longname="授权柜员" type="FeBaseType.U_USERID" ref="FeDict.Chrg.auttel" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="authseq" longname="授权流水" type="BaseType.U_CHAR32" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="ioflag" longname="表内外标识" type="BaseEnumType.E_STTRTP" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="kns_strk_odx1" type="unique" fields="numbsq serlno trandt" operate="selectOne deleteOne updateOne" longname="套号日期主键索引" cache="none"/>
+            <index id="kns_strk_odx2" type="index" fields="prtrdt prtrsq wronbr" operate="selectFirst selectAll" longname="原交易流水唯一索引" cache="none"/>
+            <index id="kns_strk_odx3" type="index" fields="trandt transq" operate="selectFirst selectAll update delete" longname="交易流水冲正索引" cache="none"/>
+            <index id="kns_strk_odx4" type="index" fields="numbsq trandt" operate="selectFirst selectAll" longname="套号日期唯一索引" cache="none"/>
+        </odbindexes>
+        <indexes>
+            <index id="kns_strk_uk1" type="unique" fields="corpno numbsq serlno trandt">
+                <ddls/>
+            </index>
+            <index id="kns_strk_idx1" type="index" fields="corpno prtrdt prtrsq wronbr">
+                <ddls/>
+            </index>
+            <index id="kns_strk_idx2" type="index" fields="corpno transq">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlKnpSuac" name="gl_knp_suac" longname="表名：业务代码子户表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="busina" longname="业务代码中文名称说明" type="BaseType.U_CHAR80" ref="InDict.inac.busina" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="subsac" longname="子户号" type="BaseType.U_CUACNO" ref="InDict.inac.subsac" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="busino subsac" operate="selectOne deleteOne updateOne"/>
+            <index id="odb2" type="index" fields="busino" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knp_suac_uk1" type="unique" fields="busino subsac">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnbCbtlBatch" name="knb_cbtl_batch" longname="总账核算供数明细" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="taskid" longname="批量交易批次号" type="BaseType.U_CHAR40" ref="ApDict.Aplt.taskid" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="opbrch" longname="行号" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="company" longname="机构" type="CcBaseType.U_ORGNBR" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="部门" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="prodcd" longname="产品代码" type="BaseType.U_CHAR32" ref="PbDict.Dcmt.prodcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="chnlbr" longname="渠道号" type="BaseType.U_CHAR50" ref="CcDict.Lion.chnlbr" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="intercom" longname="合并往来" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="source" longname="来源" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="spare1" longname="备用1" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="spare2" longname="备用2" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="交易金额" type="PbBaseType.U_DEC172" ref="PbDict.Intr.tranam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trantype" longname="交易类型" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acccat" longname="会计类别" type="LnBaseType.U_ACCCAT" ref="LnDict.LNF.acccat" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acctst" longname="账户状态" type="BaseEnumType.E_DPACST" ref="DpDict.Acct.acctst" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="statms" longname="统计信息" type="BaseType.U_STATMS" ref="BaseDict.Comm.statms" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute1" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute2" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute3" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute4" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute5" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute6" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute7" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute8" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute9" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute10" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="filedate" longname="数据产生日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="trandt taskid" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="knb_cbtl_batch_idx1" type="index" fields="trandt taskid">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnbGlfaBatch" name="knb_glfa_batch" longname="总分核对供数明细" param="false" virtual="false" abstract="false">
+        <fields>
+            <field id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="taskid" longname="批量交易批次号" type="BaseType.U_CHAR40" ref="ApDict.Aplt.taskid" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="lineid" longname="行号" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="机构" type="CcBaseType.U_ORGNBR" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="depart" longname="部门" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="prodcd" longname="产品代码" type="BaseType.U_CHAR32" ref="PbDict.Dcmt.prodcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="source" longname="来源" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="direction" longname="余额方向" type="BaseType.U_CHAR04" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="交易金额" type="PbBaseType.U_DEC172" ref="PbDict.Intr.tranam" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="chktype" longname="对账类型" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute1" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute2" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute3" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute4" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="attribute5" longname="备用字段" type="BaseType.U_CHAR10" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="filedate" longname="数据产生日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="index" fields="trandt taskid" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="knb_glfa_batch_idx1" type="index" fields="trandt taskid">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnbFatlAcsq" name="knb_fatl_acsq" longname="总分核对供数发生额汇总明细" virtual="false" abstract="false">
+        <fields>
+            <field id="trandt" longname="汇总日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="prodcd" longname="产品代码" type="BaseType.U_CHAR32" ref="PbDict.Dcmt.prodcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="发生金额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="trandt brchno prodcd crcycd" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="knb_fatl_acsq_uk1" type="unique" fields="trandt brchno prodcd crcycd">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsAcsqColl" name="kns_acsq_coll" longname="清算流水汇总登记簿" virtual="false" changelog="true" abstract="false">
+        <fields>
+            <field id="bathid" longname="批次号" type="BaseType.U_CHAR40" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clerdt" longname="清算日期" type="BaseType.U_DATE08" ref="BaseDict.Comm.clerdt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clenum" longname="清算场次" type="BaseType.U_INTEGE" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="trandt" longname="记账日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="BaseDict.Comm.brchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="acctno" longname="内部户账号" type="BaseType.U_ACCTNO" ref="InDict.inac.acctno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="clactp" longname="系统内账号类型" type="BaseEnumType.E_CLACTP" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="dranam" longname="借方金额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="drcunt" longname="借方笔数" type="BaseType.U_INTEGE" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="cranam" longname="贷方金额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcunt" longname="贷方笔数" type="BaseType.U_INTEGE" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="status" longname="状态" type="InEnumType.E_CLERST" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="corest" longname="柜面记账状态" type="InEnumType.E_CLCTST" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="transq" longname="网络核心流水号" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="failrs" longname="失败原因" type="BaseType.U_SHORDS" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="clerdt clenum brchno crcycd acctno prodcd clactp" operate="selectAll update"/>
+            <index id="odb2" type="unique" fields="bathid brchno crcycd clactp" operate="selectOne"/>
+            <index id="odb3" type="unique" fields="clerdt clenum brchno crcycd prodcd clactp" operate="selectOne deleteOne updateOne"/>
+            <index id="odb4" type="index" fields="bathid" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="kns_acsq_coll_uk1" type="unique" fields="clerdt clenum brchno crcycd prodcd clactp">
+                <ddls/>
+            </index>
+            <index id="kns_acsq_coll_uk2" type="unique" fields="bathid brchno crcycd clactp">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsClerDetl" name="kns_cler_detl" longname="表名：系统内资金清算明细流水表" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trandt" longname="清算日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerod" longname="清算场次,默认为1" type="BaseType.U_SHORIN" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lwbrch" longname="下级清算部门" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lwacbr" longname="下级核算部门" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerlv" longname="清算层次" type="PbEnumType.E_CLERLV" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerbr" longname="上级清算机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clacbr" longname="上级核算机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerdn" longname="清算方向" type="BaseEnumType.E_AMNTCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="清算金额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerdt" longname="入账日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="stacno" longname="流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="status" longname="入账状态" type="BaseEnumType.E_YES___" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes/>
+        <indexes>
+            <index id="kns_cler_detl_idx1" type="index" fields="trandt">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsCler" name="kns_cler" longname="表名：系统内资金清算流水表" category="2" virtual="false" abstract="false">
+        <fields>
+            <field id="trandt" longname="清算日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerod" longname="清算场次,默认为1" type="BaseType.U_SHORIN" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lwbrch" longname="下级清算部门" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="lwacbr" longname="下级核算部门" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerlv" longname="清算层次" type="PbEnumType.E_CLERLV" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerbr" longname="上级清算机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clacbr" longname="上级核算机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerdn" longname="清算方向" type="BaseEnumType.E_AMNTCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="tranam" longname="清算金额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="clerdt" longname="入账日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="stacno" longname="流水" type="BaseType.U_SEQUNO" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="status" longname="入账状态" type="BaseEnumType.E_YES___" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <odbindexes/>
+        <indexes>
+            <index id="kns_cler_idx1" type="index" fields="trandt">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="KnsBrclTrsq" name="kns_brcl_trsq" longname="机构账不平流水" virtual="false" abstract="false">
+        <fields>
+            <field id="trandt" longname="交易日期" type="BaseType.U_DATE08" ref="BaseDict.Comm.trandt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="BaseDict.Comm.transq" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <indexes/>
+    </table>
+    <table id="GlKnpTprc" name="gl_knp_tprc" longname="指定暂收内部户产品参数表" virtual="false" abstract="false">
+        <fields>
+            <field id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="busina" longname="业务代码中文名称说明" type="BaseType.U_CHAR80" ref="InDict.inac.busina" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="isactv" longname="是否生效" type="PbEnumType.E_YES___" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odx1" type="unique" fields="busino crcycd brchno" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_knp_tprc_uk1" type="unique" fields="busino crcycd brchno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="LnbCbtl" name="lnb_cbtl" longname="贷款计息汇总" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="cabrdt" longname="计息日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="账户所属机构" type="BaseType.U_BRCHNO" ref="DpDict.Acct.brchno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctcd" longname="核算代码" type="BaseType.U_DTITCD" ref="DpDict.Prod.acctcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="DpDict.Acct.crcycd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="cabrin" longname="计息金额" type="BaseType.U_TOTAIN" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bltype" longname="余额属性" type="BaseEnumType.E_BLTYPE" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="wdtype" longname="计提种类" type="GlBusinessType.E_ACCRUETYPE" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb2" type="index" fields="cabrdt" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="lnb_cbtl_idx1" type="index" fields="cabrdt">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="LnbQctl" name="lnb_qctl" longname="贷款损失计提汇总" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="cabrdt" longname="损失计提日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="brchno" longname="账户所属机构" type="BaseType.U_BRCHNO" ref="DpDict.Acct.brchno" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acctcd" longname="核算代码" type="BaseType.U_DTITCD" ref="DpDict.Prod.acctcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="DpDict.Acct.crcycd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="cabrin" longname="计提金额" type="LnBaseType.U_ACBLTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="cabrdt brchno crcycd prodcd" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="lnb_qctl_idx1" type="unique" fields="cabrdt acctcd brchno crcycd corpno">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlCheckRecord" name="gl_check_record" longname="总分核对汇总数据" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="汇总日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="file_type" longname="文件类型 C代表会计流水文件 E代表计提文件 G代表核心分户账文件" type="BaseType.U_CHAR01" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_subject" longname="会计主体" type="PbEnumType.E_ATOWTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="record_number" longname="记录数" type="BaseType.U_INTEGE" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="total_amt" longname="汇总金额" type="BaseType.U_TOTAIN" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acct_branch" longname="账务机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="货币代码" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="trxn_date acct_branch file_type accounting_subject" operate="selectOne"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_check_record_uk1" type="unique" fields="trxn_date acct_branch file_type accounting_subject">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+    <table id="GlLedgerSum" name="gl_ledger_sum" longname="分户账汇总数据" category="2" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+            <field id="trxn_date" longname="汇总日期" type="BaseType.U_DATE08" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_subject" longname="会计主体" type="PbEnumType.E_ATOWTP" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="accounting_alias" longname="核算别名" type="GlBaseType.U_BYTE32" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_attributes" longname="余额属性" type="GlBaseType.U_BALPROPERTY" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="bal_type" longname="分账余额方向" type="GlEnumType.E_DEBITCREDIT" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acct_bal" longname="账户余额" type="BaseType.U_TRANAM" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="ccy_code" longname="货币代码" type="BaseType.U_CRCYCD" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+            <field id="acct_branch" longname="账务机构" type="BaseType.U_BRCHNO" primarykey="false" final="false" nullable="false" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="index" fields="trxn_date" operate="selectAll"/>
+        </odbindexes>
+        <indexes>
+            <index id="gl_ledger_sum_idx1" type="index" fields="trxn_date">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

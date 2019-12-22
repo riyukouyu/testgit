@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="iochck" longname="电子账户转入转出校验" kind="1" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" default="0.00" multi="false" array="false" longname="交易金额"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号/卡号"/>
+            <field id="capitp" type="DpEnumType.E_CAPITP" required="false" multi="false" array="false" longname="转账交易类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="isable" type="CaEnumType.E_CKTRIF" required="false" multi="false" array="false" longname="校验结果"/>
+            <field id="remark" type="PbBaseType.U_SHORDS" required="false" multi="false" array="false" longname="描述信息"/>
+            <field id="custnm" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dealIochck" id="dealIochck" longname="电子账户转入转出校验"/>
+    </flow>
+</flowtran>

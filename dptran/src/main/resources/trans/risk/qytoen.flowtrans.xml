@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qytoen" longname="退单强扣录入查询" kind="1" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.cardno"/>
+            <field id="mrchno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="商户编号" ref="DpRiskDict.KnbChabak.mrchno"/>
+            <field id="mobile" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="手机号" ref="DpRiskDict.KnbChabak.mobile"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="身份证" ref="DpRiskDict.KnbChabak.idtfno"/>
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="qryTransToEntryList" type="DpRiskType.EnterChabakImp" required="false" multi="true" array="false" longname="强扣录入信息查询列表"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="DpRiskService.SelTransToEntry" id="SelTransToEntry" longname="退单强扣录入查询">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="qrychabak.cardno" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="qrychabak.idtfno" by_interface="true" on_top="true"/>
+                <mapping src="mobile" dest="qrychabak.mobile" by_interface="true" on_top="true"/>
+                <mapping src="mrchno" dest="qrychabak.mrchno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="qryTransToEntryList" dest="qryTransToEntryList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

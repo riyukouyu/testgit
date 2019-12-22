@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qysima" longname="根据签约主体名称和标识查询电子账户信息" kind="1" package="cn.sunline.edsp.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.intf">
+        <input packMode="true">
+        	<field id="custna" type="BaseType.U_ACCTNA" required="true" multi="false" array="false" longname="签约主体名称"/>
+        	<field id="custno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="签约主体ID" />
+        </input>
+        <output asParm="true" packMode="true">
+        	<field id="qrCustnoList" type="DpdebitAcctnos.CustacList" required="false" multi="true" array="false" longname="电子账户信息列表"/> 
+        	<!-- <fields id="qrCustnoList" scope="DpdebitAcctnos.CustacList" required="false" multi="true" array="false" longname="电子账户信息列表">
+        		<field id="custac" longname="电子账号" 		type="BaseType.U_CUACNO" required="true" multi="false" array="false"/>
+	            <field id="custno" longname="签约主体ID" 	type="BaseType.U_CHAR30" required="true" multi="false" array="false"/>
+	            <field id="custna" longname="签约主体名称" 	type="BaseType.U_CHAR200" required="true" multi="false" array="false"/>
+	            <field id="opendt" longname="开户日期" 		type="BaseType.U_DATE08" required="true" multi="false" array="false"/>
+        	</fields> -->
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qySignMaster" id="qysignmaster" longname="签约主体电子账户信息查询" desc="签约主体电子账户信息查询"/>
+    </flow>
+</flowtran>

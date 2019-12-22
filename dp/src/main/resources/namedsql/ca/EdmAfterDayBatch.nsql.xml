@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="EdmAfterDayBatch" longname="T1代发批量相关处理SQL" package="cn.sunline.edsp.busi.dp.namedsql.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selectKnlIoblCupsInfo" longname="查询预结算单信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="品牌id" parameterType="condition"/>
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR25" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="DsEnumType.E_BUSITP" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="teleno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="手机号" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期开始" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期结束" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="ordeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="订单号" parameterType="condition"/>
+            <parameter property="refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.DpToSettleAccounts"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[
+            			select
+						    a.sbrand,a.orgaid,a.busitp,
+						    a.mercfg,a.spcipy,
+						    a.inmeid,a.teleno,a.tmteleno,
+						    a.inmena,a.ordeno,
+						    a.mntrsq,a.refeno,
+						    a.unkpdt as trandt,a.mntrtm,
+						    a.merate as inflrt,
+							'' as psmano,a.cardtp,
+						    a.pabkno,a.tmpabkno,a.tranam,
+						    a.jnanam as totaam,
+						    a.voucfe,a.acfist,
+						    a.regoam,a.frozam,
+						    a.toanam,b.mntrsq as prepsq
+						from
+						    knl_iobl_cups a left join Knl_iobl_edm_contro b on a.mntrsq = b.retrsq and a.trandt = b.retrdt 					
+							]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.transt = '1' and a.frozfg != '1' and a.frodfg != '1' and a.tleway != 'ZJ' and a.hxstat = '1' and  (b.edmflg != 'S' and b.edmflg != 'I' or b.edmflg is null) and a.acfist = 'T1' and a.toanam != '0.00']]></str>
+                    <if test="orgaid!=null&amp;&amp;orgaid!=''" type="If">
+                        <str type="Str"><![CDATA[a.orgaid=#orgaid#]]></str>
+                    </if>
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[a.inmeid=#inmeid#]]></str>
+                    </if>
+                    <if test="busitp!=null" type="If">
+                        <str type="Str"><![CDATA[a.busitp=#busitp#]]></str>
+                    </if>
+                    <if test="teleno!=null&amp;&amp;teleno!=''" type="If">
+                        <str type="Str"><![CDATA[a.teleno=#teleno#]]></str>
+                    </if>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[a.mntrsq=#mntrsq#]]></str>
+                    </if>
+                    <if test="stardt!=null&amp;&amp;stardt!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt>=#stardt#]]></str>
+                    </if>
+                    <if test="endtdt!=null&amp;&amp;endtdt!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt<=#endtdt#]]></str>
+                    </if>
+                    <if test="ordeno!=null&amp;&amp;ordeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.ordeno=#ordeno#]]></str>
+                    </if>
+                    <if test="refeno!=null&amp;&amp;refeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.refeno=#refeno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.mntrtm desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <insert id="insDpToSettleAccounts" longname="结算单数据生成">
+        <sql><![CDATA[
+    	insert 
+    	into
+    	    	edm_settle_account
+    	    	( corpno,mntrsq,orgaid,sbrand,prepsq,acctid,teleno,tmteleno,sacdno,tmsacdno,sabkna,bankno,inmena,pltrsq,pltrdt,acctno,subsac,custac,cardno,puacfg,tranam,toanam,trandt, transq,settdt,settsq,servtp,settid,setqdt,transt,settst,rtcdtp,rtcode,retmsg,hashvl) with se(acctno,trandt,tranam,toanam) as (
+    	    	    	select
+    	    	    	    	acctno,trandt,sum(tranam) as tranam,sum(toanam) as toanam 
+    	    	    	from
+    	    	    	    	knl_iobl_cups 
+    	    	    	where
+    	    	    	    	frodfg != '1' and frozfg != '1' 
+    	    	    	    	and hxstat = '1' and tleway != 'ZJ' 
+    	    	    	    	and acctno >= #minacct# and acctno <=#maxacct# 
+    	    	    	    	and trandt =#trandt# and acctno is not null 
+    	    	    	    	and acfist='T1' and transt = '1' 
+    	    	    	    	AND NOT EXISTS (
+    	    	    	    	    	SELECT
+    	    	    	    	    	    	1 
+    	    	    	    	    	FROM
+    	    	    	    	    	    	Knl_iobl_edm_contro e 
+    	    	    	    	    	WHERE
+    	    	    	    	    	    	e.EDMFLG != 'I' AND e.EDMFLG != 'S' 
+    	    	    	    	    	    	and e.retrsq = MNTRSQ 
+    	    	    	    	) 
+    	    	    	group by
+    	    	    	    	acctno,trandt),
+    	    	    	    	sf ( acctno,custac,cdopac,tmcdopac,opbrch,
+    	    	    	    	brchna,acctna,bankph,tmbankph,copefg ) AS ( SELECT
+    	    	    	    	    	a.acctno,
+    	    	    	    	    	a.custac,b.cdopac,b.tmcdopac,b.opbrch,b.brchna,
+    	    	    	    	    	b.acctna,b.bankph,tmbankph,b.copefg 
+    	    	    	    	FROM
+    	    	    	    	    	kna_accs a , kna_cacd b 
+    	    	    	    	WHERE
+    	    	    	    	    	(
+    	    	    	    	    	    	a.custac = b.custac AND b.acbdtp = '0' 
+    	    	    	    	    	    	AND b.status = '4' AND NOT EXISTS (
+    	    	    	    	    	    	    	SELECT
+    	    	    	    	    	    	    	    	acctno 
+    	    	    	    	    	    	    	FROM
+    	    	    	    	    	    	    	    	kna_accs c 
+    	    	    	    	    	    	    	WHERE
+    	    	    	    	    	    	    	    	c.acctno = b.acbdno
+    	    	    	    	    	    	)
+    	    	    	    	    	) OR a.acctno = b.acbdno 
+    	    	    	    	) , sg (
+    	    	    	    	    	acctno,acctnb,acctid,sbrand,bradna,subsac,cardno 
+    	    	    	    	) AS (
+    	    	    	    	    	SELECT
+    	    	    	    	    	    	a.acctno,
+    	    	    	    	    	    	a.acctna AS acctnb,b.acctid,b.sbrand,b.bradna,c.subsac,
+    	    	    	    	    	    	d.cardno 
+    	    	    	    	    	FROM
+    	    	    	    	    	    	kna_acct a,kna_sbad b,kna_accs c,kna_acdc d 
+    	    	    	    	    	WHERE
+    	    	    	    	    	    	a.acctno = b.acctno 
+    	    	    	    	    	    	and a.acctno = c.acctno and c.custac = d.custac 
+    	    	    	    	) SELECT
+    	    	    	    	    	'701' as corpno, #prepsq#||substr(se.acctno,
+    	    	    	    	    	-10,10) AS mntrsq, sg.sbrand AS orgaid, sg.bradna AS sbrand, '' AS prepsq,
+    	    	    	    	    	sg.acctid, sf.bankph AS teleno, sf.tmbankph AS tmteleno, sf.cdopac AS sacdno, sf.tmcdopac AS tmsacdno,
+    	    	    	    	    	sf.brchna AS sabkna, sf.opbrch AS bankno, sf.acctna AS inmena, #pltrsq# as pltrsq, #pltrdt# as pltrdt,
+    	    	    	    	    	se.acctno, sg.subsac, sf.custac, sg.cardno, sf.copefg as puacfg,
+    	    	    	    	    	se.tranam , se.toanam , se.trandt, '' AS transq, '' AS settdt,
+    	    	    	    	    	'' AS settsq, '' AS servtp, '' AS settid, '' AS setqdt, '6' AS transt,
+    	    	    	    	    	'3' AS settst, '' AS rtcdtp, '' AS rtcode, '' as retmsg, substr(se.acctno,
+    	    	    	    	    	-1,1) as hashvl 
+    	    	    	    	FROM
+    	    	    	    	    	se,sf,sg 
+    	    	    	    	WHERE
+    	    	    	    	    	se.acctno = sf.acctno 
+    	    	    	    	    	AND sf.acctno = sg.acctno 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="pltrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="生成结算单流水" parameterType="condition"/>
+            <parameter property="pltrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="系统日期" parameterType="condition"/>
+            <parameter property="prepsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="结算单id" parameterType="condition"/>
+            <parameter property="minacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="最小账号" parameterType="condition"/>
+            <parameter property="maxacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="最大账号" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectOne" type="sql" id="selSettlingDataInfo" longname="查询存在代发中的数据">
+        <sql><![CDATA[
+	    	select
+	    	    	count(*)
+	    	from
+	    	    	edm_settle_account a 
+	    	where
+	    			a.trandt >=#stardt# and a.trandt<=#endtdt# and a.transt = '8' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算起始日" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算结束日" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <update method="update" id="uptDpToSettleAccounts" longname="更新结算单数据-代发中">
+        <sql><![CDATA[update edm_settle_account set transt = '8' where (transt = '5' or transt = '6') and trandt >=#stardt# and trandt<=#endtdt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算起始日" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算结束日" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selDataHashInfo" longname="查找结算数据散列值">
+        <sql><![CDATA[	    	select
+	    	    	distinct a.HASHVL
+	    	from
+	    	    	edm_settle_account a 
+	    	where
+	              a.taskid = #taskid#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.ApDataGroupNo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selSettleDataInfo" longname="根据散列值和日期查找结算数据">
+        <sql><![CDATA[
+	    	select
+	    	    	a.acctno, a.trxndt trandt, a.mntrsq
+	    	from
+	    	    	edm_settle_account a 
+	    	where
+	              a.taskid = #taskid# and a.HASHVL = #hashvl# and a.transt <> '9'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+            <parameter property="hashvl" jdbcType="VARCHAR" javaType="GlBaseType.U_LONG" mode="in" longname="散列值" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.SettleDrawAccounts"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBatchNoSettleDataInfo" longname="根据日期查找已扣款结算分组结果">
+        <sql><![CDATA[
+    	select
+    	    	orgaid,sum(toanam) as tranam,count(*) as setnum 
+    	from
+    	    	edm_settle_account a 
+    	where
+    	    	taskid=#taskid# and transt = '8' 
+    	    	AND SETTST = '5' 
+    	group by
+    	    	orgaid
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.FileDataGroupNo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selDrawedSettleDataInfo" longname="根据日期查找已扣款结算数据">
+        <sql><![CDATA[
+    	select
+    	    	acctno,settsq,acctid,inmena,sacdno,
+    	    	bankno,sabkna,tranam,settdt,puacfg,
+    	    	mntrsq,toanam 
+    	from
+    	    	edm_settle_account 
+    	where
+    	    	orgaid = #orgaid# and taskid=#taskid#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="品牌id" parameterType="condition"/>
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdnAfter.EdmSettleAccount"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selectEdmSettleAccountInfo" longname="查询结算单信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="品牌id" parameterType="condition"/>
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR25" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="DsEnumType.E_BUSITP" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="teleno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="手机号" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期开始" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期结束" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_CUPSST" mode="in" longname="代发状态" parameterType="condition"/>
+            <parameter property="settst" jdbcType="VARCHAR" javaType="JfDpEnumType.E_SETTST" mode="in" longname="结算状态" parameterType="condition"/>
+            <parameter property="taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdnAfter.EdmSettleAccount"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[
+            	select 
+					sbrand,orgaid,acctid,teleno,tmteleno,sacdno,tmsacdno,sabkna,bankno,inmena,acctno,
+					toanam,trandt,transq,settdt,settsq,servtp,settid,setqdt,transt,settst,taskid,pltrdt,
+					mntrsq,retmsg
+				from edm_settle_account					
+							]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[settst != '6']]></str>
+                    <if test="orgaid!=null&amp;&amp;orgaid!=''" type="If">
+                        <str type="Str"><![CDATA[orgaid=#orgaid#]]></str>
+                    </if>
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[acctid=#inmeid#]]></str>
+                    </if>
+                    <if test="teleno!=null&amp;&amp;teleno!=''" type="If">
+                        <str type="Str"><![CDATA[teleno=#teleno#]]></str>
+                    </if>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[mntrsq=#mntrsq#]]></str>
+                    </if>
+                    <if test="stardt!=null&amp;&amp;stardt!=''" type="If">
+                        <str type="Str"><![CDATA[pltrdt>=#stardt#]]></str>
+                    </if>
+                    <if test="endtdt!=null&amp;&amp;endtdt!=''" type="If">
+                        <str type="Str"><![CDATA[pltrdt<=#endtdt#]]></str>
+                    </if>
+                    <if test="transt!=null" type="If">
+                        <str type="Str"><![CDATA[transt=#transt#]]></str>
+                    </if>
+                    <if test="settst!=null" type="If">
+                        <str type="Str"><![CDATA[settst=#settst#]]></str>
+                    </if>
+                    <if test="taskid!=null&amp;&amp;taskid!=''" type="If">
+                        <str type="Str"><![CDATA[taskid=#taskid#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[ order by acctid desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <insert id="insKnlIoblEdmContros" longname="代发防重复控制表数据生成">
+        <sql><![CDATA[
+        insert into Knl_iobl_edm_contro(corpno,retrsq,retrdt,mntrsq,trandt,finsty,transt,edmflg)
+        select b.corpno,a.mntrsq as retrsq,a.trandt as retrdt,b.settsq as mntrsq,b.settdt as trandt,
+        	'T1' as finsty,b.transt,'I' as edmflg from knl_iobl_cups a right join edm_settle_account b
+        	on b.acctno = a.acctno and b.trandt = a.trandt where b.acctno = #acctno# and b.trandt = #trandt#
+		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="子账号" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectAll" type="sql" id="selKnbSett" longname="根据日期查询临时批量结算单表">
+        <sql><![CDATA[
+	    	select
+	    	    	distinct a.trandt,a.seqno,a.bgtime,a.minacct,a.maxacct
+	    	from
+	    	    	knb_sett_begin_info a 
+	    	where
+	              a.trandt >= #stardt# and a.trandt <= #endtdt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算起始日" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算结束日" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.SettleGenerGroup"/>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selTotalYuTran" longname="根据结算条件查询预结算单总金额">
+        <parameterMap class="java.util.Map">
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="品牌id" parameterType="condition"/>
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR25" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="DsEnumType.E_BUSITP" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="teleno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="手机号" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期开始" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期结束" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="ordeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="订单号" parameterType="condition"/>
+            <parameter property="refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.ToTranSettle"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[
+						select
+						   SUM(a.tranam) as totran,SUM(a.toanam) as totoan
+						from
+						    knl_iobl_cups a left join Knl_iobl_edm_contro b on a.mntrsq = b.retrsq and a.trandt = b.retrdt	
+							]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.transt = '1' and a.frozfg != '1' and a.frodfg != '1' and a.tleway != 'ZJ' and a.hxstat = '1' and  (b.edmflg != 'S' and b.edmflg != 'I' or b.edmflg is null) and a.acfist = 'T1' and a.toanam != '0.00']]></str>
+                    <if test="orgaid!=null&amp;&amp;orgaid!=''" type="If">
+                        <str type="Str"><![CDATA[a.orgaid=#orgaid#]]></str>
+                    </if>
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[a.inmeid=#inmeid#]]></str>
+                    </if>
+                    <if test="busitp!=null" type="If">
+                        <str type="Str"><![CDATA[a.busitp=#busitp#]]></str>
+                    </if>
+                    <if test="teleno!=null&amp;&amp;teleno!=''" type="If">
+                        <str type="Str"><![CDATA[a.teleno=#teleno#]]></str>
+                    </if>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[a.mntrsq=#mntrsq#]]></str>
+                    </if>
+                    <if test="stardt!=null&amp;&amp;stardt!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt>=#stardt#]]></str>
+                    </if>
+                    <if test="endtdt!=null&amp;&amp;endtdt!=''" type="If">
+                        <str type="Str"><![CDATA[a.unkpdt<=#endtdt#]]></str>
+                    </if>
+                     <if test="ordeno!=null&amp;&amp;ordeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.ordeno=#ordeno#]]></str>
+                    </if>
+                    <if test="refeno!=null&amp;&amp;refeno!=''" type="If">
+                        <str type="Str"><![CDATA[a.refeno=#refeno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <update method="update" id="uptEdmSettStr" longname="插入结算单失败更新状态">
+        <sql><![CDATA[update edm_settle_account set settst = '2' where pltrsq = #pltrsq# and pltrdt = #pltrdt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="pltrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="结算单id" parameterType="condition"/>
+            <parameter property="pltrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selTotalTran" longname="根据结算条件查询结算单总金额">
+        <parameterMap class="java.util.Map">
+            <parameter property="orgaid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="品牌id" parameterType="condition"/>
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR25" mode="in" longname="内部商户号" parameterType="condition"/>
+            <parameter property="busitp" jdbcType="VARCHAR" javaType="DsEnumType.E_BUSITP" mode="in" longname="业务类型" parameterType="condition"/>
+            <parameter property="teleno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR35" mode="in" longname="手机号" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期开始" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算日期结束" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_CUPSST" mode="in" longname="代发状态" parameterType="condition"/>
+            <parameter property="settst" jdbcType="VARCHAR" javaType="JfDpEnumType.E_SETTST" mode="in" longname="结算状态" parameterType="condition"/>
+            <parameter property="taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="EdmAfterDay.ToTranSettle"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[
+						select
+						   SUM(a.tranam) as totran,SUM(a.toanam) as totoan
+						from
+						    edm_settle_account a 	 	
+							]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[settst != '6']]></str>
+                    <if test="orgaid!=null&amp;&amp;orgaid!=''" type="If">
+                        <str type="Str"><![CDATA[a.orgaid=#orgaid#]]></str>
+                    </if>
+                    <if test="inmeid!=null&amp;&amp;inmeid!=''" type="If">
+                        <str type="Str"><![CDATA[a.acctid=#inmeid#]]></str>
+                    </if>
+                    <if test="teleno!=null&amp;&amp;teleno!=''" type="If">
+                        <str type="Str"><![CDATA[a.teleno=#teleno#]]></str>
+                    </if>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[a.mntrsq=#mntrsq#]]></str>
+                    </if>
+                    <if test="stardt!=null&amp;&amp;stardt!=''" type="If">
+                        <str type="Str"><![CDATA[a.pltrdt>=#stardt#]]></str>
+                    </if>
+                    <if test="endtdt!=null&amp;&amp;endtdt!=''" type="If">
+                        <str type="Str"><![CDATA[a.pltrdt<=#endtdt#]]></str>
+                    </if>
+                    <if test="transt!=null" type="If">
+                        <str type="Str"><![CDATA[a.settst=#transt#]]></str>
+                    </if>
+                    <if test="settst!=null" type="If">
+                        <str type="Str"><![CDATA[a.settst=#settst#]]></str>
+                    </if>
+                    <if test="taskid!=null&amp;&amp;taskid!=''" type="If">
+                        <str type="Str"><![CDATA[a.taskid=#taskid#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <update method="update" id="uptDpToSettle" longname="更新结算单数据">
+        <sql><![CDATA[update edm_settle_account set settst = '6'  where trandt >=#stardt# and trandt<=#endtdt# and (settst = '2' or settst = '3')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算起始日" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结算结束日" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selKnaCacd" longname="根据结算账户查找账户名称">
+        <parameterMap class="java.util.Map">
+            <parameter property="cdopac" ref="DpDict.Acct.cdopac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR80" mode="in" longname="结算卡账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.acctna from kna_cacd a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cdopac!=null&amp;&amp;cdopac!=''" type="If">
+                        <str type="Str"><![CDATA[a.cdopac=#cdopac#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selSettleControlStatistics" longname="根据条件查询结算单防重控制表统计数">
+        <sql><![CDATA[
+    	SELECT
+    	    	COUNT(1) 
+    	FROM
+    	    	EDM_SETTLE_ACCOUNT_CONTRO a 
+    	WHERE
+    	    	a.TRANST IN (
+    	    	    	'1', '4' 
+    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selSettleControlStatisticsByDate" longname="根据条件查询结算单防重控制表统计数">
+        <sql><![CDATA[
+    	SELECT
+    	    	COUNT(1) 
+    	FROM
+    	    	EDM_SETTLE_ACCOUNT_CONTRO 
+    	where
+    	    	(
+    	    	    	transt = '1' or transt = '4' 
+    	    	) and trandt >=#stardt# 
+    	    	and trandt<=#endtdt# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" ref="LnDict.LNF.stardt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <update method="update" id="updSettleControlByDate" longname="更新结算单防重控制表">
+        <sql><![CDATA[
+    	UPDATE
+    	    	EDM_SETTLE_ACCOUNT_CONTRO 
+    	SET
+    	    	transt = #transt# 
+    	where
+    	    	trandt >=#stardt# and trandt<=#endtdt# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" ref="ClDict.CL.stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_GENSTA" mode="in" longname="状态" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <insert id="insIoblEdmControlByT1Data" longname="将T1数据新增代发防重复控制表">
+        <sql><![CDATA[
+    	INSERT 
+    	INTO
+    	    	Knl_iobl_edm_contro
+    	    	(
+    	    	    	CORPNO, RETRSQ, RETRDT, MNTRSQ, trandt, FINSTY, transt, EDMFLG, TMSTMP ,RECDVER
+    	    	)SELECT
+    	    	    	a.corpno,a.origsq, a.origdt, #transq#, #trandt#,
+    	    	    	#finsty#, #transt#, #edmflg#, #tmstmp# ,#recdver#
+    	    	FROM
+    	    	    	knb_receipt_settle a 
+    	    	WHERE
+    	    	    	a.mntrsq = #mntrsq# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="mntrsq" ref="BaseDict.Comm.mntrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="代发流水" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="finsty" jdbcType="VARCHAR" javaType="JfDpEnumType.E_FINSTY" mode="in" longname="结算类型" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_CUPSST" mode="in" longname="收单核心状态" parameterType="condition"/>
+            <parameter property="edmflg" jdbcType="VARCHAR" javaType="JfDpEnumType.E_PASTAT" mode="in" longname="是否已代发" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+            <parameter property="recdver" ref="BaseDict.Comm.recdver" jdbcType="VARCHAR" javaType="BaseType.U_RECDVER" mode="in" longname="记录版本号" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <insert id="insRreceiptSettle" longname="新增T1收单与结算对应关系登记簿">
+        <sql><![CDATA[
+    	INSERT 
+    	INTO
+    	    	knb_receipt_settle
+    	    	(
+    	    	    	corpno, mntrsq, origsq, origdt, SETTST, TMSTMP 
+    	    	) SELECT
+    	    	    	corpno, #prepsq#||substr(a.acctno,-10,10)||unkpdt, a.MNTRSQ,
+    	    	    	a.TRANDT, #settst#, #tmstmp# 
+    	    	FROM
+    	    	    	knl_iobl_cups a 
+    	    	where
+    	    	    	frodfg != '1' and frozfg != '1' 
+    	    	    	and hxstat = '1' and tleway != 'ZJ' 
+    	    	    	and acctno is not null and acfist='T1' 
+    	    	    	and transt = '1' and unkpdt >=#stardt# 
+    	    	    	and unkpdt<=#endtdt# and not exists (
+    	    	    	    	select
+    	    	    	    	    	1 
+    	    	    	    	from
+    	    	    	    	    	Knl_iobl_edm_contro e 
+    	    	    	    	WHERE
+    	    	    	    	    	a.MNTRSQ = e.RETRSQ 
+    	    	    	    	    	and (
+    	    	    	    	    	    	e.edmflg = 'S' or e.edmflg = 'I' 
+    	    	    	    	    	) 
+    	    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prepsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="结算单id" parameterType="condition"/>
+            <parameter property="settst" jdbcType="VARCHAR" javaType="JfDpEnumType.E_SETTST" mode="in" longname="结算状态" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <update method="update" id="updReceiptSettleBySettleAct" longname="通过结算单表更新中间表">
+        <sql><![CDATA[
+    	UPDATE
+    	    	knb_receipt_settle 
+    	set
+    	    	settst = '6' 
+    	WHERE
+    	    	EXISTS (
+    	    	    	SELECT
+    	    	    	    	1 
+    	    	    	FROM
+    	    	    	    	edm_settle_account 
+    	    	    	where
+    	    	    	    	trandt >=#stardt# and trandt<=#endtdt# 
+    	    	    	    	and (
+    	    	    	    	    	settst = '2' or settst = '3'
+    	    	    	    	)
+    	    	)]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selSttleAcctSum" longname="根据条件汇总结算单数据">
+        <sql desc=" "><![CDATA[
+    	SELECT
+    	    	count(1), sum(toanam) 
+    	FROM
+    	    	edm_settle_account a 
+    	WHERE
+    	    	a.taskid = #taskid#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result javaType="BaseType.U_EBDCNM" column="totanm" longname="总笔数"/>
+            <result javaType="BaseType.U_TRANAM" column="totlam" longname="总金额"/>
+        </resultMap>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selSettleActControlInfo" longname="查询结算单批次信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="mntrsq" ref="BaseDict.Comm.mntrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="setkid" jdbcType="VARCHAR" javaType="BaseType.U_SHORTS" mode="in" longname="结算批量交易批次号" parameterType="condition"/>
+            <parameter property="sutkid" jdbcType="VARCHAR" javaType="BaseType.U_SHORTS" mode="in" longname="代发批量交易批次号" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_GENSTA" mode="in" longname="处理状态" parameterType="condition"/>
+            <parameter property="statdt" ref="KcDict.KCM.statdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endxdt" ref="KcDict.KCM.endxdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoSettleInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[SELECT * FROM edm_settle_account_contro a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[transt <> '7']]></str>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[MNTRSQ = #mntrsq#]]></str>
+                    </if>
+                    <if test="setkid!=null&amp;&amp;setkid!=''" type="If">
+                        <str type="Str"><![CDATA[setkid = #setkid#]]></str>
+                    </if>
+                    <if test="sutkid!=null&amp;&amp;sutkid!=''" type="If">
+                        <str type="Str"><![CDATA[sutkid = #sutkid#]]></str>
+                    </if>
+                    <if test="transt!=null" type="If">
+                        <str type="Str"><![CDATA[transt = #transt#]]></str>
+                    </if>
+                    <if test="statdt!=null&amp;&amp;statdt!=''&amp;&amp;endxdt!=null&amp;&amp;endxdt!=''" type="If">
+                        <str type="Str"><![CDATA[sutrdt BETWEEN #statdt# AND #endxdt#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <update method="update" id="updSettleAcctByTaskid" longname="通过批次号更新结算单表">
+        <sql><![CDATA[
+    	update
+    	    	edm_settle_account 
+    	set
+    	    	transt = '8' 
+    	where
+    	    	taskid = #taskid# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updSetActControlByTaskid" longname="通过批次号更新防重表">
+        <sql><![CDATA[
+    	UPDATE
+    	    	EDM_SETTLE_ACCOUNT_CONTRO 
+    	SET
+    	    	transt = #transt# 
+    	where
+    	    	SETKID = #taskid#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_GENSTA" mode="in" longname="状态" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selSettleActSumlInfo" longname="查询结算单批次信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="mntrsq" ref="BaseDict.Comm.mntrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="setkid" jdbcType="VARCHAR" javaType="BaseType.U_SHORTS" mode="in" longname="结算批量交易批次号" parameterType="condition"/>
+            <parameter property="sutkid" jdbcType="VARCHAR" javaType="BaseType.U_SHORTS" mode="in" longname="代发批量交易批次号" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_GENSTA" mode="in" longname="处理状态" parameterType="condition"/>
+            <parameter property="statdt" ref="KcDict.KCM.statdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endxdt" ref="KcDict.KCM.endxdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoSettleSumInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[SELECT NVL(sum(totanm) ,0) totanm, NVL(sum(totlam) ,0) totlam, NVL(sum(succam) ,0) succam, NVL(sum(succnm) ,0) succnm FROM edm_settle_account_contro a
+
+]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[transt <> '7']]></str>
+                    <if test="mntrsq!=null&amp;&amp;mntrsq!=''" type="If">
+                        <str type="Str"><![CDATA[MNTRSQ = #mntrsq#]]></str>
+                    </if>
+                    <if test="setkid!=null&amp;&amp;setkid!=''" type="If">
+                        <str type="Str"><![CDATA[setkid = #setkid#]]></str>
+                    </if>
+                    <if test="sutkid!=null&amp;&amp;sutkid!=''" type="If">
+                        <str type="Str"><![CDATA[sutkid = #sutkid#]]></str>
+                    </if>
+                    <if test="transt!=null" type="If">
+                        <str type="Str"><![CDATA[transt = #transt#]]></str>
+                    </if>
+                    <if test="statdt!=null&amp;&amp;statdt!=''&amp;&amp;endxdt!=null&amp;&amp;endxdt!=''" type="If">
+                        <str type="Str"><![CDATA[sutrdt BETWEEN #statdt# AND #endxdt#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <insert id="insSettleAccounts" longname="生成结算单基本数据">
+        <sql><![CDATA[
+    	insert 
+    	into
+    	    	edm_settle_account
+    	    	(
+    	    	    	trxndt, orgaid, sbrand, tmteleno, teleno, inmena, Puacfg, acctid, sacdno, tmsacdno, bankno, sabkna, custac,corpno, taskid, pltrdt, mntrsq, acctno, tranam, toanam, hashvl, settst, transt, TMSTMP 
+    	    	) select
+    	    	    	#trandt#, e.sbrand, e.bradna, g.tmbankph, g.BANKPH,
+    	    	    	f.acctna, g.copefg, a.inmeid, g.CDOPAC, g.TMCDOPAC,
+    	    	    	g.opbrch, g.brchna, f.CUSTAC, a.corpno, #taskid#,
+    	    	    	unkpdt, #prepsq#||substr(a.acctno,-10, 10)||unkpdt mntrsq, a.acctno,
+    	    	    	tranam, toanam, hashvl, #settst#, #transt#,
+    	    	    	#tmstmp# 
+    	    	from
+    	    	    	( select
+    	    	    	    	inmeid, corpno, acctno, unkpdt, sum(tranam) as tranam,
+    	    	    	    	sum(toanam) as toanam, substr(acctno, -1, 1) hashvl 
+    	    	    	from
+    	    	    	    	knl_iobl_cups a 
+    	    	    	where
+    	    	    	    	frodfg != '1' and frozfg != '1' 
+    	    	    	    	and hxstat = '1' and tleway != 'ZJ' 
+    	    	    	    	and acctno is not null and acfist='T1' 
+    	    	    	    	and transt = '1' and unkpdt >=#stardt# 
+    	    	    	    	and unkpdt<=#endtdt# and not exists (
+    	    	    	    	    	select
+    	    	    	    	    	    	1 
+    	    	    	    	    	from
+    	    	    	    	    	    	Knl_iobl_edm_contro e 
+    	    	    	    	    	WHERE
+    	    	    	    	    	    	a.MNTRSQ = e.RETRSQ 
+    	    	    	    	    	    	and (
+    	    	    	    	    	    	    	e.edmflg = 'S' or e.edmflg = 'I' 
+    	    	    	    	    	    	) 
+    	    	    	    	) 
+    	    	    	group by
+    	    	    	    	acctno, unkpdt,
+    	    	    	    	corpno, inmeid ) a 
+    	    	    	LEFT JOIN
+    	    	    	    	kna_acct f 
+    	    	    	    	    	ON a.acctno = f.acctno 
+    	    	    	LEFT JOIN
+    	    	    	    	kna_cacd g 
+    	    	    	    	    	ON f.acctno= g.ACBDNO AND a.acctno = g.ACBDNO 
+    	    	    	LEFT JOIN
+    	    	    	    	kna_sbad e 
+    	    	    	    	    	ON g.ACBDNO = e.acctno 
+    	    	    	    	    	AND f.acctno = e.acctno 
+    	    	    	WHERE
+    	    	    	    	g.STATUS = '4' AND f.ACCTST = '1' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" ref="ClDict.CL.stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="prepsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="id" parameterType="condition"/>
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="settst" jdbcType="VARCHAR" javaType="JfDpEnumType.E_SETTST" mode="in" longname="结算状态" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_CUPSST" mode="in" longname="代发状态" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </insert>
+    <select cache="none" method="selectOne" type="sql" id="selSetActASumInfo" longname="查询代发汇总数据">
+        <sql><![CDATA[
+    	SELECT
+    	    	count(1) succnm, sum(toanam) succam 
+    	FROM
+    	    	edm_settle_account a 
+    	WHERE
+    	    	a.taskid =#taskid# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="taskid" ref="ApDict.Aplt.taskid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTypGenEAccountInfo.IoSettleSumInfo"/>
+    </select>
+    <update method="update" id="updSetActInva" longname="更新历史结算单失效">
+        <sql><![CDATA[
+    	UPDATE
+    	    	edm_settle_account 
+    	SET
+    	    	SETTST = '6' 
+    	WHERE
+    	    	PLTRDT >=#stardt# and PLTRDT<=#endtdt# 
+    	    	AND SETTST='5' AND TRANST = '6' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updSetActContorlInva" longname="更新防重表作废">
+        <sql><![CDATA[
+    	UPDATE
+    	    	edm_settle_account_contro 
+    	SET
+    	    	TRANST = '7' 
+    	WHERE
+    	    	SETKID IN (
+    	    	    	select
+    	    	    	    	taskid 
+    	    	    	from
+    	    	    	    	edm_settle_account 
+    	    	    	WHERE
+    	    	    	    	PLTRDT >=#stardt# and PLTRDT<=#endtdt# 
+    	    	    	    	AND SETTST='5' AND TRANST = '6' 
+    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updRcSetInva" longname="更新关联表为作废">
+        <sql><![CDATA[
+    	UPDATE
+    	    	knb_receipt_settle 
+    	SET
+    	    	settst = '6' 
+    	WHERE
+    	    	MNTRSQ IN (
+    	    	    	select
+    	    	    	    	mntrsq 
+    	    	    	from
+    	    	    	    	edm_settle_account 
+    	    	    	WHERE
+    	    	    	    	PLTRDT >=#stardt# and PLTRDT<=#endtdt# 
+    	    	    	    	AND SETTST='5' AND TRANST = '6' 
+    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="生效日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selIoblCupsCout" longname="查询是否存在结算数据">
+        <sql><![CDATA[
+    	select
+    	    	count(1)
+    	from
+    	    	knl_iobl_cups a 
+    	where
+    	    	frodfg != '1' and frozfg != '1' 
+    	    	and hxstat = '1' and tleway != 'ZJ' 
+    	    	and acctno is not null and acfist='T1' 
+    	    	and transt = '1' and unkpdt >=#stardt# 
+    	    	and unkpdt<=#endtdt# and not exists (
+    	    	    	select
+    	    	    	    	1 
+    	    	    	from
+    	    	    	    	Knl_iobl_edm_contro e 
+    	    	    	WHERE
+    	    	    	    	a.MNTRSQ = e.RETRSQ 
+    	    	    	    	and (
+    	    	    	    	    	e.edmflg = 'S' or e.edmflg = 'I' 
+    	    	    	    	) 
+    	    	) 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="stardt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endtdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+    </select>
+</sqls>

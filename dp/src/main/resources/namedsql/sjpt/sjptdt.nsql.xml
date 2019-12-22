@@ -1,0 +1,2646 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="sjptdt" longname="存款模块与数据平台对接" package="cn.sunline.ltts.busi.dp.namedsql.sjpt" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[存款模块与数据平台对接]]></description>
+    <select cache="none" method="selectAll" type="sql" id="selDcLogRz" longname="会计分录流水查询">
+        <sql type="mysql"><![CDATA[
+	        
+	        	select
+				    a.acctbr,
+				    a.crcycd,
+				    a.trandt,
+				    case
+				        when c.gl_code_level = '4'
+				        then c.upper_lvl_gl_code
+				        else c.gl_code
+				    end gl_code,
+				    a.tranam,
+				    a.fileid,
+				    a.amntcd,
+				    a.mntrsq,
+				    a.acctbr,
+				    a.sortno
+				from
+				    kns_acsq a
+				join
+				    fap_accounting_event_parm b
+				on
+				    a.dtitcd = b.accounting_alias
+				join
+				    fap_accounting_subject c
+				on
+				    b.gl_code = c.gl_code
+				and a.bltype = b.bal_attributes where a.trandt = #trandt#
+			
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        	
+	        	select
+				    a.acctbr,
+				    a.crcycd,
+				    a.trandt,
+				    case
+				        when c.gl_code_level = '4'
+				        then c.upper_lvl_gl_code
+				        else c.gl_code
+				    end gl_code,
+				    a.tranam,
+				    a.fileid,
+				    a.amntcd,
+				    a.mntrsq,
+				    a.acctbr,
+				    a.sortno
+				from
+				    kns_acsq a
+				join
+				    fap_accounting_event_parm b
+				on
+				    a.dtitcd = b.accounting_alias
+				join
+				    fap_accounting_subject c
+				on
+				    b.gl_code = c.gl_code
+				and a.bltype = b.bal_attributes where a.trandt = #trandt#
+			
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.dclogrzInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbintamt" longname="存款结息表">
+        <sql type="mysql"><![CDATA[
+            
+                SELECT
+					t1.trandt,
+					t1.acctno,
+					kna_acct.prodcd,
+					(kna_acct.onlnbl - t1.intest) AS actbal,
+					kna_acct.onlnbl,
+					t1.intest,
+					t1.cutmis,
+					t1.cutmam,
+					t1.transq,
+					kup_intx.taxrat,
+					(t1.intest + t1.cutmis) AS taxint
+				FROM
+					(
+						SELECT
+							SUM(rlintr) AS intest,
+							SUM(rlintx) AS cutmis,
+							SUM(acmltn) AS cutmam,
+							pyinsq      AS transq,
+							pyindt      AS trandt,
+							acctno      AS acctno
+						FROM
+							knb_pidl
+						WHERE
+							intrtp = '1' and pyindt = #trandt#
+						GROUP BY
+							acctno,
+							pyindt,
+							pyinsq)t1
+				JOIN
+					kna_acct
+				ON
+					t1.acctno = kna_acct.acctno
+				JOIN
+					knb_acin
+				ON
+					knb_acin.acctno = kna_acct.acctno
+				left JOIN
+					kup_intx
+				ON
+					knb_acin.taxecd = kup_intx.intxcd
+				where t1.intest <>0
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                SELECT
+					t1.trandt,
+					t1.acctno,
+					kna_acct.prodcd,
+					(kna_acct.onlnbl - t1.intest) AS actbal,
+					kna_acct.onlnbl,
+					t1.intest,
+					t1.cutmis,
+					t1.cutmam,
+					t1.transq,
+					kup_intx.taxrat,
+					(t1.intest + t1.cutmis) AS taxint
+				FROM
+					(
+						SELECT
+							SUM(rlintr) AS intest,
+							SUM(rlintx) AS cutmis,
+							SUM(acmltn) AS cutmam,
+							pyinsq      AS transq,
+							pyindt      AS trandt,
+							acctno      AS acctno
+						FROM
+							knb_pidl
+						WHERE
+							intrtp = '1' and pyindt = #trandt#
+						GROUP BY
+							acctno,
+							pyindt,
+							pyinsq)t1
+				JOIN
+					kna_acct
+				ON
+					t1.acctno = kna_acct.acctno
+				JOIN
+					knb_acin
+				ON
+					knb_acin.acctno = kna_acct.acctno
+				left JOIN
+					kup_intx
+				ON
+					knb_acin.taxecd = kup_intx.intxcd
+				where t1.intest <>0
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbintamtInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbtranhis" longname="存款金融交易明细">
+        <sql type="mysql"><![CDATA[
+            
+                SELECT
+				    kns_acsq.transq AS transq,
+				    kns_acsq.tmstmp AS trandt,
+				    CASE
+				        WHEN kns_acsq.atowtp = '7'
+				        THEN 'Y'
+				        ELSE 'N'
+				    END                atowtp,
+				    kns_acsq.toacna AS toacna,
+				    CASE
+				        WHEN knl_bill.strktp = '0'
+				        THEN 'N'
+				        ELSE 'Y'
+				    END             strktp,
+				    ''              AS soumod,
+				    ''              AS agentn,
+				    ''              AS agentc,
+				    ''              AS agentn,
+				    ''              AS agenna,
+				    ''              AS datada,
+				    ''              AS invoft,
+				    ''              AS coubrt,
+				    knl_bill.tranbr AS tranbr,
+				    knl_bill.opbrch AS opbrch,
+				    kns_acsq.crcycd AS crcycd,
+				    cif_cust_accs.custcd AS custno ,
+				    kns_acsq.tranam AS tranam,
+				    kns_acsq.toacct AS toacct,
+				    knl_bill.acctno AS acctno,
+				    ''              AS oppodc,
+				    knl_bill.bankna AS bankna,
+				    case 
+				    	when kns_acsq.amntcd = 'D' then '02'
+				    	else '01'
+				    end amntcd,
+				    'CHN'           AS drtion,
+				    knl_bill.remark AS remark,
+				    '1'             AS inlind,
+				    '0'             AS partct,
+				    '21'            AS trantd,
+				    knl_bill.bankna AS bankna,
+				    'CHN'           AS place,
+				    ''              AS partty,
+				    ''              AS partid,
+				    kns_acsq.bltype AS bltype,
+				    ''              AS partat,
+				    '0'             AS cifcty,
+				    kns_acsq.sortno AS sortno,
+				    cif_cust.custna AS custna,
+				    kna_acdc.cardno AS cardno,
+				    '99'              AS flgflg,
+				    kna_accs.subsac AS subsac,
+				    kns_acsq.servtp AS servtp,
+				    knl_bill.intrcd AS intrcd,
+				    ''              AS termin,
+				    ''              AS mcccod,
+				    ''              AS merchn,
+				    '999999'              AS groupt,
+				    t1.SERVSQ       AS servsq,
+				    knl_bill.origtq AS origtq,
+				    knl_bill.dcbtno AS dcbtno,
+				    knl_bill.dcmttp AS dcmttp,
+				    ''              AS prefip,
+				    knl_bill.userid AS userid,
+				    case 
+			            when kns_acsq.servtp = 'IM' then '13'
+			            else 'Y5'
+			            end otranc,
+				    knl_bill.acctbl AS acctbl,
+				    knl_bill.tranam AS tranam,
+				    ''              AS trandc,
+				    knl_bill.authus AS authus,
+				    knl_bill.corrtg AS corrtg
+				FROM
+				    kns_acsq
+				JOIN
+				    knl_bill
+				ON
+				    kns_acsq.transq = knl_bill.procsq
+				AND kns_acsq.mntrsq = knl_bill.transq and kns_acsq.ACCTNO = knl_bill.ACCTNO AND kns_acsq.tranam = knl_bill.tranam AND (kns_acsq.TOACCT = knl_bill.OPCUAC or (kns_acsq.TOACCT is null and knl_bill.OPCUAC is null))
+				JOIN
+				    kna_acct
+				ON
+				    knl_bill.ACCTNO = kna_acct.ACCTNO
+				JOIN
+				    cif_cust
+				ON
+				    kna_acct.CUSTNO = cif_cust.CUSTNO
+				JOIN
+				    kna_accs
+				ON
+				    kna_acct.ACCTNO = kna_accs.ACCTNO
+				JOIN
+				    kna_acdc
+				ON
+				    kna_accs.CUSTAC = kna_acdc.CUSTAC
+				LEFT JOIN
+				    (
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'cnap' AS qdbh
+				        FROM
+				            knl_cnapot
+				        UNION
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'iobl'AS qdbh
+				        FROM
+				            knl_iobl
+				        UNION
+				        SELECT
+				            UNISEQ AS SERVSQ,
+				            MNTRSQ AS TRANSQ,
+				            'cuos' AS qdbh
+				        FROM
+				            knl_iobl_cups )t1
+				ON
+				    kns_acsq.mntrsq = t1.TRANSQ
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_acct.custno = cif_cust_accs.custno	
+				WHERE
+				    kns_acsq.ATSQTP = '0' and kns_acsq.ATOWTP='0' and kns_acsq.trandt = #trandt#
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                SELECT
+				    kns_acsq.transq AS transq,
+				    kns_acsq.tmstmp AS trandt,
+				    CASE
+				        WHEN kns_acsq.atowtp = '7'
+				        THEN 'Y'
+				        ELSE 'N'
+				    END                atowtp,
+				    kns_acsq.toacna AS toacna,
+				    CASE
+				        WHEN knl_bill.strktp = '0'
+				        THEN 'N'
+				        ELSE 'Y'
+				    END             strktp,
+				    ''              AS soumod,
+				    ''              AS agentn,
+				    ''              AS agentc,
+				    ''              AS agentn,
+				    ''              AS agenna,
+				    ''              AS datada,
+				    ''              AS invoft,
+				    ''              AS coubrt,
+				    knl_bill.tranbr AS tranbr,
+				    knl_bill.opbrch AS opbrch,
+				    kns_acsq.crcycd AS crcycd,
+				    cif_cust_accs.custcd AS custno ,
+				    kns_acsq.tranam AS tranam,
+				    kns_acsq.toacct AS toacct,
+				    knl_bill.acctno AS acctno,
+				    ''              AS oppodc,
+				    knl_bill.bankna AS bankna,
+				    case 
+				    	when kns_acsq.amntcd = 'D' then '02'
+				    	else '01'
+				    end amntcd,
+				    'CHN'           AS drtion,
+				    knl_bill.remark AS remark,
+				    '1'             AS inlind,
+				    '0'             AS partct,
+				    '21'            AS trantd,
+				    knl_bill.bankna AS bankna,
+				    'CHN'           AS place,
+				    ''              AS partty,
+				    ''              AS partid,
+				    kns_acsq.bltype AS bltype,
+				    ''              AS partat,
+				    '0'             AS cifcty,
+				    kns_acsq.sortno AS sortno,
+				    cif_cust.custna AS custna,
+				    kna_acdc.cardno AS cardno,
+				    '99'              AS flgflg,
+				    kna_accs.subsac AS subsac,
+				    kns_acsq.servtp AS servtp,
+				    knl_bill.intrcd AS intrcd,
+				    ''              AS termin,
+				    ''              AS mcccod,
+				    ''              AS merchn,
+				    '999999'              AS groupt,
+				    t1.SERVSQ       AS servsq,
+				    knl_bill.origtq AS origtq,
+				    knl_bill.dcbtno AS dcbtno,
+				    knl_bill.dcmttp AS dcmttp,
+				    ''              AS prefip,
+				    knl_bill.userid AS userid,
+				    case 
+			            when kns_acsq.servtp = 'IM' then '13'
+			            else 'Y5'
+			            end otranc,
+				    knl_bill.acctbl AS acctbl,
+				    knl_bill.tranam AS tranam,
+				    ''              AS trandc,
+				    knl_bill.authus AS authus,
+				    knl_bill.corrtg AS corrtg
+				FROM
+				    kns_acsq
+				JOIN
+				    knl_bill
+				ON
+				    kns_acsq.transq = knl_bill.procsq
+				AND kns_acsq.mntrsq = knl_bill.transq and kns_acsq.ACCTNO = knl_bill.ACCTNO AND kns_acsq.tranam = knl_bill.tranam AND (kns_acsq.TOACCT = knl_bill.OPCUAC or (kns_acsq.TOACCT is null and knl_bill.OPCUAC is null))
+				JOIN
+				    kna_acct
+				ON
+				    knl_bill.ACCTNO = kna_acct.ACCTNO
+				JOIN
+				    cif_cust
+				ON
+				    kna_acct.CUSTNO = cif_cust.CUSTNO
+				JOIN
+				    kna_accs
+				ON
+				    kna_acct.ACCTNO = kna_accs.ACCTNO
+				JOIN
+				    kna_acdc
+				ON
+				    kna_accs.CUSTAC = kna_acdc.CUSTAC
+				LEFT JOIN
+				    (
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'cnap' AS qdbh
+				        FROM
+				            knl_cnapot
+				        UNION
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'iobl'AS qdbh
+				        FROM
+				            knl_iobl
+				        UNION
+				        SELECT
+				            UNISEQ AS SERVSQ,
+				            MNTRSQ AS TRANSQ,
+				            'cuos' AS qdbh
+				        FROM
+				            knl_iobl_cups )t1
+				ON
+				    kns_acsq.mntrsq = t1.TRANSQ
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_acct.custno = cif_cust_accs.custno	
+				WHERE
+				    kns_acsq.ATSQTP = '0' and kns_acsq.ATOWTP='0' and kns_acsq.trandt = #trandt#
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbtranhisInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcimoverg" longname="不动户久悬户登记簿">
+        <sql type="mysql"><![CDATA[
+            
+                select a.datadt, d.cardno, a.brchno, a.ac_flag as acflag, c.acctst, a.userid from
+                (select custac, brchno, userid, bkupdt as datadt,BKUPTM as datatm,'1' as ac_flag, '' as result from knb_disa
+                    union
+                select custac, brchno, userid, trandt as datadt,TRANTM as datatm,'2' as ac_flag, slepst as result from knb_slep
+                    union
+                select custac, brchno, userid, bkupdt as datadt,BKUPTM as datatm,'3' as ac_flag, procst as result from knb_casp) a,
+                (select casp.custac,max(to_date(casp.datadt || casp.datatm,'yyyyMMddHH24miss')) as datadm
+                    from
+                    (select custac, bkupdt as datadt,BKUPTM as datatm from knb_disa
+                        union
+                    select custac,  trandt as datadt,TRANTM as datatm from knb_slep
+                        union
+                    select custac, bkupdt as datadt,BKUPTM as datatm from knb_casp) casp
+                group by casp.custac) b,
+                kna_cust c, 
+                kna_acdc d
+                where a.custac=b.custac and a.custac = c.custac and to_date(a.datadt || a.datatm,'yyyyMMddHH24miss') = b.datadm and a.custac = d.custac  
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                SELECT
+				    kna_acdc.cardno,
+				    '1' AS seq_no,
+				    knb_disa.brchno,
+				    CASE
+				        WHEN knb_disa.procrs = '1'
+				        THEN ''
+				        ELSE '2'
+				    END procrs,
+				    CASE
+				        WHEN kna_cust.acctst = '1'
+				        THEN '0'
+				        WHEN kna_cust.acctst = '2'
+				        THEN '4'
+				        WHEN kna_cust.acctst = '3'
+				        THEN '1'
+				        WHEN kna_cust.acctst = '4'
+				        THEN '6'
+				        WHEN kna_cust.acctst = '5'
+				        THEN '8'
+				    END acctst,
+				    knb_disa.userid
+				FROM
+				    knb_disa,
+				    kna_cust,
+				    kna_acdc
+				WHERE
+				    knb_disa.custac = kna_cust.custac
+				AND kna_cust.custac = kna_acdc.custac and knb_disa.bkupdt = #trandt#
+				UNION ALL
+				SELECT
+				    kna_acdc.cardno,
+				    '' AS seq_no,
+				    knb_slep.brchno,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        THEN ''
+				        ELSE '1'
+				    END procrs,
+				    CASE
+				        WHEN kna_cust.acctst = '1'
+				        THEN '0'
+				        WHEN kna_cust.acctst = '2'
+				        THEN '4'
+				        WHEN kna_cust.acctst = '3'
+				        THEN '1'
+				        WHEN kna_cust.acctst = '4'
+				        THEN '6'
+				        WHEN kna_cust.acctst = '5'
+				        THEN '8'
+				    END acctst,
+				    knb_slep.userid
+				FROM
+				    knb_slep,
+				    kna_cust,
+				    kna_acdc
+				WHERE
+				    knb_slep.custac = kna_cust.custac
+				AND kna_cust.custac = kna_acdc.custac and knb_slep.trandt = #trandt#
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.acimovergInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbnotrhis" longname="非金融交易明细">
+        <sql type="mysql"><![CDATA[
+            
+                select a.transq, a.trandt, a.trntye, a.custna, d.custcd AS custno, b.cardno, a.servtp, a.brchno, a.userid
+                from 
+                    (select opensq as transq, opendt as trandt, '01' as trntye, custna, custac, opensv as servtp, brchno, openus as userid from knb_opac where opendt = #trandt#
+                    union
+                    select clossq as transq, closdt as trandt, '02' as trntye, custna, custac, clossv as servtp, closbr as brchno, closus as userid from knb_clac where closdt = #trandt#
+                    union
+                    select pswd.transq, pswd.trandt, '07' as trntye, cust.custna, pswd.acctno as custac, pswd.servtp, '' as brchno, pswd.tranus as userid 
+                        from dps_pswd pswd, kna_cust cust 
+                        where pswd.acctno = cust.custac and trandt = #trandt#) a,
+                    kna_acdc b,
+                    kna_cust c,
+					cif_cust_accs d
+                where a.custac = b.custac and a.custac = c.custac and c.custno = d.custno
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                select a.transq, a.trandt, a.trntye, a.custna, d.custcd AS custno, b.cardno, a.servtp, a.brchno, a.userid
+                from 
+                    (select opensq as transq, TMSTMP as trandt, '01' as trntye, custna, custac, opensv as servtp, brchno, openus as userid from knb_opac where opendt = #trandt#
+                    union
+                    select clossq as transq, TMSTMP as trandt, '02' as trntye, custna, custac, clossv as servtp, closbr as brchno, closus as userid from knb_clac where closdt = #trandt#
+                    union
+                    select pswd.transq, pswd.TMSTMP, '07' as trntye, cust.custna, pswd.acctno as custac, pswd.servtp, '' as brchno, pswd.tranus as userid 
+                        from dps_pswd pswd, kna_cust cust 
+                        where pswd.acctno = cust.custac and trandt = #trandt#) a,
+                    kna_acdc b,
+                    kna_cust c,
+					cif_cust_accs d
+                where a.custac = b.custac and a.custac = c.custac and c.custno = d.custno
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbnotrhisInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selDeparm" longname="存款参数明细">
+        <sql type="mysql"><![CDATA[
+            
+                SELECT
+					a.prodcd,
+					a.prodtx,
+					a.pdmktx,
+					a.efctdt,
+					a.inefdt,
+					c.crcycd,
+					CASE
+						WHEN a.debttp = '020401'
+						THEN '0'
+						WHEN a.debttp = '020402'
+						THEN '0'
+						WHEN a.debttp = '020403'
+						THEN '0'
+						WHEN a.debttp = '020404'
+						THEN '0'
+						WHEN a.debttp = '020501'
+						THEN '1'
+						WHEN a.debttp = '020502'
+						THEN '2'
+						WHEN a.debttp = '020503'
+						THEN '4'
+						WHEN a.debttp = '020504'
+						THEN '0'
+						WHEN a.debttp = '020505'
+						THEN '5'
+						WHEN a.debttp = '020506'
+						THEN '2'
+						WHEN a.debttp = '020507'
+						THEN '3'
+						WHEN a.debttp = '020508'
+						THEN '1'
+						WHEN a.debttp = '020509'
+						THEN '0'
+					END debttp,
+					c.taxecd,
+					CASE
+						WHEN c.txbebs = '00'
+						THEN '1'
+						WHEN c.txbebs = '10'
+						THEN '0'
+						WHEN c.txbebs = '11'
+						THEN '0'
+					END txbebs,
+					CASE
+						WHEN e.gl_code_level = '4'
+						THEN e.upper_lvl_gl_code
+						ELSE e.gl_code
+					END gl_code
+				FROM
+					kup_dppb a,
+					kup_dppb_acct b,
+					kup_dppb_intr c,
+					fap_accounting_event_parm d,
+					fap_accounting_subject e
+				WHERE
+					a.prodcd = b.prodcd
+				AND a.prodcd = c.prodcd
+				AND b.acctcd = d.accounting_alias
+				AND d.bal_attributes = '0'
+				AND d.gl_code = e.gl_code
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                SELECT
+					a.prodcd,
+					a.prodtx,
+					a.pdmktx,
+					a.efctdt,
+					a.inefdt,
+					c.crcycd,
+					CASE
+						WHEN a.debttp = '020401'
+						THEN '0'
+						WHEN a.debttp = '020402'
+						THEN '0'
+						WHEN a.debttp = '020403'
+						THEN '0'
+						WHEN a.debttp = '020404'
+						THEN '0'
+						WHEN a.debttp = '020501'
+						THEN '1'
+						WHEN a.debttp = '020502'
+						THEN '2'
+						WHEN a.debttp = '020503'
+						THEN '4'
+						WHEN a.debttp = '020504'
+						THEN '0'
+						WHEN a.debttp = '020505'
+						THEN '5'
+						WHEN a.debttp = '020506'
+						THEN '2'
+						WHEN a.debttp = '020507'
+						THEN '3'
+						WHEN a.debttp = '020508'
+						THEN '1'
+						WHEN a.debttp = '020509'
+						THEN '0'
+					END debttp,
+					c.taxecd,
+					CASE
+						WHEN c.txbebs = '00'
+						THEN '1'
+						WHEN c.txbebs = '10'
+						THEN '0'
+						WHEN c.txbebs = '11'
+						THEN '0'
+					END txbebs,
+					CASE
+						WHEN e.gl_code_level = '4'
+						THEN e.upper_lvl_gl_code
+						ELSE e.gl_code
+					END gl_code
+				FROM
+					kup_dppb a,
+					kup_dppb_acct b,
+					kup_dppb_intr c,
+					fap_accounting_event_parm d,
+					fap_accounting_subject e
+				WHERE
+					a.prodcd = b.prodcd
+				AND a.prodcd = c.prodcd
+				AND b.acctcd = d.accounting_alias
+				AND d.bal_attributes = '0'
+				AND d.gl_code = e.gl_code
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="sjptdt.deparmInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selCointrates" longname="利率明细">
+        <sql type="mysql"><![CDATA[
+            
+                select 
+                    a.intrcd,
+                    a.tmstmp,
+                    case 
+                        when a.intrkd = '1' then '01'
+                        when a.intrkd = '2' then '02'
+                        else '01'
+                        end intrkd,
+                    case 
+                        when b.rfirtm = '201' then '1'
+                        when b.rfirtm = '202' then '2'
+                        when b.rfirtm = '203' then '3'
+                        when b.rfirtm = '206' then '6'
+                        when b.rfirtm = '209' then '9'
+                        when b.rfirtm = '218' then '18'
+                        when b.rfirtm = '301' then '12'
+                        when b.rfirtm = '302' then '24'
+                        when b.rfirtm = '303' then '36'
+                        when b.rfirtm = '304' then '48'
+                        when b.rfirtm = '305' then '60'
+                        when b.rfirtm = '306' then '72'
+                        when b.rfirtm = '308' then '96'
+                        when b.rfirtm = '330' then '360'
+                        else '' end rfirtm,
+                    b.efctdt,
+                    b.baseir,
+                    b.flmxsc,
+                    b.flmnsc,
+                    b.rfirsq
+                from 
+                    kup_intr a,kup_rfir b
+                where
+                    a.intrcd = b.rfircd
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                select 
+                    a.intrcd,
+                    a.tmstmp,
+                    case 
+                        when a.intrkd = '1' then '01'
+                        when a.intrkd = '2' then '02'
+                        else '01'
+                        end intrkd,
+                    case 
+                        when b.rfirtm = '201' then '1'
+                        when b.rfirtm = '202' then '2'
+                        when b.rfirtm = '203' then '3'
+                        when b.rfirtm = '206' then '6'
+                        when b.rfirtm = '209' then '9'
+                        when b.rfirtm = '218' then '18'
+                        when b.rfirtm = '301' then '12'
+                        when b.rfirtm = '302' then '24'
+                        when b.rfirtm = '303' then '36'
+                        when b.rfirtm = '304' then '48'
+                        when b.rfirtm = '305' then '60'
+                        when b.rfirtm = '306' then '72'
+                        when b.rfirtm = '308' then '96'
+                        when b.rfirtm = '330' then '360'
+                        else '' end rfirtm,
+                    b.efctdt,
+                    b.baseir,
+                    b.flmxsc,
+                    b.flmnsc,
+                    b.rfirsq
+                from 
+                    kup_intr a,kup_rfir b
+                where
+                    a.intrcd = b.rfircd
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="sjptdt.cointratesInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selCointrate" longname="利率">
+        <sql type="mysql"><![CDATA[
+            
+               select distinct
+				    a.intrcd,
+				    a.tmstmp,
+				    a.intrna,
+				    b.crcycd,
+				    b.remark,
+				    b.efctdt,
+				    '' as amtcop 
+				from
+				    kup_intr a,
+				    kup_rfir b
+				where
+				    a.intrcd = b.rfircd
+            
+        ]]></sql>
+        <sql type="oracle"><![CDATA[
+            
+                select distinct
+				    a.intrcd,
+				    a.tmstmp,
+				    a.intrna,
+				    b.crcycd,
+				    b.remark,
+				    b.efctdt,
+				    '' as amtcop 
+				from
+				    kup_intr a,
+				    kup_rfir b
+				where
+				    a.intrcd = b.rfircd
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="sjptdt.cointrateInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbAcct" longname="存款账户信息查询">
+        <sql type="mysql"><![CDATA[
+	        
+	        	SELECT
+					kna_acct.acctno,
+					kna_accs.subsac,
+					CASE
+						WHEN kna_acct.acctst = '6'
+						THEN 'D02'
+						WHEN kna_acct.acctst = '1'
+						THEN 'N'
+						WHEN kna_acct.acctst = '3'
+						THEN 'D01'
+						WHEN kna_acct.acctst = '2'
+						THEN 'C'
+					END acctst ,
+					kna_acct.opendt,
+					kna_acct.closdt,
+					kna_acct.spectp,
+					kna_acct.matudt,
+					CASE
+						WHEN kna_acct.pddpfg = '0205'
+						THEN 'F'
+						WHEN kna_acct.pddpfg = '0204'
+						THEN 'C'
+					END    pddpfg,
+					'N'  AS finfla,
+					'0' AS unfpri,
+					kna_acct.brchno,
+					cif_cust_accs.custcd AS custno,
+					kna_acct.onlnbl,
+					kna_acct.crcycd,
+					kna_acct.hdmxmy,
+					kna_cust.opensv,
+					'' AS capamt,
+					CASE
+						WHEN fap_accounting_subject.gl_code_level = '4'
+						THEN fap_accounting_subject.upper_lvl_gl_code
+						ELSE fap_accounting_subject.gl_code
+					END acctcd,
+					kna_acct.matudt,
+					knb_opac.opentm,
+					knb_clac.clostm,
+					kna_acct.prodcd,
+					'N' AS isfdep,
+					kna_acct.bgindt,
+					knb_acin.txbefr,
+					''     AS restyp,
+					'OP01' AS sworty,
+					CASE
+						WHEN knb_acin.incdtp = '1'
+						THEN 'RF01'
+						WHEN knb_acin.incdtp = '2'
+						THEN 'RF02'
+						WHEN knb_acin.incdtp = '3'
+						THEN 'RF02'
+					END incdtp,
+					CASE
+						WHEN kna_acct.depttm='000'
+						THEN 'CT01'
+						WHEN kna_acct.depttm='101'
+						THEN 'CT02'
+						WHEN kna_acct.depttm='107'
+						THEN 'CT03'
+						WHEN kna_acct.depttm='201'
+						THEN 'CT04'
+						WHEN kna_acct.depttm='202'
+						THEN 'CT05'
+						WHEN kna_acct.depttm='206'
+						THEN 'CT06'
+						WHEN kna_acct.depttm='301'
+						THEN 'CT07'
+						WHEN kna_acct.depttm='302'
+						THEN 'CT08'
+						WHEN kna_acct.depttm='303'
+						THEN 'CT09'
+						WHEN kna_acct.depttm='305'
+						THEN 'CT10'
+						ELSE 'CT99'
+					END depttm,
+					knb_acin.inprwy,
+					knb_acin.inadlv,
+					kna_acdc.cardno as custac,
+					'IT01' AS geninm,
+					'IA04' AS genter,
+					CASE
+						WHEN kna_acct.debttp = '020401'
+						OR  kna_acct.debttp = '020402'
+						OR  kna_acct.debttp = '020403'
+						THEN '051'
+						WHEN kna_acct.debttp = '020404'
+						THEN '013'
+						WHEN kna_acct.debttp = '020501'
+						THEN '0141'
+						WHEN kna_acct.debttp = '020502'
+						THEN '0142'
+						WHEN kna_acct.debttp = '020503'
+						THEN '0143'
+						WHEN kna_acct.debttp = '020504'
+						THEN '0145'
+						WHEN kna_acct.debttp = '020507'
+						THEN '0144'
+						WHEN kna_acct.debttp = '020505'
+						THEN '02'
+						WHEN kna_acct.debttp = '020506'
+						THEN '03'
+						WHEN kna_acct.debttp = '020507'
+						THEN '014'
+						WHEN kna_acct.debttp = '020509'
+						THEN '014'
+					END debttp,
+					CASE
+						WHEN kna_acct.trsvtp ='1' THEN 'Y'
+						WHEN kna_acct.trsvtp ='2' THEN 'Y'
+						WHEN kna_acct.trsvtp ='4' THEN 'Y'
+						ELSE 'N'
+					END autosf,
+					CASE
+						WHEN kna_acct.trsvtp = '1'
+						THEN '1'
+						WHEN kna_acct.trsvtp = '2'
+						THEN '2'
+						ELSE '3'
+					END trsvtp,
+					CASE
+						WHEN kna_acct.accttp = '1'
+						THEN 'Y'
+						ELSE 'N'
+					END accttp,
+					CASE
+						WHEN kna_acct.csextg = '1'
+						THEN '1'
+						ELSE '0'
+					END csextg,
+					kna_acct.acctna,
+					'' AS purpose,
+					t1.trandt as trantm,
+					kub_inrt.cuusin,
+					kub_inrt.bsintr,
+					CASE
+						WHEN kna_acct.acctst = '1'
+						THEN '0'
+						WHEN kna_acct.acctst = '2'
+						THEN '4'
+						WHEN kna_acct.acctst = '3'
+						THEN '1'
+					END    acccts,
+					''  AS acstad,
+					knb_cbdl.cabrin as planin,
+					kup_intx.taxrat,
+					'' AS acclim,
+					'' AS accrat,
+					knb_acin.intrcd,
+					knb_acin.txbefr,
+					'' AS accmad,
+					'' AS termty,
+					kna_acct.acctno,
+					'0' AS openam,
+					CASE
+						WHEN knb_acin.txbebs='00'
+						THEN '1'
+						WHEN knb_acin.txbebs='10'
+						THEN '2'
+						WHEN knb_acin.txbebs='11'
+						THEN '3'
+					END    txbebs,
+					CASE
+						WHEN m3.LCINDT = #trandt#
+						THEN m3.CABRINT
+						ELSE m3.CABRIN
+					END accint,
+					kup_dppb_draw.drmxtm ,
+					knb_opac.openus ,
+					'' AS acchad ,
+					'' AS demada ,
+					'' AS unpamo
+				FROM
+					kna_acct
+				JOIN
+					knb_acin
+				ON
+					kna_acct.acctno = knb_acin.acctno
+				LEFT JOIN
+					kup_intx
+				ON
+					knb_acin.taxecd = kup_intx.intxcd
+				JOIN
+					kup_dppb_draw
+				ON
+					kna_acct.prodcd = kup_dppb_draw.prodcd
+				JOIN
+					kna_accs
+				ON
+					kna_acct.acctno = kna_accs.acctno
+				join 
+					kna_acdc 
+				on 
+					kna_accs.custac = kna_acdc.custac
+				JOIN
+					kub_inrt
+				ON
+					kub_inrt.acctno = kna_acct.acctno
+				JOIN
+					kna_cust
+				ON
+					kna_cust.custac = kna_accs.custac
+				JOIN
+					knb_opac
+				ON
+					kna_cust.custac = knb_opac.custac
+				LEFT JOIN
+					(
+						SELECT
+							t.*
+						FROM
+							(
+								SELECT
+									a.*,
+									row_number()over(partition BY acctno ORDER BY trandt DESC, trantm DESC) rm
+								FROM
+									knl_bill a )t
+						WHERE
+							t.rm = 1) t1
+				ON
+					kna_acct.acctno = t1.acctno
+				LEFT JOIN
+					knb_clac
+				ON
+					knb_clac.custac = kna_cust.custac
+				JOIN
+					fap_accounting_event_parm
+				ON
+					kna_acct.acctcd = fap_accounting_event_parm.accounting_alias
+				JOIN
+					fap_accounting_subject
+				ON
+					fap_accounting_event_parm.gl_code = fap_accounting_subject.gl_code
+				AND fap_accounting_event_parm.bal_attributes = '0'
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_acct.custno = cif_cust_accs.custno
+				join knb_cbdl on kna_acct.acctno = knb_cbdl.acctno and knb_cbdl.CABRDT = #trandt#
+				join (
+					select
+						m1.acctno,
+						m1.cabrin- nvl(m2.cabrin,0) as cabrin,
+						knb_cbdl.cabrin             as cabrint,
+						knb_acin.lcindt
+					from
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #trandt# )m1
+					left join
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #bflsdt# )m2
+					on
+						m1.acctno = m2.acctno
+					join
+						knb_cbdl
+					on
+						m1.acctno = knb_cbdl.acctno
+					and knb_cbdl.cabrdt = #trandt#
+					join
+						knb_acin
+					on
+						knb_cbdl.acctno = knb_acin.acctno ) m3 on kna_acct.acctno = m3.acctno 
+				 join
+           				 h_kna_acct
+         			 on 
+          				kna_acct.acctno =  h_kna_acct.acctno and h_kna_acct.acctdt = #trandt#
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        	
+	        	SELECT
+					kna_acct.acctno,
+					kna_accs.subsac,
+					CASE
+						WHEN kna_acct.acctst = '6'
+						THEN 'D02'
+						WHEN kna_acct.acctst = '1'
+						THEN 'N'
+						WHEN kna_acct.acctst = '3'
+						THEN 'D01'
+						WHEN kna_acct.acctst = '2'
+						THEN 'C'
+					END acctst ,
+					kna_acct.opendt,
+					kna_acct.closdt,
+					kna_acct.spectp,
+					kna_acct.matudt,
+					CASE
+						WHEN kna_acct.pddpfg = '0205'
+						THEN 'F'
+						WHEN kna_acct.pddpfg = '0204'
+						THEN 'C'
+					END    pddpfg,
+					'N'  AS finfla,
+					'0' AS unfpri,
+					kna_acct.brchno,
+					cif_cust_accs.custcd AS custno,
+					kna_acct.onlnbl,
+					kna_acct.crcycd,
+					kna_acct.hdmxmy,
+					kna_cust.opensv,
+					'' AS capamt,
+					CASE
+						WHEN fap_accounting_subject.gl_code_level = '4'
+						THEN fap_accounting_subject.upper_lvl_gl_code
+						ELSE fap_accounting_subject.gl_code
+					END acctcd,
+					kna_acct.matudt,
+					knb_opac.opentm,
+					knb_clac.clostm,
+					kna_acct.prodcd,
+					'N' AS isfdep,
+					kna_acct.bgindt,
+					knb_acin.txbefr,
+					''     AS restyp,
+					'OP01' AS sworty,
+					CASE
+						WHEN knb_acin.incdtp = '1'
+						THEN 'RF01'
+						WHEN knb_acin.incdtp = '2'
+						THEN 'RF02'
+						WHEN knb_acin.incdtp = '3'
+						THEN 'RF02'
+					END incdtp,
+					CASE
+						WHEN kna_acct.depttm='000'
+						THEN 'CT01'
+						WHEN kna_acct.depttm='101'
+						THEN 'CT02'
+						WHEN kna_acct.depttm='107'
+						THEN 'CT03'
+						WHEN kna_acct.depttm='201'
+						THEN 'CT04'
+						WHEN kna_acct.depttm='202'
+						THEN 'CT05'
+						WHEN kna_acct.depttm='206'
+						THEN 'CT06'
+						WHEN kna_acct.depttm='301'
+						THEN 'CT07'
+						WHEN kna_acct.depttm='302'
+						THEN 'CT08'
+						WHEN kna_acct.depttm='303'
+						THEN 'CT09'
+						WHEN kna_acct.depttm='305'
+						THEN 'CT10'
+						ELSE 'CT99'
+					END depttm,
+					knb_acin.inprwy,
+					knb_acin.inadlv,
+					kna_acdc.cardno as custac,
+					'IT01' AS geninm,
+					'IA04' AS genter,
+					CASE
+						WHEN kna_acct.debttp = '020401'
+						OR  kna_acct.debttp = '020402'
+						OR  kna_acct.debttp = '020403'
+						THEN '051'
+						WHEN kna_acct.debttp = '020404'
+						THEN '013'
+						WHEN kna_acct.debttp = '020501'
+						THEN '0141'
+						WHEN kna_acct.debttp = '020502'
+						THEN '0142'
+						WHEN kna_acct.debttp = '020503'
+						THEN '0143'
+						WHEN kna_acct.debttp = '020504'
+						THEN '0145'
+						WHEN kna_acct.debttp = '020507'
+						THEN '0144'
+						WHEN kna_acct.debttp = '020505'
+						THEN '02'
+						WHEN kna_acct.debttp = '020506'
+						THEN '03'
+						WHEN kna_acct.debttp = '020507'
+						THEN '014'
+						WHEN kna_acct.debttp = '020509'
+						THEN '014'
+					END debttp,
+					CASE
+						WHEN kna_acct.trsvtp ='1' THEN 'Y'
+						WHEN kna_acct.trsvtp ='2' THEN 'Y'
+						WHEN kna_acct.trsvtp ='4' THEN 'Y'
+						ELSE 'N'
+					END autosf,
+					CASE
+						WHEN kna_acct.trsvtp = '1'
+						THEN '1'
+						WHEN kna_acct.trsvtp = '2'
+						THEN '2'
+						ELSE '3'
+					END trsvtp,
+					CASE
+						WHEN kna_acct.accttp = '1'
+						THEN 'Y'
+						ELSE 'N'
+					END accttp,
+					CASE
+						WHEN kna_acct.csextg = '1'
+						THEN '1'
+						ELSE '0'
+					END csextg,
+					kna_acct.acctna,
+					'' AS purpose,
+					t1.trandt as trantm,
+					kub_inrt.cuusin,
+					kub_inrt.bsintr,
+					CASE
+						WHEN kna_acct.acctst = '1'
+						THEN '0'
+						WHEN kna_acct.acctst = '2'
+						THEN '4'
+						WHEN kna_acct.acctst = '3'
+						THEN '1'
+					END    acccts,
+					''  AS acstad,
+					knb_cbdl.cabrin as planin,
+					kup_intx.taxrat,
+					'' AS acclim,
+					'' AS accrat,
+					knb_acin.intrcd,
+					knb_acin.txbefr,
+					'' AS accmad,
+					'' AS termty,
+					kna_acct.acctno,
+					'0' AS openam,
+					CASE
+						WHEN knb_acin.txbebs='00'
+						THEN '1'
+						WHEN knb_acin.txbebs='10'
+						THEN '2'
+						WHEN knb_acin.txbebs='11'
+						THEN '3'
+					END    txbebs,
+					CASE
+						WHEN m3.LCINDT = #trandt#
+						THEN m3.CABRINT
+						ELSE m3.CABRIN
+					END accint,
+					kup_dppb_draw.drmxtm ,
+					knb_opac.openus ,
+					'' AS acchad ,
+					'' AS demada ,
+					'' AS unpamo
+				FROM
+					kna_acct
+				JOIN
+					knb_acin
+				ON
+					kna_acct.acctno = knb_acin.acctno
+				LEFT JOIN
+					kup_intx
+				ON
+					knb_acin.taxecd = kup_intx.intxcd
+				JOIN
+					kup_dppb_draw
+				ON
+					kna_acct.prodcd = kup_dppb_draw.prodcd
+				JOIN
+					kna_accs
+				ON
+					kna_acct.acctno = kna_accs.acctno
+				join 
+					kna_acdc 
+				on 
+					kna_accs.custac = kna_acdc.custac	
+				JOIN
+					kub_inrt
+				ON
+					kub_inrt.acctno = kna_acct.acctno
+				JOIN
+					kna_cust
+				ON
+					kna_cust.custac = kna_accs.custac
+				JOIN
+					knb_opac
+				ON
+					kna_cust.custac = knb_opac.custac
+				LEFT JOIN
+					(
+						SELECT
+							t.*
+						FROM
+							(
+								SELECT
+									a.*,
+									row_number()over(partition BY acctno ORDER BY trandt DESC, trantm DESC) rm
+								FROM
+									knl_bill a )t
+						WHERE
+							t.rm = 1) t1
+				ON
+					kna_acct.acctno = t1.acctno
+				LEFT JOIN
+					knb_clac
+				ON
+					knb_clac.custac = kna_cust.custac
+				JOIN
+					fap_accounting_event_parm
+				ON
+					kna_acct.acctcd = fap_accounting_event_parm.accounting_alias
+				JOIN
+					fap_accounting_subject
+				ON
+					fap_accounting_event_parm.gl_code = fap_accounting_subject.gl_code
+				AND fap_accounting_event_parm.bal_attributes = '0'
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_acct.custno = cif_cust_accs.custno
+				join knb_cbdl on kna_acct.acctno = knb_cbdl.acctno and knb_cbdl.CABRDT = #trandt#
+				join (
+					select
+						m1.acctno,
+						m1.cabrin- nvl(m2.cabrin,0) as cabrin,
+						knb_cbdl.cabrin             as cabrint,
+						knb_acin.lcindt
+					from
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #trandt# )m1
+					left join
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #bflsdt# )m2
+					on
+						m1.acctno = m2.acctno
+					join
+						knb_cbdl
+					on
+						m1.acctno = knb_cbdl.acctno
+					and knb_cbdl.cabrdt = #trandt#
+					join
+						knb_acin
+					on
+						knb_cbdl.acctno = knb_acin.acctno ) m3 on kna_acct.acctno = m3.acctno 
+				 join
+           				 h_kna_acct
+         			 on 
+          				kna_acct.acctno =  h_kna_acct.acctno and h_kna_acct.acctdt = #trandt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+            <parameter property="bflsdt" jdbcType="VARCHAR" javaType="string" mode="in" longname="上日日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbacctInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbAccountMaster" longname="存款主账户信息查询">
+        <sql type="mysql"><![CDATA[
+	        
+	        	SELECT
+				    kna_acdc.cardno,
+				    knb_opac.brchno,
+					knb_opac.openus,
+				    cif_cust_accs.custcd AS custno ,
+				    kna_cust.opendt,
+				    kna_cust.closdt,
+				    CASE
+				        WHEN kna_cust.acctst = '1'
+				        THEN 'N'
+				        WHEN kna_cust.acctst = '2'
+				        THEN 'C'
+				        WHEN kna_cust.acctst = '3'
+				        THEN 'D01'
+				        WHEN kna_cust.acctst = '4'
+				        THEN 'D02'
+				        WHEN kna_cust.acctst = '5'
+				        THEN 'N'
+				    END sunacs,
+				    CASE
+				        WHEN kna_cust.acctst = '1'
+				        THEN '	'
+				        WHEN kna_cust.acctst = '2'
+				        THEN '4'
+				        WHEN kna_cust.acctst = '3'
+				        THEN '7'
+				        WHEN kna_cust.acctst = '4'
+				        THEN '6'
+				        WHEN kna_cust.acctst = '5'
+				        THEN '4'
+				    END    acctst,
+				    '3' AS withdt,
+				    ''  AS mainpt,
+				    ''  AS sperna,
+				    ''  AS sperit,
+				    ''  AS sperid,
+				    CASE
+				        WHEN kna_cust.idckrt = '0'
+				        THEN '01'
+				        WHEN kna_cust.idckrt = '1'
+				        THEN '02'
+				        WHEN kna_cust.idckrt = '2'
+				        THEN '06'
+				    END     idckrt,
+				    '07' AS dealty,
+				    '02' AS verire,
+				    ''   AS verida,
+				    '11' AS idtftp,
+				    cif_cust.idtfno,
+				    knb_opac.openus,
+				    knb_clac.closus,
+				    'C' AS fcflag,
+				    'N' AS actind,
+				    'N' AS onefol,
+				    ''  AS fintyp,
+				    ''  AS finbrt,
+				    ''  AS acctke,
+				    kna_cust.opendt,
+				    CASE
+				        WHEN kna_cust.accttp = '1'
+				        THEN 'Ⅰ'
+				        WHEN kna_cust.accttp = '2'
+				        THEN 'Ⅱ'
+				        WHEN kna_cust.accttp = '3'
+				        THEN 'Ⅲ'
+				    END accttp,
+				    knb_slep.trandt,
+				    knb_disa.bkupdt,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        AND knb_slep.spprst = '1'
+				        THEN knb_slep.userid
+				        ELSE ''
+				    END actiop,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        AND knb_slep.spprst = '1'
+				        THEN knb_slep.brchno
+				        ELSE ''
+				    END actibr,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        AND knb_slep.spprst = '1'
+				        THEN knb_slep.spprdt
+				        ELSE ''
+				    END actida,
+				    CASE
+				        WHEN knb_slep.slepst = '1'
+				        THEN '1'
+				        WHEN knb_disa.procrs = '2'
+				        THEN '2'
+				        ELSE ''
+				    END longsf
+				FROM
+				    kna_acdc
+				JOIN
+				    kna_cust
+				ON
+				    kna_acdc.custac = kna_cust.custac
+				JOIN
+				    knb_opac
+				ON
+				    kna_cust.custac = knb_opac.custac
+				JOIN
+				    cif_cust
+				ON
+				    kna_cust.custno = cif_cust.custno
+				LEFT JOIN
+				    knb_slep
+				ON
+				    knb_slep.custac = kna_cust.custac
+				LEFT JOIN
+				    knb_disa
+				ON
+				    knb_disa.custac = kna_cust.custac
+				LEFT JOIN
+				    knb_clac
+				ON
+				    knb_clac.custac = kna_cust.custac
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_cust.custno = cif_cust_accs.custno
+			
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        	
+	        	SELECT
+				    kna_acdc.cardno,
+				    knb_opac.brchno,
+					knb_opac.openus,
+				    cif_cust_accs.custcd AS custno ,
+				    kna_cust.opendt,
+				    kna_cust.closdt,
+				    CASE
+				        WHEN kna_cust.acctst = '1'
+				        THEN 'N'
+				        WHEN kna_cust.acctst = '2'
+				        THEN 'C'
+				        WHEN kna_cust.acctst = '3'
+				        THEN 'D01'
+				        WHEN kna_cust.acctst = '4'
+				        THEN 'D02'
+				        WHEN kna_cust.acctst = '5'
+				        THEN 'N'
+				    END sunacs,
+				    CASE
+				        WHEN kna_cust.acctst = '1'
+				        THEN '0'
+				        WHEN kna_cust.acctst = '2'
+				        THEN '4'
+				        WHEN kna_cust.acctst = '3'
+				        THEN '7'
+				        WHEN kna_cust.acctst = '4'
+				        THEN '6'
+				        WHEN kna_cust.acctst = '5'
+				        THEN '4'
+				    END    acctst,
+				    '3' AS withdt,
+				    ''  AS mainpt,
+				    ''  AS sperna,
+				    ''  AS sperit,
+				    ''  AS sperid,
+				    CASE
+				        WHEN kna_cust.idckrt = '0'
+				        THEN '01'
+				        WHEN kna_cust.idckrt = '1'
+				        THEN '02'
+				        WHEN kna_cust.idckrt = '2'
+				        THEN '06'
+				    END     idckrt,
+				    '07' AS dealty,
+				    '02' AS verire,
+				    ''   AS verida,
+				    '11' AS idtftp,
+				    cif_cust.idtfno,
+				    knb_opac.openus,
+				    knb_clac.closus,
+				    'C' AS fcflag,
+				    'N' AS actind,
+				    'N' AS onefol,
+				    ''  AS fintyp,
+				    ''  AS finbrt,
+				    ''  AS acctke,
+				    kna_cust.opendt,
+				    CASE
+				        WHEN kna_cust.accttp = '1'
+				        THEN 'Ⅰ'
+				        WHEN kna_cust.accttp = '2'
+				        THEN 'Ⅱ'
+				        WHEN kna_cust.accttp = '3'
+				        THEN 'Ⅲ'
+				    END accttp,
+				    knb_slep.trandt,
+				    knb_disa.bkupdt,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        AND knb_slep.spprst = '1'
+				        THEN knb_slep.userid
+				        ELSE ''
+				    END actiop,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        AND knb_slep.spprst = '1'
+				        THEN knb_slep.brchno
+				        ELSE ''
+				    END actibr,
+				    CASE
+				        WHEN knb_slep.slepst = '2'
+				        AND knb_slep.spprst = '1'
+				        THEN knb_slep.spprdt
+				        ELSE ''
+				    END actida,
+				    CASE
+				        WHEN knb_slep.slepst = '1'
+				        THEN '1'
+				        WHEN knb_disa.procrs = '2'
+				        THEN '2'
+				        ELSE ''
+				    END longsf
+				FROM
+				    kna_acdc
+				JOIN
+				    kna_cust
+				ON
+				    kna_acdc.custac = kna_cust.custac
+				JOIN
+				    knb_opac
+				ON
+				    kna_cust.custac = knb_opac.custac
+				JOIN
+				    cif_cust
+				ON
+				    kna_cust.custno = cif_cust.custno
+				LEFT JOIN
+				    knb_slep
+				ON
+				    knb_slep.custac = kna_cust.custac
+				LEFT JOIN
+				    knb_disa
+				ON
+				    knb_disa.custac = kna_cust.custac
+				LEFT JOIN
+				    knb_clac
+				ON
+				    knb_clac.custac = kna_cust.custac
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_cust.custno = cif_cust_accs.custno
+			
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbaccountmasterInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcFrost" longname="账户冻结信息查询">
+        <sql type="mysql"><![CDATA[
+	        
+	        	SELECT
+				    knb_froz.custac,
+				    knb_froz.frozsq,
+				    kna_acdc.cardno,
+				    knb_froz.frozdt,
+				    knb_froz.frbgdt,
+				    knb_froz.unfrdt,
+				    knb_froz_owne.frozbl,
+				    CASE
+				        WHEN knb_froz.froztp = '1'
+				        THEN 'DS04'
+				        ELSE 'DS03'
+				    END froztp,
+				    cif_cust_accs.custcd AS custno ,
+				    CASE
+				        WHEN knb_froz.froztp = '1'
+				        THEN '1'
+				        ELSE '99'
+				    END oastty,
+				    knb_froz.tranus,
+				    knb_froz.servtp,
+				    knb_froz.tranbr
+				FROM
+				    knb_froz
+				JOIN
+				    knb_froz_owne
+				ON
+				    knb_froz.custac = knb_froz_owne.frowid
+				JOIN
+				    kna_acdc
+				ON
+				    knb_froz.custac = kna_acdc.custac
+				JOIN
+				    kna_cust
+				ON
+				    kna_cust.custac = knb_froz.custac
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_cust.custno = cif_cust_accs.custno
+			
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        	
+	        	SELECT
+				    knb_froz.custac,
+				    knb_froz.frozsq,
+				    kna_acdc.cardno,
+				    knb_froz.frozdt,
+				    knb_froz.frbgdt,
+				    knb_froz.unfrdt,
+				    knb_froz_owne.frozbl,
+				    CASE
+				        WHEN knb_froz.froztp = '1'
+				        THEN 'DS04'
+				        ELSE 'DS03'
+				    END froztp,
+				    cif_cust_accs.custcd AS custno ,
+				    CASE
+				        WHEN knb_froz.froztp = '1'
+				        THEN '1'
+				        ELSE '99'
+				    END oastty,
+				    knb_froz.tranus,
+				    knb_froz.servtp,
+				    knb_froz.tranbr
+				FROM
+				    knb_froz
+				JOIN
+				    knb_froz_owne
+				ON
+				    knb_froz.custac = knb_froz_owne.frowid
+				JOIN
+				    kna_acdc
+				ON
+				    knb_froz.custac = kna_acdc.custac
+				JOIN
+				    kna_cust
+				ON
+				    kna_cust.custac = knb_froz.custac
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_cust.custno = cif_cust_accs.custno
+			
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="sjptdt.acfrostInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcastrict" longname="账户限制信息查询">
+        <sql type="mysql"><![CDATA[
+	        
+	        	SELECT
+				    '1'             AS as_type,
+				    kna_acdc.CARDNO AS custac ,
+				    ''              AS seq_no,
+				    knb_froz.crcycd,
+				    '0' as csextg,
+				    CASE
+				        WHEN knb_froz.frlmtp = '1'
+				        THEN '3'
+				        WHEN knb_froz.frlmtp = '2'
+				        THEN '2'
+				        WHEN knb_froz.frlmtp = '3'
+				        THEN '1'
+				        WHEN knb_froz.frlmtp = '4'
+				        THEN '9'
+				    END frlmtp,
+				    knb_froz.frreas,
+				    knb_froz.servtp
+				FROM
+				    knb_froz
+				JOIN
+				    kna_acdc
+				ON
+				    knb_froz.CUSTAC = kna_acdc.custac
+				WHERE
+				    knb_froz.FROZST = '0'
+			
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        	
+	        	SELECT
+				    '1'             AS as_type,
+				    kna_acdc.CARDNO AS custac ,
+				    ''              AS seq_no,
+				    knb_froz.crcycd,
+				    '0' as csextg,
+				    CASE
+				        WHEN knb_froz.frlmtp = '1'
+				        THEN '3'
+				        WHEN knb_froz.frlmtp = '2'
+				        THEN '2'
+				        WHEN knb_froz.frlmtp = '3'
+				        THEN '1'
+				        WHEN knb_froz.frlmtp = '4'
+				        THEN '9'
+				    END frlmtp,
+				    knb_froz.frreas,
+				    knb_froz.servtp
+				FROM
+				    knb_froz
+				JOIN
+				    kna_acdc
+				ON
+				    knb_froz.CUSTAC = kna_acdc.custac
+				WHERE
+				    knb_froz.FROZST = '0'
+			
+    	]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="sjptdt.acastrictInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbTranhis" longname="定期存款金融交易明细">
+        <sql type="oracle"><![CDATA[
+            
+                SELECT
+				    kns_acsq.transq AS transq,
+				    kns_acsq.tmstmp AS trandt,
+				    CASE
+				        WHEN kns_acsq.atowtp = '7'
+				        THEN 'Y'
+				        ELSE 'N'
+				    END                atowtp,
+				    kns_acsq.toacna AS toacna,
+				    CASE
+				        WHEN knl_bill.strktp = '0'
+				        THEN 'N'
+				        ELSE 'Y'
+				    END             strktp,
+				    ''              AS soumod,
+				    ''              AS agentn,
+				    ''              AS agentc,
+				    ''              AS agentn,
+				    ''              AS agenna,
+				    ''              AS datada,
+				    ''              AS invoft,
+				    ''              AS coubrt,
+				    knl_bill.tranbr AS tranbr,
+				    knl_bill.opbrch AS opbrch,
+				    kns_acsq.crcycd AS crcycd,
+				    cif_cust_accs.custcd AS custno ,
+				    kns_acsq.tranam AS tranam,
+				    kns_acsq.toacct AS toacct,
+				    knl_bill.acctno AS acctno,
+				    ''              AS oppodc,
+				    knl_bill.bankna AS bankna,
+				    case 
+				    	when kns_acsq.amntcd = 'D' then '02'
+				    	else '01'
+				    end amntcd,
+				    'CHN'           AS drtion,
+				    knl_bill.remark AS remark,
+				    '1'             AS inlind,
+				    '0'             AS partct,
+				    '21'            AS trantd,
+				    knl_bill.bankna AS bankna,
+				    'CHN'           AS place,
+				    ''              AS partty,
+				    ''              AS partid,
+				    kns_acsq.bltype AS bltype,
+				    ''              AS partat,
+				    '0'             AS cifcty,
+				    kns_acsq.sortno AS sortno,
+				    cif_cust.custna AS custna,
+				    kna_acdc.cardno AS cardno,
+				    '99'              AS flgflg,
+				    kna_accs.subsac AS subsac,
+				    kns_acsq.servtp AS servtp,
+				    knl_bill.intrcd AS intrcd,
+				    ''              AS termin,
+				    ''              AS mcccod,
+				    ''              AS merchn,
+				    '999999'              AS groupt,
+				    t1.SERVSQ       AS servsq,
+				    knl_bill.origtq AS origtq,
+				    knl_bill.dcbtno AS dcbtno,
+				    knl_bill.dcmttp AS dcmttp,
+				    ''              AS prefip,
+				    knl_bill.userid AS userid,
+				    case 
+			            when kns_acsq.servtp = 'IM' then '13'
+			            else 'Y5'
+			            end otranc,
+				    knl_bill.acctbl AS acctbl,
+				    knl_bill.tranam AS tranam,
+				    ''              AS trandc,
+				    knl_bill.authus AS authus,
+				    knl_bill.corrtg AS corrtg
+				FROM
+				    kns_acsq
+				JOIN
+				    knl_bill
+				ON
+				    kns_acsq.transq = knl_bill.procsq
+				AND kns_acsq.mntrsq = knl_bill.transq and kns_acsq.ACCTNO = knl_bill.ACCTNO AND kns_acsq.tranam = knl_bill.tranam AND (kns_acsq.TOACCT = knl_bill.OPCUAC or (kns_acsq.TOACCT is null and knl_bill.OPCUAC is null))
+				JOIN
+				    kna_fxac
+				ON
+				    knl_bill.ACCTNO = kna_fxac.ACCTNO
+				JOIN
+				    cif_cust
+				ON
+				    kna_fxac.CUSTNO = cif_cust.CUSTNO
+				JOIN
+				    kna_accs
+				ON
+				    kna_fxac.ACCTNO = kna_accs.ACCTNO
+				JOIN
+				    kna_acdc
+				ON
+				    kna_accs.CUSTAC = kna_acdc.CUSTAC
+				LEFT JOIN
+				    (
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'cnap' AS qdbh
+				        FROM
+				            knl_cnapot
+				        UNION
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'iobl'AS qdbh
+				        FROM
+				            knl_iobl
+				        UNION
+				        SELECT
+				            UNISEQ AS SERVSQ,
+				            MNTRSQ AS TRANSQ,
+				            'cuos' AS qdbh
+				        FROM
+				            knl_iobl_cups )t1
+				ON
+				    kns_acsq.mntrsq = t1.TRANSQ
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_fxac.custno = cif_cust_accs.custno	
+				WHERE
+				    kns_acsq.ATSQTP = '0' and kns_acsq.ATOWTP='0' and kns_acsq.trandt = #trandt#
+            
+        ]]></sql>
+        <sql type="mysql"><![CDATA[
+            
+                SELECT
+				    kns_acsq.transq AS transq,
+				    kns_acsq.tmstmp AS trandt,
+				    CASE
+				        WHEN kns_acsq.atowtp = '7'
+				        THEN 'Y'
+				        ELSE 'N'
+				    END                atowtp,
+				    kns_acsq.toacna AS toacna,
+				    CASE
+				        WHEN knl_bill.strktp = '0'
+				        THEN 'N'
+				        ELSE 'Y'
+				    END             strktp,
+				    ''              AS soumod,
+				    ''              AS agentn,
+				    ''              AS agentc,
+				    ''              AS agentn,
+				    ''              AS agenna,
+				    ''              AS datada,
+				    ''              AS invoft,
+				    ''              AS coubrt,
+				    knl_bill.tranbr AS tranbr,
+				    knl_bill.opbrch AS opbrch,
+				    kns_acsq.crcycd AS crcycd,
+				    cif_cust_accs.custcd AS custno ,
+				    kns_acsq.tranam AS tranam,
+				    kns_acsq.toacct AS toacct,
+				    knl_bill.acctno AS acctno,
+				    ''              AS oppodc,
+				    knl_bill.bankna AS bankna,
+				    case 
+				    	when kns_acsq.amntcd = 'D' then '02'
+				    	else '01'
+				    end amntcd,
+				    'CHN'           AS drtion,
+				    knl_bill.remark AS remark,
+				    '1'             AS inlind,
+				    '0'             AS partct,
+				    '21'            AS trantd,
+				    knl_bill.bankna AS bankna,
+				    'CHN'           AS place,
+				    ''              AS partty,
+				    ''              AS partid,
+				    kns_acsq.bltype AS bltype,
+				    ''              AS partat,
+				    '0'             AS cifcty,
+				    kns_acsq.sortno AS sortno,
+				    cif_cust.custna AS custna,
+				    kna_acdc.cardno AS cardno,
+				    '99'              AS flgflg,
+				    kna_accs.subsac AS subsac,
+				    kns_acsq.servtp AS servtp,
+				    knl_bill.intrcd AS intrcd,
+				    ''              AS termin,
+				    ''              AS mcccod,
+				    ''              AS merchn,
+				    '999999'              AS groupt,
+				    t1.SERVSQ       AS servsq,
+				    knl_bill.origtq AS origtq,
+				    knl_bill.dcbtno AS dcbtno,
+				    knl_bill.dcmttp AS dcmttp,
+				    ''              AS prefip,
+				    knl_bill.userid AS userid,
+				    case 
+			            when kns_acsq.servtp = 'IM' then '13'
+			            else 'Y5'
+			            end otranc,
+				    knl_bill.acctbl AS acctbl,
+				    knl_bill.tranam AS tranam,
+				    ''              AS trandc,
+				    knl_bill.authus AS authus,
+				    knl_bill.corrtg AS corrtg
+				FROM
+				    kns_acsq
+				JOIN
+				    knl_bill
+				ON
+				    kns_acsq.transq = knl_bill.procsq
+				AND kns_acsq.mntrsq = knl_bill.transq and kns_acsq.ACCTNO = knl_bill.ACCTNO AND kns_acsq.tranam = knl_bill.tranam AND (kns_acsq.TOACCT = knl_bill.OPCUAC or (kns_acsq.TOACCT is null and knl_bill.OPCUAC is null))
+				JOIN
+				    kna_fxac
+				ON
+				    knl_bill.ACCTNO = kna_fxac.ACCTNO
+				JOIN
+				    cif_cust
+				ON
+				    kna_fxac.CUSTNO = cif_cust.CUSTNO
+				JOIN
+				    kna_accs
+				ON
+				    kna_fxac.ACCTNO = kna_accs.ACCTNO
+				JOIN
+				    kna_acdc
+				ON
+				    kna_accs.CUSTAC = kna_acdc.CUSTAC
+				LEFT JOIN
+				    (
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'cnap' AS qdbh
+				        FROM
+				            knl_cnapot
+				        UNION
+				        SELECT
+				            SERVSQ,
+				            TRANSQ,
+				            'iobl'AS qdbh
+				        FROM
+				            knl_iobl
+				        UNION
+				        SELECT
+				            UNISEQ AS SERVSQ,
+				            MNTRSQ AS TRANSQ,
+				            'cuos' AS qdbh
+				        FROM
+				            knl_iobl_cups )t1
+				ON
+				    kns_acsq.mntrsq = t1.TRANSQ
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_fxac.custno = cif_cust_accs.custno	
+				WHERE
+				    kns_acsq.ATSQTP = '0' and kns_acsq.ATOWTP='0' and kns_acsq.trandt = #trandt#
+            
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbtranhisInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selRbacct" longname="定期存款账户信息查询">
+        <sql type="oracle"><![CDATA[
+        	
+	        	SELECT
+					kna_fxac.acctno,
+					kna_accs.subsac,
+					CASE
+						WHEN kna_fxac.acctst = '6'
+						THEN 'D02'
+						WHEN kna_fxac.acctst = '1'
+						THEN 'N'
+						WHEN kna_fxac.acctst = '3'
+						THEN 'D01'
+						WHEN kna_fxac.acctst = '2'
+						THEN 'C'
+					END acctst ,
+					kna_fxac.opendt,
+					kna_fxac.closdt,
+					kna_fxac.spectp,
+					kna_fxac.matudt,
+					CASE
+						WHEN kna_fxac.pddpfg = '0205'
+						THEN 'F'
+						WHEN kna_fxac.pddpfg = '0204'
+						THEN 'C'
+					END    pddpfg,
+					'N'  AS finfla,
+					'0' AS unfpri,
+					kna_fxac.brchno,
+					cif_cust_accs.custcd AS custno,
+					kna_fxac.onlnbl,
+					kna_fxac.crcycd,
+					kna_fxac.hdmxmy,
+					kna_cust.opensv,
+					'' AS capamt,
+					CASE
+						WHEN fap_accounting_subject.gl_code_level = '4'
+						THEN fap_accounting_subject.upper_lvl_gl_code
+						ELSE fap_accounting_subject.gl_code
+					END acctcd,
+					kna_fxac.matudt,
+					knb_opac.opentm,
+					knb_clac.clostm,
+					kna_fxac.prodcd,
+					'N' AS isfdep,
+					kna_fxac.bgindt,
+					knb_acin.txbefr,
+					''     AS restyp,
+					'OP01' AS sworty,
+					CASE
+						WHEN knb_acin.incdtp = '1'
+						THEN 'RF01'
+						WHEN knb_acin.incdtp = '2'
+						THEN 'RF02'
+						WHEN knb_acin.incdtp = '3'
+						THEN 'RF01'
+					END incdtp,
+					CASE
+						WHEN kna_fxac.depttm='000'
+						THEN 'CT01'
+						WHEN kna_fxac.depttm='101'
+						THEN 'CT02'
+						WHEN kna_fxac.depttm='107'
+						THEN 'CT03'
+						WHEN kna_fxac.depttm='201'
+						THEN 'CT04'
+						WHEN kna_fxac.depttm='202'
+						THEN 'CT05'
+						WHEN kna_fxac.depttm='206'
+						THEN 'CT06'
+						WHEN kna_fxac.depttm='301'
+						THEN 'CT07'
+						WHEN kna_fxac.depttm='302'
+						THEN 'CT08'
+						WHEN kna_fxac.depttm='303'
+						THEN 'CT09'
+						WHEN kna_fxac.depttm='305'
+						THEN 'CT10'
+						ELSE 'CT99'
+					END depttm,
+					knb_acin.inprwy,
+					knb_acin.inadlv,
+					kna_acdc.cardno as custac,
+					'IT01' AS geninm,
+					'IA04' AS genter,
+					CASE
+						WHEN kna_fxac.debttp = '020401'
+						OR  kna_fxac.debttp = '020402'
+						OR  kna_fxac.debttp = '020403'
+						THEN '051'
+						WHEN kna_fxac.debttp = '020404'
+						THEN '013'
+						WHEN kna_fxac.debttp = '020501'
+						THEN '0141'
+						WHEN kna_fxac.debttp = '020502'
+						THEN '0142'
+						WHEN kna_fxac.debttp = '020503'
+						THEN '0143'
+						WHEN kna_fxac.debttp = '020504'
+						THEN '0145'
+						WHEN kna_fxac.debttp = '020507'
+						THEN '0144'
+						WHEN kna_fxac.debttp = '020505'
+						THEN '02'
+						WHEN kna_fxac.debttp = '020506'
+						THEN '03'
+						WHEN kna_fxac.debttp = '020507'
+						THEN '014'
+						WHEN kna_fxac.debttp = '020509'
+						THEN '014'
+					END debttp,
+					CASE
+						WHEN kna_fxac.trsvtp ='1' THEN 'Y'
+						WHEN kna_fxac.trsvtp ='2' THEN 'Y'
+						WHEN kna_fxac.trsvtp ='4' THEN 'Y'
+						ELSE 'N'
+					END autosf,
+					CASE
+						WHEN kna_fxac.trsvtp = '1'
+						THEN '1'
+						WHEN kna_fxac.trsvtp = '2'
+						THEN '2'
+						ELSE '3'
+					END trsvtp,
+					CASE
+						WHEN kna_fxac.accttp = '1'
+						THEN 'Y'
+						ELSE 'N'
+					END accttp,
+					CASE
+						WHEN kna_fxac.csextg = '1'
+						THEN '1'
+						ELSE '0'
+					END csextg,
+					kna_fxac.acctna,
+					'' AS purpose,
+					t1.trandt as trantm,
+					kub_inrt.cuusin,
+					kub_inrt.bsintr,
+					CASE
+						WHEN kna_fxac.acctst = '1'
+						THEN '0'
+						WHEN kna_fxac.acctst = '2'
+						THEN '4'
+						WHEN kna_fxac.acctst = '3'
+						THEN '1'
+					END    acccts,
+					''  AS acstad,
+					knb_cbdl.cabrin as planin,
+					kup_intx.taxrat,
+					'' AS acclim,
+					'' AS accrat,
+					knb_acin.intrcd,
+					knb_acin.txbefr,
+					'' AS accmad,
+					'' AS termty,
+					kna_fxac.acctno,
+					'0' AS openam,
+					CASE
+						WHEN knb_acin.txbebs='00'
+						THEN '1'
+						WHEN knb_acin.txbebs='10'
+						THEN '2'
+						WHEN knb_acin.txbebs='11'
+						THEN '3'
+					END    txbebs,
+					CASE
+						WHEN m3.CABRIN <0
+						THEN 0
+						ELSE m3.CABRIN
+					END accint,
+					kup_dppb_draw.drmxtm ,
+					knb_opac.openus ,
+					'' AS acchad ,
+					'' AS demada ,
+					'' AS unpamo
+				FROM
+					kna_fxac
+				JOIN
+					knb_acin
+				ON
+					kna_fxac.acctno = knb_acin.acctno
+				LEFT JOIN
+					kup_intx
+				ON
+					knb_acin.taxecd = kup_intx.intxcd
+				JOIN
+					kup_dppb_draw
+				ON
+					kna_fxac.prodcd = kup_dppb_draw.prodcd
+				JOIN
+					kna_accs
+				ON
+					kna_fxac.acctno = kna_accs.acctno
+				join 
+					kna_acdc 
+				on 
+					kna_accs.custac = kna_acdc.custac	
+				JOIN
+					kub_inrt
+				ON
+					kub_inrt.acctno = kna_fxac.acctno
+				JOIN
+					kna_cust
+				ON
+					kna_cust.custac = kna_accs.custac
+				JOIN
+					knb_opac
+				ON
+					kna_cust.custac = knb_opac.custac
+				LEFT JOIN
+					(
+						SELECT
+							t.*
+						FROM
+							(
+								SELECT
+									a.*,
+									row_number()over(partition BY acctno ORDER BY trandt DESC, trantm DESC) rm
+								FROM
+									knl_bill a )t
+						WHERE
+							t.rm = 1) t1
+				ON
+					kna_fxac.acctno = t1.acctno
+				LEFT JOIN
+					knb_clac
+				ON
+					knb_clac.custac = kna_cust.custac
+				JOIN
+					fap_accounting_event_parm
+				ON
+					kna_fxac.acctcd = fap_accounting_event_parm.accounting_alias
+				JOIN
+					fap_accounting_subject
+				ON
+					fap_accounting_event_parm.gl_code = fap_accounting_subject.gl_code
+				AND fap_accounting_event_parm.bal_attributes = '0'
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_fxac.custno = cif_cust_accs.custno
+				join knb_cbdl on kna_fxac.acctno = knb_cbdl.acctno and knb_cbdl.CABRDT = #trandt#
+				join (
+					select
+						m1.acctno,
+						m1.cabrin- nvl(m2.cabrin,0) as cabrin,
+						knb_cbdl.cabrin             as cabrint,
+						knb_acin.lcindt
+					from
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #trandt# )m1
+					left join
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #bflsdt# )m2
+					on
+						m1.acctno = m2.acctno
+					join
+						knb_cbdl
+					on
+						m1.acctno = knb_cbdl.acctno
+					and knb_cbdl.cabrdt = #trandt#
+					join
+						knb_acin
+					on
+						knb_cbdl.acctno = knb_acin.acctno ) m3 on kna_fxac.acctno = m3.acctno 
+				 join
+           				 h_kna_fxac
+         			 on 
+          				kna_fxac.acctno =  h_kna_fxac.acctno and h_kna_fxac.acctdt = #trandt#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+        	
+	        	SELECT
+					kna_fxac.acctno,
+					kna_accs.subsac,
+					CASE
+						WHEN kna_fxac.acctst = '6'
+						THEN 'D02'
+						WHEN kna_fxac.acctst = '1'
+						THEN 'N'
+						WHEN kna_fxac.acctst = '3'
+						THEN 'D01'
+						WHEN kna_fxac.acctst = '2'
+						THEN 'C'
+					END acctst ,
+					kna_fxac.opendt,
+					kna_fxac.closdt,
+					kna_fxac.spectp,
+					kna_fxac.matudt,
+					CASE
+						WHEN kna_fxac.pddpfg = '0205'
+						THEN 'F'
+						WHEN kna_fxac.pddpfg = '0204'
+						THEN 'C'
+					END    pddpfg,
+					'N'  AS finfla,
+					'0' AS unfpri,
+					kna_fxac.brchno,
+					cif_cust_accs.custcd AS custno,
+					kna_fxac.onlnbl,
+					kna_fxac.crcycd,
+					kna_fxac.hdmxmy,
+					kna_cust.opensv,
+					'' AS capamt,
+					CASE
+						WHEN fap_accounting_subject.gl_code_level = '4'
+						THEN fap_accounting_subject.upper_lvl_gl_code
+						ELSE fap_accounting_subject.gl_code
+					END acctcd,
+					kna_fxac.matudt,
+					knb_opac.opentm,
+					knb_clac.clostm,
+					kna_fxac.prodcd,
+					'N' AS isfdep,
+					kna_fxac.bgindt,
+					knb_acin.txbefr,
+					''     AS restyp,
+					'OP01' AS sworty,
+					CASE
+						WHEN knb_acin.incdtp = '1'
+						THEN 'RF01'
+						WHEN knb_acin.incdtp = '2'
+						THEN 'RF02'
+						WHEN knb_acin.incdtp = '3'
+						THEN 'RF01'
+					END incdtp,
+					CASE
+						WHEN kna_fxac.depttm='000'
+						THEN 'CT01'
+						WHEN kna_fxac.depttm='101'
+						THEN 'CT02'
+						WHEN kna_fxac.depttm='107'
+						THEN 'CT03'
+						WHEN kna_fxac.depttm='201'
+						THEN 'CT04'
+						WHEN kna_fxac.depttm='202'
+						THEN 'CT05'
+						WHEN kna_fxac.depttm='206'
+						THEN 'CT06'
+						WHEN kna_fxac.depttm='301'
+						THEN 'CT07'
+						WHEN kna_fxac.depttm='302'
+						THEN 'CT08'
+						WHEN kna_fxac.depttm='303'
+						THEN 'CT09'
+						WHEN kna_fxac.depttm='305'
+						THEN 'CT10'
+						ELSE 'CT99'
+					END depttm,
+					knb_acin.inprwy,
+					knb_acin.inadlv,
+					kna_acdc.cardno as custac,
+					'IT01' AS geninm,
+					'IA04' AS genter,
+					CASE
+						WHEN kna_fxac.debttp = '020401'
+						OR  kna_fxac.debttp = '020402'
+						OR  kna_fxac.debttp = '020403'
+						THEN '051'
+						WHEN kna_fxac.debttp = '020404'
+						THEN '013'
+						WHEN kna_fxac.debttp = '020501'
+						THEN '0141'
+						WHEN kna_fxac.debttp = '020502'
+						THEN '0142'
+						WHEN kna_fxac.debttp = '020503'
+						THEN '0143'
+						WHEN kna_fxac.debttp = '020504'
+						THEN '0145'
+						WHEN kna_fxac.debttp = '020507'
+						THEN '0144'
+						WHEN kna_fxac.debttp = '020505'
+						THEN '02'
+						WHEN kna_fxac.debttp = '020506'
+						THEN '03'
+						WHEN kna_fxac.debttp = '020507'
+						THEN '014'
+						WHEN kna_fxac.debttp = '020509'
+						THEN '014'
+					END debttp,
+					CASE
+						WHEN kna_fxac.trsvtp ='1' THEN 'Y'
+						WHEN kna_fxac.trsvtp ='2' THEN 'Y'
+						WHEN kna_fxac.trsvtp ='4' THEN 'Y'
+						ELSE 'N'
+					END autosf,
+					CASE
+						WHEN kna_fxac.trsvtp = '1'
+						THEN '1'
+						WHEN kna_fxac.trsvtp = '2'
+						THEN '2'
+						ELSE '3'
+					END trsvtp,
+					CASE
+						WHEN kna_fxac.accttp = '1'
+						THEN 'Y'
+						ELSE 'N'
+					END accttp,
+					CASE
+						WHEN kna_fxac.csextg = '1'
+						THEN '1'
+						ELSE '0'
+					END csextg,
+					kna_fxac.acctna,
+					'' AS purpose,
+					t1.trandt as trantm,
+					kub_inrt.cuusin,
+					kub_inrt.bsintr,
+					CASE
+						WHEN kna_fxac.acctst = '1'
+						THEN '0'
+						WHEN kna_fxac.acctst = '2'
+						THEN '4'
+						WHEN kna_fxac.acctst = '3'
+						THEN '1'
+					END    acccts,
+					''  AS acstad,
+					knb_cbdl.cabrin as planin,
+					kup_intx.taxrat,
+					'' AS acclim,
+					'' AS accrat,
+					knb_acin.intrcd,
+					knb_acin.txbefr,
+					'' AS accmad,
+					'' AS termty,
+					kna_fxac.acctno,
+					'0' AS openam,
+					CASE
+						WHEN knb_acin.txbebs='00'
+						THEN '1'
+						WHEN knb_acin.txbebs='10'
+						THEN '2'
+						WHEN knb_acin.txbebs='11'
+						THEN '3'
+					END    txbebs,
+					CASE
+						WHEN m3.CABRIN <0
+						THEN 0
+						ELSE m3.CABRIN
+					END accint,
+					kup_dppb_draw.drmxtm ,
+					knb_opac.openus ,
+					'' AS acchad ,
+					'' AS demada ,
+					'' AS unpamo
+				FROM
+					kna_fxac
+				JOIN
+					knb_acin
+				ON
+					kna_fxac.acctno = knb_acin.acctno
+				LEFT JOIN
+					kup_intx
+				ON
+					knb_acin.taxecd = kup_intx.intxcd
+				JOIN
+					kup_dppb_draw
+				ON
+					kna_fxac.prodcd = kup_dppb_draw.prodcd
+				JOIN
+					kna_accs
+				ON
+					kna_fxac.acctno = kna_accs.acctno
+				join 
+					kna_acdc 
+				on 
+					kna_accs.custac = kna_acdc.custac	
+				JOIN
+					kub_inrt
+				ON
+					kub_inrt.acctno = kna_fxac.acctno
+				JOIN
+					kna_cust
+				ON
+					kna_cust.custac = kna_accs.custac
+				JOIN
+					knb_opac
+				ON
+					kna_cust.custac = knb_opac.custac
+				LEFT JOIN
+					(
+						SELECT
+							t.*
+						FROM
+							(
+								SELECT
+									a.*,
+									row_number()over(partition BY acctno ORDER BY trandt DESC, trantm DESC) rm
+								FROM
+									knl_bill a )t
+						WHERE
+							t.rm = 1) t1
+				ON
+					kna_fxac.acctno = t1.acctno
+				LEFT JOIN
+					knb_clac
+				ON
+					knb_clac.custac = kna_cust.custac
+				JOIN
+					fap_accounting_event_parm
+				ON
+					kna_fxac.acctcd = fap_accounting_event_parm.accounting_alias
+				JOIN
+					fap_accounting_subject
+				ON
+					fap_accounting_event_parm.gl_code = fap_accounting_subject.gl_code
+				AND fap_accounting_event_parm.bal_attributes = '0'
+				JOIN
+                    cif_cust_accs
+                ON
+                    kna_fxac.custno = cif_cust_accs.custno
+				join knb_cbdl on kna_fxac.acctno = knb_cbdl.acctno and knb_cbdl.CABRDT = #trandt#
+				join (
+					select
+						m1.acctno,
+						m1.cabrin- nvl(m2.cabrin,0) as cabrin,
+						knb_cbdl.cabrin             as cabrint,
+						knb_acin.lcindt
+					from
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #trandt# )m1
+					left join
+						(
+							select
+								acctno,
+								cabrdt,
+								cabrin
+							from
+								knb_cbdl
+							where
+								cabrdt = #bflsdt# )m2
+					on
+						m1.acctno = m2.acctno
+					join
+						knb_cbdl
+					on
+						m1.acctno = knb_cbdl.acctno
+					and knb_cbdl.cabrdt = #trandt#
+					join
+						knb_acin
+					on
+						knb_cbdl.acctno = knb_acin.acctno ) m3 on kna_fxac.acctno = m3.acctno 
+				 join
+           				 h_kna_fxac
+         			 on 
+          				kna_fxac.acctno =  h_kna_fxac.acctno and h_kna_fxac.acctdt = #trandt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="日期" parameterType="condition"/>
+            <parameter property="bflsdt" jdbcType="VARCHAR" javaType="string" mode="in" longname="上日日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="sjptdt.rbacctInfo"/>
+    </select>
+</sqls>

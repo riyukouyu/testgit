@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="glknaacct" longname="内部户账户表数仓抽数" kind="write" package="cn.sunline.ltts.busi.inltran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knspayd" longname="内部户账户表数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" longname="内部户帐号" length="80" leftPadding="false" padding=" " ref="InDict.inac.acctno"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" longname="内部户名称" length="160" leftPadding="false" padding=" " ref="InDict.inac.acctna"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="账户所属" length="12" leftPadding="false" padding=" " ref="InDict.inac.brchno"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="inactp" type="BaseEnumType.E_INACTP" longname="内部户账户类型" length="2" leftPadding="false" padding=" " ref="InDict.inac.inactp"/>
+            <field id="busino" type="BaseType.U_BUSINO" longname="业务编码" length="60" leftPadding="false" padding=" " ref="PbDict.Dcmt.busino"/>
+            <field id="openbr" type="BaseType.U_BRCHNO" longname="开户机构" length="12" leftPadding="false" padding=" " ref="InDict.inac.openbr"/>
+            <field id="opendt" type="BaseType.U_DATE08" longname="开户日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.opendt"/>
+            <field id="optrsq" type="BaseType.U_SEQUNO" longname="开户流水号" length="64" leftPadding="false" padding=" " ref="InDict.inac.optrsq"/>
+            <field id="lstrdt" type="BaseType.U_DATE08" longname="最后交易日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.lstrdt"/>
+            <field id="lstrsq" type="BaseType.U_SEQUNO" longname="最后交易流水" length="64" leftPadding="false" padding=" " ref="InDict.inac.lstrsq"/>
+            <field id="closdt" type="BaseType.U_DATE08" longname="销户日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.closdt"/>
+            <field id="cltrsq" type="BaseType.U_SEQUNO" longname="销户流水号" length="64" leftPadding="false" padding=" " ref="InDict.inac.cltrsq"/>
+            <field id="ioflag" type="InEnumType.E_IOFLAG" longname="表内外标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.ioflag"/>
+            <field id="blncdn" type="InEnumType.E_BLNCDN" longname="余额方向CDR" length="2" leftPadding="false" padding=" " ref="InDict.inac.blncdn"/>
+            <field id="drctbl" type="BaseType.U_ACBLTP" longname="联机借方余额" length="17" leftPadding="false" padding=" " ref="InDict.inac.drctbl"/>
+            <field id="crctbl" type="BaseType.U_ACBLTP" longname="联机贷方余额" length="17" leftPadding="false" padding=" " ref="InDict.inac.crctbl"/>
+            <field id="acctst" type="InEnumType.E_INACST" longname="账户状态" length="2" leftPadding="false" padding=" " ref="InDict.inac.acctst"/>
+            <field id="busidn" type="InEnumType.E_BLNCDN" longname="业务代码方向" length="2" leftPadding="false" padding=" " ref="InDict.inac.busidn"/>
+            <field id="itemcd" type="BaseType.U_ITEMCD" longname="科目" length="40" leftPadding="false" padding=" " ref="InDict.inac.itemcd"/>
+            <field id="subsac" type="BaseType.U_CUACNO" longname="子户号" length="64" leftPadding="false" padding=" " ref="InDict.inac.subsac"/>
+            <field id="pmodtg" type="BaseEnumType.E_YES___" longname="透支许可" length="2" leftPadding="false" padding=" " ref="InDict.inac.pmodtg"/>
+            <field id="kpacfg" type="InEnumType.E_KPACFG" longname="记账控制" length="2" leftPadding="false" padding=" " ref="InDict.inac.kpacfg"/>
+            <field id="dredbl" type="BaseType.U_ACBLTP" longname="当日借方余额" length="17" leftPadding="false" padding=" " ref="InDict.inac.dredbl"/>
+            <field id="credbl" type="BaseType.U_ACBLTP" longname="当日贷方余额" length="17" leftPadding="false" padding=" " ref="InDict.inac.credbl"/>
+            <field id="ispaya" type="InEnumType.E_ISPAYA" longname="是否采用销账管理 " length="2" leftPadding="false" padding=" " ref="InDict.inac.ispaya"/>
+            <field id="rlbltg" type="InEnumType.E_RLBLTG" longname="余额更新方式" length="2" leftPadding="false" padding=" " ref="InDict.inac.rlbltg"/>
+            <field id="kpacbr" type="BaseType.U_BRCHNO" longname="核算机构" length="12" leftPadding="false" padding=" " ref="InDict.inac.kpacbr"/>
+            <field id="busitp" type="InEnumType.E_BUSITP" longname="核算属性" length="2" leftPadding="false" padding=" " ref="InDict.inac.busitp"/>
+            <field id="isbein" type="BaseEnumType.E_YES___" longname="计息标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.isbein"/>
+            <field id="beintp" type="InEnumType.E_BEINTP" longname="结清方式" length="2" leftPadding="false" padding=" " ref="InDict.inac.beintp"/>
+            <field id="cractp" type="InEnumType.E_CRACTP" longname="冲销标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.cractp"/>
+            <field id="ovmony" type="BaseType.U_ACBLTP" longname="透支限额" length="17" leftPadding="false" padding=" " ref="InDict.inac.ovmony"/>
+            <field id="inrate" type="BaseType.U_INSTRT" longname="利率" length="9" leftPadding="false" padding=" " ref="InDict.inac.inrate"/>
+            <field id="ovrate" type="BaseType.U_INSTRT" longname="透支利率" length="9" leftPadding="false" padding=" " ref="InDict.inac.ovrate"/>
+            <field id="reveac" type="BaseType.U_ACCTNO" longname="收息账号" length="80" leftPadding="false" padding=" " ref="InDict.inac.reveac"/>
+            <field id="paymac" type="BaseType.U_ACCTNO" longname="付息账号" length="80" leftPadding="false" padding=" " ref="InDict.inac.paymac"/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

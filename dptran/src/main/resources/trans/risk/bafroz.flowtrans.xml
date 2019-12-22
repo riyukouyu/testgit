@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="bafroz" longname="批量冻结" kind="2" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <fields id="knbAply" required="false" multi="true" longname="批量冻结复合类型" array="false">
+                <field id="aplyno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="申请编号" ref="DpRiskDict.Aply.aplyno"/>
+                <field id="aplyid" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="申请冻结账户" ref="DpRiskDict.Aply.aplyid"/>
+                <field id="frozam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冻结总金额" ref="DpRiskDict.Aply.frozam"/>
+                <field id="frozbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="剩余冻结金额" ref="DpRiskDict.Aply.frozbl"/>
+                <field id="froztp" type="DpEnumType.E_FROZTP" required="false" default="'11'" multi="false" array="false" longname="冻结业务类型" ref="DpRiskDict.Aply.froztp"/>
+                <field id="frozow" type="JFBaseEnumType.E_STACTP" required="false" multi="false" array="false" longname="冻结主体类型" ref="DpRiskDict.Aply.frozow"/>
+                <field id="frreas" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="冻结原因" ref="DpRiskDict.Aply.frreas"/>
+                <field id="frexog" type="DpRiskEnumType.E_FREXOG" required="false" multi="false" array="false" longname="冻结申请部门" ref="DpRiskDict.Aply.frexog"/>
+                <field id="enuser" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="录入柜员" ref="DpRiskDict.Aply.enuser"/>
+                <field id="entime" type="ApBaseType.U_TMSTMP" required="false" multi="false" array="false" longname="录入时间" ref="DpRiskDict.Aply.entime"/>
+                <field id="operator" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="操作人" ref="DpRiskDict.Aply.operator"/>
+                <field id="optime" type="ApBaseType.U_TMSTMP" required="false" multi="false" array="false" longname="操作时间" ref="DpRiskDict.Aply.optime"/>
+                <field id="retrsq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="收单交易流水" ref="DpRiskDict.Aply.retrsq"/>
+                <field id="retrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="收单交易日期" ref="DpRiskDict.Aply.retrdt"/>
+                <field id="refeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="参考号" ref="DpRiskDict.Aply.refeno"/>
+                <field id="frbgdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冻结起始日期" ref="DpRiskDict.Aply.frbgdt"/>
+                <field id="freddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冻结终止日期" ref="DpRiskDict.Aply.freddt"/>
+                <field id="frtime" type="ApBaseType.U_TMSTMP" required="false" multi="false" array="false" longname="冻结时间" ref="DpRiskDict.Aply.frtime"/>
+                <field id="lttscd" type="BaseType.U_LTTSCD" required="false" multi="false" array="false" longname="内部交易码" ref="DpRiskDict.Aply.lttscd"/>
+                <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" ref="DpRiskDict.Aply.mntrsq"/>
+                <field id="frapst" type="DpRiskEnumType.E_FRAPST" required="false" multi="false" array="false" longname="冻结状态" ref="DpRiskDict.Aply.frapst"/>
+                <field id="remark" type="BaseType.U_SHORTS" required="false" multi="false" array="false" longname="备注" ref="DpRiskDict.Aply.remark"/>
+                <field id="unfrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="解冻日期" ref="DpRiskDict.Aply.unfrdt"/>
+                <field id="bradna" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="品牌名称" ref="DpRiskDict.Aply.bradna"/>
+                <field id="sbrand" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="支付机构号" ref="DpRiskDict.Aply.sbrand"/>
+                <field id="tmidtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="脱敏身份证" ref="DpRiskDict.Aply.tmidtfno"/>
+                <field id="tmmobile" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="脱敏手机号" ref="DpRiskDict.Aply.tmmobile"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="sucessCount" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="成功笔数"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="DpRiskService.BatchFroz" id="BatchFroz" longname="批量冻结">
+            <in_mappings by_interface="true">
+                <mapping src="knbAply" dest="knbAply" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="sucessCount" dest="sucessCount" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

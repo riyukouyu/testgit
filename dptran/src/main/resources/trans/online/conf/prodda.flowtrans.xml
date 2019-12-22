@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="prodda" longname="存款产品详细查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[存款产品详细查询]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <field id="detailInfo" type="IoDpProdParts.IoDpDetailInfo" required="false" multi="false" array="false" longname="存款产品详细信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="DpProdSvcType.QryDpProdDetailInfo" id="QryDpProdDetailInfo" longname="存款产品详细信息查询" desc="存款产品详细信息查询">
+            <in_mappings by_interface="true">
+                <mapping src="prodcd" dest="prodcd" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="detailInfo.acctInfo.acctcd" dest="detailInfo.acctInfo.acctcd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.accatp" dest="detailInfo.baseInfo.accatp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.acolfg" dest="detailInfo.baseInfo.acolfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.brchfg" dest="detailInfo.baseInfo.brchfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.busifi" dest="detailInfo.baseInfo.busifi" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.busime" dest="detailInfo.baseInfo.busime" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.busism" dest="detailInfo.baseInfo.busism" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.cacttp" dest="detailInfo.baseInfo.cacttp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.dfctdt" dest="detailInfo.baseInfo.dfctdt" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.inefdt" dest="detailInfo.baseInfo.inefdt" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.isdrft" dest="detailInfo.baseInfo.isdrft" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.pdcrcy" dest="detailInfo.baseInfo.pdcrcy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.prentp" dest="detailInfo.baseInfo.prentp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.prodst" dest="detailInfo.baseInfo.prodst" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.prodtg" dest="detailInfo.baseInfo.prodtg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.prodtx" dest="detailInfo.baseInfo.prodtx" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.baseInfo.protno" dest="detailInfo.baseInfo.protno" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.madtby" dest="detailInfo.custInfo.madtby" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.mgindy" dest="detailInfo.custInfo.mgindy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.mginfg" dest="detailInfo.custInfo.mginfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.onlyfg" dest="detailInfo.custInfo.onlyfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.srdpam" dest="detailInfo.custInfo.srdpam" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.stepvl" dest="detailInfo.custInfo.stepvl" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.custInfo.tmInfo" dest="detailInfo.custInfo.tmInfo" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.dfirInfo" dest="detailInfo.dfirInfo" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.ctrlwy" dest="detailInfo.drawInfo.ctrlwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.dramwy" dest="detailInfo.drawInfo.dramwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drawtp" dest="detailInfo.drawInfo.drawtp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drmiam" dest="detailInfo.drawInfo.drmiam" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drmitm" dest="detailInfo.drawInfo.drmitm" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drmxam" dest="detailInfo.drawInfo.drmxam" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drmxtm" dest="detailInfo.drawInfo.drmxtm" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drrule" dest="detailInfo.drawInfo.drrule" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.drtmwy" dest="detailInfo.drawInfo.drtmwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.miblfg" dest="detailInfo.drawInfo.miblfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drawInfo.minibl" dest="detailInfo.drawInfo.minibl" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drplInfo.beinfg" dest="detailInfo.drplInfo.beinfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drplInfo.drawpd" dest="detailInfo.drplInfo.drawpd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drplInfo.drawwy" dest="detailInfo.drplInfo.drawwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drplInfo.drcrwy" dest="detailInfo.drplInfo.drcrwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drplInfo.drdfsd" dest="detailInfo.drplInfo.drdfsd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.drplInfo.drdfwy" dest="detailInfo.drplInfo.drdfwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.bldyca" dest="detailInfo.intrInfo.bldyca" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.cycltp" dest="detailInfo.intrInfo.cycltp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.hutxfg" dest="detailInfo.intrInfo.hutxfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.inadlv" dest="detailInfo.intrInfo.inadlv" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.inammd" dest="detailInfo.intrInfo.inammd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.inbefg" dest="detailInfo.intrInfo.inbefg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.incdtp" dest="detailInfo.intrInfo.incdtp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.inprwy" dest="detailInfo.intrInfo.inprwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.intrcd" dest="detailInfo.intrInfo.intrcd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.intrdt" dest="detailInfo.intrInfo.intrdt" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.intrtp" dest="detailInfo.intrInfo.intrtp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.intrwy" dest="detailInfo.intrInfo.intrwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.inwytp" dest="detailInfo.intrInfo.inwytp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.isrgdt" dest="detailInfo.intrInfo.isrgdt" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.levety" dest="detailInfo.intrInfo.levety" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.lydttp" dest="detailInfo.intrInfo.lydttp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.lyinwy" dest="detailInfo.intrInfo.lyinwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.reprwy" dest="detailInfo.intrInfo.reprwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.taxecd" dest="detailInfo.intrInfo.taxecd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.tebehz" dest="detailInfo.intrInfo.tebehz" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.txbebs" dest="detailInfo.intrInfo.txbebs" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.txbefg" dest="detailInfo.intrInfo.txbefg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.intrInfo.txbefr" dest="detailInfo.intrInfo.txbefr" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.delyfg" dest="detailInfo.matuInfo.delyfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.festdl" dest="detailInfo.matuInfo.festdl" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.matupd" dest="detailInfo.matuInfo.matupd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.trdpfg" dest="detailInfo.matuInfo.trdpfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.trinwy" dest="detailInfo.matuInfo.trinwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.trpdfg" dest="detailInfo.matuInfo.trpdfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.trprod" dest="detailInfo.matuInfo.trprod" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.trprtm" dest="detailInfo.matuInfo.trprtm" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.matuInfo.trprwy" dest="detailInfo.matuInfo.trprwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.dfltsd" dest="detailInfo.poplInfo.dfltsd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.dfltwy" dest="detailInfo.poplInfo.dfltwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.gentpd" dest="detailInfo.poplInfo.gentpd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.gentwy" dest="detailInfo.poplInfo.gentwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.maxisp" dest="detailInfo.poplInfo.maxisp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.planfg" dest="detailInfo.poplInfo.planfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.psamtp" dest="detailInfo.poplInfo.psamtp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.pscrwy" dest="detailInfo.poplInfo.pscrwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.svlepd" dest="detailInfo.poplInfo.svlepd" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.svletm" dest="detailInfo.poplInfo.svletm" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.poplInfo.svlewy" dest="detailInfo.poplInfo.svlewy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.amntwy" dest="detailInfo.postInfo.amntwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.detlfg" dest="detailInfo.postInfo.detlfg" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.maxiam" dest="detailInfo.postInfo.maxiam" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.maxibl" dest="detailInfo.postInfo.maxibl" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.maxitm" dest="detailInfo.postInfo.maxitm" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.miniam" dest="detailInfo.postInfo.miniam" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.minitm" dest="detailInfo.postInfo.minitm" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.posttp" dest="detailInfo.postInfo.posttp" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.postwy" dest="detailInfo.postInfo.postwy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.postInfo.timewy" dest="detailInfo.postInfo.timewy" by_interface="true" on_top="true"/>
+                <mapping src="detailInfo.prodcd" dest="detailInfo.prodcd" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

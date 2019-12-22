@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="selclr" longname="银联清算核准统计查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="bmdptp" type="DpEnumType.E_BMDPTP" required="false" fixed="" default="" multi="false" array="false" longname="统计模块" desc="" ref=""/>
+            <field id="stardt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="开始日期" desc="" ref=""/>
+            <field id="endtdt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="结束日期" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="clerList" type="IoDpCapital.SelClrClerList" required="false" fixed="" default="" multi="true" array="false" longname="网络核心未清算汇总" desc="" ref=""/>
+            <field id="bmdpList" type="IoDpCapital.SelClrBmdpList" required="false" fixed="" default="" multi="true" array="false" longname="银联业务资金清算汇总" desc="" ref=""/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="selClr" id="selClr" test="" longname="银联清算核准统计查询" desc=""/>
+    </flow>
+</flowtran>

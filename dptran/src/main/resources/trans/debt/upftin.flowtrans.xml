@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="upftin" longname="银联入金通知登记" kind="3" package="cn.sunline.ltts.busi.dptran.trans.debt" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.debt.intf">
+        <input packMode="true">
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="PbDict.Intr.crcycd"/>
+            <field id="tranam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="交易金额" ref="InDict.inac.tranam"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="客户帐号(电子帐号)"/>
+            <field id="fronsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="前置流水"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="前置日期"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="对方卡号"/>
+            <field id="acctnm" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期" ref="DpDict.Acct.keepdt"/>
+            <field id="tranfe" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="费用"/>
+            <field id="transt" type="BaseEnumType.E_TRANST" required="false" multi="false" array="false" longname="交易状态"/>
+            <field id="linkno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="连笔号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false">
+            <field id="fromtp" type="DpEnumType.E_FROMTP" required="false" fixed="'A'" multi="false" array="false" longname="出入金类型" desc="固定值银联"/>
+            <field id="prcscd" type="BaseType.U_PRCSCD" required="false" fixed="'upftin'" multi="false" array="false" longname="交易码" desc="固定值"/>
+            <field id="ioflag" type="BaseType.U_PRCSCD" required="false" fixed="'I'" multi="false" array="false" longname="出入金标志" desc="入金"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoSaveIoTransBill.SaveIoBill" id="saveIoBill" longname="登记出入金记录" desc="登记出入金记录">
+            <in_mappings by_interface="true">
+                <mapping src="acctnm" dest="acctnm" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cuacno" by_interface="true" on_top="true"/>
+                <mapping src="fromtp" dest="fromtp" by_interface="true" on_top="true"/>
+                <mapping src="frondt" dest="frondt" by_interface="true" on_top="true"/>
+                <mapping src="fronsq" dest="fronsq" by_interface="true" on_top="true"/>
+                <mapping src="ioflag" dest="ioflag" by_interface="true" on_top="true"/>
+                <mapping src="prcscd" dest="prcscd" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+                <mapping src="transt" dest="transt" by_interface="true" on_top="true"/>
+                <mapping src="keepdt" dest="keepdt" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="clmesg" longname="查证后销户消息通知客户信息系统" kind="2" package="cn.sunline.ltts.busi.dptran.trans.close" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查证后销户消息通知客户信息系统]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.close.intf">
+        <input packMode="false">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="交易卡号" ref="BaseDict.Comm.cardno"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="sendClMesg" id="sendClMesg" longname="查证后发送销户消息到客户信息系统"/>
+    </flow>
+</flowtran>

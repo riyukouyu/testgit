@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType id="FeChrgSvcType" kind="business" longname="计费内部服务" package="cn.sunline.ltts.busi.fe.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[包含按事件收费，收费代码收费，欠费收费，场景收费，计费视图]]></description>
+    <service id="CgCjCalChrg" name="CjCalChrg" longname="计费场景试算">
+        <interface>
+            <input packMode="true">
+                <field id="elecac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="FeDict.Chrg.elecac"/>
+                <field id="modtyp" type="FeEnumType.E_MODUTP" required="false" multi="false" array="false" longname="所属模块" ref="FeDict.Chrg.modtyp"/>
+                <field id="custno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="客户号" ref="FeDict.Chrg.custno"/>
+                <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="客户账号" ref="FeDict.Chrg.custac"/>
+                <field id="scencd" type="FeBaseType.U_SCENCD" required="false" multi="false" array="false" longname="场景代码" ref="FeDict.Chrg.scencd"/>
+                <field id="trancy" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="交易币种" ref="FeDict.Chrg.trancy"/>
+                <field id="csexfg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志" ref="FeDict.Chrg.csexfg"/>
+                <field id="seqnum" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="顺序号" ref="FeDict.Chrg.seqnum"/>
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+                <field id="dcmttp" type="BaseType.U_DCMTTP" required="false" multi="false" array="false" longname="凭证种类" ref="FeDict.Chrg.dcmttp"/>
+                <field id="tranam" type="FeBaseType.U_ANUM" required="false" multi="false" array="false" longname="交易金额" ref="FeDict.Chrg.tranam"/>
+                <field id="amount" type="FeBaseType.U_LONGIN" required="false" multi="false" array="false" longname="数量" ref="FeDict.Chrg.amount"/>
+                <field id="chevno" type="BaseType.U_CHAR300" required="false" multi="false" array="false" longname="收费事件编号" ref="FeDict.Chrg.chevno"/>
+                <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+                <field id="chgflg" type="PbEnumType.E_CHGFLG" required="false" multi="false" array="false" longname="记账标志"/>
+                <field id="chrgpd" type="FeBaseType.U_WEEKPD" required="false" multi="false" array="false" longname="收费周期" ref="FeDict.Chrg.chrgpd"/>
+                <field id="lastdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="上一扣费日期" ref="FeDict.Chrg.lastdt"/>
+                <field id="chrgcy" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="收费币种" ref="FeDict.Chrg.chrgcy"/>
+                <field id="spcham" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="指定收费金额" ref="FeDict.Chrg.spcham"/>
+                <field id="dvidam" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="收费分成金额" ref="FeDict.Chrg.dvidam"/>
+                <field id="cstrfg" type="BaseEnumType.E_CSTRFG" required="false" multi="false" array="false" longname="现转标志" ref="BaseDict.Comm.cstrfg"/>
+                <field id="csprcd" type="PbEnumType.E_CSPRCD" required="false" multi="false" array="false" longname="现金项目代码"/>
+                <field id="totflg" type="FeEnumType.E_YES___" required="false" multi="false" array="false" longname="是否汇总记账标志" ref="FeDict.Chrg.totflg"/>
+                <field id="chrgsr" type="FeEnumType.E_CHRGSR" required="false" multi="false" array="false" longname="收费金额来源" ref="FeDict.Chrg.chrgsr"/>
+                <field id="tranbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="交易机构" ref="FeDict.Chrg.tranbr"/>
+                <field id="oubrno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转出行机构号" ref="FeDict.Chrg.oubrno"/>
+                <field id="inbrno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转入行机构号" ref="FeDict.Chrg.inbrno"/>
+                <field id="smrycd" type="FeBaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="FeDict.Chrg.smrycd"/>
+                <field id="smryds" type="FeBaseType.U_SMRYDS" required="false" multi="false" array="false" longname="摘要描述" ref="FeDict.Chrg.smryds"/>
+                <field id="remark" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="备注信息" ref="FeDict.Chrg.remark"/>
+                <field id="accgac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="实际扣费账号" ref="FeDict.Chrg.accgac"/>
+                <field id="cgsbsq" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="扣费子账户序号" ref="FeDict.Chrg.cgsbsq"/>
+                <field id="accgcy" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="实际扣费币种" ref="FeDict.Chrg.accgcy"/>
+                <field id="cgcsfg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="扣费钞汇标志" ref="FeDict.Chrg.cgcsfg"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="scencd" type="FeBaseType.U_SCENCD" required="false" multi="false" array="false" longname="场景代码" ref="FeDict.Chrg.scencd"/>
+                <field id="scends" type="FeBaseType.U_LONGDS" required="false" multi="false" array="false" longname="场景名称" ref="FeDict.Chrg.scends"/>
+                <field id="recvam" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="应收费用金额" ref="FeDict.Chrg.recvam"/>
+                <field id="spcgam" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="应付费用金额" ref="FeDict.Chrg.spcgam"/>
+                <field id="acclam" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="实收费用金额" ref="FeDict.Chrg.acclam"/>
+                <field id="apcgam" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="实付费用金额" ref="FeDict.Chrg.apcgam"/>
+                <field id="totamt" type="FeBaseType.U_TOTLAM" required="false" multi="false" array="false" longname="合计金额" ref="FeDict.Chrg.totamt"/>
+                <field id="cgpyrv" type="FeEnumType.E_CGPYRV" required="false" multi="false" array="false" longname="费用收付标志" ref="FeDict.Chrg.cgpyrv"/>
+                <field id="chrgcy" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="收费币种" ref="FeDict.Chrg.chrgcy"/>
+                <field id="trnseq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="柜员流水"/>
+                <field id="trandt" type="PbBaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+                <fields id="listnm01" scope="fyscxx" required="false" multi="true" longname="收费结果" array="false">
+                    <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" desc="收费代码" ref="FeDict.Chrg.chrgcd"/>
+                    <field id="chrgna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="费种代码名称" desc="收费代码名称" ref="FeDict.Chrg.chrgna"/>
+                    <field id="recvam" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="应收费用金额"/>
+                    <field id="acclam" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="实收费用金额"/>
+                    <field id="arrgam" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="欠费金额"/>
+                    <field id="clchcy" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="计费币种"/>
+                    <field id="clcham" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="计算费用金额"/>
+                    <field id="cgscam" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="费用应收金额"/>
+                    <field id="finpec" type="PbBaseType.U_INSTRT" required="false" multi="false" array="false" longname="最终优惠比例"/>
+                    <field id="chgpln" type="PbBaseType.U_PLANCD" required="false" multi="false" array="false" longname="费用计划"/>
+                    <field id="cgpyrv" type="PbEnumType.E_CGPYRV" required="false" multi="false" array="false" longname="费用收付标志"/>
+                    <field id="chrgpd" type="PbBaseType.U_WEEKPD" required="false" multi="false" array="false" longname="收费周期"/>
+                    <field id="specdt" type="PbBaseType.U_DATE08" required="false" multi="false" array="false" longname="指定日期"/>
+                    <field id="recvfg" type="BaseEnumType.E_GTAMFG" required="false" multi="false" array="false" longname="收讫标志"/>
+                    <field id="cgfacd" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="收费核算业务编号"/>
+                    <field id="cghacd" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="收费挂账业务编号"/>
+                    <field id="trnseq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="柜员流水"/>
+                    <field id="sysacn" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="系统账号"/>
+                    <field id="evrgsq" type="PbBaseType.U_SENOTP" required="false" multi="false" array="false" longname="事件登记序号"/>
+                </fields>
+                <fields id="listnm02" scope="jfgcxx" required="false" multi="true" longname="计费过程" array="false">
+                    <field id="chrgdt" type="PbBaseType.U_DATE08" required="false" multi="false" array="false" longname="计费日期" desc="计费日期"/>
+                    <field id="chrgsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="计费流水" desc="计费流水"/>
+                    <field id="seqnum" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="顺序号" desc="顺序号" ref="FeDict.Chrg.seqnum"/>
+                    <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" desc="收费代码" ref="FeDict.Chrg.chrgcd"/>
+                    <field id="chrgpj" type="FeBaseType.U_CHAR5B" required="false" multi="false" array="false" longname="收费项目" desc="收费项目" ref="FeDict.Chrg.chrgpj"/>
+                    <field id="favoir" type="PbBaseType.U_INSTRT" required="false" multi="false" array="false" longname="优惠利率" desc="优惠利率"/>
+                    <field id="cgamou" type="FeBaseType.U_TOTLAM" required="false" multi="false" array="false" longname="计费金额/档次" desc="计费金额/档次" ref="FeDict.Chrg.cgamou"/>
+                    <field id="cgrule" type="FeBaseType.U_LONGDS" required="false" multi="false" array="false" longname="收费规则" desc="收费规则" ref="FeDict.Chrg.cgrule"/>
+                    <field id="stadam" type="FeBaseType.U_TOTLAM" required="false" multi="false" array="false" longname="标准收费" desc="标准收费" ref="FeDict.Chrg.stadam"/>
+                    <field id="fvcgam" type="FeBaseType.U_TOTLAM" required="false" multi="false" array="false" longname="优惠/控制后收费" desc="优惠/控制后收费" ref="FeDict.Chrg.fvcgam"/>
+                </fields>
+                <fields id="dayingxx" scope="printinf" required="false" multi="false" longname="打印信息" array="false">
+                    <field id="trnnam" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="交易名称" ref="FeDict.Chrg.trnnam"/>
+                    <field id="elecac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="FeDict.Chrg.elecac"/>
+                    <field id="chacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="收费客户账号" ref="FeDict.Chrg.chacno"/>
+                    <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="客户账号" ref="FeDict.Chrg.custac"/>
+                    <field id="cuscnm" type="BaseType.U_CHINNA" required="false" multi="false" array="false" longname="客户中文名" ref="FeDict.Chrg.cuscnm"/>
+                    <field id="chrgcy" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="收费币种" ref="FeDict.Chrg.chrgcy"/>
+                    <field id="cgpyrv" type="FeEnumType.E_CGPYRV" required="false" multi="false" array="false" longname="费用收付标志" ref="FeDict.Chrg.cgpyrv"/>
+                    <field id="totamt" type="FeBaseType.U_TOTLAM" required="false" multi="false" array="false" longname="合计金额" ref="FeDict.Chrg.totamt"/>
+                    <field id="cstrfg" type="BaseEnumType.E_CSTRFG" required="false" multi="false" array="false" longname="现转标志" ref="BaseDict.Comm.cstrfg"/>
+                    <field id="smryds" type="FeBaseType.U_SMRYDS" required="false" multi="false" array="false" longname="摘要描述" ref="FeDict.Chrg.smryds"/>
+                    <field id="remark" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="备注信息" ref="FeDict.Chrg.remark"/>
+                    <field id="amount" type="FeBaseType.U_LONGIN" required="false" multi="false" array="false" longname="数量" ref="FeDict.Chrg.amount"/>
+                    <fields id="biaogehd" scope="biaogexx" required="false" multi="true" longname="表格信息" array="false">
+                        <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+                        <field id="chrgna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="费种代码名称" ref="FeDict.Chrg.chrgna"/>
+                        <field id="feeamt" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="手续费金额" ref="FeDict.Chrg.feeamt"/>
+                        <field id="recvfg" type="BaseEnumType.E_GTAMFG" required="false" multi="false" array="false" longname="收讫标志" ref="FeDict.Chrg.recvfg"/>
+                        <field id="cgpyrv" type="FeEnumType.E_CGPYRV" required="false" multi="false" array="false" longname="费用收付标志" ref="FeDict.Chrg.cgpyrv"/>
+                        <field id="arrgam" type="FeBaseType.U_TRANAM" required="false" multi="false" array="false" longname="欠费金额" ref="FeDict.Chrg.arrgam"/>
+                    </fields>
+                </fields>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+</serviceType>

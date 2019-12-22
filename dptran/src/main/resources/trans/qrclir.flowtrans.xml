@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrclir" longname="柜面销户利息清单查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.close" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.close.intf">
+        <input packMode="true">
+            <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="交易流水"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" fixed="" default="" multi="false" array="false" longname="交易卡号" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="clirls" type="IoDpProdParts.IoDpCloseDetailOT" required="false" multi="true" array="false" longname="销户利息清单"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="DpAcctSvcType.Qrclirlist" id="qrclirlist" test="" longname="销户利息清单查询" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="trandt" dest="trandt" desc="" by_interface="true" on_top="true"/>
+                <mapping src="transq" dest="transq" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="clirls" dest="clirls" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

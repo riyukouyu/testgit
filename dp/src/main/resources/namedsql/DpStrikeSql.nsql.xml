@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpStrikeSql" longname="存款冲正相关SQL" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <update method="update" id="strikeKnlIoblStatus" longname="冲出入金登记簿状态">
+        <sql type="oracle"><![CDATA[update knl_iobl set status = #status#,tmstmp=#tmstmp#,revrsq=#revrsq#,revrdt=#revrdt# where servsq = #fronsq# and servdt = #frondt#]]></sql>
+        <sql type="mysql"><![CDATA[update knl_iobl set status = #status#,tmstmp=#tmstmp#,revrsq=#revrsq#,revrdt=#revrdt# where servsq = #fronsq# and servdt = #frondt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="fronsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="前置流水" parameterType="condition"/>
+            <parameter property="frondt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="前置日期" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="状态" parameterType="condition"/>
+            <parameter property="revrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="冲正流水" parameterType="condition"/>
+            <parameter property="revrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="冲正日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="strikeKnlCaryStatus" longname="冲正电子账户转电子账户登记簿">
+        <sql><![CDATA[update knl_cary set status = #status# ,revrsq = #revrsq# ,revrdt = #revrdt#,tmstmp=#tmstmp# where servsq= #fronsq# and  servdt = #frondt# ]]></sql>
+        <sql type="oracle"><![CDATA[update knl_cary set status = #status# ,revrsq = #revrsq# ,revrdt = #revrdt#,tmstmp=#tmstmp# where servsq= #fronsq# and  servdt = #frondt# ]]></sql>
+        <sql type="mysql"><![CDATA[update knl_cary set status = #status# ,revrsq = #revrsq# ,revrdt = #revrdt#,tmstmp=#tmstmp# where servsq= #fronsq# and  servdt = #frondt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="fronsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="前置流水" parameterType="condition"/>
+            <parameter property="frondt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="前置日期" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="状态" parameterType="condition"/>
+            <parameter property="revrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="冲正流水" parameterType="condition"/>
+            <parameter property="revrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="冲正日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="strikeKnlSpndStatus" longname="冲正电子账户消费登记簿">
+        <sql type="db2"><![CDATA[update knl_spnd set status = #status# ,revrsq = #revrsq# ,revrdt = #revrdt#,tmstmp=#tmstmp# where servsq= #fronsq# and  servdt = #frondt# ]]></sql>
+        <sql type="oracle"><![CDATA[update knl_spnd set status = #status# ,revrsq = #revrsq# ,revrdt = #revrdt#,tmstmp=#tmstmp# where servsq= #fronsq# and  servdt = #frondt# ]]></sql>
+        <sql type="mysql"><![CDATA[update knl_spnd set status = #status# ,revrsq = #revrsq# ,revrdt = #revrdt#,tmstmp=#tmstmp# where servsq= #fronsq# and  servdt = #frondt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="fronsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="前置流水" parameterType="condition"/>
+            <parameter property="frondt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="前置日期" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="状态" parameterType="condition"/>
+            <parameter property="revrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="冲正流水" parameterType="condition"/>
+            <parameter property="revrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="冲正日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectFirst" type="sql" id="selKnbSlepOdByDate" longname="获取最近一笔休眠流水记录">
+        <sql><![CDATA[select transq from knb_slep where custac = #custac# and spprdt = #spprdt# and spprtm = #spprtm# ]]></sql>
+        <sql type="oracle"><![CDATA[select transq from knb_slep where custac = #custac# and spprdt = #spprdt# and spprtm = #spprtm# ]]></sql>
+        <sql type="mysql"><![CDATA[select transq from knb_slep where custac = #custac# and spprdt = #spprdt# and spprtm = #spprtm# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="spprdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="处理日期" parameterType="condition"/>
+            <parameter property="spprtm" jdbcType="VARCHAR" javaType="BaseType.U_TIME06" mode="in" longname="处理时间" parameterType="condition"/>
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CUSTAC" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <update method="updateOne" id="strikeKnbSlep" longname="冲正休眠登记簿状态">
+        <sql><![CDATA[update knb_slep set 
+spprst=#spprst#, 
+spprdt = #spprdt#, 
+spprtm = #spprtm#, 
+slepst = #slepst#
+where transq = #transq#
+]]></sql>
+        <sql type="oracle"><![CDATA[update knb_slep set 
+spprst=#spprst#, 
+spprdt = #spprdt#, 
+spprtm = #spprtm#, 
+slepst = #slepst#
+where transq = #transq#
+]]></sql>
+        <sql type="mysql"><![CDATA[update knb_slep set 
+spprst=#spprst#, 
+spprdt = #spprdt#, 
+spprtm = #spprtm#, 
+slepst = #slepst#
+where transq = #transq#
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="spprst" jdbcType="VARCHAR" javaType="CaEnumType.E_SPPRST" mode="in" longname="处理结果" parameterType="condition"/>
+            <parameter property="spprdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="处理日期" parameterType="condition"/>
+            <parameter property="spprtm" jdbcType="VARCHAR" javaType="BaseType.U_TIME06" mode="in" longname="处理时间" parameterType="condition"/>
+            <parameter property="slepst" jdbcType="VARCHAR" javaType="CaEnumType.E_SLEPST" mode="in" longname="休眠状态" parameterType="condition"/>
+            <parameter property="transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="流水号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="strikeKnlIoblCups" longname="银联来账登记簿修改状态">
+        <sql><![CDATA[update knl_iobl_cups set transt = #transt# where mntrsq = #mntrsq# and trandt = #trandt#]]></sql>
+        <sql type="oracle"><![CDATA[update knl_iobl_cups set transt = #transt# where mntrsq = #mntrsq# and trandt = #trandt#]]></sql>
+        <sql type="mysql"><![CDATA[update knl_iobl_cups set transt = #transt# where mntrsq = #mntrsq# and trandt = #trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="JfDpEnumType.E_CUPSST" mode="in" longname="银联登记簿状态" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <delete method="delete" id="StrikeDelKnsTranError" longname="转账异常登记簿记录删除">
+        <sql><![CDATA[delete from kns_tran_eror where transq = #transq# and trandt = #trandt#]]></sql>
+        <sql type="oracle"><![CDATA[delete from kns_tran_eror where transq = #transq# and trandt = #trandt#]]></sql>
+        <sql type="mysql"><![CDATA[delete from kns_tran_eror where transq = #transq# and trandt = #trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" ref="BaseDict.Comm.transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+    </delete>
+    <update method="update" id="strikeKnbRegi" longname="冲正订单登记簿">
+        <sql type="db2"><![CDATA[update knb_regi set cordst = '2' where cordno =#cordno#
+]]></sql>
+        <sql type="oracle"><![CDATA[update knb_regi set cordst = '2' where cordno =#cordno#
+]]></sql>
+        <sql type="mysql"><![CDATA[update knb_regi set cordst = '2' where cordno =#cordno#
+]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cordno" ref="DpDict.Ordr.cordno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="子订单号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selKnsTranByTransqAndTrandt" longname="根据交易流水查询交易流水表">
+        <sql><![CDATA[select * from kns_tran where transq = #transq# and trandt = #trandt# and corpno = #corpno# ]]></sql>
+        <sql type="oracle"><![CDATA[select * from kns_tran where transq = #transq# and trandt = #trandt# and corpno = #corpno# ]]></sql>
+        <sql type="mysql"><![CDATA[select * from kns_tran where transq = #transq# and trandt = #trandt# and corpno = #corpno# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="string" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCaTable.IoCaKnsTran"/>
+    </select>
+    <update method="update" id="strikeKnsAcsqClerTranst" longname="冲正清算明细">
+        <sql type="oracle"><![CDATA[update kns_acsq_cler a set a.transt=#transt# where a.mntrsq=#mntrsq# and a.trandt=#trandt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="主交易流水" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="transt" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="交易状态" parameterType="condition"/>
+        </parameterMap>
+    </update>
+</sqls>

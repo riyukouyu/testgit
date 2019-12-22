@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrclam" longname="查询电子账户销户资金信息(客户端)" kind="1" package="cn.sunline.ltts.busi.dptran.trans.close" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询电子账户销户资金信息(客户端)]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="totlam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户汇总金额"/>
+            <field id="totlcp" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户汇总本金"/>
+            <field id="totlst" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="销户汇总利息"/>
+            <field id="obopfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否只开过户标志"/>
+        </output>
+        <property packMode="true">
+            <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号ID"/>
+            <field id="chkot" type="IoDpProdQuery.IoDpClsChkOT" required="false" multi="false" array="false" longname="存款检查输出"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="custna" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="inspfg" type="BaseEnumType.E_INSPFG" required="false" multi="false" array="false" longname="黑名单类型"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="prcQryCloseBefore" id="prcQryCloseBefore" test="" longname="客户端查询电子账户销户金额交易前处理" desc="客户端查询电子账户销户金额交易前处理"/>
+        <method method="chkRedpack" id="chkRedpack" test="" longname="销户前检查是否有未领取红包" desc=""/>
+        <service serviceName="DpAcctSvcType.IoChkAmbl" id="ChkAmbl" test="" longname="检查积数是否小于零" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoCaSevQryAccout.IoCaQryInwadeInfo" id="ioCaQryInwadeInfo" test="" longname="恐怖名单检查" desc="">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service mappingToProperty="true" serviceName="IoCaSevQryAccout.IoCaQryInacInfo" id="IoCaQryInacInfo" test="" longname="涉案可疑查询" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="custna" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="inspfg" dest="inspfg" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="chkinspfg" id="chkinspfg" test="" longname="涉案可疑控制" desc=""/>
+        <service serviceName="IoCaCloseSvc.IoCaChkLoan" id="caChkLoan" test="" longname="检查是否有贷款" desc="检查是否有贷款">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoCaCloseSvc.IoCaChkOther" id="caChkOther" test="" longname="检查是否有未结清的透支款项、贵金属等" desc="检查是否有未结清的透支款项、贷款、贵金属等">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoCaCloseSvc.IoCaChkFina" id="caChkFina" test="" longname="销户前检查是否有未赎回理财" desc="销户前检查是否有未赎回理财">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="custac" desc="电子账号ID" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="DpAcctSvcType.IoDpCloseAcDpCheck" id="closeAcDpCheck" test="" longname="客户端销户存款检查" desc="客户端销户存款检查">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="custac" desc="电子账号ID" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="chkNotChrgFee" id="chkNotChrgFee" test="" longname="检查是否有未收讫的费用" desc=""/>
+        <service mappingToProperty="true" serviceName="DpAcctSvcType.DpTestCalcIntr" id="dpTestCalcIntr" test="" longname="销户前存款产品利息试算" desc="销户前存款产品利息试算">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="chkin.custac" desc="电子账号ID" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="chkot.acctbl" dest="chkot.acctbl" desc="个人结算户余额" by_interface="true" on_top="true"/>
+                <mapping src="chkot.cashbl" dest="chkot.cashbl" desc="电子现金余额" by_interface="true" on_top="true"/>
+                <mapping src="chkot.dppdbl" dest="chkot.dppdbl" desc="存款产品余额" by_interface="true" on_top="true"/>
+                <mapping src="chkot.fixddp" dest="chkot.fixddp" desc="定期存款余额" by_interface="true" on_top="true"/>
+                <mapping src="chkot.intrvl" dest="chkot.intrvl" desc="存款总利息" by_interface="true" on_top="true"/>
+                <mapping src="chkot.totlam" dest="chkot.totlam" desc="总金额" by_interface="true" on_top="true"/>
+                <mapping src="chkot.wactbl" dest="chkot.wactbl" desc="亲情钱包账户余额" by_interface="true" on_top="true"/>
+                <mapping src="chkot.wallet" dest="chkot.wallet" desc="钱包账户余额" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="prcQryClAfter" id="prcQryClAfter" test="" longname="交易后处理" desc="交易后处理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

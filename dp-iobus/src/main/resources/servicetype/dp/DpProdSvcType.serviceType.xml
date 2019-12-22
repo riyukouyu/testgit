@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpProdSvcType" kind="business" longname="负债产品服务" package="cn.sunline.ltts.busi.dp.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="QryDpAcct" name="qryDpAcct" longname="查询活期账户">
+        <interface>
+            <input packMode="false">
+                <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.custac"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="acctcpmxout" type="DpProdSvc.QryDpAcctOut" required="false" multi="false" array="false" longname="活期账户输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="ChkEacct" name="chkEacct" longname="电子账户检查">
+        <interface>
+            <input packMode="false">
+                <field id="saveDpIn" type="DpProdSvc.ChkSaveDepositIn" required="false" multi="false" array="false" longname="存入参数"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="eacctCmplx" type="DpProdSvc.ChkEacctStatusOut" required="false" multi="false" array="false" longname="电子账号"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryDpByAcctSub" name="QryDpByAcctSub" longname="根据电子账户和子户查询负债账户">
+        <description><![CDATA[根据电子账户和子户查询活期账户]]></description>
+        <interface>
+            <input packMode="false">
+                <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.custac"/>
+                <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号" ref="InDict.inac.subsac"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="acctcpmxout" type="DpProdSvc.QryDpAcctOut" required="false" multi="false" array="false" longname="活期账户输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryDpByAcctno" name="QryDpByAcctno" longname="根据负债账号查询账户信息">
+        <interface>
+            <input packMode="false">
+                <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="acctcpmxout" type="DpProdSvc.QryDpAcctOut" required="false" multi="false" array="false" longname="活期账户输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryDpByProdcd" name="QryDpByProdcd" longname="根据产品编号查询产品信息">
+        <interface>
+            <input packMode="false">
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="pdInfo" type="DpProdSvc.DppbDetailInfo" required="false" multi="false" array="false" longname="产品信息输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoDpCloseCurAcc" name="closeCurAcc" longname="个人活期结算户销户服务">
+        <interface>
+            <input packMode="false">
+                <field id="clsin" type="IoDpProdParts.IoDpCloseIN" required="false" multi="false" array="false" longname="销户输入"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="closot" type="IoDpProdParts.IoDpCloseOT" required="false" multi="false" array="false" longname="电子账户销户输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoDpQryProdcd" name="qryProdcd" longname="根据账户分类查询开立的产品编号">
+        <interface>
+            <input packMode="false">
+                <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类" ref="DpDict.Prod.accatp"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="field" type="MsCoreTable.KnpParameter" required="false" multi="false" array="false" longname="ddd"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryDpBreifInfo" name="qryDpBreifInfo" longname="产品统计查询">
+        <interface>
+            <input packMode="false">
+                <field id="briefInfo" type="IoDpProdQuery.KupDppbBriefInfo" required="false" multi="false" array="false" longname="产品概要信息"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="qryInfos" type="IoDpProdQuery.KupDppbBriefInfo" required="false" multi="true" array="false" longname="产品概要信息"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryDpProdDetailInfo" name="qryDpProdDetailInfo" longname="存款产品详细查询">
+        <interface>
+            <input packMode="false">
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            </input>
+            <output asParm="true" packMode="false">
+                <field id="detailInfo" type="IoDpProdParts.IoDpDetailInfo" required="false" multi="false" array="false" longname="存款产品详细"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="DelProdByProdcd" name="DelProdByProdcd" longname="产品删除">
+        <interface>
+            <input packMode="false">
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+                <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="CmpDpProd" name="cmpDpProd" longname="存款产品比对">
+        <interface>
+            <input packMode="true">
+                <field id="pdcd01" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号1"/>
+                <field id="pdcd02" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号2"/>
+                <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="infoList" type="IoDpProdParts.IoDpDetailInfo" required="false" multi="true" array="false" longname="产品明细列表"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryBrchByProd" name="qryBrchByProd" longname="查询存款机构控制部件信息">
+        <interface>
+            <input packMode="false">
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+                <field id="start" type="long" required="false" multi="false" array="false" longname="页码"/>
+                <field id="count" type="long" required="false" multi="false" array="false" longname="页容量"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="qryBrchInfos" type="IoDpProdQuery.IoDpBrhcno" required="false" multi="true" array="false" longname="机构列表"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="QryBrchDateChangeInfo" name="qryBrchDateChangeInfo" longname="产品机构日期调整查询">
+        <interface>
+            <input packMode="false">
+                <field id="qryInput" type="IoDpProdQuery.IoDpBrDtChgeQry" required="false" multi="false" array="false" longname="机构日期调整查询输入"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="qryInfos" type="IoDpProdQuery.IoDpBrDtChgeQry" required="false" multi="true" array="false" longname="机构日期调整信息列表"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoDpInskupDppbUser" name="inskupDppbUser" longname="新增产品操作柜员登记">
+        <interface>
+            <input packMode="false">
+                <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" multi="false" array="false" longname="业务大类" ref="DpDict.Prod.busibi"/>
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+                <field id="prtrtp" type="DpEnumType.E_PRTRTP" required="false" multi="false" array="false" longname="产品交易类型"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="MagDpReserveProduct" name="magDpReserveProduct" longname="预约购买产品管理">
+        <interface>
+            <input packMode="false">
+                <field id="operat" type="DpEnumType.E_OPERAT" required="false" multi="false" array="false" longname="操作类型"/>
+                <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+                <field id="depttm" type="BaseEnumType.E_TERMCD" required="false" multi="false" array="false" longname="存期" ref="DpDict.Prod.depttm"/>
+                <field id="restdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="首次预约日期"/>
+                <field id="cycles" type="DpEnumType.E_CYCLES" required="false" multi="false" array="false" longname="预约周期类型"/>
+                <field id="recycl" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="预约周期"/>
+                <field id="rebype" type="DpEnumType.E_REBYPE" required="false" multi="false" array="false" longname="预约方式"/>
+                <field id="quanmy" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="定额购买金额"/>
+                <field id="holdmy" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="留存金额"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="reserveProductOut" type="DpProdSvc.ReserveProductOut" required="false" multi="true" array="false" longname="预约购买产品管理输出信息"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="QryPorSalInfo" name="qryPorSalInfo" longname="查询产品销售情况">
+        <interface>
+            <input packMode="false">
+                <field id="prodcd" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="产品代码" ref="PbDict.Dcmt.prodcd"/>
+                <field id="plstad" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="计划开始日期" ref="DpDict.Acct.plstad"/>
+                <field id="ploved" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="计划结束日期" ref="DpDict.Acct.ploved"/>
+            </input>
+            <output asParm="false" packMode="false">
+                <field id="lstKupDppbSalInfo" type="IoDpProdQuery.IoDpSalInfo" required="false" multi="true" array="false" longname="产品销售情况输出"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

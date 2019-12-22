@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="crcabr" longname="负债账户日终计提" dataItem="DpDayEndType.CrcabrProcData" jobDataItem="" package="cn.sunline.ltts.busi.dptran.batchtran.dayend" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[负债账户日终计提(浙江农信弃用此方法)]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.dayend.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</batch_transaction>

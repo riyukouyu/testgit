@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpqrat" longname="电子账户基本信息查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[电子账户基本信息查询]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="绑定手机号码"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="custac" type="BaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号ID"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="绑定手机号码"/>
+            <field id="acctst" type="CaEnumType.E_CUACST" required="false" multi="false" array="false" longname="账户状态"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户类型"/>
+            <field id="acstsz" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="账户状态字" ref="CaDict.Eacct.acstsz"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="onlnbl" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="当前账户余额" ref="DpDict.Acct.onlnbl"/>
+            <field id="acctbl" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="账户余额"/>
+            <field id="openbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户开户机构" ref="DpDict.Acct.openbr"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户所属机构" ref="DpDict.Acct.brchno"/>
+            <field id="opendt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="开户日期 " ref="DpDict.Acct.opendt"/>
+            <field id="closdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="销户日期" ref="DpDict.Acct.closdt"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+            <field id="custcd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="客户内码" ref="BaseDict.Comm.custcd"/>
+            <field id="facesg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="面签标识"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="prcQryAcInfos" id="prcQryAcInfos" longname="查询电子账户基本信息" desc="查询电子账户基本信息"/>
+    </flow>
+</flowtran>

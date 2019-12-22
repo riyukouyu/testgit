@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpfxou" longname="存款定期支取" kind="3" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[浙江农信未使用]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="定期子账号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="定期子户号"/>
+            <field id="acctna" type="BaseType.U_CHINNA" required="false" multi="false" array="false" longname="客户名称" ref="LnDict.LNF.acctna"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号"/>
+            <field id="tosbac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="对方子户号"/>
+            <field id="instam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="支取利息"/>
+            <field id="intxam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="利息税"/>
+            <field id="dpinam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="存入金额"/>
+            <field id="opbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="开户机构"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="prcTransBefore" id="prcTransBefore" longname="交易前处理" desc="交易前处理"/>
+        <service mappingToProperty="true" serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" longname="定期存款支取" desc="定期存款支取">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="cplDrawAcctIn.acctno" desc="定期子账号" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplDrawAcctIn.tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplDrawAcctIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="subsac" dest="cplDrawAcctIn.acseno" desc="定期子户号" by_interface="true" on_top="true"/>
+                <mapping src="toacct" dest="cplDrawAcctIn.toacct" desc="对方账号" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="cplDrawAcctIn.opacna" desc="客户名称" by_interface="true" on_top="true"/>
+                <mapping src="opbrch" dest="cplDrawAcctIn.opbrch" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplDrawAcctOut.instam" dest="instam" by_interface="true" on_top="true"/>
+                <mapping src="cplDrawAcctOut.intxam" dest="intxam" desc="description" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="prcDpAcctTranam" id="prcDpAcctTranam" longname="处理存入金额" desc="处理存入金额，存入金额为交易金额+支取利息"/>
+        <service serviceName="DpAcctSvcType.addPostAcctDp" id="addPostAcctDp" longname="电子账户存入服务" desc="电子账户存入服务">
+            <in_mappings by_interface="true">
+                <mapping src="toacct" dest="cplSaveAcctIn.acctno" desc="存入账号/活期账号" by_interface="true" on_top="true"/>
+                <mapping src="dpinam" dest="cplSaveAcctIn.tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplSaveAcctIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplSaveAcctIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="tosbac" dest="cplSaveAcctIn.acseno" desc="活期子户号" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cplSaveAcctIn.toacct" desc="定期子账号" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="cplSaveAcctIn.opacna" desc="对方户名" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" test="intxam &gt; @java.math.BigDecimal@ZERO" longname="利息税支取">
+            <in_mappings by_interface="true">
+                <mapping src="toacct" dest="cplDrawAcctIn.acctno" desc="活期账号" by_interface="true" on_top="true"/>
+                <mapping src="intxam" dest="cplDrawAcctIn.tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplDrawAcctIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="tosbac" dest="cplDrawAcctIn.acseno" desc="定期子户号" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cplDrawAcctIn.toacct" desc="对方账号" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="cplDrawAcctIn.opacna" desc="客户名称" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="chkTransAfter" id="chkTransAfter" longname="交易后处理" desc="交易后处理"/>
+    </flow>
+</flowtran>

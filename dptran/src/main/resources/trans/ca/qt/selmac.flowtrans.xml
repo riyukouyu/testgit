@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="selmac" longname="移动前端账户限额查询" kind="1" package="cn.sunline.ltts.busi.catran.trans.qt" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.qt.intf">
+        <input packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+            <field id="custac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号" ref="QtDict.Qt.custac"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="acctrt" type="BaseEnumType.E_ACCTROUTTYPE" required="false" multi="false" array="false" longname="账号路由类型" ref="BaseDict.Comm.acctrt"/>
+            <field id="servtp" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="渠道" ref="PbDict.Intr.servtp"/>
+            <field id="sbactp" type="QtEnumType.E_SBACTP" required="false" multi="false" array="false" longname="子账户类型" ref="QtDict.Qt.sbactp"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="limitDyOut" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="日累计出账限额"/>
+            <field id="limitYrOut" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="年累计出账限额"/>
+            <field id="limitDyIn" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="日累计入账限额"/>
+            <field id="limitYrIn" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="年累计入账限额"/>
+            <field id="limitDyPy" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="日累计支付限额"/>
+            <field id="limitSgPy" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="单笔支付限额"/>
+            <field id="limitMnPy" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="月累计支付限额"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoCaSevAccountLimit.MoAcLimitSel" id="MoAcLimitSel" longname="移动前端账户限额查询">
+            <in_mappings by_interface="true">
+                <mapping src="accttp" dest="accttp" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="acctrt" dest="acctrt" by_interface="true" on_top="true"/>
+                <mapping src="sbactp" dest="sbactp" by_interface="true" on_top="true"/>
+                <mapping src="servtp" dest="servtp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="limitDyIn" dest="limitDyIn" by_interface="true" on_top="true"/>
+                <mapping src="limitDyOut" dest="limitDyOut" by_interface="true" on_top="true"/>
+                <mapping src="limitDyPy" dest="limitDyPy" by_interface="true" on_top="true"/>
+                <mapping src="limitMnPy" dest="limitMnPy" by_interface="true" on_top="true"/>
+                <mapping src="limitSgPy" dest="limitSgPy" by_interface="true" on_top="true"/>
+                <mapping src="limitYrIn" dest="limitYrIn" by_interface="true" on_top="true"/>
+                <mapping src="limitYrOut" dest="limitYrOut" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

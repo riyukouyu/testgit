@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rptrcbai" longname="可入账账户信息数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="rptrcbai" longname="可入账账户信息数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" mode="fixAndSplitor" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="transq" type="BaseType.U_SEQUNO" longname="主交易流水" length="64" leftPadding="false" padding=" "/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="主交易日期" length="16" leftPadding="false" padding=" "/>
+            <field id="filesq" type="BaseType.U_SEQUNO" longname="文件批次号" length="64" leftPadding="false" padding=" "/>
+            <field id="ccstid" type="BaseType.U_CHAR20" longname="渠道用户ID" length="40" leftPadding="false" padding=" "/>
+            <field id="acstid" type="BaseType.U_CHAR20" longname="账户用户ID" length="40" leftPadding="false" padding=" "/>
+            <field id="cardno" type="BaseType.U_CARDNO" longname="电子账户" length="38" leftPadding="false" padding=" "/>
+            <field id="custna" type="ApBaseType.U_ZHHUZWMC" longname="户名" length="200" leftPadding="false" padding=" "/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="机构号" length="12" leftPadding="false" padding=" "/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

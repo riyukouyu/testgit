@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="prorat" longname="金融基础产品利率代码查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="intrcd" type="BaseType.U_INRTNO" required="false" multi="false" array="false" longname="利率编号" ref="DpDict.Prod.intrcd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="result" scope="IoProRateSel.ProRateSelOut" required="false" multi="true" longname="产品利率 代码输出" array="false">
+                <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+                <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+                <field id="intrcd" type="BaseType.U_INRTNO" required="false" multi="false" array="false" longname="利率编号" ref="DpDict.Prod.intrcd"/>
+                <field id="intrna" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="利率名称" ref="PbDict.Intr.intrna"/>
+                <field id="prodtx" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="产品名称"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoProRateSelSvr.ProRateSelSvr" id="ProRateSelSvr" longname="金融基础产品利率代码查询" desc="金融基础产品利率代码查询">
+            <in_mappings by_interface="true">
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="intrcd" dest="intrcd" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="prodcd" by_interface="true" on_top="true"/>
+                <mapping src="#run.pageno" dest="start" desc="页码" by_interface="true" on_top="true"/>
+                <mapping src="#run.pgsize" dest="count" desc="页容量" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="result" dest="result" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

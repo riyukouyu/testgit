@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="smamqy" longname="累计收益明细查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款子账户号"/>
+            <field id="pageno" type="integer" required="false" multi="false" array="false" longname="页码"/>
+            <field id="pagesz" type="integer" required="false" multi="false" array="false" longname="页容量"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="BaseDict.Comm.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号" ref="BaseDict.Comm.idtfno"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="dqtrdt" type="DpYhtType.IoDpTranDetlDqTht" required="false" multi="true" array="false" longname="累计"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qrySmamqy" id="qrySmamqy" longname="输入参数检查" desc="检查输入参数，和电子账户状态"/>
+        <method method="selAmamqy" id="selAmamqy" longname="查询累计收益明细" desc="查询累计收益明细"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

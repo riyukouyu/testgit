@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrpdir" longname="产品收益率查询" kind="account" package="cn.sunline.ltts.busi.catran.trans.online.ecct" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.online.ecct.intf">
+        <input packMode="false"/>
+        <output asParm="false" packMode="false">
+            <field id="pdirls" type="ServEacctType.EacctInfoBal" required="false" fixed="" default="" multi="true" array="false" longname="产品利率查询列表" desc="" ref=""/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="ServEacctSvcType.QryProdInfo" id="qryProdInfo" test="" longname="产品利率查询列表" desc="产品利率查询列表">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true">
+                <mapping src="prodls" dest="pdirls" desc="" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

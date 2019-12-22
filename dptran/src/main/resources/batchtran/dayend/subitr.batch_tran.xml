@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="subitr" longname="利率调整(分段处理)" dataItem="DpDayEndType.KtpAdinType" jobDataItem="" package="cn.sunline.ltts.busi.dptran.batchtran.dayend" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[单层利率]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.dayend.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="lstIntr" type="string" required="false" fixed="" default="" multi="true" array="false" longname="存放需要调整的浮动利率和基础利率的特征值" desc="" ref=""/>
+            <field id="lstRlir" type="string" required="false" fixed="" default="" multi="true" array="false" longname="存放分档利率的代码" desc="" ref=""/>
+            <field id="cnfrdm" type="BaseType.U_CORPNO" required="false" fixed="" default="" multi="false" array="false" longname="省中心法人代码" desc="" ref=""/>
+            <field id="isrun" type="boolean" required="false" fixed="" default="" multi="false" array="false" longname="是否执行标志" desc="" ref=""/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</batch_transaction>

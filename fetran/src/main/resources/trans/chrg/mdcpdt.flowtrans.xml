@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="mdcpdt" longname="修改超额优惠明细" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="smfacd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="超额优惠代码" ref="FeDict.Chrg.smfacd"/>
+            <field id="smstrt" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="累积起点" ref="FeDict.Chrg.smstrt"/>
+            <field id="smfapc" type="FeBaseType.U_INSTRT" required="false" multi="false" array="false" longname="优惠比例"/>
+            <field id="efctdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="生效日期" ref="FeDict.Chrg.efctdt"/>
+            <field id="inefdt" type="FeBaseType.U_DATE08" required="false" multi="false" array="false" longname="失效日期" ref="FeDict.Chrg.inefdt"/>
+            <field id="smblup" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="累积交易额限制"/>
+            <field id="explan" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="备注" ref="FeDict.Chrg.explan"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="mdcpdt" id="mdcpdt" longname="修改超额优惠明细" desc="修改超额优惠明细"/>
+    </flow>
+</flowtran>

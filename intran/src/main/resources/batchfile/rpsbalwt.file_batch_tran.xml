@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rpsbalwt" longname="红包过渡户发生额额导出写文件" kind="write" package="cn.sunline.ltts.busi.intran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[用于红包系统过渡户发生总额核对]]></description>
+    <fileTemplate id="rpsbalwt" longname="红包过渡户发生额额导出写文件" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="InQueryTypes.InTotalTranamInfo" startline="1">
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="机构号" leftPadding="false" mode="splitor"/>
+            <field id="rpsrtp" type="DpEnumType.E_RPSRTP" longname="红包类型" leftPadding="false" mode="splitor"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" longname="内部户账号" leftPadding="false" mode="splitor"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" longname="内部户名称" leftPadding="false" mode="splitor"/>
+            <field id="drtram" type="BaseType.U_TRANAM" longname="借方发生额" leftPadding="false" mode="splitor"/>
+            <field id="crtram" type="BaseType.U_TRANAM" longname="贷方发生额" leftPadding="false" mode="splitor"/>
+            <field id="crctbl" type="BaseType.U_ACBLTP" longname="联机贷方余额" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="文件批次号"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="文件日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="账务日期"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true" />
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

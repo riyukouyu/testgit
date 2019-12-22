@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="dppbactp" longname="产品账户类型数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="dppbactp" longname="产品账户类型数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="产品编号" length="36" leftPadding="false" padding=" " ref="DpDict.Prod.prodcd"/>
+            <field id="cacttp" type="DpEnumType.E_CUSACT" longname="客户账号类型" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.cacttp"/>
+            <field id="acolfg" type="BaseEnumType.E_YES___" longname="账户下唯一标识" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.acolfg"/>
+            <field id="dcmtfg" type="BaseEnumType.E_YES___" longname="开子账户关联凭证标志" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.dcmtfg"/>
+            <field id="dcmttp" type="BaseEnumType.E_DCMTTP" longname="开子户关联凭证种类" length="6" leftPadding="false" padding=" " ref="DpDict.Prod.dcmttp"/>
+            <field id="sactcn" type="BaseType.U_CHAR80" longname="子户支付条件选项值" length="160" leftPadding="false" padding=" " ref="DpDict.Prod.sactcn"/>
+            <field id="dcmtcn" type="BaseType.U_CHAR80" longname="交易凭证选项值" length="160" leftPadding="false" padding=" " ref="DpDict.Prod.dcmtcn"/>
+            <field id="tmstmp" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.tmstmp"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

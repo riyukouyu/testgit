@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="glknpsuac" longname="业务代码子户表数仓抽数" kind="write" package="cn.sunline.ltts.busi.inltran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="glknpsuac" longname="业务代码子户表数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="busino" type="BaseType.U_BUSINO" longname="业务代码" length="60" leftPadding="false" padding=" " ref="InDict.inac.busino"/>
+            <field id="busina" type="BaseType.U_CHAR80" longname="业务编码中文名称说明" length="160" leftPadding="false" padding=" " ref="InDict.inac.busina"/>
+            <field id="subsac" type="BaseType.U_CUACNO" longname="子户号" length="64" leftPadding="false" padding=" " ref="InDict.inac.subsac"/>
+            <field id="remark" type="BaseType.U_LONGDS" longname="备注信息" length="2000" leftPadding="false" padding=" " ref="BaseDict.Comm.remark"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

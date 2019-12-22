@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpRisk" longname="风控冻结强扣sql" package="cn.sunline.edsp.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selectKnbAplyPageList" longname="查询风控冻结申请表">
+        <parameterMap class="DpRiskType.SelRiskFrozenListInput"/>
+        <resultMap class="DpRiskType.KnbAplyListInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knb_aply]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="idtfno != null and idtfno != ''" type="If">
+                        <str type="Str"><![CDATA[idtfno = #idtfno#]]></str>
+                    </if>
+                    <if test="mobile != null and mobile != ''" type="If">
+                        <str type="Str"><![CDATA[mobile = #mobile#]]></str>
+                    </if>
+                    <if test="aplyid != null and aplyid != ''" type="If">
+                        <str type="Str"><![CDATA[aplyid = #aplyid#]]></str>
+                    </if>
+                    <if test="enflag != null" type="If">
+                        <str type="Str"><![CDATA[enflag = #enflag#]]></str>
+                    </if>
+                    <if test="mrchno != null and mrchno != ''" type="If">
+                        <str type="Str"><![CDATA[mrchno = #mrchno#]]></str>
+                    </if>
+                    <if test="refeno != null and refeno != ''" type="If">
+                        <str type="Str"><![CDATA[refeno = #refeno#]]></str>
+                    </if>
+                    <if test="agntid != null and agntid != ''" type="If">
+                        <str type="Str"><![CDATA[agntid = #agntid#]]></str>
+                    </if>
+                    <if test="trpobgdt != null and trpobgdt != ''" type="If">
+                        <str type="Str"><![CDATA[trpodt >= #trpobgdt#]]></str>
+                    </if>
+                    <if test="trpoeddt != null and trpoeddt != ''" type="If">
+                        <str type="Str"><![CDATA[trpodt <= #trpoeddt#]]></str>
+                    </if>
+                    <if test="enbgdt != null and enbgdt != ''" type="If">
+                        <str type="Str"><![CDATA[substr(entime, 0, 8) >= #enbgdt#]]></str>
+                    </if>
+                    <if test="eneddt != null and eneddt != ''" type="If">
+                        <str type="Str"><![CDATA[substr(entime, 0, 8) <= #eneddt#]]></str>
+                    </if>
+                    <if test="enuser != null and enuser != ''" type="If">
+                        <str type="Str"><![CDATA[enuser = #enuser#]]></str>
+                    </if>
+                    <if test="frapst != null" type="If">
+                        <str type="Str"><![CDATA[frapst = #frapst#]]></str>
+                    </if>
+                    <if test="froztp != null" type="If">
+                        <str type="Str"><![CDATA[froztp = #froztp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by entime desc, aplyid desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selectDetails" longname="明细查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyno" ref="DpRiskDict.FrozDeta.aplyno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="申请编号" parameterType="condition"/>
+            <parameter property="frozst" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="冻结状态" parameterType="condition"/>
+            <parameter property="isagnt" jdbcType="VARCHAR" javaType="BaseType.U_CHAR10" mode="in" longname="是否服务商" parameterType="condition"/>
+            <parameter property="tdtrsq" ref="DpRiskDict.FrozDeta.tdtrsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="收单交易流水" parameterType="condition"/>
+            <parameter property="tdtrdt" ref="DpRiskDict.FrozDeta.tdtrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="收单交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRisk.KnbFrozDeta"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knb_froz_deta t  ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="aplyno!=null and aplyno!=''" type="If">
+                        <str type="Str"><![CDATA[t.aplyno= #aplyno#]]></str>
+                    </if>
+                    <if test="frozst != null and frozst != ''" type="If">
+                        <str type="Str"><![CDATA[instr(#frozst#, t.frozst)>0]]></str>
+                    </if>
+                    <if test="isagnt == '0'" type="If">
+                        <str type="Str"><![CDATA[(isagnt is null or isagnt = '0')]]></str>
+                    </if>
+                    <if test="isagnt == '1'" type="If">
+                        <str type="Str"><![CDATA[isagnt='1']]></str>
+                    </if>
+                    <if test="tdtrsq != null and tdtrsq != ''" type="If">
+                        <str type="Str"><![CDATA[tdtrsq = #tdtrsq#]]></str>
+                    </if>
+                    <if test="tdtrdt != null and tdtrdt != ''" type="If">
+                        <str type="Str"><![CDATA[tdtrdt = #tdtrdt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by t.frozsq asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selectFrozenAplyInfos" longname="查询冻结申请信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyno" jdbcType="VARCHAR" javaType="string" mode="in" longname="申请编号" parameterType="condition"/>
+            <parameter property="frapst" jdbcType="VARCHAR" javaType="string" mode="in" longname="冻结状态" parameterType="condition"/>
+            <parameter property="froztp" ref="DpRiskDict.Aply.froztp" jdbcType="VARCHAR" javaType="DpEnumType.E_FROZTP" mode="in" longname="冻结业务类型" parameterType="condition"/>
+            <parameter property="deapst" jdbcType="VARCHAR" javaType="string" mode="in" longname="强扣状态" parameterType="condition"/>
+            <parameter property="agntid" ref="DpRiskDict.Aply.agntid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR200" mode="in" longname="服务商编码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.KnbAplyDto"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[SELECT * from knb_aply ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="aplyno!=null and aplyno!=''" type="If">
+                        <str type="Str"><![CDATA[instr(#aplyno#,aplyno)>0]]></str>
+                    </if>
+                    <if test="frapst!=null and frapst != ''" type="If">
+                        <str type="Str"><![CDATA[instr(#frapst#,frapst)>0]]></str>
+                    </if>
+                    <if test="froztp!=null " type="If">
+                        <str type="Str"><![CDATA[froztp=#froztp#]]></str>
+                    </if>
+                    <if test="deapst != null and deapst != ''" type="If">
+                        <str type="Str"><![CDATA[instr(#deapst#,deapst)>0]]></str>
+                    </if>
+                    <if test="agntid != null and agntid != ''" type="If">
+                        <str type="Str"><![CDATA[agntid = #agntid#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by entime asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selAccsByCustac" longname="根据主账户查询子账户及其余额">
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyid" ref="DpRiskDict.Aply.aplyid" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="申请冻结账户" parameterType="condition"/>
+            <parameter property="sbrand" ref="DpRiskDict.Aply.sbrand" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="支付机构号" parameterType="condition"/>
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.RiskKnaAcct"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select t.*,to_char(nvl(t1.frozbl,0),'99999990.99') as frozbl  from kna_acct t 
+left join knb_froz_owne t1 on t.acctno=t1.frowid
+left join Kna_Sbad t2 on t.acctno=t2.acctno]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[t.acctst in ('1','4')]]></str>
+                    <str type="Str"><![CDATA[t2.sbrand !=#sbrand#]]></str>
+                    <if test="aplyid != null and aplyid != ''" type="If">
+                        <str type="Str"><![CDATA[t2.custac in (select custac from kna_acdc b where b.cardno=#aplyid# )]]></str>
+                    </if>
+                    <if test="custac != null and custac != ''" type="If">
+                        <str type="Str"><![CDATA[t2.custac = #custac#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selFirstAcctByCustac" longname="根据主账户查找优先子户">
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyid" ref="DpRiskDict.Aply.aplyid" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="申请冻结账户" parameterType="condition"/>
+            <parameter property="sbrand" ref="DpDict.Acct.sbrand" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="品牌" parameterType="condition"/>
+            <parameter property="custac" ref="DpDict.Acct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.RiskKnaAcct"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select t2.acctno,t2.onlnbl,to_char(nvl(t3.frozbl,0),'99999990.99') as frozbl from Kna_Sbad t1 
+left join kna_acct t2 on t2.acctno=t1.acctno and t2.acctst in ('1','4')
+left join knb_froz_owne t3 on t1.acctno=t3.frowid
+]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[t1.sbrand=#sbrand#]]></str>
+                    <if test="aplyid != null and aplyid != ''" type="If">
+                        <str type="Str"><![CDATA[t1.custac in (select custac from kna_acdc t4 where t4.cardno=#aplyid# )]]></str>
+                    </if>
+                    <if test="custac != null and custac != ''" type="If">
+                        <str type="Str"><![CDATA[t1.custac = #custac#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectFirst" type="sql" id="selOnlnblByAcctno" longname="根据子账户查子账户余额">
+        <sql type="oracle"><![CDATA[select t.*,to_char(nvl(t1.frozbl,0),'99999990.99') as frozbl from kna_acct t 
+left join knb_froz_owne t1 on t.acctno=t1.frowid 
+where 1=1
+and t.acctst in ('1','4')
+and acctno= #aplyid#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyid" ref="DpRiskDict.Aply.aplyid" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="申请冻结账户" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.RiskKnaAcct"/>
+    </select>
+    <update method="update" id="updateOwneamByacctno" longname="根据子账户更新冻结金额">
+        <sql><![CDATA[update knb_froz_owne t set t.frozbl=t.frozbl-#frozbl# where t.frowid= #frowid#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="frowid" ref="DpRiskDict.FrozDeta.frowid" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="冻结主体ID" parameterType="condition"/>
+            <parameter property="frozbl" ref="DpRiskDict.FrozDeta.frozbl" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="冻结余额" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selRecordByCustacOrAcctno" longname="根据账户号查询未冻结完成的冻结记录">
+        <sql><![CDATA[select * from knb_aply t where t.frapst in ('1') and t.aplyid = #cardno# order by t.tmstmp asc]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="string" mode="in" longname="电子账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.KnbAplyDto"/>
+    </select>
+    <dynamicUpdate method="update" id="updateKnbAply" longname="更新申请登记簿">
+        <parameterMap class="DpRiskType.KnbAplyDto"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[update knb_aply set operator = #operator#, optime = #optime#,tmstmp = #tmstmp#]]></str>
+            <if test="frapst !=null " type="If">
+                <str type="Str"><![CDATA[,frapst = #frapst#]]></str>
+            </if>
+            <if test="frozbl!=null " type="If">
+                <str type="Str"><![CDATA[,frozbl= #frozbl#]]></str>
+            </if>
+            <if test="unfrdt!=null and unfrdt!=''" type="If">
+                <str type="Str"><![CDATA[,unfrdt= #unfrdt#]]></str>
+            </if>
+            <if test="frbgdt!=null and unfrdt!=''" type="If">
+                <str type="Str"><![CDATA[,frbgdt= #frbgdt#]]></str>
+            </if>
+            <if test="freddt!=null and freddt!=''" type="If">
+                <str type="Str"><![CDATA[,freddt =#freddt#]]></str>
+            </if>
+            <if test="frtime!=null and frtime!=''" type="If">
+                <str type="Str"><![CDATA[,frtime =#frtime#]]></str>
+            </if>
+            <if test="deapst != null" type="If">
+                <str type="Str"><![CDATA[,deapst = #deapst#]]></str>
+            </if>
+            <if test="demram != null" type="If">
+                <str type="Str"><![CDATA[,demram = #demram#]]></str>
+            </if>
+            <if test="fragbl != null" type="If">
+                <str type="Str"><![CDATA[,fragbl = #fragbl#]]></str>
+            </if>
+            <if test="dedubl != null" type="If">
+                <str type="Str"><![CDATA[,dedubl = #dedubl#]]></str>
+            </if>
+            <if test="deduam != null" type="If">
+                <str type="Str"><![CDATA[,deduam = #deduam#]]></str>
+            </if>
+            <if test="dedufn != null" type="If">
+                <str type="Str"><![CDATA[,dedufn = #dedufn#]]></str>
+            </if>
+            <if test="detime != null and detime != ''" type="If">
+                <str type="Str"><![CDATA[,detime = #detime#]]></str>
+            </if>
+            <if test="advaamt != null" type="If">
+                <str type="Str"><![CDATA[,advaamt = #advaamt#]]></str>
+            </if>
+            <where type="Where">
+                <str type="Str"><![CDATA[aplyno= #aplyno# ]]></str>
+            </where>
+        </dynamicSql>
+    </dynamicUpdate>
+    <insert id="insertKnbRecord" longname="插入操作记录">
+        <sql type="oracle"><![CDATA[insert into knb_record(id, aplyno, operator, optime, opdesc, mntrsq) 
+values (knb_record_seq.nextval, #aplyno#, #operator#, #optime#, #opdesc#, #mntrsq#)]]></sql>
+        <parameterMap class="DpRisk.KnbRecord"/>
+    </insert>
+    <update method="update" id="updateEdmControRecdver" longname="更新代发防重控制表版本">
+        <sql type="oracle"><![CDATA[update knl_iobl_edm_contro set recdver = #recdver#  where retrsq = #mntrsq# and retrdt = #trandt# and edmflg = #edmflg# and recdver = #oldrecdver#]]></sql>
+        <parameterMap class="DpRiskType.KnlIoblCupsEdmContro"/>
+    </update>
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selRiskDeducList" longname="查询风控冻结强扣申请表">
+        <parameterMap class="DpRiskType.RiskDeduListInput"/>
+        <resultMap class="DpRiskType.RiskDeduListOutput"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select t.*,t1.fd0011,t1.TRANDT from knb_aply t LEFT JOIN KNB_CHABCK t1 ON t.REFENO=t1.FD0037]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="idtfno != null and idtfno != ''" type="If">
+                        <str type="Str"><![CDATA[t.idtfno = #idtfno#]]></str>
+                    </if>
+                    <if test="mobile != null and mobile != ''" type="If">
+                        <str type="Str"><![CDATA[t.mobile = #mobile#]]></str>
+                    </if>
+                    <if test="aplyid != null and aplyid != ''" type="If">
+                        <str type="Str"><![CDATA[t.aplyid = #aplyid#]]></str>
+                    </if>
+                    <if test="enflag != null" type="If">
+                        <str type="Str"><![CDATA[t.enflag = #enflag#]]></str>
+                    </if>
+                    <if test="mrchno != null and mrchno != ''" type="If">
+                        <str type="Str"><![CDATA[t.mrchno = #mrchno#]]></str>
+                    </if>
+                    <if test="mntrsq != null and mntrsq != ''" type="If">
+                        <str type="Str"><![CDATA[t.mntrsq = #mntrsq#]]></str>
+                    </if>
+                    <if test="agntid != null and agntid != ''" type="If">
+                        <str type="Str"><![CDATA[t.agntid = #agntid#]]></str>
+                    </if>
+                    <if test="trpobgdt != null and trpobgdt != ''" type="If">
+                        <str type="Str"><![CDATA[t.trpodt >= #trpobgdt#]]></str>
+                    </if>
+                    <if test="trpoeddt != null and trpoeddt != ''" type="If">
+                        <str type="Str"><![CDATA[t.trpodt <= #trpoeddt#]]></str>
+                    </if>
+                    <if test="enbgdt != null and enbgdt != ''" type="If">
+                        <str type="Str"><![CDATA[substr(t.deentm, 0, 8) >= #enbgdt#]]></str>
+                    </if>
+                    <if test="eneddt != null and eneddt != ''" type="If">
+                        <str type="Str"><![CDATA[substr(t.deentm, 0, 8) <= #eneddt#]]></str>
+                    </if>
+                    <if test="deenus != null and deenus != ''" type="If">
+                        <str type="Str"><![CDATA[t.deenus = #deenus#]]></str>
+                    </if>
+                    <if test="deapst != null" type="If">
+                        <str type="Str"><![CDATA[t.deapst= #deapst#]]></str>
+                    </if>
+                    <if test="froztp != null" type="If">
+                        <str type="Str"><![CDATA[t.froztp = #froztp#]]></str>
+                    </if>
+                    <if test="aplyno!=null and aplyno !=''" type="If">
+                        <str type="Str"><![CDATA[t.aplyno = #aplyno#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[t.deapst in ('0','1','2')]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by t.entime desc, t.aplyid desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selFrozDetaByAplyno" longname="查询冻结明细">
+        <sql type="oracle"><![CDATA[select * from knb_froz_deta 
+where aplyno=#aplyno# 
+and frozst in ('0','1','3','4')
+order by frozsq ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyno" ref="DpRiskDict.Aply.aplyno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="申请编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.KnbFrozDetaListInfo"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selDeduDetaByAplyno" longname="查询商户风控强扣明细">
+        <sql type="oracle"><![CDATA[select * from knb_froz_deta
+where aplyno=#aplyno# 
+and frozst='2' and (isagnt is null or isagnt='0')
+order by frozsq]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyno" ref="DpRiskDict.Aply.aplyno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="申请编号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.RiskDeduDetail"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selTransRec" longname="根据条件查询收单流水">
+        <parameterMap class="java.util.Map">
+            <parameter property="refeno" ref="DpRiskDict.Aply.refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+            <parameter property="aplyid" ref="DpRiskDict.Aply.aplyid" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="申请冻结账户" parameterType="condition"/>
+            <parameter property="mobile" ref="DpRiskDict.Aply.mobile" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="手机号" parameterType="condition"/>
+            <parameter property="mrchno" ref="DpRiskDict.Aply.mrchno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="商户编号" parameterType="condition"/>
+            <parameter property="retrbgdt" ref="DpRiskDict.Aply.retrbgdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始收单日期" parameterType="condition"/>
+            <parameter property="retreddt" ref="DpRiskDict.Aply.retreddt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束收单日期" parameterType="condition"/>
+            <parameter property="retrbgsq" ref="DpRiskDict.Aply.retrbgsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="起始收单交易流水" parameterType="condition"/>
+            <parameter property="retredsq" ref="DpRiskDict.Aply.retredsq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="结束收单交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.KnlIoblCupsEdmContro"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[SELECT   t.* ,a.aplyno FROM knl_iobl_cups t ,(SELECT t1.REFENO,t1.APLYNO FROM	KNB_APLY t1]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="refeno!=null &amp;&amp; refeno !=''" type="If">
+                        <str type="Str"><![CDATA[t1.refeno = #refeno#]]></str>
+                    </if>
+                    <if test="mobile !=null &amp;&amp; mobile!=''" type="If">
+                        <str type="Str"><![CDATA[t1.mobile =#mobile#]]></str>
+                    </if>
+                    <if test="aplyid !=null &amp;&amp;aplyid !=''" type="If">
+                        <str type="Str"><![CDATA[t1.aplyid=#aplyid#]]></str>
+                    </if>
+                    <if test="mrchno !=null &amp;&amp; mrchno!=''" type="If">
+                        <str type="Str"><![CDATA[t1.mrchno =#mrchno#]]></str>
+                    </if>
+                    <if test="retrbgdt!=null &amp;&amp; retrbgdt !=''" type="If">
+                        <str type="Str"><![CDATA[t1.retrdt=#retrbgdt#]]></str>
+                    </if>
+                    <if test="retreddt!=null &amp;&amp; retreddt!=''" type="If">
+                        <str type="Str"><![CDATA[t1.retrdt=#retreddt#]]></str>
+                    </if>
+                    <if test="retrbgsq !=null &amp;&amp; retrbgsq !=''" type="If">
+                        <str type="Str"><![CDATA[t1.retrsq=#retrbgsq#]]></str>
+                    </if>
+                    <if test="retredsq!=null &amp;&amp;retredsq!=''" type="If">
+                        <str type="Str"><![CDATA[t1.retrsq= #retredsq#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[t1.froztp='11' ]]></str>
+                    <str type="Str"><![CDATA[t1.FRAPST IN ('1','2')]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[)  a]]></str>
+            <where type="Where">
+                <str type="Str"><![CDATA[t.REFENO=a.refeno    	 order by  t.tmstmp]]></str>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicUpdate method="update" id="updateAplyTpAndSt" longname="更新申请表业务类型和强扣状态">
+        <parameterMap class="java.util.Map">
+            <parameter property="aplyno" ref="DpRiskDict.Aply.aplyno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="申请编号" parameterType="condition"/>
+            <parameter property="refeno" ref="DpRiskDict.Aply.refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+            <parameter property="deenus" ref="DpRiskDict.Aply.deenus" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="强扣录入柜员" parameterType="condition"/>
+            <parameter property="deentm" ref="DpRiskDict.Aply.deentm" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="强扣录入时间" parameterType="condition"/>
+            <parameter property="agtperc" ref="DpRiskDict.Aply.agtperc" jdbcType="VARCHAR" javaType="BaseType.U_RATECD" mode="in" longname="服务商扣款比例" parameterType="condition"/>
+            <parameter property="enflag" ref="DpRiskDict.Aply.enflag" jdbcType="VARCHAR" javaType="DpRiskEnumType.E_ENFLAG" mode="in" longname="录入标识" parameterType="condition"/>
+        </parameterMap>
+        <dynamicSql>
+            <str type="Str"><![CDATA[update knb_aply t set t.FROZTP='12',t.DEAPST='0',t.deenus=#deenus#,t.deentm=#deentm#,t.agtperc=#agtperc#,t.enflag=#enflag#]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="aplyno!=null &amp;&amp; aplyno !=''" type="If">
+                        <str type="Str"><![CDATA[t.aplyno= #aplyno#]]></str>
+                    </if>
+                    <if test="refeno !=null &amp;&amp; refeno !=''" type="If">
+                        <str type="Str"><![CDATA[t.refeno =#refeno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicUpdate>
+    <select cache="none" method="selectFirst" type="sql" id="selRiskDeducByRefeno" longname="根据申请编号查询风控冻结强扣列表">
+        <sql type="oracle"><![CDATA[select * from knb_aply where refeno = #refeno# and froztp='11'  and FRAPST in ('0','1','2')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="refeno" ref="DpRiskDict.Aply.refeno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="参考号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.RiskDeduListOutput"/>
+    </select>
+    <dynamicUpdate method="update" id="updateFrozenDetail" longname="更新冻结明细">
+        <parameterMap class="DpRisk.KnbFrozDeta"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[update knb_froz_deta set tmstmp = #tmstmp#]]></str>
+            <if test="frozst != null" type="If">
+                <str type="Str"><![CDATA[,frozst = #frozst#]]></str>
+            </if>
+            <if test="forcdt != null and forcdt != ''" type="If">
+                <str type="Str"><![CDATA[,forcdt = #forcdt#]]></str>
+            </if>
+            <if test="forctm != null and forctm != ''" type="If">
+                <str type="Str"><![CDATA[,forctm = #forctm#]]></str>
+            </if>
+            <if test="deduam != null" type="If">
+                <str type="Str"><![CDATA[,deduam = #deduam#]]></str>
+            </if>
+            <if test="thawam != null" type="If">
+                <str type="Str"><![CDATA[,thawam = #thawam#]]></str>
+            </if>
+            <if test="thawdt != null and thawdt != ''" type="If">
+                <str type="Str"><![CDATA[,thawdt = #thawdt#]]></str>
+            </if>
+            <if test="thawtm != null and thawtm != ''" type="If">
+                <str type="Str"><![CDATA[,thawtm = #thawtm#]]></str>
+            </if>
+            <if test="deagbl != null" type="If">
+                <str type="Str"><![CDATA[,deagbl = #deagbl#]]></str>
+            </if>
+            <str type="Str"><![CDATA[ where aplyno = #aplyno# and frozsq = #frozsq# and frozst = '0']]></str>
+        </dynamicSql>
+    </dynamicUpdate>
+    <dynamicUpdate method="update" id="updateDeductDetail" longname="更新强扣明细">
+        <parameterMap class="DpRisk.KnbFrozDeta"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[update knb_froz_deta set tmstmp = #tmstmp#]]></str>
+            <if test="frozst != null" type="If">
+                <str type="Str"><![CDATA[,frozst = #frozst#]]></str>
+            </if>
+            <if test="deagbl != null" type="If">
+                <str type="Str"><![CDATA[,deagbl = #deagbl#]]></str>
+            </if>
+            <str type="Str"><![CDATA[ where aplyno = #aplyno# and frozsq = #frozsq#]]></str>
+        </dynamicSql>
+    </dynamicUpdate>
+    <update method="update" id="updateCBckstByRefeno" longname="根据参考号更新退单状态">
+        <sql><![CDATA[update knb_Chabck set cbakst=#cbakst#  where fd0037=#fd0037#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="cbakst" ref="DpRiskDict.KnbChabak.cbakst" jdbcType="VARCHAR" javaType="DpRiskEnumType.E_CBAKST" mode="in" longname="退单状态" parameterType="condition"/>
+            <parameter property="fd0037" ref="DpRiskDict.KnbChabak.fd0037" jdbcType="VARCHAR" javaType="BaseType.U_CHAR12" mode="in" longname="上一笔交易检索参考号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectPageWithCount selectAll" type="sql" id="selChargebackList" longname="查询退单表未提交的数据">
+        <parameterMap class="DpRiskType.QryChabak"/>
+        <resultMap class="DpRiskType.ChabakList"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select t.*,t1.acctno,t1.cardno,t2.onlnbl,t3.frozam,t3.frozbl,t1.prepdt as retrdt
+from knb_chabck t 
+left join knl_iobl_cups t1 on t1.refeno=t.fd0037
+left join kna_acct t2 on t1.acctno=t2.acctno
+left join knb_aply t3 on t3.refeno=t.fd0037]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cardno!=null &amp;&amp;cardno!=''" type="If">
+                        <str type="Str"><![CDATA[t1.cardno=#cardno#]]></str>
+                    </if>
+                    <if test="mrchno!=null &amp;&amp;mrchno!=''" type="If">
+                        <str type="Str"><![CDATA[t.mrchno= #mrchno#]]></str>
+                    </if>
+                    <if test="mobile!=null &amp;&amp;mobile!=''" type="If">
+                        <str type="Str"><![CDATA[t.mobile=#mobile#]]></str>
+                    </if>
+                    <if test="idtfno!=null &amp;&amp;idtfno!=''" type="If">
+                        <str type="Str"><![CDATA[t.idtfno=#idtfno#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[t.cbakst ='0']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by t.tmstmp]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectFirst" type="sql" id="selChabakListByRefeno" longname="查询退单记录">
+        <sql><![CDATA[select * from knb_Chabck t where t.fd0037=#fd0037# and t.cbakst='0']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="fd0037" ref="DpRiskDict.KnbChabak.fd0037" jdbcType="VARCHAR" javaType="BaseType.U_CHAR12" mode="in" longname="上一笔交易检索参考号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpRiskType.ChabakList"/>
+    </select>
+    <update method="update" id="updateAplyToBakfee" longname="更新手续费">
+        <sql><![CDATA[update knb_aply t set t.bakfee= #bakfee# where t.aplyno= #aplyno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="bakfee" ref="DpRiskDict.Aply.bakfee" jdbcType="VARCHAR" javaType="BaseType.U_TRANAM" mode="in" longname="退单手续费" parameterType="condition"/>
+            <parameter property="aplyno" ref="DpRiskDict.Aply.aplyno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="申请编号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicUpdate method="update" id="updateKnlIoblCupsForFrozen" longname="更新交易流水冻结信息">
+        <parameterMap class="DpRiskType.KnlIoblCupsEdmContro"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[update knl_iobl_cups t set t.frozfg = #frozfg#, t.frozam = #frozam#]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[t.mntrsq = #mntrsq#]]></str>
+                    <str type="Str"><![CDATA[t.frozam = #oldfrozam#]]></str>
+                    <if test="oldrecdver == null" type="If">
+                        <str type="Str"><![CDATA[not exists(select 1 from knl_iobl_edm_contro c where c.retrsq = #mntrsq#)]]></str>
+                    </if>
+                    <if test="oldrecdver != null" type="If">
+                        <str type="Str"><![CDATA[exists(select 1 from knl_iobl_edm_contro c where c.retrsq = #mntrsq# and c.edmflg = #edmflg# and c.recdver = #oldrecdver#)]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicUpdate>
+    <update method="update" id="updateChabakSt" longname="更新退单状态">
+        <sql><![CDATA[update KNB_CHABCK t set t.cbakst='1' where t.fd0037= #fd0037#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="fd0037" ref="DpRiskDict.KnbChabak.fd0037" jdbcType="VARCHAR" javaType="BaseType.U_CHAR12" mode="in" longname="上一笔交易检索参考号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+</sqls>

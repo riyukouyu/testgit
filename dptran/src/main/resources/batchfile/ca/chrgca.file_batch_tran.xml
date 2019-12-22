@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="chrgca" longname="批量更换绑定卡号" kind="read" package="cn.sunline.ltts.busi.catran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[批量更换绑定卡号]]></description>
+    <fileTemplate id="chrgca" longname="批量更换绑定卡号" mode="splitor" splitor="," encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" startline="1">
+            <field id="nwcard" type="BaseType.U_CARDNO" longname="新绑定卡号" leftPadding="false" mode="splitor"/>
+            <field id="odcard" type="BaseType.U_CARDNO" longname="旧绑定卡号" leftPadding="false" mode="splitor"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="交易机构" leftPadding="false" mode="splitor"/>
+            <field id="reflag" type="BaseType.U_CHAR01" longname="签约关系继承标志" leftPadding="false" mode="splitor"/>
+            <field id="coword" type="BaseType.U_CHAR120" longname="新卡签约关系（继承）控制字" leftPadding="false" mode="splitor"/>
+            <field id="retatu" type="BaseType.U_CHAR01" longname="记录状态" leftPadding="false" mode="splitor"/>
+            <field id="bdtime" type="BaseType.U_DATE08" longname="建立日期" leftPadding="false" mode="splitor"/>
+            <field id="odtime" type="BaseType.U_CHAR80" longname="建立时间戳" leftPadding="false" mode="splitor"/>
+            <field id="olcuno" type="BaseType.U_CHAR07" longname="建立用户代码" leftPadding="false" mode="splitor"/>
+            <field id="uptime" type="BaseType.U_DATE08" longname="最后更新日期" leftPadding="false" mode="splitor"/>
+            <field id="nwtime" type="BaseType.U_CHAR80" longname="最后更新时间戳" leftPadding="false" mode="splitor"/>
+            <field id="nwcuno" type="BaseType.U_CHAR07" longname="最后更新用户代码" leftPadding="false" mode="splitor"/>
+            <field id="spares" type="BaseType.U_CHAR100" longname="备用" leftPadding="false" mode="splitor"/>
+            <field id="sptime" type="BaseType.U_DATE08" longname="日期" leftPadding="false" mode="splitor"/>
+            <field id="uptype" type="BaseType.U_CHAR01" longname="变更类型" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="文件批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="filena" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="文件名称"/>
+            <field id="dwpath" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="文件路径"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

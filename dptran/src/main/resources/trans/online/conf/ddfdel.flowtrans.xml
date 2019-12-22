@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="ddfdel" longname="删除产品违约支取利息定义配置交易" kind="maintain" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[删除产品违约支取利息定义配置交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="drintp" type="DpEnumType.E_DRINTP" required="false" multi="false" array="false" longname="支取利息类型" ref="DpDict.Prod.drintp"/>
+            <field id="ingpcd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="利息组代码" ref="DpDict.Prod.ingpcd"/>
+            <field id="intrtp" type="DpEnumType.E_INTRTP" required="false" multi="false" array="false" longname="利息类型" ref="DpDict.Prod.intrtp"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="delDdf" id="delDdf" longname="删除产品违约支取利息定义配置" desc="删除产品违约支取利息定义配置"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

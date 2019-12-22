@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="clcnpt" longname="销户转账(大小额)(作废)" kind="3" package="cn.sunline.ltts.busi.dptran.trans.close" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.close.intf">
+        <input packMode="true">
+            <field id="pyinsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="销户流水"/>
+            <field id="pyindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="销户日期"/>
+            <field id="tractp" type="DpEnumType.E_CLSATP" required="false" multi="false" array="false" longname="收款人账户类型"/>
+            <field id="subsys" type="BaseType.U_CHAR01" required="true" multi="false" array="false" longname="清算渠道"/>
+            <field id="msetdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="委托日期"/>
+            <field id="msetsq" type="BaseType.U_CHAR12" required="true" multi="false" array="false" longname="交易序号"/>
+            <field id="crdbtg" type="DpEnumType.E_CRDBTG" required="true" multi="false" array="false" longname="借贷标志"/>
+            <field id="mesgtp" type="BaseType.U_CHAR16" required="true" multi="false" array="false" longname="报文编号"/>
+            <field id="iotype" type="DpEnumType.E_IOTYPE" required="true" multi="false" array="false" longname="往来标志"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="cstrfg" type="BaseType.U_CHAR01" required="true" multi="false" array="false" longname="现转标志"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="true" multi="false" array="false" longname="钞汇属性" ref="FnDict.Fnfc.csextg"/>
+            <field id="pyercd" type="LnBaseType.U_BANKNO" required="true" multi="false" array="false" longname="发起行行号"/>
+            <field id="pyeecd" type="LnBaseType.U_BANKNO" required="true" multi="false" array="false" longname="接收行行号"/>
+            <field id="pyerac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="付款人账号"/>
+            <field id="pyerna" type="BaseType.U_CHAR120" required="false" multi="false" array="false" longname="付款人名称"/>
+            <field id="pyeeac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="收款人账号"/>
+            <field id="pyeena" type="BaseType.U_CHAR120" required="false" multi="false" array="false" longname="收款人名称"/>
+            <field id="priotp" type="DpEnumType.E_PRIOTP" required="true" multi="false" array="false" longname="加急标志"/>
+            <field id="afeetg" type="DpEnumType.E_AFEETG" required="true" multi="false" array="false" longname="收费标志"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="true" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="afeeam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="手续费"/>
+            <field id="feeam1" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="汇划费"/>
+            <field id="chfcnb" type="BaseType.U_CHAR16" required="true" multi="false" array="false" longname="对账分类编号"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="支付前置日期"/>
+            <field id="fronsq" type="BaseType.U_CHAR12" required="true" multi="false" array="false" longname="支付前置流水号"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="true" multi="false" array="false" longname="账务机构" ref="PbDict.Charge.brchno"/>
+            <field id="userid" type="BaseType.U_USERID" required="true" multi="false" array="false" longname="操作柜员" ref="DpDict.Acct.userid"/>
+            <field id="ckbkus" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="复核用户" ref="PbDict.Dcmt.ckbkus"/>
+            <field id="authus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="授权柜员"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="npcpdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="轧差日期"/>
+            <field id="npcpbt" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="轧差场次"/>
+            <field id="remark1" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="备用字段1"/>
+            <field id="remark2" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="备用字段2"/>
+            <field id="chrgpm" type="IoChrgComplexType.IoCgCalCenterReturn" required="false" multi="true" array="false" longname="公共收费参数"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="流水号"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="mntrtm" type="BaseType.U_TIME06" required="false" multi="false" array="false" longname="交易时间"/>
+        </output>
+        <property packMode="true">
+            <field id="tblKnaAcct" type="DpDepoBusiMain.KnaAcct" required="false" multi="false" array="false" longname="销户账号负债账户信息"/>
+            <field id="chgflg" type="PbEnumType.E_CHGFLG" required="false" multi="false" array="false" longname="记账标志"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID"/>
+            <field id="tlcam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="收费总金额"/>
+            <field id="chaglg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="收费标志"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号"/>
+            <field id="servsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="渠道流水" ref="DpDict.Acct.servsq"/>
+            <field id="servdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="渠道日期"/>
+            <field id="prcscd" type="BaseType.U_PRCSCD" required="false" multi="false" array="false" longname="处理码" ref="InDict.inac.prcscd"/>
+            <field id="servtp" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="交易渠道"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="手机号"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dealTransBefore" id="dealTransBefore" longname="交易前处理"/>
+        <service serviceName="IoCgChrgSvcType.IoCalCharge" id="IoCalCharge" test="chaglg == #dict.BaseEnumType.E_YES___().YES" longname="公共收费服务">
+            <in_mappings by_interface="true">
+                <mapping src="chrgpm" dest="in.calcenter" by_interface="true" on_top="true"/>
+                <mapping src="chgflg" dest="in.chgflg" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="in.chrgcy" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="in.cplKfzhu.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="in.cplKfzhu.csexfg" by_interface="true" on_top="true"/>
+                <mapping src="pyeeac" dest="in.cplKfzhu.custac" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="in.csexfg" by_interface="true" on_top="true"/>
+                <mapping src="pyeeac" dest="in.custac" by_interface="true" on_top="true"/>
+                <mapping src="custno" dest="in.custno" by_interface="true" on_top="true"/>
+                <mapping src="chaglg" dest="in.isclos" by_interface="true" on_top="true"/>
+                <mapping src="pyeecd" dest="in.oubrno" by_interface="true" on_top="true"/>
+                <mapping src="chaglg" dest="in.strktg" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="in.trancy" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="prcAccount" id="prcAccount" longname="销户转账并注销电子账户"/>
+        <service serviceName="DpAcctSvcType.saveIOknlnapot" id="saveIOknlnapot" longname="登记大小额往来账登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="afeeam" dest="inknlnapot.afeeam" by_interface="true" on_top="true"/>
+                <mapping src="afeetg" dest="inknlnapot.afeetg" by_interface="true" on_top="true"/>
+                <mapping src="authus" dest="inknlnapot.authus" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="inknlnapot.brchno" by_interface="true" on_top="true"/>
+                <mapping src="msetdt" dest="inknlnapot.chckdt" by_interface="true" on_top="true"/>
+                <mapping src="chfcnb" dest="inknlnapot.chfcnb" by_interface="true" on_top="true"/>
+                <mapping src="ckbkus" dest="inknlnapot.ckbkus" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="inknlnapot.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="crdbtg" dest="inknlnapot.crdbtg" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="inknlnapot.csextg" by_interface="true" on_top="true"/>
+                <mapping src="cstrfg" dest="inknlnapot.cstrfg" by_interface="true" on_top="true"/>
+                <mapping src="feeam1" dest="inknlnapot.feeam1" by_interface="true" on_top="true"/>
+                <mapping src="frondt" dest="inknlnapot.frondt" by_interface="true" on_top="true"/>
+                <mapping src="fronsq" dest="inknlnapot.fronsq" by_interface="true" on_top="true"/>
+                <mapping src="iotype" dest="inknlnapot.iotype" by_interface="true" on_top="true"/>
+                <mapping src="keepdt" dest="inknlnapot.keepdt" by_interface="true" on_top="true"/>
+                <mapping src="keepdt" dest="inknlnapot.clerdt" by_interface="true" on_top="true"/>
+                <mapping src="msetdt" dest="inknlnapot.mesgtp" by_interface="true" on_top="true"/>
+                <mapping src="msetdt" dest="inknlnapot.msetdt" by_interface="true" on_top="true"/>
+                <mapping src="msetsq" dest="inknlnapot.msetsq" by_interface="true" on_top="true"/>
+                <mapping src="npcpbt" dest="inknlnapot.npcpbt" by_interface="true" on_top="true"/>
+                <mapping src="npcpdt" dest="inknlnapot.npcpdt" by_interface="true" on_top="true"/>
+                <mapping src="prcscd" dest="inknlnapot.prcscd" by_interface="true" on_top="true"/>
+                <mapping src="priotp" dest="inknlnapot.priotp" by_interface="true" on_top="true"/>
+                <mapping src="pyeeac" dest="inknlnapot.pyeeac" by_interface="true" on_top="true"/>
+                <mapping src="pyeecd" dest="inknlnapot.pyeecd" by_interface="true" on_top="true"/>
+                <mapping src="pyeena" dest="inknlnapot.pyeena" by_interface="true" on_top="true"/>
+                <mapping src="pyerac" dest="inknlnapot.pyerac" by_interface="true" on_top="true"/>
+                <mapping src="pyercd" dest="inknlnapot.pyercd" by_interface="true" on_top="true"/>
+                <mapping src="pyerna" dest="inknlnapot.pyerna" by_interface="true" on_top="true"/>
+                <mapping src="remark1" dest="inknlnapot.remark1" by_interface="true" on_top="true"/>
+                <mapping src="remark2" dest="inknlnapot.remark2" by_interface="true" on_top="true"/>
+                <mapping src="msetdt" dest="inknlnapot.revrdt" by_interface="true" on_top="true"/>
+                <mapping src="servdt" dest="inknlnapot.servdt" by_interface="true" on_top="true"/>
+                <mapping src="servtp" dest="inknlnapot.servtp" by_interface="true" on_top="true"/>
+                <mapping src="subsys" dest="inknlnapot.subsys" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="inknlnapot.tranam" by_interface="true" on_top="true"/>
+                <mapping src="userid" dest="inknlnapot.userid" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="sendCloseInfoMsg" id="sendCloseInfoMsg" longname="销户信息通知" desc="销户信息通知"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="stadtu" longname="存款产品适用机构启用日期调整" kind="2" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[存款产品适用机构启用日期调整]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="efctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="启用日期"/>
+            <field id="inefdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="停用日期"/>
+            <field id="brchInfos" type="IoDpProdQuery.IoDpSelKupDppbBrchIn" required="false" multi="true" array="false" longname="适用机构列表"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="stadtu" id="stadtu" longname="存款产品适用机构启用日期调整" desc="存款产品适用机构启用日期调整"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

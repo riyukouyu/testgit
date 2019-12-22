@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dplmlg" longname="日志管理查询" kind="1" package="cn.sunline.ltts.busi.catran.trans.qt" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.qt.intf">
+        <input packMode="true">
+            <field id="seltyp" type="QtEnumType.E_SELTYP" required="false" multi="false" array="false" longname="查询类型" ref="QtDict.Qt.seltyp"/>
+            <field id="staday" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="开始日期" ref="QtDict.Qt.staday"/>
+            <field id="endday" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="结束日期" ref="QtDict.Qt.endday"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="field" type="IoQtLogLimitSel.IoLogLimitSel" required="false" multi="true" array="false" longname="日志管理查询输出"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoCaSevAccountLimit.IoAcLogLimitSel" id="LogLimitSel" longname="日志管理信息查询">
+            <in_mappings by_interface="true">
+                <mapping src="endday" dest="endday" by_interface="true" on_top="true"/>
+                <mapping src="#run.pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="#run.pgsize" dest="pgsize" by_interface="true" on_top="true"/>
+                <mapping src="seltyp" dest="seltyp" by_interface="true" on_top="true"/>
+                <mapping src="staday" dest="staday" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="brchno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="field" dest="field" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

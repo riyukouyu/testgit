@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="ckbdgx" longname="账户绑定关系检查" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cdopac" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="绑定卡号"/>
+            <field id="cardno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="电子账号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="isbind" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否綁定关系"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="selBindcdInfo" id="selBindcdInfo" longname="账户绑定关系检查"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

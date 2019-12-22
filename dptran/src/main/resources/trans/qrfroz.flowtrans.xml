@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qrfroz" longname="查询冻解冻/解止付信息交易" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[查询冻解冻/解止付信息交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="frozno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="冻结编号" ref="DpDict.Froz.frozno"/>
+            <field id="frozsq" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="冻结序号" ref="DpDict.Froz.frozsq"/>
+            <field id="unfrsq" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="解冻序号" ref="DpDict.Froz.unfrsq"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号"/>
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="froztp" type="DpEnumType.E_FROZTP" required="false" multi="false" array="false" longname="冻结业务类型" ref="DpDict.Froz.froztp"/>
+            <field id="sptype" type="DpEnumType.E_SPTYPE" required="false" multi="false" array="false" longname="止付类型12（对外）"/>
+            <field id="otsptp" type="DpEnumType.E_OTSPTP" required="false" multi="false" array="false" longname="输出业务类型" ref="DpDict.Froz.otsptp"/>
+            <field id="frozno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="冻结编号" ref="DpDict.Froz.frozno"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="frbgdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冻结起始日期" ref="DpDict.Froz.frbgdt"/>
+            <field id="freddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冻结终止日期" ref="DpDict.Froz.freddt"/>
+            <field id="frctno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="冻结通知书编号" ref="DpDict.Froz.frctno"/>
+            <field id="frozam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冻结金额" ref="DpDict.Froz.frozam"/>
+            <field id="frozbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冻结余额" ref="DpDict.Froz.frozbl"/>
+            <field id="frogna" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="冻结执法部门名称" ref="DpDict.Froz.frogna"/>
+            <field id="frna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员1姓名" ref="DpDict.Froz.frna01"/>
+            <field id="idtp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="执法人员1证件种类"/>
+            <field id="idno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员1证件号码" ref="DpDict.Froz.idno01"/>
+            <field id="frna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员2姓名" ref="DpDict.Froz.frna02"/>
+            <field id="idtp02" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="执法人员2证件种类"/>
+            <field id="idno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员2证件号码" ref="DpDict.Froz.idno02"/>
+            <field id="frreas" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="冻结原因" ref="DpDict.Froz.frreas"/>
+            <field id="sttmle" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="止付时间长度"/>
+            <field id="remark" type="BaseType.U_SHORTS" required="false" multi="false" array="false" longname="备注" ref="DpDict.Froz.remark"/>
+            <field id="frexog" type="BaseEnumType.E_LAWCOP" required="false" multi="false" array="false" longname="冻结执法部门" ref="DpDict.Froz.frexog"/>
+            <field id="tranus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="交易柜员" ref="DpDict.Froz.tranus"/>
+            <field id="tranbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号"/>
+            <field id="unfrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="解冻日期" ref="DpDict.Froz.unfrdt"/>
+            <field id="ufctno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解冻通知书编号" ref="DpDict.Froz.ufctno"/>
+            <field id="unfram" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="解冻金额" ref="DpDict.Froz.unfram"/>
+            <field id="stopms" type="DpEnumType.E_STOPMS" required="false" multi="false" array="false" longname="止付措施" ref="DpDict.Froz.stopms"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号"/>
+            <field id="userid" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="柜员代号"/>
+            <field id="idtp03" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="解冻执法人员证件类型1"/>
+            <field id="idno03" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="解冻证件号码1"/>
+            <field id="ufna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="解冻执法人员1姓名" ref="DpDict.Froz.ufna01"/>
+            <field id="ufna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="解冻执法人员2姓名" ref="DpDict.Froz.ufna02"/>
+            <field id="idtp04" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="解冻执法人员证件类型2"/>
+            <field id="idno04" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="解冻执法人员证件号码2"/>
+            <field id="ufogna" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解冻执法部门名称" ref="DpDict.Froz.ufogna"/>
+            <field id="sttmct" type="DpEnumType.E_STTMCT" required="false" multi="false" array="false" longname="止付时间计算"/>
+            <field id="froztm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="冻结时间" ref="DpDict.Froz.froztm"/>
+            <field id="unfrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="解冻时间" ref="DpDict.Froz.unfrtm"/>
+            <field id="acbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户所属机构"/>
+            <field id="cureas" type="DpEnumType.E_CUREAS" required="false" multi="false" array="false" longname="账户保护原因"/>
+            <field id="tmidno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员1证件号码脱敏字段" ref="DpDict.Froz.tmidno01"/>
+            <field id="tmidno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员2证件号码脱敏字段" ref="DpDict.Froz.tmidno02"/>
+            <field id="tmfrna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员1姓名脱敏字段" ref="DpDict.Froz.tmfrna01"/>
+            <field id="tmfrna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员2姓名脱敏字段" ref="DpDict.Froz.tmfrna02"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoDpFrozSvcType.IoQueryDpSpecForFroz" id="queryDpSpecForFroz" longname="查询冻解冻/解止付信息交易" desc="查询冻解冻/解止付信息交易">
+            <in_mappings by_interface="true">
+                <mapping src="frozno" dest="specInfoListForFrozIn.frozno" by_interface="true" on_top="true"/>
+                <mapping src="frozsq" dest="specInfoListForFrozIn.frozsq" by_interface="true" on_top="true"/>
+                <mapping src="unfrsq" dest="specInfoListForFrozIn.unfrsq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="specInfoListForFrozOt.acbrch" dest="acbrch" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.cureas" dest="cureas" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.custno" dest="custno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frbgdt" dest="frbgdt" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frctno" dest="frctno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.freddt" dest="freddt" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frexog" dest="frexog" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frna01" dest="frna01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frna02" dest="frna02" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frogna" dest="frogna" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frozam" dest="frozam" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frozbl" dest="frozbl" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frozno" dest="frozno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.froztm" dest="froztm" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.froztp" dest="froztp" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.frreas" dest="frreas" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idno01" dest="idno01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idno02" dest="idno02" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idno03" dest="idno03" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idno04" dest="idno04" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idtp01" dest="idtp01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idtp02" dest="idtp02" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idtp03" dest="idtp03" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.idtp04" dest="idtp04" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.otsptp" dest="otsptp" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.remark" dest="remark" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.sptype" dest="sptype" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.stopms" dest="stopms" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.sttmct" dest="sttmct" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.tranbr" dest="tranbr" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.tranus" dest="tranus" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.ufctno" dest="ufctno" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.ufna01" dest="ufna01" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.ufna02" dest="ufna02" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.ufogna" dest="ufogna" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.unfram" dest="unfram" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.unfrdt" dest="unfrdt" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.unfrtm" dest="unfrtm" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.userid" dest="userid" by_interface="true" on_top="true"/>
+                <mapping src="specInfoListForFrozOt.sttmle" dest="sttmle" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

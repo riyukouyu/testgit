@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="seinfo" longname="T1代发结算单信息查询" kind="1" package="cn.sunline.edsp.busi.dptran.trans.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.ca.intf">
+        <input packMode="true">
+            <field id="orgaid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="品牌id"/>
+            <field id="busitp" type="DsEnumType.E_BUSITP" required="false" multi="false" array="false" longname="业务类型"/>
+            <field id="inmeid" type="BaseType.U_CHAR25" required="false" multi="false" array="false" longname="内部商户号"/>
+            <field id="teleno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="手机号"/>
+            <field id="mntrsq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="stardt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="结算开始日期"/>
+            <field id="endtdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="结算结束日期"/>
+            <field id="transt" type="JfDpEnumType.E_CUPSST" required="false" multi="false" array="false" longname="代发状态"/>
+            <field id="settst" type="JfDpEnumType.E_SETTST" required="false" multi="false" array="false" longname="结算状态"/>
+            <field id="taskid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批次号"/>
+        </input>
+        <output asParm="true" packMode="true">
+        	<field id="dpToSettleAccounts" type="EdnAfter.EdmSettleAccount" required="false" multi="true" array="false" longname="结算单信息列表"/>
+        	<field id="totran" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易总金额"/>
+            <field id="totoan" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="结算总金额"/>
+            <!-- <fields id="dpToSettleAccounts" scope="EdnAfter.EdmSettleAccount" required="false" multi="true" longname="结算单信息列表" array="false">
+                <field id="sbrand" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="品牌名称"/>
+                <field id="orgaid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="品牌id"/>
+                <field id="acctid" type="BaseType.U_CHAR25" required="false" multi="false" array="false" longname="内部商户号"/>
+                <field id="teleno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="手机号"/>
+                <field id="sacdno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="收款账户"/>
+                <field id="sabkna" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="行名"/>
+                <field id="bankno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="行号"/>
+                <field id="inmena" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="内部商户名称"/>
+                <field id="acctno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="结算账户"/>
+                <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="结算金额"/>
+                <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="出账日期"/>
+                <field id="trantp" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="出账流水"/>
+                <field id="settdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="代发日期"/>
+                <field id="setttp" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="代发流水"/>
+                <field id="servtp" type="JfDpEnumType.E_EDMTYP" required="false" multi="false" array="false" longname="代发通道"/>
+                <field id="settid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="代发ID"/>
+                <field id="setqdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="代发清算日期"/>
+                <field id="transt" type="JfDpEnumType.E_CUPSST" required="false" multi="false" array="false" longname="代发状态"/>
+                <field id="mntrsq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="结算单id"/>
+                <field id="retmsg" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="应答描述"/>
+            </fields> -->
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="seinfo" id="seinfo"  longname="结算单信息查询" desc="结算单信息查询"/>
+    </flow>
+</flowtran>

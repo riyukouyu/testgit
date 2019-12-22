@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="adjust" longname="账务调账" kind="3" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="origdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="原交易日期"/>
+            <field id="origsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="原交易流水"/>
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="卡号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="orgamt" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="原交易金额"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="正确交易金额"/>
+            <field id="orgfee" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="原手续费"/>
+            <field id="newfee" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="正确手续费"/>
+            <field id="oprscd" type="BaseType.U_PRCSCD" required="false" multi="false" array="false" longname="原交易码"/>
+            <field id="osrvtp" type="BaseType.U_SERVTP" required="false" multi="false" array="false" longname="原渠道号"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="正确记账方向"/>
+            <field id="oamtcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="原记账方向"/>
+            <field id="adjacd" type="BaseEnumType.E_ADJACD" required="false" multi="false" array="false" longname="调整方向"/>
+            <field id="ajtype" type="BaseEnumType.E_AJTYPE" required="false" multi="false" array="false" longname="调整类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="adjseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="调整流水" />
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="AdjustDeal" id="adjDeal" longname="账务调整处理"/>
+    </flow>
+</flowtran>

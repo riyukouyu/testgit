@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="glknbocac" longname="内部帐户开销户登记簿数仓抽数" kind="write" package="cn.sunline.ltts.busi.inltran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="glknbocac" longname="内部帐户开销户登记簿数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="opendt" type="BaseType.U_DATE08" longname="开户日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.opendt"/>
+            <field id="opiasq" type="BaseType.U_SEQUNO" longname="开销户流水" length="64" leftPadding="false" padding=" " ref="InDict.inac.opiasq"/>
+            <field id="opensq" type="BaseType.U_SEQUNO" longname="开户交易流水" length="64" leftPadding="false" padding=" " ref="InDict.inac.opensq"/>
+            <field id="opactp" type="InEnumType.E_OPACTP" longname="开户方式" length="2" leftPadding="false" padding=" " ref="InDict.inac.opactp"/>
+            <field id="opbrno" type="BaseType.U_BRCHNO" longname="开户行" length="12" leftPadding="false" padding=" " ref="InDict.inac.opbrno"/>
+            <field id="opener" type="PbBaseType.U_USERID" longname="开户柜员" length="16" leftPadding="false" padding=" "/>
+            <field id="acctno" type="BaseType.U_ACCTNO" longname="总帐帐号" length="80" leftPadding="false" padding=" " ref="InDict.inac.acctno"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" longname="总帐帐号名称" length="160" leftPadding="false" padding=" " ref="InDict.inac.acctna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="closdt" type="BaseType.U_DATE08" longname="销户日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.closdt"/>
+            <field id="clossq" type="BaseType.U_SEQUNO" longname="销户交易流水" length="64" leftPadding="false" padding=" " ref="InDict.inac.clossq"/>
+            <field id="clactp" type="InEnumType.E_CLACTP" longname="销户方式" length="2" leftPadding="false" padding=" " ref="InDict.inac.clactp"/>
+            <field id="clbrno" type="BaseType.U_BRCHNO" longname="销户行" length="12" leftPadding="false" padding=" " ref="InDict.inac.clbrno"/>
+            <field id="closer" type="PbBaseType.U_USERID" longname="销户柜员" length="16" leftPadding="false" padding=" "/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

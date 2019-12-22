@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="signdetl" longname="转存签约明细表数仓抽数" kind="write" package="cn.sunline.ltts.busi.catran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="signdetl" longname="转存签约明细表数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="signno" type="BaseType.U_SENOTP" longname="签约号" length="19" leftPadding="false" padding=" "/>
+            <field id="custno" type="BaseType.U_CUSTNO" longname="客户号" length="22" leftPadding="false" padding=" "/>
+            <field id="custac" type="BaseType.U_ACCTNO" longname="电子账号" length="80" leftPadding="false" padding=" "/>
+            <field id="acctno" type="BaseType.U_ACCTNO" longname="活期账户号" length="80" leftPadding="false" padding=" "/>
+            <field id="fxacct" type="BaseType.U_ACCTNO" longname="定期账户号" length="80" leftPadding="false" padding=" "/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="从活期产品" length="36" leftPadding="false" padding=" "/>
+            <field id="trprod" type="BaseType.U_PRODCD" longname="转到定期产品" length="36" leftPadding="false" padding=" "/>
+            <field id="signtp" type="CaEnumType.E_SIGNTP" longname="签约类型" length="4" leftPadding="false" padding=" "/>
+            <field id="period" type="BaseEnumType.E_PERIOD" longname="周期" length="2" leftPadding="false" padding=" "/>
+            <field id="frequy" type="BaseType.U_PERIOD" longname="频率" length="16" leftPadding="false" padding=" "/>
+            <field id="miniam" type="BaseType.U_TRANAM" longname="转入最小金额" length="17" leftPadding="false" padding=" "/>
+            <field id="keepam" type="BaseType.U_TRANAM" longname="转出保留最低余额" length="17" leftPadding="false" padding=" "/>
+            <field id="trottp" type="CaEnumType.E_TROTTP" longname="转出类型" length="2" leftPadding="false" padding=" "/>
+            <field id="trmiam" type="BaseType.U_TRANAM" longname="转出最小金额" length="17" leftPadding="false" padding=" "/>
+            <field id="upamnt" type="BaseType.U_TRANAM" longname="递增金额" length="17" leftPadding="false" padding=" "/>
+            <field id="unsgtp" type="DpEnumType.E_UNSGTP" longname="解约转回类型" length="2" leftPadding="false" padding=" "/>
+            <field id="otupam" type="BaseType.U_TRANAM" longname="转出递增金额" length="17" leftPadding="false" padding=" "/>
+            <field id="otmiam" type="BaseType.U_TRANAM" longname="转出最小金额" length="17" leftPadding="false" padding=" "/>
+            <field id="signam" type="BaseType.U_TRANAM" longname="签约金额" length="17" leftPadding="false" padding=" "/>
+            <field id="signdt" type="BaseType.U_DATE08" longname="签约日期" length="16" leftPadding="false" padding=" "/>
+            <field id="cncldt" type="BaseType.U_DATE08" longname="解约日期" length="16" leftPadding="false" padding=" "/>
+            <field id="effedt" type="BaseType.U_DATE08" longname="失效日期" length="16" leftPadding="false" padding=" "/>
+            <field id="signst" type="CaEnumType.E_SIGNST" longname="签约状态" length="2" leftPadding="false" padding=" "/>
+            <field id="currdt" type="BaseType.U_DATE08" longname="当前处理日期" length="16" leftPadding="false" padding=" "/>
+            <field id="nextdt" type="BaseType.U_DATE08" longname="下次处理日期" length="16" leftPadding="false" padding=" "/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

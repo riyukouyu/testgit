@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="imptfr" longname="风控冻结导入" kind="2" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <fields id="list" required="false" multi="true" longname="导入列表" array="false">
+                <field id="refeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="参考号" ref="DpRiskDict.Aply.refeno"/>
+                <field id="retrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="收单交易日期" ref="DpRiskDict.Aply.retrdt"/>
+                <field id="frozam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冻结总金额" ref="DpRiskDict.Aply.frozam"/>
+                <field id="froztp" type="DpEnumType.E_FROZTP" required="false" default="'11'" multi="false" array="false" longname="冻结业务类型" ref="DpRiskDict.Aply.froztp"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="DpRiskService.AddFrozenApplies" id="AddFrozenApplies" longname="录入冻结申请">
+            <in_mappings by_interface="true">
+                <mapping src="list" dest="importList" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

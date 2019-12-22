@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpRiskEnumType" package="cn.sunline.edsp.busi.dp.iobus.type.risk" longname="风控冻结强扣枚举类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <restrictionType id="E_FRAPST" longname="申请冻结状态" base="string">
+        <enumeration id="TO_FROZE" value="0" longname="待冻结"/>
+        <enumeration id="PARTIAL_FROZEN" value="1" longname="部分冻结"/>
+        <enumeration id="FROZEN" value="2" longname="冻结完成"/>
+        <enumeration id="UNFROZEN" value="3" longname="已解冻"/>
+    </restrictionType>
+    <restrictionType id="E_FREXOG" longname="申请部门" base="string">
+        <enumeration id="FK" value="01" longname="风控"/>
+        <enumeration id="CW" value="02" longname="财务"/>
+    </restrictionType>
+    <restrictionType id="E_OPDESC" longname="操作功能" base="string">
+        <enumeration id="FROZE" value="0" longname="冻结"/>
+        <enumeration id="UNFROZE" value="1" longname="解冻"/>
+        <enumeration id="DEDUCT" value="2" longname="强扣"/>
+        <enumeration id="ENTER" value="3" longname="录入"/>
+        <enumeration id="CORRECTED" value="4" longname="冲正"/>
+        <enumeration id="BACK" value="5" longname="退货"/>
+        <enumeration id="DEDUCT_ENTER" value="6" longname="强扣录入"/>
+    </restrictionType>
+    <restrictionType id="E_ENFLAG" longname="录入标志" base="string">
+        <enumeration id="SINGLE" value="0" longname="单笔录入"/>
+        <enumeration id="BATCH" value="1" longname="批量录入"/>
+    </restrictionType>
+    <restrictionType id="E_FRDEST" longname="冻结强扣明细状态" base="string">
+        <enumeration id="FROZEN" value="0" longname="已冻结"/>
+        <enumeration id="UNFROZEN" value="1" longname="已解冻"/>
+        <enumeration id="DEDUCTED" value="2" longname="已扣除"/>
+        <enumeration id="CORRECTED" value="3" longname="已冲正/撤销"/>
+        <enumeration id="BACK" value="4" longname="已退货"/>
+        <enumeration id="REPAYING" value="5" longname="商户还款中"/>
+        <enumeration id="REPAID" value="6" longname="商户还款完成"/>
+        <enumeration id="PARTIAL_DEDUCT" value="7" longname="部分扣除部分解冻"/>
+    </restrictionType>
+    <restrictionType id="E_DEAPST" longname="申请强扣状态" base="string">
+        <enumeration id="TO_DEDUCT" value="0" longname="待强扣"/>
+        <enumeration id="PARTIAL_DEDUCTED" value="1" longname="部分强扣"/>
+        <enumeration id="DEDUCTED" value="2" longname="强扣完成"/>
+    </restrictionType>
+    <restrictionType id="E_CBAKST" longname="退单状态" base="string">
+        <enumeration id="BACK" value="1" longname="已提交退单"/>
+        <enumeration id="UNBACK" value="0" longname="未提交退单"/>
+    </restrictionType>
+</schema>

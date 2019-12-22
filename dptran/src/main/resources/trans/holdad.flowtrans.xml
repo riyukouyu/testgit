@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="holdad" longname="节假日新增" kind="2" package="cn.sunline.edsp.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="hold" type="SysPublicTable.AppHold" required="false" multi="false" array="false" longname="节假日表"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+            <field id="servsq" type="BaseType.U_SEQUNO" required="false" default="'2019090610001'" multi="false" array="false" longname="渠道流水" ref="DpDict.Acct.servsq"/>
+            <field id="servdt" type="BaseType.U_DATE08" required="false" default="'20190906'" multi="false" array="false" longname="渠道日期"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="IoSaveIoTransBill.SaveActoacPeerReversal" id="SaveActoacPeerReversal" longname="记录电子账户转电子账户登记簿(转出)">
+            <in_mappings by_interface="true">
+                <mapping src="servdt" dest="ioknlcary.servdt" by_interface="true" on_top="true"/>
+                <mapping src="servsq" dest="ioknlcary.servsq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+		<service serviceName="IoPbCommSvr.InsHolidayInfo" id="InsHolidayInfo" longname="增加节假日信息">
+            <in_mappings by_interface="true">
+                <mapping src="hold.corpno" dest="addIn.corpno" by_interface="true" on_top="true"/>
+                <mapping src="hold.efctdt" dest="addIn.efctdt" by_interface="true" on_top="true"/>
+                <mapping src="hold.filesq" dest="addIn.filesq" by_interface="true" on_top="true"/>
+                <mapping src="hold.holday" dest="addIn.holday" by_interface="true" on_top="true"/>
+                <mapping src="hold.holdcd" dest="addIn.holdcd" by_interface="true" on_top="true"/>
+                <mapping src="hold.holdtp" dest="addIn.holdtp" by_interface="true" on_top="true"/>
+                <mapping src="hold.remark" dest="addIn.remark" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="holidDayAdd" id="holidDayAdd" longname="节假日新增"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

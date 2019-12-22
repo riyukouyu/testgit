@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="updmac" longname="移动前端账户限额修改" kind="2" package="cn.sunline.ltts.busi.catran.trans.qt" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.qt.intf">
+        <input packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+            <field id="acctrt" type="BaseEnumType.E_ACCTROUTTYPE" required="false" multi="false" array="false" longname="账号路由类型" ref="BaseDict.Comm.acctrt"/>
+            <field id="servtp" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="渠道" ref="PbDict.Intr.servtp"/>
+            <field id="custac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号" ref="QtDict.Qt.custac"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="sglm01" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="单笔交易支付限额(客户设置)"/>
+            <field id="dllm01" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="日累计交易支付限额(客户设置)"/>
+            <field id="sglm02" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="单笔交易转账限额(客户设置)"/>
+            <field id="dllm02" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="日累计交易转账限额(客户设置)"/>
+            <field id="sglm03" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="单笔交易取现限额(客户设置)"/>
+            <field id="dllm03" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="日累计交易取现限额(客户设置)"/>
+            <field id="sbactp" type="QtEnumType.E_SBACTP" required="false" multi="false" array="false" longname="子账户类型" ref="QtDict.Qt.sbactp"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="beforeUpdmac" id="beforeUpdmac" longname="交易前检查"/>
+        <service serviceName="IoCaSevAccountLimit.MoAcLimitUpd" id="MoAcLimitUpd" longname="移动前端账户限额修改">
+            <in_mappings by_interface="true">
+                <mapping src="accttp" dest="accttp" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="acctrt" dest="acctrt" by_interface="true" on_top="true"/>
+                <mapping src="dllm01" dest="dllm02" by_interface="true" on_top="true"/>
+                <mapping src="dllm02" dest="dllm04" by_interface="true" on_top="true"/>
+                <mapping src="dllm03" dest="dllm06" by_interface="true" on_top="true"/>
+                <mapping src="sbactp" dest="sbactp" by_interface="true" on_top="true"/>
+                <mapping src="servtp" dest="servtp" by_interface="true" on_top="true"/>
+                <mapping src="sglm01" dest="sglm02" by_interface="true" on_top="true"/>
+                <mapping src="sglm02" dest="sglm04" by_interface="true" on_top="true"/>
+                <mapping src="sglm03" dest="sglm06" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

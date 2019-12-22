@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="stunpy" longname="解止" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[暂时只支持指定子账号的解冻]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="sptype" type="DpEnumType.E_SPTYPE" required="false" multi="false" array="false" longname="止付类型12（对外）"/>
+            <field id="stoptp" type="DpEnumType.E_STOPTP" required="false" multi="false" array="false" longname="止付类型" ref="DpDict.Froz.stoptp"/>
+            <field id="stopms" type="DpEnumType.E_STOPMS" required="false" multi="false" array="false" longname="止付措施"/>
+            <field id="stuntp" type="DpEnumType.E_STUNTP" required="false" multi="false" array="false" longname="止解方式" ref="DpDict.Froz.stuntp"/>
+            <field id="sttmle" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="止付时间长度"/>
+            <field id="stpldt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="解止/质押到期日期"/>
+            <field id="stopno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="止付序号" ref="DpDict.Froz.stopno"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="stopam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="解/止付金额" ref="DpDict.Froz.stopam"/>
+            <field id="stbkno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解/止付书编号" ref="DpDict.Froz.stbkno"/>
+            <field id="stdptp" type="BaseEnumType.E_LAWCOP" required="false" multi="false" array="false" longname="解/止付部门类型" ref="DpDict.Froz.stdptp"/>
+            <field id="stladp" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="解/止付执法部门" ref="DpDict.Froz.stladp"/>
+            <field id="frna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员1姓名" ref="DpDict.Froz.frna01"/>
+            <field id="idtp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="执法人员1证件种类"/>
+            <field id="idno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员1证件号码" ref="DpDict.Froz.idno01"/>
+            <field id="frna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员2姓名" ref="DpDict.Froz.frna02"/>
+            <field id="idtp02" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="执法人员2证件种类"/>
+            <field id="idno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员2证件号码" ref="DpDict.Froz.idno02"/>
+            <field id="sfreas" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解/止付原因" ref="DpDict.Froz.sfreas"/>
+            <field id="stopdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="止付日期" ref="DpDict.Froz.stopdt"/>
+            <field id="custop" type="DpEnumType.E_CUSTOP" required="false" multi="false" array="false" longname="账户保护类型"/>
+            <field id="cureas" type="DpEnumType.E_CUREAS" required="false" multi="false" array="false" longname="账户保护原因"/>
+            <field id="frlmtp" type="DpEnumType.E_FRLMTP" required="false" multi="false" array="false" longname="限制类型" ref="DpDict.Froz.frlmtp"/>
+            <field id="frozcd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="冻结分类码" ref="DpDict.Froz.frozcd"/>
+            <field id="frozow" type="DpEnumType.E_FROZOW" required="false" multi="false" array="false" longname="冻结主体类型" ref="DpDict.Froz.frozow"/>
+            <field id="stactp" type="JFBaseEnumType.E_STACTP" required="false" multi="false" array="false" longname="止付账户类型"/>
+            <field id="acctno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="账号"/>
+            <field id="acalno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="手机号"/>
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="stoptp" type="DpEnumType.E_STOPTP" required="false" multi="false" array="false" longname="止付类型" ref="DpDict.Froz.stoptp"/>
+            <field id="sptype" type="DpEnumType.E_SPTYPE" required="false" multi="false" array="false" longname="止付类型12（对外）"/>
+            <field id="stuntp" type="DpEnumType.E_STUNTP" required="false" multi="false" array="false" longname="止解方式" ref="DpDict.Froz.stuntp"/>
+            <field id="stopms" type="DpEnumType.E_STOPMS" required="false" multi="false" array="false" longname="止付措施" ref="DpDict.Froz.stopms"/>
+            <field id="frozno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="冻结编号" ref="DpDict.Froz.frozno"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="stopam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="解/止付金额" ref="DpDict.Froz.stopam"/>
+            <field id="stbkno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解/止付书编号" ref="DpDict.Froz.stbkno"/>
+            <field id="sttmct" type="DpEnumType.E_STTMCT" required="false" multi="false" array="false" longname="止付时间计算" ref="DpDict.Froz.sttmct"/>
+            <field id="stoptm" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="止付时间" ref="DpDict.Froz.stoptm"/>
+            <field id="stopdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="止付日期" ref="DpDict.Froz.stopdt"/>
+            <field id="stpldt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="止付(质押)到期日" ref="DpDict.Froz.stpldt"/>
+            <field id="stdptp" type="BaseEnumType.E_LAWCOP" required="false" multi="false" array="false" longname="解/止付部门类型" ref="DpDict.Froz.stdptp"/>
+            <field id="stladp" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="解/止付执法部门" ref="DpDict.Froz.stladp"/>
+            <field id="frna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员1姓名" ref="DpDict.Froz.frna01"/>
+            <field id="idtp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="执法人员1证件种类"/>
+            <field id="idno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员1证件号码" ref="DpDict.Froz.idno01"/>
+            <field id="frna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员2姓名" ref="DpDict.Froz.frna02"/>
+            <field id="idtp02" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="执法人员2证件种类"/>
+            <field id="idno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员2证件号码" ref="DpDict.Froz.idno02"/>
+            <field id="sfreas" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解/止付原因" ref="DpDict.Froz.sfreas"/>
+            <field id="custop" type="DpEnumType.E_CUSTOP" required="false" multi="false" array="false" longname="账户保护类型"/>
+            <field id="cureas" type="DpEnumType.E_CUREAS" required="false" multi="false" array="false" longname="账户保护原因"/>
+            <field id="tmidno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员1证件号码脱敏字段" ref="DpDict.Froz.tmidno01"/>
+            <field id="tmidno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="执法人员2证件号码脱敏字段" ref="DpDict.Froz.tmidno02"/>
+            <field id="tmfrna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员1姓名脱敏字段" ref="DpDict.Froz.tmfrna01"/>
+            <field id="tmfrna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="冻结执法人员2姓名脱敏字段" ref="DpDict.Froz.tmfrna02"/>
+            <field id="tmcustna" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="脱敏客户名称"/>
+            <field id="tmtlphno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="脱敏手机号"/>
+            <field id="sttmle" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="止付时间长度"/>
+            <field id="stopno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="止付序号" ref="DpDict.Froz.stopno"/>
+            <field id="frlmtp" type="DpEnumType.E_FRLMTP" required="false" multi="false" array="false" longname="限制类型" ref="DpDict.Froz.frlmtp"/>
+            <field id="frozcd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="冻结分类码" ref="DpDict.Froz.frozcd"/>
+            <field id="frozow" type="DpEnumType.E_FROZOW" required="false" multi="false" array="false" longname="冻结主体类型" ref="DpDict.Froz.frozow"/>
+            <field id="stactp" type="JFBaseEnumType.E_STACTP" required="false" multi="false" array="false" longname="止付账户类型"/>
+            <field id="acctno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="账号"/>
+            <field id="acalno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="手机号"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoDpFrozSvcType.IoStunpy" id="IoStunpy" longname="解止" desc="解止">
+            <in_mappings by_interface="true">
+                <mapping src="acalno" dest="stunpyin.acalno" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="stunpyin.acctno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="stunpyin.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="stunpyin.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="stunpyin.csextg" by_interface="true" on_top="true"/>
+                <mapping src="cureas" dest="stunpyin.cureas" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="stunpyin.custna" by_interface="true" on_top="true"/>
+                <mapping src="custop" dest="stunpyin.custop" by_interface="true" on_top="true"/>
+                <mapping src="stbkno" dest="stunpyin.frcttp" by_interface="true" on_top="true"/>
+                <mapping src="frlmtp" dest="stunpyin.frlmtp" by_interface="true" on_top="true"/>
+                <mapping src="frna01" dest="stunpyin.frna01" by_interface="true" on_top="true"/>
+                <mapping src="frna02" dest="stunpyin.frna02" by_interface="true" on_top="true"/>
+                <mapping src="frozcd" dest="stunpyin.frozcd" by_interface="true" on_top="true"/>
+                <mapping src="frozow" dest="stunpyin.frozow" by_interface="true" on_top="true"/>
+                <mapping src="idno01" dest="stunpyin.idno01" by_interface="true" on_top="true"/>
+                <mapping src="idno02" dest="stunpyin.idno02" by_interface="true" on_top="true"/>
+                <mapping src="idtp01" dest="stunpyin.idtp01" by_interface="true" on_top="true"/>
+                <mapping src="idtp02" dest="stunpyin.idtp02" by_interface="true" on_top="true"/>
+                <mapping src="sfreas" dest="stunpyin.sfreas" by_interface="true" on_top="true"/>
+                <mapping src="sptype" dest="stunpyin.sptype" by_interface="true" on_top="true"/>
+                <mapping src="stactp" dest="stunpyin.stactp" by_interface="true" on_top="true"/>
+                <mapping src="stbkno" dest="stunpyin.stbkno" by_interface="true" on_top="true"/>
+                <mapping src="stdptp" dest="stunpyin.stdptp" by_interface="true" on_top="true"/>
+                <mapping src="stladp" dest="stunpyin.stladp" by_interface="true" on_top="true"/>
+                <mapping src="stopam" dest="stunpyin.stopam" by_interface="true" on_top="true"/>
+                <mapping src="stopdt" dest="stunpyin.stopdt" by_interface="true" on_top="true"/>
+                <mapping src="stopms" dest="stunpyin.stopms" by_interface="true" on_top="true"/>
+                <mapping src="stopno" dest="stunpyin.stopno" by_interface="true" on_top="true"/>
+                <mapping src="stoptp" dest="stunpyin.stoptp" by_interface="true" on_top="true"/>
+                <mapping src="stpldt" dest="stunpyin.stpldt" by_interface="true" on_top="true"/>
+                <mapping src="sttmle" dest="stunpyin.sttmle" by_interface="true" on_top="true"/>
+                <mapping src="stuntp" dest="stunpyin.stuntp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="stunpyot.acalno" dest="acalno" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.cureas" dest="cureas" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.custop" dest="custop" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.frlmtp" dest="frlmtp" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.frna01" dest="frna01" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.frna02" dest="frna02" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.frozcd" dest="frozcd" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.frozno" dest="frozno" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.frozow" dest="frozow" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.idno01" dest="idno01" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.idno02" dest="idno02" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.idtp01" dest="idtp01" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.idtp02" dest="idtp02" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.sfreas" dest="sfreas" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.sptype" dest="sptype" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stactp" dest="stactp" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stbkno" dest="stbkno" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stdptp" dest="stdptp" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stladp" dest="stladp" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stopam" dest="stopam" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stopdt" dest="stopdt" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stopms" dest="stopms" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stoptm" dest="stoptm" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stoptp" dest="stoptp" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stpldt" dest="stpldt" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.sttmct" dest="sttmct" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.stuntp" dest="stuntp" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.tmcustna" dest="tmcustna" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.tmfrna01" dest="tmfrna01" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.tmfrna02" dest="tmfrna02" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.tmidno01" dest="tmidno01" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.tmidno02" dest="tmidno02" by_interface="true" on_top="true"/>
+                <mapping src="stunpyot.tmtlphno" dest="tmtlphno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

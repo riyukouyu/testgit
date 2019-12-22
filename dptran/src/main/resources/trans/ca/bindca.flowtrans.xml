@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="bindca" longname="电子账户绑卡" kind="2" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.cardno"/>
+            <field id="cdopac" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="结算卡账号" ref="DpDict.Acct.cdopac"/>
+            <field id="cdopna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="结算卡姓名" ref="DpDict.Acct.cdopna"/>
+            <field id="opbrch" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="银行卡开户行号" ref="DpDict.Acct.opbrch"/>
+            <field id="brchna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="银行卡开户行名称" ref="DpDict.Acct.brchna"/>
+            <field id="cardtp" type="CaEnumType.E_BACATP" required="false" multi="false" array="false" longname="结算卡类型" ref="DpDict.Acct.cardtp"/>
+            <field id="isbkca" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否本行账户" ref="CaDict.Eacct.isbkca"/>
+            <field id="bdcart" type="CaEnumType.E_BDCART" required="false" multi="false" array="false" longname="绑卡认证结果" ref="CaDict.Eacct.bdcart"/>
+            <field id="bdcatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="结算卡账户分类" ref="DpDict.Acct.bdcatp"/>
+            <field id="copefg" type="JfDpEnumType.E_CUSTTP" required="false" multi="false" array="false" longname="对公对私标志"/>
+            <field id="idtfna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="证件姓名" ref="DpDict.Acct.idtfna"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="bankph" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="结算卡预留手机号" ref="DpDict.Acct.bankph"/>
+            <field id="isdflt" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否默认卡"/>
+            <field id="acctid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="子账户开户标识" ref="DpDict.Acct.acctid"/>
+            <field id="mactid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="电子主账户开户标识" ref="DpDict.Acct.mactid"/>
+            <field id="acbdtp" type="BaseEnumType.E_ACCTFG" required="false" multi="false" array="false" longname="绑定账户标识" ref="DpDict.Acct.acbdtp"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+            <field id="isckfg" type="BaseEnumType.E_YES___" required="false" enums="NO" fixed="'0'" multi="false" array="false" longname="是否检查状态状字标志"/>
+            <field id="mantwy" type="CaEnumType.E_MANTWY" required="false" fixed="'1'" multi="false" array="false" longname="维护方式" ref="CaDict.Eacct.mantwy"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.cardno"/>
+            <field id="acbdno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="绑定账户账号" ref="DpDict.Acct.acbdno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoCaSevGenBindCard.IoCaSevGenBindCar" id="CaBindCard" longname="电子账户绑卡" desc="电子账户绑卡">
+            <in_mappings by_interface="true">
+                <mapping src="brchna" dest="caBindCard.brchna" desc="账户开户行名称" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="caBindCard.cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="cardtp" dest="caBindCard.cardtp" desc="绑定账户类型" by_interface="true" on_top="true"/>
+                <mapping src="cdopac" dest="caBindCard.cdopac" desc="绑定账户" by_interface="true" on_top="true"/>
+                <mapping src="cdopna" dest="caBindCard.cdopna" desc="绑定账户名称" by_interface="true" on_top="true"/>
+                <mapping src="isbkca" dest="caBindCard.isbkca" desc="是否本行卡" by_interface="true" on_top="true"/>
+                <mapping src="opbrch" dest="caBindCard.opbrch" desc="账户开户行号" by_interface="true" on_top="true"/>
+                <mapping src="bdcart" dest="caBindCard.bdcart" desc="绑卡认证结果" by_interface="true" on_top="true"/>
+                <mapping src="bdcatp" dest="caBindCard.bdcatp" desc="绑定账户分类" by_interface="true" on_top="true"/>
+                <mapping src="isckfg" dest="caBindCard.isckfg" desc="是否检查状态状态字标志" by_interface="true" on_top="true"/>
+                <mapping src="copefg" dest="caBindCard.copefg" desc="对公对私标识" by_interface="true" on_top="true"/>
+                <mapping src="idtfna" dest="caBindCard.idtfna" desc="客户名称" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="caBindCard.idtftp" desc="证件类型" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="caBindCard.idtfno" desc="证件号码" by_interface="true" on_top="true"/>
+                <mapping src="bankph" dest="caBindCard.bankph" desc="预留手机号" by_interface="true" on_top="true"/>
+                <mapping src="isdflt" dest="caBindCard.isdflt" desc="是否默认卡" by_interface="true" on_top="true"/>
+                <mapping src="mactid" dest="caBindCard.mactid" desc="主账户开户标识" by_interface="true" on_top="true"/>
+                <mapping src="acctid" dest="caBindCard.acctid" desc="子账户开户标识" by_interface="true" on_top="true"/>
+                <mapping src="acbdtp" dest="caBindCard.acbdtp" desc="绑定账户标识" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acbdno" dest="acbdno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="mantwy" dest="mantwy" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service serviceName="IoCaSevGenBindCard.IoCaCardAlterReg" id="caCardAlterReg" longname="绑定账户信息修改登记簿登记">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="bdAcctIn.cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="cdopac" dest="bdAcctIn.cdopac" desc="新绑定账户" by_interface="true" on_top="true"/>
+                <mapping src="mantwy" dest="bdAcctIn.mantwy" desc="维护方式" by_interface="true" on_top="true"/>
+                <mapping src="acbdno" dest="bdAcctIn.acbdno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

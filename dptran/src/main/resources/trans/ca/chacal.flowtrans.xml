@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="chacal" longname="账户别名变更" kind="2" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="新绑定手机号"/>
+            <field id="odalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="原绑定手机号"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="IoCaSevAliasBindChange.IoSecAliasChange" id="secAliasChange" test="" longname="账户别名变更" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="acalno" dest="acalno" desc="新绑定手机号码" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="custid" dest="custid" desc="用户ID" by_interface="true" on_top="true"/>
+                <mapping src="odalno" dest="odalno" desc="原绑定手机号码" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

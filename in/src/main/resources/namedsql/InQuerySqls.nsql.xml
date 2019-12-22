@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="InQuerySqls" longname="内部户查询" package="cn.sunline.ltts.busi.in.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectOne" type="sql" id="sel_GlKnaAcct_by_acct" longname="查询内部户信息">
+        <sql type="oracle"><![CDATA[select * from gl_kna_acct where acctno = #acctno#]]></sql>
+        <sql type="mysql"><![CDATA[select * from gl_kna_acct where acctno = #acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.GlKnaAcct"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="queryInAcctSubsacByItemcd" longname="根据科目币种部门查找最大子户号">
+        <sql><![CDATA[ 
+			Select  /*+ Index(a idx_gl_kna_acct_itemcd )*/
+			Max(subsac) As subsac2
+			From gl_kna_acct a
+ 			Where itemcd = #itemcd# 
+ 			And crcycd = #crcycd# 
+ 			And brchno = #brchno# 
+ 			And subsac >= '000000' 
+ 			And subsac <= '900000' 
+ 		]]></sql>
+        <sql type="mysql"><![CDATA[ 
+			Select  /*+ Index(a idx_gl_kna_acct_itemcd )*/
+			Max(subsac) As subsac2
+			From gl_kna_acct a
+ 			Where itemcd = #itemcd# 
+ 			And crcycd = #crcycd# 
+ 			And brchno = #brchno# 
+ 			And subsac >= '000000' 
+ 			And subsac <= '900000' 
+ 		]]></sql>
+        <sql type="oracle"><![CDATA[ 
+			Select  /*+ Index(a idx_gl_kna_acct_itemcd )*/
+			Max(subsac) As subsac2
+			From gl_kna_acct a
+ 			Where itemcd = #itemcd# 
+ 			And crcycd = #crcycd# 
+ 			And brchno = #brchno# 
+ 			And subsac >= '000000' 
+ 			And subsac <= '900000' 
+ 		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="itemcd" jdbcType="VARCHAR" javaType="BaseType.U_ITEMCD" mode="in" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" parameterType="condition"/>
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="subsac" javaType="BaseType.U_CUACNO" jdbcType="VARCHAR" column="subsac2"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="queryGlAcctSubsacByItemcd" longname="根据科目币种部门查找最大子户号">
+        <sql><![CDATA[ 
+			Select  /*+ Index(a idx_gl_kna_acct_itemcd )*/
+			Max(subsac) As subsac2
+			From gl_kna_acct a
+ 			Where itemcd = #itemcd# 
+ 			And crcycd = #crcycd# 
+ 			And brchno = #brchno# 
+ 			And subsac like #subsac#
+ 		]]></sql>
+        <sql type="mysql"><![CDATA[ 
+			Select  /*+ Index(a idx_gl_kna_acct_itemcd )*/
+			Max(subsac) As subsac2
+			From gl_kna_acct a
+ 			Where itemcd = #itemcd# 
+ 			And crcycd = #crcycd# 
+ 			And brchno = #brchno# 
+ 			And subsac like #subsac#
+ 		]]></sql>
+        <sql type="oracle"><![CDATA[ 
+			Select  /*+ Index(a idx_gl_kna_acct_itemcd )*/
+			Max(subsac) As subsac2
+			From gl_kna_acct a
+ 			Where itemcd = #itemcd# 
+ 			And crcycd = #crcycd# 
+ 			And brchno = #brchno# 
+ 			And subsac like #subsac#
+ 		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="itemcd" jdbcType="VARCHAR" javaType="BaseType.U_ITEMCD" mode="in" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" parameterType="condition"/>
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" parameterType="condition"/>
+            <parameter property="subsac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="subsac" javaType="BaseType.U_CUACNO" jdbcType="VARCHAR" column="subsac2"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="queryMaxSerial" longname="取最大serial">
+        <sql type="mysql"><![CDATA[ 
+			select  max(substr(acctno,-6,6)) as serial
+			from gl_kna_acct 
+ 			where acctno >= concat(#acctno#,'000000')
+ 			and   acctno <= concat(#acctno#,'900000')
+ 		]]></sql>
+        <sql type="oracle"><![CDATA[ 
+			select  max(substr(acctno,-6,6)) as serial
+			from gl_kna_acct 
+ 			where acctno >= concat(#acctno#,'000000')
+ 			and   acctno <= concat(#acctno#,'900000')
+ 		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String">
+            <result property="serial" javaType="BaseType.U_SEQUNO" jdbcType="VARCHAR" column="serial"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="queryBrchNoShort" longname="取机构简码">
+        <sql type="oracle"><![CDATA[ 
+			select brnosh from kub_brch
+			where brchno = #acctno#
+ 		]]></sql>
+        <sql type="mysql"><![CDATA[ 
+			select brnosh from kub_brch
+			where brchno = #acctno#
+ 		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String">
+            <result property="brnosh" javaType="BaseType.U_BRCHNO" jdbcType="VARCHAR" column="brnosh"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectPage" type="sql" id="QryAllInac" longname="分页查询记录">
+        <sql type="oracle"><![CDATA[select * from gl_kna_acct a left join gl_kna_lsbl b on a.acctno=b.acctno]]></sql>
+        <sql type="mysql"><![CDATA[select * from gl_kna_acct a left join gl_kna_lsbl b on a.acctno=b.acctno]]></sql>
+        <resultMap class="IoInQueryTypes.IoInacInfo"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="SelAccoutInac" longname="查询内部户记录数">
+        <sql type="oracle"><![CDATA[select count(*) as count from gl_kna_acct]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) as count from gl_kna_acct]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="SelItemnmByCd" longname="根据科目号查询科目名称">
+        <sql type="oracle"><![CDATA[select a.itemna from gl_knp_item a where a.itemcd=#itemcd#]]></sql>
+        <sql type="mysql"><![CDATA[select a.itemna from gl_knp_item a where a.itemcd=#itemcd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="itemcd" jdbcType="VARCHAR" javaType="string" mode="in" longname="itemcd" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <select cache="none" method="selectPage selectAll" type="sql" id="qryItemInfoPage" longname="分页查询科目信息">
+        <sql type="oracle"><![CDATA[select * from gl_knp_item order by Itemcd]]></sql>
+        <sql type="mysql"><![CDATA[select * from gl_knp_item order by Itemcd]]></sql>
+        <resultMap class="In.GlKnpItem"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="getItemCount" longname="获取科目信息总条数">
+        <sql type="oracle"><![CDATA[select count(*) as count from gl_knp_item]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) as count from gl_knp_item]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="int"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selBusinoInfoWithPage" longname="分页查询业务编码信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+            <parameter property="busina" ref="InDict.inac.busina" jdbcType="VARCHAR" javaType="BaseType.U_CHAR80" mode="in" longname="业务代码中文名称说明" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.GlKnpBusi"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from gl_knp_busi a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="busino != null and busino != ''" type="If">
+                        <str type="Str"><![CDATA[a.busino like concat(#busino#,'%')]]></str>
+                    </if>
+                    <if test="busina != null and busina != ''" type="If">
+                        <str type="Str"><![CDATA[a.busina like '%' || #busina# || '%']]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.busino]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selBusinoCount" longname="查询业务编码信息记录">
+        <sql type="oracle"><![CDATA[select count(*) as cnt from gl_knp_busi]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) as cnt from gl_knp_busi]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.Integer"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBzprtpInfoForDict" longname="查询属性类型字典信息">
+        <sql type="oracle"><![CDATA[select bzprtp,desctx from gl_knp_bztp]]></sql>
+        <sql type="mysql"><![CDATA[select bzprtp,desctx from gl_knp_bztp]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="IoInQueryTypes.IoBzprtpInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selItemcdInfoForDict" longname="查询科目字典信息">
+        <sql type="oracle"><![CDATA[select itemcd,itemna from gl_knp_item where dtittg = '1']]></sql>
+        <sql type="mysql"><![CDATA[select itemcd,itemna from gl_knp_item where dtittg = '1']]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="IoInQueryTypes.IoItemcdInfo"/>
+    </select>
+    <select cache="none" method="selectPage" type="sql" id="selBzprtpInfoWithPage" longname="分页查询属性类型信息">
+        <sql type="oracle"><![CDATA[select * from gl_knp_bztp]]></sql>
+        <sql type="mysql"><![CDATA[select * from gl_knp_bztp]]></sql>
+        <resultMap class="In.GlKnpBztp"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selBzprtpCount" longname="查询属性类型总记录">
+        <sql type="oracle"><![CDATA[select count(*) from gl_knp_bztp]]></sql>
+        <sql type="mysql"><![CDATA[select count(*) from gl_knp_bztp]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="int"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selHGlKnsGlvc" longname="查询帐务流水表">
+        <sql type="oracle"><![CDATA[
+        SELECT Trandt, Glvcsq, Stacno, Stacsq, Brchno, Acctno, Trantp, Amntcd, Itemcd, Crcycd,
+        Tranam, Blncdn, Tranbl, Transq, Acctbr, Tranus, Ckbsus, Smrytx, Inptsr, Status,
+        Ioflag, Kpacbr, Ckvcfg, Trannm, Cmmdsq, Prcscd, Rlbltg, Cqtpid, Cheqtp, Cheqno,
+        Toacct, Tosbac, Toacna, Bkfnst, Payasq, Exacct, Exdpac
+  		FROM h_Gl_Kns_Glvc
+		WHERE Trandt = #trandt#
+		ORDER BY Brchno, Acctno, Glvcsq]]></sql>
+        <sql type="mysql"><![CDATA[
+        SELECT Trandt, Glvcsq, Stacno, Stacsq, Brchno, Acctno, Trantp, Amntcd, Itemcd, Crcycd,
+        Tranam, Blncdn, Tranbl, Transq, Acctbr, Tranus, Ckbsus, Smrytx, Inptsr, Status,
+        Ioflag, Kpacbr, Ckvcfg, Trannm, Cmmdsq, Prcscd, Rlbltg, Cqtpid, Cheqtp, Cheqno,
+        Toacct, Tosbac, Toacna, Bkfnst, Payasq, Exacct, Exdpac
+  		FROM h_Gl_Kns_Glvc
+		WHERE Trandt = #trandt#
+		ORDER BY Brchno, Acctno, Glvcsq]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="trandt" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="InHistTable.HGlKnsGlvc"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selSumTranAmtByAcct" longname="查询指定账号汇总金额">
+        <sql type="oracle"><![CDATA[
+	        SELECT nvl(sum(tranam),0)
+	 		FROM h_Gl_Kns_Glvc
+	 		WHERE Trandt = #trandt# 
+			and acctno=#acctno#
+			and amntcd=#amntcd#]]></sql>
+        <sql type="mysql"><![CDATA[
+	        SELECT ifnull(sum(tranam),0)
+	 		FROM h_Gl_Kns_Glvc
+	 		WHERE Trandt = #trandt# 
+			and acctno=#acctno#
+			and amntcd=#amntcd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+            <parameter property="amntcd" ref="BaseDict.Comm.amntcd" jdbcType="VARCHAR" javaType="BaseEnumType.E_AMNTCD" mode="in" longname="借贷标志" parameterType="condition"/>
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="trandt" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.math.BigDecimal"/>
+    </select>
+    <select cache="none" method="selectPage selectAll" type="sql" id="qryItemInfoPageVice" longname="分页查询科目副表信息">
+        <sql type="oracle"><![CDATA[select * from gl_knp_item_vice order by Itemcd]]></sql>
+        <sql type="mysql"><![CDATA[select * from gl_knp_item_vice order by Itemcd]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="In.GlKnpItemVice"/>
+    </select>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selBillCount" longname="统计内部户交易记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+            <parameter property="tranus" ref="InDict.inac.tranus" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="记账柜员" parameterType="condition"/>
+            <parameter property="toacct" ref="InDict.inac.toacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="对方账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) from  (select * from gl_kns_glvc union select * from h_gl_kns_glvc) ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="bgdate != null &amp;&amp; bgdate !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt >= #bgdate#]]></str>
+                    </if>
+                    <if test="endate != null &amp;&amp; endate != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt <= #endate#]]></str>
+                    </if>
+                    <if test="tranus != null &amp;&amp; tranus != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[tranus = #tranus#]]></str>
+                    </if>
+                    <if test="toacct != null &amp;&amp; toacct != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[toacct = #toacct#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[acctno = #acctno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) from  (select * from gl_kns_glvc union select * from h_gl_kns_glvc) ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="bgdate != null &amp;&amp; bgdate !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt >= #bgdate#]]></str>
+                    </if>
+                    <if test="endate != null &amp;&amp; endate != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt <= #endate#]]></str>
+                    </if>
+                    <if test="tranus != null &amp;&amp; tranus != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[tranus = #tranus#]]></str>
+                    </if>
+                    <if test="toacct != null &amp;&amp; toacct != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[toacct = #toacct#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[acctno = #acctno#]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selBillInfos" longname="分页查询内部户交易信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始日期" parameterType="condition"/>
+            <parameter property="endate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+            <parameter property="tranus" ref="InDict.inac.tranus" jdbcType="VARCHAR" javaType="BaseType.U_USERID" mode="in" longname="记账柜员" parameterType="condition"/>
+            <parameter property="toacct" ref="InDict.inac.toacct" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="对方账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="InQueryTypes.InBillInfo"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select e.*,f.tranus as ckbuss, ac.itemcd from (select c.* from (select a.* from gl_kns_glvc a union all select b.* from h_gl_kns_glvc b) c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="bgdate != null &amp;&amp; bgdate !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.trandt >= #bgdate#]]></str>
+                    </if>
+                    <if test="endate != null &amp;&amp; endate != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.trandt <= #endate#]]></str>
+                    </if>
+                    <if test="tranus != null &amp;&amp; tranus != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.tranus = #tranus#]]></str>
+                    </if>
+                    <if test="toacct != null &amp;&amp; toacct != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.toacct = #toacct#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[c.acctno = #acctno# ]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[) e left join (select distinct(d.transq) transq,d.tranus from (select g.transq,g.tranus from kns_cmbk g union all select h.transq,h.tranus from kns_strk h) d) f on e.transq = f.transq ]]></str>
+            <str type="Str"><![CDATA[left join gl_kna_acct ac on e.acctno = ac.acctno]]></str>
+            <str type="Str"><![CDATA[order by e.trandt, e.tmstmp]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select e.*,f.tranus as ckbuss from (select c.* from (select a.* from gl_kns_glvc a union all select b.* from h_gl_kns_glvc b) c]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="bgdate != null &amp;&amp; bgdate !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.trandt >= #bgdate#]]></str>
+                    </if>
+                    <if test="endate != null &amp;&amp; endate != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.trandt <= #endate#]]></str>
+                    </if>
+                    <if test="tranus != null &amp;&amp; tranus != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.tranus = #tranus#]]></str>
+                    </if>
+                    <if test="toacct != null &amp;&amp; toacct != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[c.toacct = #toacct#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[c.acctno = #acctno# ]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[) e left join (select distinct(d.transq) transq,d.tranus from (select g.transq,g.tranus from kns_cmbk g union all select h.transq,h.tranus from kns_strk h) d) f on e.transq = f.transq order by e.trandt, e.tmstmp ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selBusinoNameCount" longname="获取业务代码总记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from gl_knp_busi]]></str>
+            <where type="Where">
+                <if test="busino!=null &amp;&amp; busino!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[busino like concat(#busino#,'%')]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from gl_knp_busi]]></str>
+            <where type="Where">
+                <if test="busino!=null &amp;&amp; busino!=&quot;&quot;" type="If">
+                    <str type="Str"><![CDATA[busino like concat(#busino#,'%')]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPage" type="sql" id="selBusinoNameList" longname="获取业务代码和名称集合">
+        <parameterMap class="java.util.Map">
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInQueryTypes.IoBusinoName"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.busino,a.busina from gl_knp_busi a ]]></str>
+            <where type="Where">
+                <if test=" busino !=null &amp;&amp; busino!=&quot;&quot; " type="If">
+                    <str type="Str"><![CDATA[a.busino like concat(#busino#,'%')]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.busino,a.busina from gl_knp_busi a ]]></str>
+            <where type="Where">
+                <if test=" busino !=null &amp;&amp; busino!=&quot;&quot; " type="If">
+                    <str type="Str"><![CDATA[a.busino like concat(#busino#,'%')]]></str>
+                </if>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selInacInfoByConditions" longname="根据条件查询内部户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+            <parameter property="acctna" ref="InDict.inac.acctna" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNA" mode="in" longname="内部户名称" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+            <parameter property="tranbr" ref="InDict.inac.tranbr" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易部门" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="inactp" ref="InDict.inac.inactp" jdbcType="VARCHAR" javaType="BaseEnumType.E_INACTP" mode="in" longname="内部户账户类型" parameterType="condition"/>
+            <parameter property="subsac" ref="InDict.inac.subsac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="子户号" parameterType="condition"/>
+            <parameter property="qurytp" jdbcType="VARCHAR" javaType="BaseEnumType.E_QURYTP" mode="in" longname="余额查询方式" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInQueryTypes.IoInacInfo"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from gl_kna_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctno!=null &amp;&amp; acctno !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctno=#acctno#]]></str>
+                    </if>
+                    <if test="acctna!=null &amp;&amp; acctna !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctna  like concat('%',#acctna#,'%')]]></str>
+                    </if>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="busino!=null &amp;&amp; busino !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.busino = #busino#]]></str>
+                    </if>
+                    <if test="brchno!=&quot;&quot;&amp;&amp;brchno!=null" type="If">
+                        <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    </if>
+                    <if test="inactp!=null" type="If">
+                        <str type="Str"><![CDATA[a.inactp=#inactp#]]></str>
+                    </if>
+                    <if test="subsac!=null&amp;&amp;subsac!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.subsac=#subsac#]]></str>
+                    </if>
+                    <if test="qurytp==2" type="If">
+                        <str type="Str"><![CDATA[(a.busidn='C' and a.drctbl < a.crctbl) or (a.busidn='D' and a.drctbl > a.crctbl)]]></str>
+                    </if>
+                    <if test="qurytp==3" type="If">
+                        <str type="Str"><![CDATA[(a.busidn='C' and a.drctbl > a.crctbl) or (a.busidn='D' and a.drctbl < a.crctbl)]]></str>
+                    </if>
+                    <if test="qurytp==4" type="If">
+                        <str type="Str"><![CDATA[a.acctst='1']]></str>
+                    </if>
+                    <if test="qurytp==5" type="If">
+                        <str type="Str"><![CDATA[a.acctst='2']]></str>
+                    </if>
+                    <if test="qurytp==1" type="If">
+                        <str type="Str"><![CDATA[a.acctst like '%']]></str>
+                    </if>
+                    <if test="tranbr!=null &amp;&amp; tranbr !=&quot;&quot;" type="If">
+                        <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                            <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr# and b.crcycd =#crcycd#)]]></str>
+                        </if>
+                        <if test="crcycd ==null || crcycd==&quot;&quot;" type="If">
+                            <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#)]]></str>
+                        </if>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.acctno ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from gl_kna_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctno!=null &amp;&amp; acctno !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctno=#acctno#]]></str>
+                    </if>
+                    <if test="acctna!=null &amp;&amp; acctna !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctna  like '%'||#acctna#||'%']]></str>
+                    </if>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="busino!=null &amp;&amp; busino !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.busino = #busino#]]></str>
+                    </if>
+                    <if test="brchno!=&quot;&quot;&amp;&amp;brchno!=null" type="If">
+                        <str type="Str"><![CDATA[a.brchno=#brchno#]]></str>
+                    </if>
+                    <if test="inactp!=null" type="If">
+                        <str type="Str"><![CDATA[a.inactp=#inactp#]]></str>
+                    </if>
+                    <if test="subsac!=null&amp;&amp;subsac!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.subsac=#subsac#]]></str>
+                    </if>
+                    <if test="qurytp==2" type="If">
+                        <str type="Str"><![CDATA[(a.busidn='C' and a.drctbl < a.crctbl) or (a.busidn='D' and a.drctbl > a.crctbl)]]></str>
+                    </if>
+                    <if test="qurytp==3" type="If">
+                        <str type="Str"><![CDATA[(a.busidn='C' and a.drctbl > a.crctbl) or (a.busidn='D' and a.drctbl < a.crctbl)]]></str>
+                    </if>
+                    <if test="qurytp==4" type="If">
+                        <str type="Str"><![CDATA[a.acctst='1']]></str>
+                    </if>
+                    <if test="qurytp==5" type="If">
+                        <str type="Str"><![CDATA[a.acctst='2']]></str>
+                    </if>
+                    <if test="qurytp==1" type="If">
+                        <str type="Str"><![CDATA[a.acctst like '%']]></str>
+                    </if>
+                    <if test="tranbr!=null &amp;&amp; tranbr !=&quot;&quot;" type="If">
+                        <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                            <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr# and b.crcycd =#crcycd#)]]></str>
+                        </if>
+                        <if test="crcycd ==null || crcycd==&quot;&quot;" type="If">
+                            <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#)]]></str>
+                        </if>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.acctno ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selInacInfoByConditionsCount" longname="根据条件查询内部户记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+            <parameter property="acctna" ref="InDict.inac.acctna" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNA" mode="in" longname="内部户名称" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+            <parameter property="tranbr" ref="InDict.inac.tranbr" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易部门" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from gl_kna_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#) or a.brchno =#tranbr#]]></str>
+                    <if test="acctno!=null &amp;&amp; acctno !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctno=#acctno#]]></str>
+                    </if>
+                    <if test="acctna!=null &amp;&amp; acctna !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctna like  concat('%',#acctna#,'%')]]></str>
+                    </if>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="busino!=null &amp;&amp; busino !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.busino = #busino#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from gl_kna_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#) or a.brchno =#tranbr#]]></str>
+                    <if test="acctno!=null &amp;&amp; acctno !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctno=#acctno#]]></str>
+                    </if>
+                    <if test="acctna!=null &amp;&amp; acctna !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.acctna like '%'||#acctna#||'%')]]></str>
+                    </if>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="busino!=null &amp;&amp; busino !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.busino = #busino#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selBusinoDetail" longname="根据业务代码查询明细信息">
+        <sql type="mysql"><![CDATA[select a.* from gl_knp_busi  a where  a.busino =#busino# and a.corpno = #corpno#]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from gl_knp_busi  a where  a.busino =#busino# and a.corpno = #corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.GlKnpBusi"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selEffectAcctnoByCrcycd" longname="查询机构、币种下有效状态账户数量">
+        <sql type="mysql"><![CDATA[select count(1) as count from gl_kna_acct where brchno =#brchno# and crcycd =#crcycd# and acctst ='1']]></sql>
+        <sql type="oracle"><![CDATA[select count(1) as count from gl_kna_acct where brchno =#brchno# and crcycd =#crcycd# and acctst ='1']]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selClrInfoByBrchnoCount" longname="查询对账账户余额记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="InDict.inac.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="核算机构" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.count(*) as count from gl_kna_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="brchno != null &amp;&amp; brchno !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.count(*) as count from gl_kna_acct a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="brchno != null &amp;&amp; brchno !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selGlKnsGlvcInfoByAcctno" longname="查询总帐系统帐务流水表信息">
+        <sql type="oracle"><![CDATA[
+        select sum(case when amntcd ='D' then tranam else 0  end) as drctbl ,
+        sum(case when amntcd ='C' then tranam else 0 end)as crctbl 
+		from gl_kns_glvc where acctno=#acctno# group  by acctno]]></sql>
+        <sql type="mysql"><![CDATA[
+        select sum(case when amntcd ='D' then tranam else 0  end) as drctbl ,
+        sum(case when amntcd ='C' then tranam else 0 end)as crctbl 
+		from gl_kns_glvc where acctno=#acctno# group  by acctno]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="drctbl" javaType="BaseType.U_TRANAM" column="drctbl" longname="借方发生额"/>
+            <result property="crctbl" javaType="BaseType.U_TRANAM" column="crctbl" longname="贷方发生额"/>
+        </resultMap>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selGlKnbOcacByAcctno" longname="根据账号查询开销户信息">
+        <sql type="mysql"><![CDATA[select  * from gl_knb_ocac where acctno =#acctno#]]></sql>
+        <sql type="oracle"><![CDATA[select  * from gl_knb_ocac where acctno =#acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.GlKnbOcac"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selGlKnaAmblByAcctno" longname="根据账号查询积数信息">
+        <sql type="mysql"><![CDATA[select  * from gl_kna_ambl where acctno =#acctno#]]></sql>
+        <sql type="oracle"><![CDATA[select  * from gl_kna_ambl where acctno =#acctno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="InDict.inac.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="内部户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.GlKnaAmbl"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selClrInfoByBrchno" longname="对账账户余额查询">
+        <sql type="mysql"><![CDATA[
+        select a.acctno,a.acctna,a.dredbl,a.crctbl,null as accbal, 
+		(case when b.busino='9930410403' and b.subsac='0000001' then '2'
+			  when b.busino='9930410402' and b.subsac='0000002' then '3'
+		 	  when b.busino='9930410402' and b.subsac='0000001' then '1'
+ 	  	 	  else '4' end) as tranwy
+		from gl_kna_acct a ,gl_knp_suac b where a.busino=b.busino 
+		and a.subsac=b.subsac and  a.brchno=#brchno#
+		and ((b.busino='9930410403' and b.subsac='0000001')
+		or (b.busino='9930410402' and b.subsac='0000002')
+		or (b.busino='9930410402' and b.subsac='0000001')
+		or (b.busino='9930410402' and b.subsac='0000009'))
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        select a.acctno,a.acctna,a.dredbl,a.crctbl,null as accbal, 
+		(case when b.busino='9930410403' and b.subsac='0000001' then '2'
+			  when b.busino='9930410402' and b.subsac='0000002' then '3'
+		 	  when b.busino='9930410402' and b.subsac='0000001' then '1'
+ 	  	 	  else '4' end) as tranwy
+		from gl_kna_acct a ,gl_knp_suac b where a.busino=b.busino 
+		and a.subsac=b.subsac and  a.brchno=#brchno#
+		and ((b.busino='9930410403' and b.subsac='0000001')
+		or (b.busino='9930410402' and b.subsac='0000002')
+		or (b.busino='9930410402' and b.subsac='0000001')
+		or (b.busino='9930410402' and b.subsac='0000009'))
+		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="InDict.inac.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="核算机构" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInQueryTypes.IoClrInfo"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selInacLastInfoByConditions" longname="查询内部户上日余额和信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易机构" parameterType="condition"/>
+            <parameter property="tranbr" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInQueryTypes.IoInacInfo"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.*  from  
+			gl_kna_acct a ,gl_kna_lsbl b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ a.acctno=b.acctno]]></str>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr# and b.crcycd =#crcycd#)]]></str>
+                    </if>
+                    <if test="crcycd ==null || crcycd==&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#)]]></str>
+                    </if>
+                    <if test="brchno!=null&amp;&amp;brchno!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.brchno =#brchno#]]></str>
+                    </if>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.crcycd =#crcycd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.acctst<>'2']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[		order by a.busino desc ,a.acctno desc ,
+		(case when b.lastdn ='D' then b.drltbl -b.crltbl when    b.lastdn ='C' then b.crltbl-b.drltbl when  b.lastdn ='R' then b.drltbl -b.crltbl 
+		when  b.lastdn ='B' then b.drltbl -b.crltbl else 0  end ) desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.*  from  
+			gl_kna_acct a ,gl_kna_lsbl b ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ a.acctno=b.acctno]]></str>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr# and b.crcycd =#crcycd#)]]></str>
+                    </if>
+                    <if test="crcycd ==null || crcycd==&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.brchno = #tranbr# or a.brchno in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#)]]></str>
+                    </if>
+                    <if test="brchno!=null&amp;&amp;brchno!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.brchno =#brchno#]]></str>
+                    </if>
+                    <if test="crcycd !=null&amp;&amp;crcycd!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.crcycd =#crcycd#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[a.acctst<>'2']]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[		order by a.busino desc ,a.acctno desc ,
+		(case when b.lastdn ='D' then b.drltbl -b.crltbl when    b.lastdn ='C' then b.crltbl-b.drltbl when  b.lastdn ='R' then b.drltbl -b.crltbl 
+		when  b.lastdn ='B' then b.drltbl -b.crltbl else 0  end ) desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selClrInfoByTranwy" longname="根据对账模块查询对账余额信息">
+        <sql type="mysql"><![CDATA[
+        select a.acctno,a.acctna,a.dredbl,a.crctbl,null as accbal
+		from gl_kna_acct a ,gl_knp_suac b 
+		where a.busino=b.busino and a.subsac=b.subsac 
+		and a.brchno=#brchno# and b.busino=#busino#
+		and b.subsac=#subsac#]]></sql>
+        <sql type="oracle"><![CDATA[
+        select a.acctno,a.acctna,a.dredbl,a.crctbl,null as accbal
+		from gl_kna_acct a ,gl_knp_suac b 
+		where a.busino=b.busino and a.subsac=b.subsac 
+		and a.brchno=#brchno# and b.busino=#busino#
+		and b.subsac=#subsac#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="InDict.inac.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="核算机构" parameterType="condition"/>
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+            <parameter property="subsac" ref="InDict.inac.subsac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="子户号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInQueryTypes.IoClrInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcctnoByTrandt" longname="根据日期查询账户表获取账号">
+        <sql type="mysql"><![CDATA[
+        select * from gl_kna_lsbl a where exists (select 1 from gl_kna_acct b where b.RLBLTG='2' and b.ACCTST='1' and a.ACCTNO = b.ACCTNO) 
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        select * from gl_kna_lsbl a where exists (select 1 from gl_kna_acct b where b.RLBLTG='2' and b.ACCTST='1' and a.ACCTNO = b.ACCTNO) 
+		]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="In.GlKnaLsbl"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGlknsglvcByAcctno" longname="根据账号查询传票流水表">
+        <sql type="mysql"><![CDATA[
+        select * from gl_kns_glvc a where a.trandt=#trandt# and a.acctno=#acctno# order by tmstmp desc
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+        select * from gl_kns_glvc a where a.trandt=#trandt# and a.acctno=#acctno# order by tmstmp desc
+        ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="PbDict.Charge.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="trandt" ref="PbDict.Intr.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.GlKnsGlvc"/>
+    </select>
+    <update method="update" id="updGlvcByGlvcsq" longname="更新传票流水表">
+        <sql type="mysql"><![CDATA[update gl_kns_glvc set tranbl=#tranbl#,tmstmp =#tmstmp# where glvcsq=#glvcsq# and trandt =#trandt#]]></sql>
+        <sql type="oracle"><![CDATA[update gl_kns_glvc set tranbl=#tranbl#,tmstmp =#tmstmp# where glvcsq=#glvcsq# and trandt =#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="tranbl" ref="PbDict.Charge.tranbl" jdbcType="VARCHAR" javaType="PbBaseType.U_TRANAM" mode="in" longname="余额" parameterType="condition"/>
+            <parameter property="trandt" ref="PbDict.Intr.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="glvcsq" ref="InDict.inac.glvcsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="传票流水" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selfnclerbusi" longname="查询理财清算业务编码">
+        <sql type="mysql"><![CDATA[select * from fnp_prod where prodcd=#prodcd#]]></sql>
+        <sql type="oracle"><![CDATA[select * from fnp_prod where prodcd=#prodcd#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR21" mode="in" longname="产品代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="InQueryTypes.fnclerinfo"/>
+    </select>
+    <update method="update" id="strikeUionClerStatus" longname="更新统一支付清算冲正状态">
+        <sql type="mysql"><![CDATA[update uion_cler set status = #status#,tmstmp=#tmstmp#,revrsq=#revrsq#,revrdt=#revrdt# where fronsq = #fronsq# and frondt = #frondt#]]></sql>
+        <sql type="oracle"><![CDATA[update uion_cler set status = #status#,tmstmp=#tmstmp#,revrsq=#revrsq#,revrdt=#revrdt# where fronsq = #fronsq# and frondt = #frondt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="fronsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="frondt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="前置日期" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="状态" parameterType="condition"/>
+            <parameter property="revrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="冲正流水" parameterType="condition"/>
+            <parameter property="revrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="冲正日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectFirst" type="sql" id="selGlKnsGlvcByTransq" longname="根据交易流水查询传票流水表">
+        <sql type="mysql"><![CDATA[select * from gl_kns_glvc where transq = #transq# ]]></sql>
+        <sql type="oracle"><![CDATA[select * from gl_kns_glvc where transq = #transq# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="transq" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInTable.IoGlKnsGlvc"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selBizCalInfos" longname="查询业务量统计信息">
+        <sql type="mysql"><![CDATA[
+		select trandt ,fileid as prcscd , b.tranna as prcsna,
+		count(distinct(transq)) as counts from kns_acsq a 
+		left join knp_txns b on a.fileid = b.prcscd
+		where a.trandt = #trandt#
+		group by a.fileid, a.trandt,b.tranna
+		order by counts desc
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+		select trandt ,fileid as prcscd , tranna as prcsna,
+		count(distinct(transq)) as counts from kns_acsq a 
+		left join knp_txns b on a.fileid = b.prcscd
+		where a.trandt = #trandt#
+		group by a.fileid, a.trandt, b.tranna
+		order by counts desc
+		]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="PbDict.Intr.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="InExcelTypes.BizCalInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcctBalInfos" longname="客户余额统计">
+        <sql type="mysql"><![CDATA[
+			select c.custac,d.custna, sum(c.alastbl) as acctbl ,ifnull(sum(c.xlastbl),0) as fxacbl from 
+			(
+			select aa.custac,aa.alastbl,bb.xlastbl from 
+			(select a.custac,sum(a.lastbl) as alastbl from kna_acct a group by a.custac) aa
+			left join 
+			(select b.custac, sum(b.lastbl) as xlastbl from kna_fxac b  group by b.custac) bb 
+			on aa.custac = bb.custac
+			) c left join kna_cust d on c.custac = d.custac 
+			group by c.custac
+		]]></sql>
+        <sql type="oracle"><![CDATA[
+			select c.custac,d.custna, sum(c.alastbl) as acctbl ,ifnull(sum(c.xlastbl),0) as fxacbl from 
+			(
+			select aa.custac,aa.alastbl,bb.xlastbl from 
+			(select a.custac,sum(a.lastbl) as alastbl from kna_acct a group by a.custac) aa
+			left join 
+			(select b.custac, sum(b.lastbl) as xlastbl from kna_fxac b  group by b.custac) bb 
+			on aa.custac = bb.custac
+			) c left join kna_cust d on c.custac = d.custac 
+			group by c.custac
+		]]></sql>
+        <resultMap class="InExcelTypes.AcctBalInfo"/>
+    </select>
+</sqls>

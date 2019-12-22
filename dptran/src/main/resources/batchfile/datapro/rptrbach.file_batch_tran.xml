@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rptrbach" longname="红包系统批量交易明细数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="rptrdetl" longname="红包系统批量交易明细数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" mode="fixAndSplitor" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="transq" type="BaseType.U_SEQUNO" longname="主交易流水" length="64" leftPadding="false" padding=" "/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="主交易日期" length="16" leftPadding="false" padding=" "/>
+            <field id="filesq" type="BaseType.U_SEQUNO" longname="文件批次号" length="64" leftPadding="false" padding=" "/>
+            <field id="dataid" type="BaseType.U_CHAR16" longname="任务编号" length="32" leftPadding="false" padding=" "/>
+            <field id="soursq" type="BaseType.U_SEQUNO" longname="来源方交易流水" length="64" leftPadding="false" padding=" "/>
+            <field id="sourdt" type="BaseType.U_DATE08" longname="来源方交易日期" length="16" leftPadding="false" padding=" "/>
+            <field id="sournm" type="BaseType.U_CHAR32" longname="来源方系统号" length="64" leftPadding="false" padding=" "/>
+            <field id="rptrtp" type="DpEnumType.E_RPTRTP" longname="红包交易类型" length="6" leftPadding="false" padding=" "/>
+            <field id="deborg" type="BaseType.U_BRCHNO" longname="借方机构" length="12" leftPadding="false" padding=" "/>
+            <field id="decard" type="BaseType.U_ACCTNO" longname="借方卡号" length="80" leftPadding="false" padding=" "/>
+            <field id="debact" type="BaseType.U_CUSTAC" longname="借方账号" length="64" leftPadding="false" padding=" "/>
+            <field id="debnam" type="BaseType.U_CUSTNA" longname="借方户名" length="160" leftPadding="false" padding=" "/>
+            <field id="decstp" type="BaseEnumType.E_ACSETP" longname="借方子账户类型" length="4" leftPadding="false" padding=" "/>
+            <field id="deacct" type="BaseType.U_ACCTNO" longname="借方子账号" length="80" leftPadding="false" padding=" "/>
+            <field id="crdorg" type="BaseType.U_BRCHNO" longname="贷方机构" length="12" leftPadding="false" padding=" "/>
+            <field id="crcard" type="BaseType.U_ACCTNO" longname="贷方卡号" length="80" leftPadding="false" padding=" "/>
+            <field id="crdact" type="BaseType.U_CUSTAC" longname="贷方账号" length="64" leftPadding="false" padding=" "/>
+            <field id="crdnam" type="BaseType.U_CUSTNA" longname="贷方户名" length="160" leftPadding="false" padding=" "/>
+            <field id="crcstp" type="BaseEnumType.E_ACSETP" longname="贷方子账户类型" length="4" leftPadding="false" padding=" "/>
+            <field id="cracct" type="BaseType.U_ACCTNO" longname="贷方子账号" length="80" leftPadding="false" padding=" "/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" length="17" leftPadding="false" padding=" " ref="DpDict.Acct.tranam"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="货币代号" length="6" leftPadding="false" padding=" " ref="DpDict.Acct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" longname="钞汇标志" length="2" leftPadding="false" padding=" "/>
+            <field id="rpcode" type="BaseType.U_SEQUNO" longname="红包编号" length="64" leftPadding="false" padding=" "/>
+            <field id="userid" type="BaseType.U_CUSTID" longname="用户编号" length="28" leftPadding="false" padding=" "/>
+            <field id="transt" type="BaseEnumType.E_TRANST" longname="交易状态" length="2" leftPadding="false" padding=" " ref="PbDict.Cash.transt"/>
+            <field id="descrb" type="LnBaseType.U_SHORDS" longname="交易描述" length="400" leftPadding="false" padding=" "/>
+            <field id="stady1" type="BaseType.U_SHORDS" longname="备用字段1" length="400" leftPadding="false" padding=" "/>
+            <field id="stady2" type="BaseType.U_SHORDS" longname="备用字段2" length="400" leftPadding="false" padding=" "/>
+            <field id="stady3" type="BaseType.U_SHORDS" longname="备用字段3" length="400" leftPadding="false" padding=" "/>
+            <field id="oriseq" type="BaseType.U_SEQUNO" longname="原交易流水" length="64" leftPadding="false" padding=" "/>
+            <field id="oridat" type="BaseType.U_DATE08" longname="原交易日期" length="16" leftPadding="false" padding=" "/>
+            <field id="rptype" type="DpEnumType.E_RPTRTP" longname="红包类型" length="6" leftPadding="false" padding=" "/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

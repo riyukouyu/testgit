@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="updtem" longname="修改产品模板" kind="1" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[产品模块的修改]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="updModes" type="DpProdType.kupModeupdInfo" required="false" fixed="" default="" multi="true" array="false" longname="修改产品模板输入" desc="" ref=""/>
+            <field id="modena" type="BaseType.U_CHAR40" required="false" fixed="" default="" multi="false" array="false" longname="模板名称" desc="" ref="DpDict.Prod.modena"/>
+            <field id="modeno" type="BaseType.U_CHAR16" required="false" fixed="" default="" multi="false" array="false" longname="模板编号" desc="" ref="DpDict.Prod.modeno"/>
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" fixed="" default="" multi="false" array="false" longname="业务大类" desc="" ref="DpDict.Prod.busibi"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="updtem" id="updtem" test="" longname="修改产品模块" desc="修改产品模块"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="clrbal" longname="对账账户余额查询" kind="3" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="核算机构" ref="InDict.inac.brchno"/>
+            <field id="chckdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="核对日期" ref="BaseDict.Comm.chckdt"/>
+            <field id="tranwy" type="InEnumType.E_TRANWY" required="false" multi="false" array="false" longname="对账模块"/>
+        </input>
+        <output asParm="false" packMode="false">
+            <field id="clrlst" type="IoInQueryTypes.IoClrInfo" required="false" multi="true" array="false" longname="对账账户余额信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelClrbalInfo" id="IoSelClrbalInfo" longname="对账账户余额查询">
+            <in_mappings by_interface="true">
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="chckdt" dest="chckdt" by_interface="true" on_top="true"/>
+                <mapping src="tranwy" dest="tranwy" desc="对账模块" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="clrInfo" dest="clrlst" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpdqqu" longname="定期账户查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list" scope="DpProdSvc.DpInsAll" required="false" multi="false" longname="定存产品总信息" array="false">
+                <field id="totlam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="总金额"/>
+                <field id="tocuin" type="BaseType.U_TOTAIN" required="false" multi="false" array="false" longname="总当前利息"/>
+                <field id="tomuin" type="BaseType.U_TOTAIN" required="false" multi="false" array="false" longname="总到期利息"/>
+                <field id="dpInstCal" type="DpProdSvc.DpInstCal" required="false" multi="true" array="false" longname="定存产品当前利息与到期利息"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="DpAcctSvcType.selInteByCustac" id="selInteByCustac" longname="查询总金额和利息" desc="查询总金额和利息">
+            <in_mappings by_interface="false">
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="prodcd" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="dpInsAll.dpInstCal" dest="list.dpInstCal" by_interface="true" on_top="true"/>
+                <mapping src="dpInsAll.tocuin" dest="list.tocuin" by_interface="true" on_top="true"/>
+                <mapping src="dpInsAll.tomuin" dest="list.tomuin" by_interface="true" on_top="true"/>
+                <mapping src="dpInsAll.totlam" dest="list.totlam" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

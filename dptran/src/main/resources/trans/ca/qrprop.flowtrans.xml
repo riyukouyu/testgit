@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrprop" longname="电子账户停用/转久悬登记簿查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="ecctst" type="BaseEnumType.E_ACUTST" required="false" multi="false" array="false" longname="查询内容"/>
+            <field id="dealst" type="BaseEnumType.E_DEALST" required="false" multi="false" array="false" longname="处理状态"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="stardt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期"/>
+            <field id="stopdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="stopInfoList" type="IoCaTypGenEAccountInfo.IoCaQryDisaInfo" required="false" multi="true" array="false" longname="账户停用转久悬登记簿查询"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页码"/>
+            <field id="pgsize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页容量"/>
+            <field id="counts" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="总笔数"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="DealTransBefore" id="DealTransBefore" test="" longname="交易前处理" desc=""/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryStop" id="QryStop" test="" longname="查询停用转久悬登记簿" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="ecctst" dest="ecctst" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="dealst" dest="dealst" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="pgsize" dest="pgsize" by_interface="true" on_top="true"/>
+                <mapping src="stardt" dest="stardt" by_interface="true" on_top="true"/>
+                <mapping src="stopdt" dest="stopdt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="stopInfoList" dest="stopInfoList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

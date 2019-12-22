@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrclun" longname="查询销户或转账异常" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[销户异常列表查询]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="qurytp" type="FnEnumType.E_WARNTP" required="false" multi="false" array="false" longname="预警类型"/>
+            <field id="brchno" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="机构号"/>
+            <field id="begidt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="开始日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="截止日期"/>
+            <field id="qrcond" type="FnEnumType.E_QRYCON" required="false" multi="false" array="false" longname="查询条件"/>
+            <field id="qrvalu" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="查询值"/>
+            <field id="custna" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="户名"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="finaExInfoList" type="IoCaTypGenEAccountInfo.qrbkCaOut" required="false" multi="true" array="false" longname="查询销户异常交易信息输出"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页码"/>
+            <field id="pgsize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页容量"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="qrclunCheck" id="qrclunCheck" test="" longname="交易前检查" desc="交易前检查"/>
+        <service mappingToProperty="false" serviceName="IoCaSrvGenEAccountInfo.IoCaSelCaEcInfo" id="ioCaSelCaEcInfo" test="" longname="查询销户异常交易信息" desc="查询销户异常交易信息">
+            <in_mappings by_interface="true">
+                <mapping src="custna" dest="qrbkCaIn.custna" desc="" by_interface="true" on_top="true"/>
+                <mapping src="endddt" dest="qrbkCaIn.endate" desc="" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="qrbkCaIn.pageno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="pgsize" dest="qrbkCaIn.pgsize" desc="" by_interface="true" on_top="true"/>
+                <mapping src="qrcond" dest="qrbkCaIn.qrycon" desc="" by_interface="true" on_top="true"/>
+                <mapping src="qrvalu" dest="qrbkCaIn.qryval" desc="" by_interface="true" on_top="true"/>
+                <mapping src="begidt" dest="qrbkCaIn.stdate" desc="" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="qrbkCaIn.tranbr" desc="" by_interface="true" on_top="true"/>
+                <mapping src="qurytp" dest="qrbkCaIn.warntp" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="qrbkCaInfoList" dest="finaExInfoList" desc="" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

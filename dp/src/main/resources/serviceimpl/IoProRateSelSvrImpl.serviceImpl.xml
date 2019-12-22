@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceImpl id="IoProRateSelSvrImpl" longname="产品利率代码查询" serviceType="IoProRateSelSvr" package="cn.sunline.ltts.busi.dp.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[产品利率代码查询]]></description>
+</serviceImpl>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdfir" longname="存款产品违约利率利息查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号ID"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债子账号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="cuusin" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="违约利率"/>
+            <field id="calmon" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="利息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="Dpqrdfir" id="qrdfir" longname="违约利息利率查询"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

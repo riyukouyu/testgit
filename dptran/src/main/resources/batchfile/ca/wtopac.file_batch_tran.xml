@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="wtopac" longname="电子账户批量开户回传文件" kind="write" package="cn.sunline.ltts.busi.catran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[电子账户批量开户回传文件]]></description>
+    <fileTemplate id="wtopac" longname="电子账户批量开户回传文件" mode="splitor" splitor="|" encoding="UTF-8" package="">
+        <description><![CDATA[]]></description>
+        <header id="Header" longname="文件头" mapping="" prefix="" suffix="" startline="1">
+            <description><![CDATA[]]></description>
+            <field id="agntna" type="BaseType.U_CUSTNA" longname="代理单位名称" leftPadding="false" ref="BaseDict.Comm.agntna" mode="splitor"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" longname="账户分类" leftPadding="false" ref="" mode="splitor"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="归属机构" leftPadding="false" ref="CaDict.Eacct.brchno" mode="splitor"/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="交易渠道" leftPadding="false" ref="DpDict.Acct.servtp" mode="splitor"/>
+            <field id="counts" type="BaseType.U_LONGIN" longname="总记录数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="ElectronicAccount.KnbOpbt" prefix="" suffix="" startline="2">
+            <description><![CDATA[]]></description>
+            <field id="custid" type="BaseType.U_CUSTID" longname="用户ID" leftPadding="false" ref="BaseDict.Comm.custid" mode="splitor"/>
+            <field id="custna" type="BaseType.U_ACCTNA" longname="客户名称" leftPadding="false" ref="DpDict.Acct.custna" mode="splitor"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" longname="证件类型" leftPadding="false" ref="DpDict.Acct.idtftp" mode="splitor"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" longname="证件号码" leftPadding="false" ref="DpDict.Acct.idtfno" mode="splitor"/>
+            <field id="teleno" type="BaseType.U_TELENO" longname="电话号码" leftPadding="false" ref="DpDict.Acct.teleno" mode="splitor"/>
+            <field id="idckrt" type="CaEnumType.E_IDCKRT" longname="身份核查结果" leftPadding="false" ref="CaDict.Eacct.idckrt" mode="splitor"/>
+            <field id="mpckrt" type="CaEnumType.E_MPCKRT" longname="人脸识别结果" leftPadding="false" ref="CaDict.Eacct.mpckrt" mode="splitor"/>
+            <field id="custcd" type="BaseType.U_CHAR20" longname="客户内码" leftPadding="false" ref="BaseDict.Comm.custcd" mode="splitor"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" leftPadding="false" ref="BaseDict.Comm.crcycd" mode="splitor"/>
+            <field id="openrt" type="CaEnumType.E_OPENRT" longname="开户结果" leftPadding="false" ref="CaDict.Eacct.openrt" mode="splitor"/>
+            <field id="losern" type="BaseType.U_SHORDS" longname="失败原因" leftPadding="false" ref="CaDict.Eacct.losern" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" mapping="" prefix="" suffix="" startline="1">
+            <description><![CDATA[]]></description>
+        </foot>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" fixed="" default="" multi="false" array="false" longname="当前批次号" desc="" ref=""/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="批次日期" desc="" ref=""/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" fixed="" default="" multi="false" array="false" longname="业务流水" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="SmsManager" package="cn.sunline.ltts.busi.dp.tables" longname="短信管理表" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <table id="KubCustSms" name="kub_cust_sms" longname="客户短信开通表" virtual="false" extension="SysCommFieldTable.KapComm" abstract="false">
+        <fields>
+        	<field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="CaDict.Eacct.custac"/>
+            <field id="teleno" type="BaseType.U_TELENO" required="false" multi="false" array="false" longname="电话号码" ref="DpDict.Acct.teleno"/>
+           	<field id="isopen" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否开通短信服务"/>
+		</fields>
+        <ddls/>
+        <odbindexes>
+            <index id="odb1" type="unique" fields="custac teleno" operate="selectOne updateOne selectOneWithLock"/>
+        </odbindexes>
+        <indexes>
+            <index id="kub_cust_sms_uk1" type="unique" fields="custac teleno" longname="主键唯一索引">
+                <ddls/>
+            </index>
+        </indexes>
+    </table>
+</schema>

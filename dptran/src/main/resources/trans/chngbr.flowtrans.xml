@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="chngbr" longname="电子账户变更机构" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="nwbrno" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="新账户所属机构"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+        </output>
+        <property packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="CaDict.Eacct.custac"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+            <field id="accatp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="电子账户分类"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="BaseDict.Comm.custna"/>
+            <field id="agrtno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="协议模版编号"/>
+            <field id="vesion" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="版本号"/>
+            <field id="acalno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="账户别名" ref="CaDict.Eacct.acalno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="prcCkrtacBefore" id="prcCkrtacBefore" longname="交易前处理" desc="身份核查结果确认交易前处理"/>
+        <service mappingToProperty="true" serviceName="IoAccChngbrSvc.Chngbr" id="Chngbr" longname="电子账户变更机构">
+            <in_mappings by_interface="true">
+                <mapping src="accatp" dest="accatp" desc="账户分类" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" desc="虚拟交易卡号" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="nwbrno" dest="nwbrno" desc="变更机构号" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="acalno" dest="acalno" desc="绑定手机号" by_interface="true" on_top="true"/>
+                <mapping src="custid" dest="custid" desc="用户ID" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="sedOpenInfoMessage" id="sedOpenInfoMessage" longname="通知开户信息" desc="通知开户信息"/>
+    </flow>
+</flowtran>

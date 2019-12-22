@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="tranct" longname="资金定转信息录入" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="true" multi="false" array="false" longname="交易卡号" ref="BaseDict.Comm.cardno"/>
+            <field id="tgctno" type="BaseType.U_CHAR20" required="true" multi="false" array="false" longname="转入账户"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="true" multi="false" array="false" longname="交易金额" ref="BaseDict.Comm.tranam"/>
+            <field id="trdate" type="BaseType.U_DATE02" required="true" multi="false" array="false" longname="每月执行日"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="imtranct" id="imtranct" longname="资金定转信息录入"/>
+    </flow>
+</flowtran>

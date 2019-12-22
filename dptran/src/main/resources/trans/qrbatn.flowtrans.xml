@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrbatn" longname="查询批量转账结果" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="文件批次号"/>
+            <field id="transt" type="BaseEnumType.E_TRANST" required="false" multi="false" array="false" longname="交易状态"/>
+            <field id="acctno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="归集账号"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="归集账户名称"/>
+            <field id="pyacct" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="被归集账号"/>
+            <field id="pyacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="被归集账户名称"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="batran" type="DpTransfer.DpKnbAcctBach" required="false" multi="true" array="false" longname="电子账户批量转账登记簿复合类型"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="selBatranResult" id="selBatranResult" longname="查询批量转账结果"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

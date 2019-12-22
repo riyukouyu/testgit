@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="kupdraw" longname="产品支取控制表数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="kupdraw" longname="产品支取控制表数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="产品编号" length="36" leftPadding="false" padding=" " ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="drawtp" type="BaseEnumType.E_DRAWCT" longname="支取控制方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.drawtp"/>
+            <field id="ctrlwy" type="DpEnumType.E_CTRLWY" longname="支取控制方法" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.ctrlwy"/>
+            <field id="selfwy" type="DpEnumType.E_SELFWY" longname="自定义控制方式" length="8" leftPadding="false" padding=" " ref="DpDict.Prod.selfwy"/>
+            <field id="ordrwy" type="BaseEnumType.E_BSPKTP" longname="支取预约方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.ordrwy"/>
+            <field id="dramwy" type="DpEnumType.E_AMNTWY" longname="支取金额控制方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.dramwy"/>
+            <field id="drmiam" type="BaseType.U_TRANAM" longname="单次支取最小金额" length="17" leftPadding="false" padding=" " ref="DpDict.Prod.drmiam"/>
+            <field id="drmxam" type="BaseType.U_TRANAM" longname="单次支取最大金额" length="17" leftPadding="false" padding=" " ref="DpDict.Prod.drmxam"/>
+            <field id="drtmwy" type="DpEnumType.E_TIMEWY" longname="支取次数控制方式" length="2" leftPadding="false" padding=" "/>
+            <field id="drmitm" type="BaseType.U_LONGIN" longname="最小支取次数" length="19" leftPadding="false" padding=" " ref="DpDict.Prod.drmitm"/>
+            <field id="drmxtm" type="BaseType.U_LONGIN" longname="最大支取次数" length="19" leftPadding="false" padding=" " ref="DpDict.Prod.drmxtm"/>
+            <field id="drrule" type="DpEnumType.E_DRRULE" longname="支取规则" length="2" leftPadding="false" padding=" "/>
+            <field id="ismibl" type="BaseEnumType.E_YES___" longname="是否允许小于账户留存最小余额" length="2" leftPadding="false" padding=" "/>
+            <field id="minibl" type="BaseType.U_TRANAM" longname="账户留存最小余额" length="17" leftPadding="false" padding=" "/>
+            <field id="tmstmp" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.tmstmp"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

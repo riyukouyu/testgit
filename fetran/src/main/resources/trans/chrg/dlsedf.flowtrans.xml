@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dlsedf" longname="删除场景事件定义" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="evetcd" type="BaseType.U_CHAR32" required="true" multi="false" array="false" longname="事件编号" ref="FeDict.Chrg.evetcd"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetCenterBranch" id="IoGetCenterBranch" longname="获取中心机构清算中心">
+            <in_mappings by_interface="true">
+                <mapping src="#run.tranbr" dest="brchno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="brchInfo.brchno" dest="brchno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="dlsedf" id="dlsedf" longname="删除场景事件定义" desc="删除场景事件定义"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

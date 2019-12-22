@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qyitbl" longname="根据科目查询余额（微众科目用）" kind="1" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[根据科目查询余额（微众科目用）]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="false" multi="false" array="false" longname="科目" ref="InDict.inac.itemcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="InDict.inac.crcycd"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="false" multi="false" array="false" longname="科目" ref="InDict.inac.itemcd"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="InDict.inac.crcycd"/>
+            <field id="onlibl" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="余额"/>
+            <field id="blncdn" type="InEnumType.E_BLNCDN" required="false" multi="false" array="false" longname="余额方向CDR" ref="InDict.inac.blncdn"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qryItemBlForWb" id="QryItemBlForWb" longname="查询科目余额" desc="查询科目余额"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

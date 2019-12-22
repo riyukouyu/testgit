@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="addppt" longname="批量增加产品存入控制" kind="account" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[批量增加产品存入控制]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <fields id="dpposts" alias="产品存入控制信息" scope="DpProdConfType.KupDppbPostList" required="true" multi="false" longname="产品存入控制" array="false">
+                <field id="dppost" type="DpProdConfType.KupDppbPostInfo" required="true" multi="true" array="false" longname="产品存入控制信息"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="addKupDppbPost" id="AddKupDppbPost" longname="增加产品存入控制信息" desc="增加产品存入控制信息"/>
+    </flow>
+</flowtran>

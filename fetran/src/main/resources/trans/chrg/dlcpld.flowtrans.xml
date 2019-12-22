@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dlcpld" longname="删除优惠计划定义表" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[收费优化计划定义表删除]]></description>
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="false">
+            <field id="diplcd" type="BaseType.U_CHAR08" required="false" default="''" multi="false" array="false" longname="优惠计划代码" ref="FeDict.Chrg.diplcd"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dlcpld" id="dlcpld" longname="删除优惠计划定义表" desc="删除优惠计划定义表"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

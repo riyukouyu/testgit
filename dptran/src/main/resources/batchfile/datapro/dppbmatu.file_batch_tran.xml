@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="dppbmatu" longname="产品到期控制数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="dppbmatu" longname="产品到期控制数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="产品编号" length="36" leftPadding="false" padding=" " ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="festdl" type="BaseEnumType.E_HDDLTP" longname="遇节假日处理方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.festdl"/>
+            <field id="delyfg" type="BaseEnumType.E_YES___" longname="是否根据存款顺延到期日" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.delyfg"/>
+            <field id="matupd" type="BaseType.U_CHAR06" longname="到期宽限期" length="12" leftPadding="false" padding=" " ref="DpDict.Prod.matupd"/>
+            <field id="trdpfg" type="BaseEnumType.E_YES___" longname="允许转存标志" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.trdpfg"/>
+            <field id="trpdfg" type="BaseEnumType.E_YES___" longname="可以更换转存产品号" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.trpdfg"/>
+            <field id="trdptm" type="BaseEnumType.E_TERMCD" longname="转存产品存期" length="12" leftPadding="false" padding=" "/>
+            <field id="trintm" type="BaseType.U_INTEGE" longname="可转存次数" length="8" leftPadding="false" padding=" "/>
+            <field id="trprod" type="BaseType.U_PRODCD" longname="转存产品" length="36" leftPadding="false" padding=" " ref="DpDict.Prod.trprod"/>
+            <field id="trinwy" type="DpEnumType.E_TRINWY" longname="转存利率调整方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.trinwy"/>
+            <field id="trsvtp" type="BaseEnumType.E_TRSVTP" longname="转存方式" length="2" leftPadding="false" padding=" "/>
+            <field id="tmstmp" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.tmstmp"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

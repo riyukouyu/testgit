@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="agentPaidW" longname="批量代发写文件" kind="write" package="cn.sunline.edsp.busi.dptran.batchfile.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <fileTemplate id="agentPaidW" longname="批量代发写文件" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" mode="splitor" startline="1">
+            <field id="totlnm" type="BaseType.U_LONGIN" longname="数量" leftPadding="false" ref="PbDict.Cash.totlnm"/>
+            <field id="totlam" type="PbBaseType.U_DEC212" longname="总金额" leftPadding="false" ref="PbDict.Intr.totlam"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="DpDepoBusiMain.knb_batch_paid" startline="2">
+            <field id="transq" type="BaseType.U_SEQUNO" longname="交易流水" leftPadding="false" ref="BaseDict.Comm.transq"/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="交易日期" leftPadding="false" ref="BaseDict.Comm.trandt"/>
+            <field id="cltrsq" type="BaseType.U_CHAR32" longname="清结算流水" leftPadding="false" ref="DpRiskDict.JfDp.cltrsq"/>
+            <field id="cltrdt" type="BaseType.U_DATE08" longname="清结算日期" leftPadding="false" ref="DpRiskDict.JfDp.cltrdt"/>
+            <field id="jftrtp" type="JfDpEnumType.E_JFTRTP" longname="记账交易类型" leftPadding="false" ref="DpRiskDict.JfDp.jftrtp"/>
+            <field id="inmeid" type="BaseType.U_CHAR25" longname="内部商户号" leftPadding="false" ref="DpRiskDict.JfDp.inmeid"/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" leftPadding="false" ref="BaseDict.Comm.tranam"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" leftPadding="false" ref="BaseDict.Comm.crcycd"/>
+            <field id="transt" type="BaseEnumType.E_TRANST" longname="交易状态" leftPadding="false" ref="PbDict.Cash.transt"/>
+            <field id="errsck" type="KBaseType.U_CUOWDUIZ" longname="错误堆栈" leftPadding="false" ref="SPBatCfDict.BtDict.errsck"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.edsp.busi.dptran.batchfile.ca.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

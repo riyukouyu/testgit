@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrcpdf" longname="查询超额优惠定义" kind="1" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="smfacd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="超额优惠代码" ref="FeDict.Chrg.smfacd"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="FeDict.Chrg.brchno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="pinfos" type="FeTable.KcpFavoSmdf" required="false" multi="true" array="false" longname="超额优惠定义明细"/>
+        </output>
+        <property packMode="true">
+            <field id="orgnbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="交易机构号"/>
+            <field id="upBrchinfo" type="IoBrComplexType.IoBrchInfo" required="false" multi="true" array="false" longname="上级机构信息列表"/>
+            <field id="doBrchinfo" type="IoBrComplexType.IoBrchInfo" required="false" multi="true" array="false" longname="下级机构信息列表"/>
+            <field id="brchinfo" type="IoBrComplexType.IoBrchInfo" required="false" multi="true" array="false" longname="有查询权限机构信息列表"/>
+            <field id="start" type="long" required="false" multi="false" array="false" longname="页码"/>
+            <field id="count" type="long" required="false" multi="false" array="false" longname="页容量"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qryTranInfo" id="qryTranInfo" longname="获取交易输入信息"/>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetUpperLevelBranch" id="IoGetUpperLevelBranch" longname="查询上级机构号">
+            <in_mappings by_interface="true">
+                <mapping src="orgnbr" dest="brchno" desc="交易机构号" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="brchinfo" dest="upBrchinfo" desc="上级机构信息" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetLowerLevelBranch" id="IoGetLowerLevelBranch" longname="查询下级机构号">
+            <in_mappings by_interface="true">
+                <mapping src="orgnbr" dest="brchno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="brchinfo" dest="doBrchinfo" desc="下级机构信息" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="qrcpdf" id="qrcpdf" longname="查询超额优惠定义" desc="查询超额优惠定义"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

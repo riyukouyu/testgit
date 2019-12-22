@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="expqsq" longname="业务流水信息导出" kind="1" package="cn.sunline.edsp.busi.dptran.trans.ca.jfca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.ca.jfca.intf">
+        <input packMode="true">
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始交易日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止交易日期"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+            <field id="sortno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="记录序号"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志"/>
+            <field id="atowtp" type="PbEnumType.E_ATOWTP" required="false" multi="false" array="false" longname="会计主体"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="bradna" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="品牌名称"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="exportlist" required="false" multi="true" longname="业务流水明细列表" array="false">
+                <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+                <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+                <field id="prcscd" type="BaseType.U_PRCSCD" required="false" multi="false" array="false" longname="交易码"/>
+                <field id="prcsna" type="BaseType.U_CHINNA" required="false" multi="false" array="false" longname="交易名称"/>
+                <field id="acctno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="账号"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账号名称"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+                <field id="amntcd" type="BaseType.U_CHAR06" required="false" multi="false" array="false" longname="借贷标志"/>
+                <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+                <field id="atowtp" type="BaseType.U_CHAR14" required="false" multi="false" array="false" longname="会计主体类型"/>
+                <field id="bltype" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="余额属性"/>
+                <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="交易流水"/>
+                <field id="trantp" type="BaseType.U_CHAR01" required="false" multi="false" array="false" longname="交易类型"/>
+                <field id="tranus" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="交易柜员"/>
+                <field id="strksq" type="BaseType.U_CHAR04" required="false" multi="false" array="false" longname="是否冲正流水"/>
+                <field id="trsqst" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="流水业务状态"/>
+                <field id="status" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="状态"/>
+                <field id="sacotg" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="当日抹账允许标志"/>
+                <field id="cuacno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="记账账号"/>
+                <field id="dtitcd" type="BaseType.U_DTITCD" required="false" multi="false" array="false" longname="核算代码"/>
+                <field id="acctbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账务机构"/>
+                <field id="sortno" type="PbBaseType.U_LONGIN" required="false" multi="false" array="false" longname="记录序号"/>
+                <field id="bradna" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="品牌名称"/>
+                <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="expacsq" longname="导出业务流水明细"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

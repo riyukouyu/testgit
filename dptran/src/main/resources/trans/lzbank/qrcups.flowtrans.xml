@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrcups" longname="银联cups交易结果查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="fronsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="支付前置流水"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="支付前置日期"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="transt" type="BaseEnumType.E_STATE" required="false" multi="false" array="false" longname="原交易状态"/>
+            <field id="retrcd" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="原交易响应码"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qrCupsTran" longname="银联cups交易结果查询"/>
+    </flow>
+</flowtran>

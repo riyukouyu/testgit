@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="queryw" longname="查询用户签约购买产品是否提前解约支取写文件" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="queryw" longname="查询用户签约购买产品是否提前支取写文件" mode="splitor" splitor="|@|" encoding="UTF-8">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1">
+            <field id="totanm" type="BaseType.U_LONGIN" longname="总记录数" leftPadding="false"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="RpMgr.knbQeryBach" startline="2">
+            <field id="kqcode" type="BaseType.U_SEQUNO" longname="卡券ID" leftPadding="false"/>
+            <field id="dindno" type="BaseType.U_CHAR40" longname="订单号" leftPadding="false"/>
+            <field id="cardno" type="BaseType.U_BTCHNO" longname="卡号" leftPadding="false"/>
+            <field id="userid" type="BaseType.U_CUSTID" longname="用户ID" leftPadding="false"/>
+            <field id="prodst" type="DpEnumType.E_PRODST" longname="产品状态" leftPadding="false"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</file_batch_transaction>

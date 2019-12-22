@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="drawup" longname="修改存款支取控制部件信息" kind="2" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[修改存款支取控制部件信息]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="drawtp" type="BaseEnumType.E_DRAWCT" required="false" multi="false" array="false" longname="支取控制方式" ref="DpDict.Prod.drawtp"/>
+            <field id="ctrlwy" type="DpEnumType.E_CTRLWY" required="false" multi="false" array="false" longname="支取控制方法" ref="DpDict.Prod.ctrlwy"/>
+            <field id="dramwy" type="DpEnumType.E_AMNTWY" required="false" multi="false" array="false" longname="支取金额控制方式" ref="DpDict.Prod.dramwy"/>
+            <field id="drmiam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="单次支取最小金额" ref="DpDict.Prod.drmiam"/>
+            <field id="drmxam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="单次支取最大金额" ref="DpDict.Prod.drmxam"/>
+            <field id="drtmwy" type="DpEnumType.E_TIMEWY" required="false" multi="false" array="false" longname="支取次数控制方式"/>
+            <field id="drmitm" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="最小支取次数" ref="DpDict.Prod.drmitm"/>
+            <field id="drmxtm" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="最大支取次数" ref="DpDict.Prod.drmxtm"/>
+            <field id="drrule" type="DpEnumType.E_DRRULE" required="false" multi="false" array="false" longname="支取规则"/>
+            <field id="ismibl" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否允许小于账户留存最小余额"/>
+            <field id="minibl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="账户留存最小余额"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="draupt" id="draupt" test="" longname="修改存款支取控制部件信息" desc=""/>
+    </flow>
+</flowtran>

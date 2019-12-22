@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dmrdlt" longname="代发记录列表" kind="1" package="cn.sunline.edsp.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="agntna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="服务商名称"/>
+            <field id="bstype" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="业务类型"/>
+            <field id="dmmnth" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="分润月份"/>
+            <field id="edmflg" type="JfDpEnumType.E_PASTAT" required="false" multi="false" array="false" longname="代发状态"/>
+            <fields id="dtlist" required="false" multi="true" longname="代发日期" array="false">
+                <field id="dfbgdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="代发开始日期"/>
+                <field id="dfeddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="代发结束日期"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="recordLists" type="CaCustInfo.recordLists" required="false" multi="true" array="false" longname="代发记录查询"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qyrEdmDetail" id="qyrEdmDetail" longname="代发列表查询" desc="代发列表查询"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

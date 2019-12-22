@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="WrAccRb" longname="错账管理" package="cn.sunline.ltts.busi.in.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[错账管理]]></description>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selStrkInfo" longname="隔日错账冲正信息查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="tranbr" ref="DpDict.Froz.tranbr" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易机构" parameterType="condition"/>
+            <parameter property="orgnbr" ref="InDict.wrac.orgnbr" jdbcType="VARCHAR" javaType="ApBaseType.U_JIGOUHAO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="operte" ref="InDict.wrac.operte" jdbcType="VARCHAR" javaType="ApBaseType.U_GUIYDAIH" mode="in" longname="柜员号" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="交易账号" parameterType="condition"/>
+            <parameter property="efctdt" ref="InDict.wrac.efctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="inefdt" ref="InDict.wrac.inefdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.KnsStrk"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kns_strk a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.strkst = '0' and (a.wronbr in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#) or a.wronbr  = #tranbr#)]]></str>
+                    <if test="orgnbr != null &amp;&amp; orgnbr != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.wronbr  = #orgnbr#]]></str>
+                    </if>
+                    <if test="efctdt != null&amp;&amp;efctdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt >=#efctdt#]]></str>
+                    </if>
+                    <if test="inefdt != null &amp;&amp;inefdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt <=#inefdt#]]></str>
+                    </if>
+                    <if test="operte != null &amp;&amp; operte != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.chckus = #operte#]]></str>
+                    </if>
+                    <if test="acctno != null &amp;&amp; acctno != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.custac = #acctno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by tmstmp ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kns_strk a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.strkst = '0' and (a.wronbr in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#) or a.wronbr  = #tranbr#)]]></str>
+                    <if test="orgnbr != null &amp;&amp; orgnbr != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.wronbr  = #orgnbr#]]></str>
+                    </if>
+                    <if test="efctdt != null&amp;&amp;efctdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt >=#efctdt#]]></str>
+                    </if>
+                    <if test="inefdt != null &amp;&amp;inefdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt <=#inefdt#]]></str>
+                    </if>
+                    <if test="operte != null &amp;&amp; operte != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.chckus = #operte#]]></str>
+                    </if>
+                    <if test="acctno != null &amp;&amp; acctno != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.custac = #acctno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by tmstmp ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selWroAcctInfo" longname="当日错账冲正信息查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="tranbr" ref="DpDict.Froz.tranbr" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易机构" parameterType="condition"/>
+            <parameter property="orgnbr" ref="InDict.wrac.orgnbr" jdbcType="VARCHAR" javaType="ApBaseType.U_JIGOUHAO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="operte" ref="InDict.wrac.operte" jdbcType="VARCHAR" javaType="ApBaseType.U_GUIYDAIH" mode="in" longname="柜员号" parameterType="condition"/>
+            <parameter property="acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="交易账号" parameterType="condition"/>
+            <parameter property="efctdt" ref="InDict.wrac.efctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="inefdt" ref="InDict.wrac.inefdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="InWroAccManagerType.StrkpsInfo"/>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select
+                a.trandt prtrdt,b.rverbr as wronbr,a.cuacno as acctno, b.tranus as wronte,b.transq as prtrsq,
+                a.amntcd,'1' as rebuwo,b.rverdt as trandt,b.rverbr as tranbr, b.rverus as tranus,
+                b.rversq transq,a.tranam * (-1) as tranam,'0' as adamcl,null as numbsq, b.spaco1 reason 
+        	from
+                kns_acsq a
+        	join
+                kns_tran b 
+                        on a.MNTRSQ = b.rversq]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ (b.rverbr in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#) or b.rverbr  = #tranbr#)]]></str>
+                    <if test="orgnbr != null &amp;&amp; orgnbr != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[b.rverbr  = #orgnbr#]]></str>
+                    </if>
+                    <if test="efctdt != null&amp;&amp;efctdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt >=#efctdt#]]></str>
+                    </if>
+                    <if test="inefdt != null &amp;&amp;inefdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt <=#inefdt#]]></str>
+                    </if>
+                    <if test="operte != null &amp;&amp; operte != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[b.rverus = #operte#]]></str>
+                    </if>
+                    <if test="acctno != null &amp;&amp; acctno != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.cuacno = #acctno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.tmstmp]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select
+                a.trandt prtrdt,b.rverbr as wronbr,a.cuacno as acctno, b.tranus as wronte,b.transq as prtrsq,
+                a.amntcd,'1' as rebuwo,b.rverdt as trandt,b.rverbr as tranbr, b.rverus as tranus,
+                b.rversq transq,a.tranam * (-1) as tranam,'0' as adamcl,null as numbsq, b.spaco1 reason 
+        	from
+                kns_acsq a
+        	join
+                kns_tran b 
+                        on a.MNTRSQ = b.rversq]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ (b.rverbr in (select b.lowebr from kub_brlw b where b.brmptp = 'M' and b.brchno = #tranbr#) or b.rverbr  = #tranbr#)]]></str>
+                    <if test="orgnbr != null &amp;&amp; orgnbr != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[b.rverbr  = #orgnbr#]]></str>
+                    </if>
+                    <if test="efctdt != null&amp;&amp;efctdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt >=#efctdt#]]></str>
+                    </if>
+                    <if test="inefdt != null &amp;&amp;inefdt !=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.trandt <=#inefdt#]]></str>
+                    </if>
+                    <if test="operte != null &amp;&amp; operte != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[b.rverus = #operte#]]></str>
+                    </if>
+                    <if test="acctno != null &amp;&amp; acctno != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[a.cuacno = #acctno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.tmstmp]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selKnsStrkByNumbsq" longname="根据套号查询错账登记簿">
+        <sql type="mysql"><![CDATA[select a.* from kns_strk a where a.numbsq=#numbsq# and a.trandt=#trandt#]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from kns_strk a where a.numbsq=#numbsq# and a.trandt=#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="numbsq" jdbcType="VARCHAR" javaType="string" mode="in" longname="数值序号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.KnsStrk"/>
+    </select>
+    <update method="update" id="updateKnsPayaToDelete" longname="删除挂账明细记录">
+        <sql type="mysql"><![CDATA[update  kns_paya set payast ='5',tmstmp=#tmstmp# where acstno =#acstno# and payaac =#payaac# and trandt =#trandt#]]></sql>
+        <sql type="oracle"><![CDATA[update  kns_paya set payast ='5',tmstmp=#tmstmp# where acstno =#acstno# and payaac =#payaac# and trandt =#trandt#]]></sql>
+        <sql type="db2"><![CDATA[update  kns_paya set payast ='5',tmstmp=#tmstmp# where acstno =#acstno# and payaac =#payaac# and trandt =#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acstno" ref="InDict.inac.acstno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="套号" parameterType="condition"/>
+            <parameter property="payaac" ref="InDict.inac.payaac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="挂账账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updateKnsPaydToDelete" longname="删除销账明细记录">
+        <sql type="mysql"><![CDATA[update  kns_payd set paydst ='5',tmstmp=#tmstmp# where acstno =#acstno# and paydac =#paydac# and trandt =#trandt#]]></sql>
+        <sql type="oracle"><![CDATA[update  kns_payd set paydst ='5',tmstmp=#tmstmp# where acstno =#acstno# and paydac =#paydac# and trandt =#trandt#]]></sql>
+        <sql type="db2"><![CDATA[update  kns_payd set paydst ='5',tmstmp=#tmstmp# where acstno =#acstno# and paydac =#paydac# and trandt =#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acstno" ref="InDict.inac.acstno" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="套号" parameterType="condition"/>
+            <parameter property="paydac" ref="InDict.inac.paydac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="销账账号" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectFirst" type="sql" id="selKnsStrkByPrtrsq" longname="根据原交易流水查询">
+        <sql type="mysql"><![CDATA[select a.* from kns_strk a where a.prtrsq=#prtrsq#]]></sql>
+        <sql type="oracle"><![CDATA[select a.* from kns_strk a where a.prtrsq=#prtrsq#]]></sql>
+        <sql type="db2"><![CDATA[select a.* from kns_strk a where a.prtrsq=#prtrsq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prtrsq" jdbcType="VARCHAR" javaType="string" mode="in" longname="原交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="In.KnsStrk"/>
+    </select>
+</sqls>

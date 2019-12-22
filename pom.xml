@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>DP-Parent</artifactId>
+	<packaging>pom</packaging>
+	<name>DP-Parent</name>
+	<version>0.1.0-SNAPSHOT</version>
+
+	<modules>
+		<module>dp-iobus</module>
+		<module>dp</module>
+		<module>fe</module>
+		<module>in</module>
+		<module>fetran</module>
+		<module>intran</module>
+		<module>dptran</module>
+		<module>dp-dist</module>
+	</modules>
+	<parent>
+		<groupId>com.jfpal.ngp</groupId>
+		<artifactId>jfpal-ngp-parent</artifactId>
+		<version>4.0.0-CEDAR-BETA-36-SNAPSHOT</version>
+	</parent>
+	<properties>
+		<edsp-module>true</edsp-module>
+		<dp.version>0.1.0-SNAPSHOT</dp.version>
+		<ds.version>0.1.3-SNAPSHOT</ds.version>
+		<adp.maven.version>3.1.0-M5</adp.maven.version>	
+	</properties>
+
+
+<dependencyManagement>
+
+		<dependencies>
+		
+			<dependency>
+			  <groupId>cn.sunline.ltts.business</groupId>
+			  <artifactId>pb-iobus</artifactId>
+			  <version>0.1.0-SNAPSHOT</version>			
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter-cedar</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>			
+			</dependency>
+
+			<dependency>
+			  <groupId>cn.sunline.ltts.business</groupId>
+			  <artifactId>dp-iobus</artifactId>
+			  <version>0.1.0-SNAPSHOT</version>			
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter-cedar</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>			
+			</dependency>
+			
+			<dependency>
+			  <groupId>cn.sunline.ltts.business</groupId>
+			  <artifactId>ds-iobus</artifactId>
+			  <version>${ds.version}</version>			
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter-cedar</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>			
+			</dependency>
+
+			<dependency>
+			  <groupId>cn.sunline.ltts.business</groupId>
+			  <artifactId>dstran</artifactId>
+			  <version>${ds.version}</version>			
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter-cedar</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>			
+			</dependency>
+			<dependency>
+			  <groupId>cn.sunline.ltts.business</groupId>
+			  <artifactId>ds-iobus</artifactId>
+			  <version>${ds.version}</version>			
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter-cedar</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>			
+			</dependency>
+			<dependency>
+				<groupId>cn.sunline.ltts.business</groupId>
+				<artifactId>icore-dm</artifactId>
+				<version>${ds.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.ltts.business</groupId>
+						<artifactId>dp-iobus</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.ltts.business</groupId>
+						<artifactId>dptran</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.ltts.business</groupId>
+						<artifactId>ds-iobus</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.ltts.business</groupId>
+						<artifactId>ds</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+
+
+			<dependency>
+			  <groupId>cn.sunline.ltts.business</groupId>
+			  <artifactId>dptran</artifactId>
+			  <version>0.1.0-SNAPSHOT</version>			
+				<exclusions>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter-cedar</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>cn.sunline.adp.provider.cedar</groupId>
+						<artifactId>adp-boot-starter</artifactId>
+					</exclusion>
+				</exclusions>			
+			</dependency>
+		
+		
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>dp</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>fe</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>in</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>dptran</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>fetran</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>intran</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>cn.sunline.ltts.business</groupId>
+			<artifactId>dp-iobus</artifactId>
+			<version>${dp.version}</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>org.apache.poi</groupId>
+             <artifactId>poi</artifactId>
+             <version>3.16</version>
+        </dependency>
+        <dependency>
+             <groupId>org.apache.poi</groupId>
+             <artifactId>poi-ooxml</artifactId>
+             <version>3.12</version>
+        </dependency>	
+        
+		<dependency>
+		  <groupId>com.oracle</groupId>
+		  <artifactId>ojdbc6</artifactId>
+		  <version>11.2.0.4.0</version>
+		</dependency>
+			        
+		<dependency>
+		  <groupId>cn.sunline.edsp.midware</groupId>
+		  <artifactId>edsp-rpc-rt-transport-rmq</artifactId>
+		   <version>2.4.11-BETA_1</version>
+		</dependency>        	
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.4.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7.js2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bcmail-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.bouncycastle</groupId>
+					<artifactId>bctsp-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcmail-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcprov-jdk14</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>fakepath</groupId>
+			<artifactId>iTextAsian</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-excelant</artifactId>
+			<version>3.12</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.xmlbeans</groupId>
+					<artifactId>xmlbeans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.ant</groupId>
+					<artifactId>ant</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		</dependencies>
+		
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.jfpal.ngp</groupId>
+			<artifactId>jfpal-ngp-aplt</artifactId>
+		</dependency>
+	</dependencies>
+	<groupId>cn.sunline.ltts.business</groupId>
+	
+	<distributionManagement>
+		<repository>
+			<id>jfpal_release</id>
+			<name>jfpal release</name>
+			<url>http://ops.jfpal.com/nexus/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>jfpal_snapshot</id>
+			<name>jfpal snapshots</name>
+			<url>http://ops.jfpal.com/nexus/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+</project>

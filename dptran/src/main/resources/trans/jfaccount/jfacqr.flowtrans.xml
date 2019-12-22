@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="jfacqr" longname="即富收单记账" kind="3" package="cn.sunline.edsp.busi.dptran.trans.jfaccount" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.jfaccount.intf">
+        <input packMode="true">
+            <field id="cltrsq" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="清结算流水" ref="DpRiskDict.JfDp.cltrsq"/>
+            <field id="cltrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清结算日期" ref="DpRiskDict.JfDp.cltrdt"/>
+            <field id="ischck" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="对账标志" ref="DpRiskDict.JfDp.ischck"/>
+            <field id="cktrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="对账日期" ref="DpRiskDict.JfDp.cktrdt"/>
+            <field id="jftrtp" type="JfDpEnumType.E_JFTRTP" required="false" multi="false" array="false" longname="记账交易类型" ref="DpRiskDict.JfDp.jftrtp"/>
+            <field id="posnum" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="内部终端号码" ref="DpRiskDict.JfDp.posnum"/>
+            <field id="inmeid" type="BaseType.U_CHAR25" required="false" multi="false" array="false" longname="内部商户号" ref="DpRiskDict.JfDp.inmeid"/>
+            <field id="ysunam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="应收银联待清算交易金额" ref="DpRiskDict.JfDp.ysunam"/>
+            <field id="yfmcam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="应付商户存款交易金额" ref="DpRiskDict.JfDp.yfmcam"/>
+            <field id="divdam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="分润费用收入" ref="DpRiskDict.JfDp.divdam"/>
+            <field id="divdfe" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冲抵分润费用收入（抵用券）" ref="DpRiskDict.JfDp.divdfe"/>
+            <field id="unamfe" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冲抵应收账款交易金额（银联手续费）" ref="DpRiskDict.JfDp.unamfe"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="BaseDict.Comm.tranam"/>
+            <field id="voucfe" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="活动抵扣" ref="DpRiskDict.JfDp.voucfe"/>
+            <field id="markfe" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="总抵扣 |基础抵扣 |D0抵扣 |附加抵扣 " ref="DpRiskDict.JfDp.markfe"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="pabkno" type="BaseType.U_CHAR64" required="false" multi="false" array="false" longname="支付银行卡账号" ref="DpRiskDict.JfDp.pabkno"/>
+            <field id="pabkna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="支付银行卡名称" ref="DpRiskDict.JfDp.pabkna"/>
+            <field id="otbkna" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="支付账户开户行号" ref="DpRiskDict.JfDp.otbkna"/>
+            <field id="pameno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="支付商户号" ref="DpRiskDict.JfDp.pameno"/>
+            <field id="pamena" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="支付商户号名称" ref="DpRiskDict.JfDp.pamena"/>
+            <field id="remark" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="备注信息" ref="BaseDict.Comm.remark"/>
+            <field id="chantp" type="JfDpEnumType.E_CHANTP" required="false" multi="false" array="false" longname="交易渠道" ref="DpRiskDict.JfDp.chantp"/>
+            <field id="svcode" type="JfDpEnumType.E_SERVCD" required="false" multi="false" array="false" longname="服务编码" ref="DpRiskDict.JfDp.svcode"/>
+            <field id="finsty" type="JfDpEnumType.E_FINSTY" required="false" multi="false" array="false" longname="结算类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="交易流水" ref="DpRiskDict.JfDp.mntrsq"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" ref="DpRiskDict.JfDp.mntrdt"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="交易时间" ref="DpRiskDict.JfDp.mntrtm"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="accountIn" id="accountIn" longname="即富收单记账"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qyacbl" longname="内部户余额明细查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="qszttp" type="TaBaseType.U_BYTE40" required="false" multi="false" array="false" longname="清算主体类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="inacBlInfo" type="InQueryTypes.InacBlInfo" required="false" multi="false" array="false" longname="余额明细"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="chkQyacblInfo" id="chkQyacblInfo" longname="内部户余额信息查询"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

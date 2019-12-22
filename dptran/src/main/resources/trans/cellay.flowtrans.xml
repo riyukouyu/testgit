@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="cellay" longname="撤销电子账户转账" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" ref="DpDict.Acct.transq"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" ref="DpDict.Acct.trandt"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="IoDpFrozSvcType.CancelAcToAc" id="CancelAcToAc" longname="撤销电子账户延迟转账">
+            <in_mappings by_interface="true">
+                <mapping src="transq" dest="transq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoDpFrozSvcType.IoDpStUf" id="IoDpStUf" longname="解冻">
+            <in_mappings by_interface="true">
+                <mapping src="transq" dest="cpliodpstufin.mntrsq" by_interface="true" on_top="true"/>
+                <mapping src="trandt" dest="cpliodpstufin.trandt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

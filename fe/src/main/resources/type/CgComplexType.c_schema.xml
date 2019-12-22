@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="CgComplexType" package="cn.sunline.ltts.busi.cg.type" longname="公共费用复合类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[公共费用符合类型]]></description>
+    <complexType id="CgWDInfo" longname="所有纬度信息" dict="false" abstract="false" introduct="false">
+        <element id="chgflg" longname="记账标志" type="PbEnumType.E_CHGFLG" ref="PbDict.Charge.chgflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trnchl" longname="交易渠道" type="MsType.U_CHANNEL" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sbbkcd" longname="分行代码" type="BaseType.U_CORPNO" ref="PbDict.Charge.sbbkcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="modtyp" longname="所属模块" type="PbEnumType.E_MODUTP" ref="PbDict.Charge.modtyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custtp" longname="客户类型" type="PbEnumType.E_CUSTTP" ref="PbDict.Charge.custtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cuslvl" longname="客户级别" type="PbEnumType.E_CUSLVL" ref="PbDict.Charge.cuslvl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clsbac" longname="计费账号子账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.clsbac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="PbDict.Charge.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finpec" longname="最终优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.finpec" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="stdamt" longname="标准应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.stdamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deducy" longname="扣费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.deducy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deduac" longname="扣费账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.deduac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dedusb" longname="扣费子账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.dedusb" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oubrno" longname="转出行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.oubrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inbrno" longname="转入行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.inbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cdpdno" longname="卡产品编号" type="BaseType.U_CHAR80" ref="PbDict.Charge.cdpdno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="emplus" longname="行内员工户" type="BaseType.U_CHAR80" ref="PbDict.Charge.emplus" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="payrus" longname="代发工资户" type="BaseType.U_CHAR80" ref="PbDict.Charge.payrus" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csprcd" longname="现金项目代码" type="PbEnumType.E_CSPRCD" ref="PbDict.Charge.csprcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="subseq" longname="子账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.subseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgcsfg" longname="扣费钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.cgcsfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgsbsq" longname="扣费子账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.cgsbsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgpd" longname="收费周期" type="PbBaseType.U_WEEKPD" ref="PbDict.Charge.chrgpd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dedudt" longname="扣费日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.dedudt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totflg" longname="是否汇总记账标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.totflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgGetKZInfo" longname="收费金额控制信息" dict="false" abstract="false" introduct="false">
+        <element id="cgwdinfo" longname="纬度信息" type="CgComplexType.CgWDInfo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvam" longname="应收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.recvam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgGetJYInfo" longname="交易信息" dict="false" abstract="false" introduct="false">
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgShouflxInfo" longname="收费类型信息" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcham" longname="指定收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.spcham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgJfsrInfo" longname="计费输入信息" dict="false" abstract="false" introduct="false">
+        <element id="modtyp" longname="所属模块" type="PbEnumType.E_MODUTP" ref="PbDict.Charge.modtyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="subseq" longname="子账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.subseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deduac" longname="扣费账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.deduac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgsbsq" longname="扣费子账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.cgsbsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="deducy" longname="扣费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.deducy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chevno" longname="收费事件编号" type="PbBaseType.U_CHAR30" ref="PbDict.Charge.chevno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgcsfg" longname="扣费钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.cgcsfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="机构号" type="BaseType.U_BRCHNO" ref="PbDict.Brch.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oubrno" longname="转出行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.oubrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inbrno" longname="转入行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.inbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cletam" longname="收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.cletam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgSfmxlb" longname="收费明细列表" dict="false" abstract="false" introduct="false">
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="transq" longname="交易流水" type="BaseType.U_SEQUNO" ref="PbDict.Charge.transq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clettp" longname="收费类型" type="BaseType.U_CHAR80" ref="PbDict.Charge.clettp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cletbr" longname="收费部门" type="BaseType.U_BRCHNO" ref="PbDict.Charge.cletbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clchcy" longname="计费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.clchcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="regamt" longname="实际登记收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.regamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgtp" longname="收取方式" type="PbEnumType.E_CHRGTP" ref="PbDict.Charge.chrgtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgDanbJzFee_IN" longname="单边记账费用输入" dict="false" abstract="false" introduct="false">
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctbr" longname="记账机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.acctbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgfacd" longname="收费核算业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cgfacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cghacd" longname="收费挂账业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cghacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="modtyp" longname="所属模块" type="PbEnumType.E_MODUTP" ref="PbDict.Charge.modtyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cuscnm" longname="客户中文名" type="BaseType.U_CHINNA" ref="PbDict.Charge.cuscnm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csprcd" longname="现金项目代码" type="PbEnumType.E_CSPRCD" ref="PbDict.Charge.csprcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ckbrfg" longname="是否检查机构标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.ckbrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trinfo" longname="交易信息" type="BaseType.U_CHAR10" ref="PbDict.Dcmt.trinfo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgDanbJzFee_OUT" longname="单边记账费用输出" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="buscod" longname="费用业务代号" type="BaseType.U_CHAR04" ref="PbDict.Charge.buscod" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bustyp" longname="费用业务分类" type="BaseType.U_CHAR80" ref="PbDict.Charge.bustyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgChargeFee_IN" longname="收费输入" dict="false" abstract="false" introduct="false">
+        <element id="oprflg" longname="收费操作标志" type="PbEnumType.E_OPRFLG" ref="PbDict.Charge.oprflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ifflag" longname="是否标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.ifflag" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trnseq" longname="柜员流水" type="PbBaseType.U_TRNSEQ" ref="PbDict.Charge.trnseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="evrgsq" longname="事件登记序号" type="PbBaseType.U_SENOTP" ref="PbDict.Charge.evrgsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="decuac" longname="扣账客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.decuac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="seqnum" longname="顺序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.seqnum" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csprcd" longname="现金项目代码" type="PbEnumType.E_CSPRCD" ref="PbDict.Charge.csprcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dvidam" longname="收费分成金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dvidam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trinfo" longname="交易信息" type="BaseType.U_CHAR10" ref="PbDict.Dcmt.trinfo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品代码" type="BaseType.U_CHAR32" ref="PbDict.Dcmt.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="payaDetail" longname="内部户挂账明细" type="InacTransComplex.IaPayaDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="paydDetail" longname="内部户销账明细" type="InacTransComplex.IaPaydDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="isclos" longname="实时收费标志" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="strktg" longname="是否允许冲正" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clactp" longname="销户类型" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgChargeFee_OUT" longname="收费输出" dict="false" abstract="false" introduct="false">
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cuscnm" longname="客户中文名" type="BaseType.U_CHINNA" ref="PbDict.Charge.cuscnm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcy" longname="收费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chrgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvam" longname="应收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.recvam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcgam" longname="应付费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.spcgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="apcgam" longname="实付费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.apcgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totamt" longname="合计金额" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.totamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="arrgam" longname="欠费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.arrgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstfyinf" longname="费用信息" type="CgComplexType.CgFEEINFO" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgFEEINFO" longname="费用信息" dict="false" abstract="false" introduct="false">
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trnseq" longname="柜员流水" type="PbBaseType.U_TRNSEQ" ref="PbDict.Charge.trnseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sequno" longname="序号" type="PbBaseType.U_SENOTP" ref="PbDict.Charge.sequno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clchcy" longname="计费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.clchcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clcham" longname="计算费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.clcham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgscam" longname="费用应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.cgscam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="favpec" longname="优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favpec" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcy" longname="收费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chrgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvam" longname="应收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.recvam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="arrgam" longname="欠费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.arrgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dvidam" longname="收费分成金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dvidam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sysacn" longname="系统账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.sysacn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chgpln" longname="费用计划" type="PbBaseType.U_PLANCD" ref="PbDict.Charge.chgpln" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgpd" longname="收费周期" type="PbBaseType.U_WEEKPD" ref="PbDict.Charge.chrgpd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dedudt" longname="扣费日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.dedudt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvfg" longname="收讫标志" type="BaseEnumType.E_GTAMFG" ref="PbDict.Charge.recvfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgfacd" longname="收费核算业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cgfacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cghacd" longname="收费挂账业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cghacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品代码" type="BaseType.U_CHAR32" ref="PbDict.Dcmt.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trinfo" longname="交易信息" type="BaseType.U_CHAR10" ref="PbDict.Dcmt.trinfo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chnotp" longname="费种大类" type="PbBaseType.U_CHNOTP" ref="PbDict.Charge.chnotp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chnona" longname="费种大类名称" type="PbBaseType.U_CHNONA" ref="PbDict.Charge.chnona" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dioage" longname="分润方一机构号" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="diwage" longname="分润方二机构号" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ditage" longname="分润方三机构号" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="difage" longname="分润方四机构号" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dioamo" longname="分润方一金额" type="PbBaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="diwamo" longname="分润方二金额" type="PbBaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ditamo" longname="分润方三金额" type="PbBaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="difamo" longname="分润方四金额" type="PbBaseType.U_TRANAM" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgKFZHINFO" longname="扣费账户信息" dict="false" abstract="false" introduct="false">
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="PbDict.Charge.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgsbsq" longname="扣费子账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.cgsbsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgSfgsjs" longname="收费公式计算结果信息" dict="false" abstract="false" introduct="false">
+        <element id="chrgfm" longname="收费公式代码" type="PbBaseType.U_FOMUCD" ref="PbDict.Charge.chrgfm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="PbDict.Charge.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calamt" longname="费用计算金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.calamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="favoir" longname="优惠利率" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favoir" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgscam" longname="费用应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.cgscam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgSfjekz" longname="收费金额控制结果信息" dict="false" abstract="false" introduct="false">
+        <element id="contam" longname="控制后收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.contam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="conexp" longname="控制说明" type="BaseType.U_CHAR200" ref="PbDict.Charge.conexp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgSflxls" longname="收费类型临时表" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cvcyfg" longname="币种兑换" type="PbEnumType.E_CVCYFG" ref="PbDict.Charge.cvcyfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mndecm" longname="最低小数位数" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.mndecm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="carrtp" longname="四舍五入方式" type="PbEnumType.E_CARRTP" ref="PbDict.Charge.carrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cufesr" longname="计费金额来源" type="PbEnumType.E_CUFESR" ref="PbDict.Charge.cufesr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lysptp" longname="分层方式" type="PbEnumType.E_LYSPTP" ref="PbDict.Charge.lysptp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="felytp" longname="收费分层取值类型" type="PbEnumType.E_FELYTP" ref="PbDict.Charge.felytp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgfacd" longname="收费核算业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cgfacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cghacd" longname="收费挂账业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cghacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bllwtp" longname="余额不足处理方式" type="PbEnumType.E_BLLWTP" ref="PbDict.Charge.bllwtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cractm" longname="宽限期" type="BaseType.U_CHAR08" ref="PbDict.Charge.cractm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="isfavo" longname="是否允许优惠" type="PbEnumType.E_ISFAVO" ref="PbDict.Charge.isfavo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mnfvrt" longname="最低优惠比例" type="PbBaseType.U_RATVAL" ref="PbDict.Charge.mnfvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mxfvrt" longname="最高优惠比例" type="PbBaseType.U_RATVAL" ref="PbDict.Charge.mxfvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fedive" longname="收费分成标志" type="PbEnumType.E_FEDIVE" ref="PbDict.Charge.fedive" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgtp" longname="收取方式" type="PbEnumType.E_CHRGTP" ref="PbDict.Charge.chrgtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgsr" longname="收费金额来源" type="PbEnumType.E_CHRGSR" ref="PbDict.Charge.chrgsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="efctdt" longname="生效日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.efctdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inefdt" longname="失效日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.inefdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgFyscxx" longname="费用输出信息表" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calact" longname="计费账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.calact" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clchcy" longname="计费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.clchcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgamou" longname="计费金额/档次" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.cgamou" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="stdamt" longname="标准应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.stdamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="favpec" longname="优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favpec" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="diplcd" longname="优惠计划代码" type="BaseType.U_CHAR08" ref="PbDict.Charge.diplcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="faplcy" longname="费用优惠计划币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.faplcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="plfapc" longname="费用计划优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.plfapc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finpec" longname="最终优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.finpec" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dircam" longname="优惠后应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dircam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amcnfg" longname="是否金额控制" type="PbEnumType.E_YES___" ref="PbDict.Charge.amcnfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="conamt" longname="控制后应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.conamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="useflg" longname="是否使用套餐" type="PbEnumType.E_YES___" ref="PbDict.Charge.useflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="packcd" longname="费用套餐代码" type="PbBaseType.U_PACKCD" ref="PbDict.Charge.packcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pkfapc" longname="收费套餐优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.pkfapc" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="afpkam" longname="收费套餐后应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.afpkam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgsr" longname="收费金额来源" type="PbEnumType.E_CHRGSR" ref="PbDict.Charge.chrgsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgtp" longname="收取方式" type="PbEnumType.E_CHRGTP" ref="PbDict.Charge.chrgtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calsts" longname="计费状态" type="PbEnumType.E_CALSTS" ref="PbDict.Charge.calsts" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accgcy" longname="实际扣费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.accgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accgac" longname="实际扣费账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.accgac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="subact" longname="收费子账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.subact" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accham" longname="实际已收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.accham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chgdat" longname="收费日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.chgdat" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cletsq" longname="收费流水" type="PbBaseType.U_TRNSEQ" ref="PbDict.Charge.cletsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dviflg" longname="是否费用分成" type="PbEnumType.E_YES___" ref="PbDict.Charge.dviflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oubrno" longname="转出行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.oubrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inbrno" longname="转入行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.inbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trbrno" longname="交易行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.trbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oudvrt" longname="转出行分成比率" type="BaseType.U_INSTRT" ref="PbDict.Charge.oudvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="indvrt" longname="转入行分成比率" type="BaseType.U_INSTRT" ref="PbDict.Charge.indvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trdvrt" longname="交易行分成比率" type="BaseType.U_INSTRT" ref="PbDict.Charge.trdvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgFysrxx" longname="费用输入信息表" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgsr" longname="收费金额来源" type="PbEnumType.E_CHRGSR" ref="PbDict.Charge.chrgsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcham" longname="指定收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.spcham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dvidam" longname="收费分成金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dvidam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chevno" longname="收费事件编号" type="PbBaseType.U_CHAR30" ref="PbDict.Charge.chevno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgJfgcxn" longname="计费过程信息表" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgpj" longname="收费项目" type="PbBaseType.U_CHAR5B" ref="PbDict.Charge.chrgpj" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="favpec" longname="优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favpec" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgamou" longname="计费金额/档次" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.cgamou" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgrule" longname="收费规则" type="PbBaseType.U_LONGDS" ref="PbDict.Charge.cgrule" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="stadam" longname="标准收费" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.stadam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fvcgam" longname="优惠/控制后收费" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.fvcgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgCalFee_OUT" longname="计费记账输出" dict="false" abstract="false" introduct="false">
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="modtyp" longname="所属模块" type="PbEnumType.E_MODUTP" ref="PbDict.Charge.modtyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acchnm" longname="账户中文名" type="BaseType.U_ACCTNA" ref="PbDict.Charge.acchnm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcy" longname="收费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chrgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accgac" longname="实际扣费账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.accgac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvam" longname="应收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.recvam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcgam" longname="应付费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.spcgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="apcgam" longname="实付费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.apcgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="arrgam" longname="欠费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.arrgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totamt" longname="合计金额" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.totamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstFeexx" longname="费用信息" type="CgComplexType.CgFEEINFO" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgCalFee_IN" longname="计费记账输入" dict="false" abstract="false" introduct="false">
+        <element id="modtyp" longname="所属模块" type="PbEnumType.E_MODUTP" ref="PbDict.Charge.modtyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="seqnum" longname="顺序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.seqnum" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dcmttp" longname="凭证种类" type="BaseType.U_DCMTTP" ref="PbDict.Charge.dcmttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chevno" longname="收费事件编号" type="PbBaseType.U_CHAR30" ref="PbDict.Charge.chevno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chgflg" longname="记账标志" type="PbEnumType.E_CHGFLG" ref="PbDict.Charge.chgflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgpd" longname="收费周期" type="PbBaseType.U_WEEKPD" ref="PbDict.Charge.chrgpd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lastdt" longname="上一扣费日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.lastdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcy" longname="收费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chrgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcham" longname="指定收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.spcham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dvidam" longname="收费分成金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dvidam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csprcd" longname="现金项目代码" type="PbEnumType.E_CSPRCD" ref="PbDict.Charge.csprcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totflg" longname="是否汇总记账标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.totflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgsr" longname="收费金额来源" type="PbEnumType.E_CHRGSR" ref="PbDict.Charge.chrgsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cplKfzhu" longname="当扣费帐户与交易帐户不一致时,用于指定扣费帐号" type="CgComplexType.CgKFZHINFO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranbr" longname="交易机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.tranbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oubrno" longname="转出行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.oubrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inbrno" longname="转入行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.inbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="payaDetail" longname="内部户挂账明细" type="InacTransComplex.IaPayaDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="paydDetail" longname="内部户销账明细" type="InacTransComplex.IaPaydDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="calcenter" longname="计费中心返回计费信息" type="IoChrgComplexType.IoCgCalCenterReturn" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="strktg" longname="是否允许冲正" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="isclos" longname="实时收费标志" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clactp" longname="销户标识" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgFrmFeeHD" longname="费用打印（表格信息）" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="feeamt" longname="手续费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.feeamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvfg" longname="收讫标志" type="BaseEnumType.E_GTAMFG" ref="PbDict.Charge.recvfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="arrgam" longname="欠费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.arrgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgFFEEHD" longname="收费打印" dict="false" abstract="false" introduct="false">
+        <element id="trnnam" longname="交易名称" type="BaseType.U_CHAR200" ref="PbDict.Charge.trnnam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chacno" longname="收费客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.chacno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cuscnm" longname="客户中文名" type="BaseType.U_CHINNA" ref="PbDict.Charge.cuscnm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcy" longname="收费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chrgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totamt" longname="合计金额" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.totamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstFEEHD" longname="收费表格信息" type="CgComplexType.CgFrmFeeHD" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgQrySfsql" longname="查询收费输入sql" dict="false" abstract="false" introduct="false">
+        <element id="trnseq" longname="柜员流水" type="PbBaseType.U_TRNSEQ" ref="PbDict.Charge.trnseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ifflag" longname="是否标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.ifflag" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="begnum" longname="起始笔数" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.begnum" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="qrynum" longname="查询笔数" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.qrynum" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvfg" longname="收讫标志" type="BaseEnumType.E_GTAMFG" ref="PbDict.Charge.recvfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgChargefeeKhz_IN" longname="客户账输入" dict="false" abstract="false" introduct="false">
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oprflg" longname="收费操作标志" type="PbEnumType.E_OPRFLG" ref="PbDict.Charge.oprflg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acttyp" longname="客户账号类型" type="PbEnumType.E_ACTTYP" ref="PbDict.Charge.acttyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="actseq" longname="账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.actseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sysacn" longname="系统账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.sysacn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csprcd" longname="现金项目代码" type="PbEnumType.E_CSPRCD" ref="PbDict.Charge.csprcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="payaDetail" longname="内部户挂账明细" type="InacTransComplex.IaPayaDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="paydDetail" longname="内部户销账明细" type="InacTransComplex.IaPaydDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="strktg" longname="是否允许冲正" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clactp" longname="销户标识" type="BaseEnumType.E_YES___" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CaGetAccountInf_OUT" longname="根据客户账号查询账户信息" dict="false" abstract="false" introduct="false">
+        <element id="acttyp" longname="客户账号类型" type="PbEnumType.E_ACTTYP" ref="PbDict.Charge.acttyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="actseq" longname="账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.actseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sysacn" longname="系统账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.sysacn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busibr" longname="营业机构" type="BaseType.U_BRCHNO" ref="LnDict.LNF.busibr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="zhkjjg" longname="账户会计机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.zhkjjg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="PbDict.Intr.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="module" longname="模块" type="PbEnumType.E_MODULE" ref="PbDict.Charge.module" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="PbDict.Teller.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opendt" longname="开户日期" type="BaseType.U_DATE08" ref="InDict.inac.opendt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="openbr" longname="开户机构" type="BaseType.U_BRCHNO" ref="LnDict.LNF.openbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opmony" longname="开户金额" type="BaseType.U_TRANAM" ref="DpDict.Acct.opmony" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="khgyls" longname="开户柜员流水号" type="PbBaseType.U_TRNSEQ" ref="PbDict.Charge.khgyls" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="zhanghmc" longname="账户名称" type="ApBaseType.U_ZHHUZWMC" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctbl" longname="账户余额" type="BaseType.U_ACBLTP" ref="DpDict.Acct.acctbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="conmon" longname="控制金额" type="BaseType.U_ACBLTP" ref="PbDict.Charge.conmon" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="frozam" longname="冻结金额" type="BaseType.U_TRANAM" ref="DpDict.Froz.frozam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="availx" longname="可用金额" type="BaseType.U_ACBLTP" ref="LnDict.LNF.availx" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="touzed" longname="透支额度" type="BaseType.U_TRANAM" ref="PbDict.Charge.touzed" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lixilx" longname="利息" type="BaseType.U_TRANAM" ref="PbDict.Charge.lixilx" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="adrbal" longname="可支取余额" type="BaseType.U_ACBLTP" ref="PbDict.Charge.adrbal" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="zhhzta" longname="核心账户状态" type="BaseEnumType.E_ACCTST" ref="PbDict.Charge.zhhzta" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acfrfg" longname="账户封闭冻结标志" type="ApBaseType.U_LEIXIN01" ref="PbDict.Charge.acfrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="zhzsbf" longname="账户只收不付标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.zhzsbf" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="zhzfbs" longname="账户只付不收" type="PbEnumType.E_YES___" ref="PbDict.Charge.zhzfbs" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="zhxzbz" longname="账户限制标志" type="PbEnumType.E_YES___" ref="PbDict.Charge.zhxzbz" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recdst" longname="记录状态" type="LnEnumType.E_RECDST" ref="LnDict.LNF.recdst" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custre" longname="客户关系类型" type="LnEnumType.E_CUSTRE" ref="LnDict.LNF.custre" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgPlKouf" longname="批量扣费处理项" dict="false" abstract="false" introduct="false">
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trnseq" longname="柜员流水" type="PbBaseType.U_TRNSEQ" ref="PbDict.Charge.trnseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="evrgsq" longname="事件登记序号" type="PbBaseType.U_SENOTP" ref="PbDict.Charge.evrgsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prcscd" longname="交易码" type="BaseType.U_PRCSCD" ref="PbDict.Charge.prcscd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trnchl" longname="交易渠道" type="BaseType.U_SERVTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trancy" longname="交易币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.trancy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amount" longname="数量" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.amount" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spcham" longname="指定收费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.spcham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgsr" longname="收费金额来源" type="PbEnumType.E_CHRGSR" ref="PbDict.Charge.chrgsr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clchcy" longname="计费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.clchcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clcham" longname="计算费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.clcham" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="disrat" longname="优惠比率" type="BaseType.U_RATEVL" ref="PbDict.Charge.disrat" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dircam" longname="优惠后应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dircam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcy" longname="收费币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chrgcy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvam" longname="应收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.recvam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acclam" longname="实收费用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acclam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="arrgam" longname="欠费金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.arrgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="reduam" longname="费用减免金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.reduam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dvidam" longname="收费分成金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.dvidam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="indvrt" longname="转入行分成比率" type="BaseType.U_INSTRT" ref="PbDict.Charge.indvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oudvrt" longname="转出行分成比率" type="BaseType.U_INSTRT" ref="PbDict.Charge.oudvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trdvrt" longname="交易行分成比率" type="BaseType.U_INSTRT" ref="PbDict.Charge.trdvrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clexrt" longname="计费兑换比" type="BaseType.U_RATECD" ref="PbDict.Charge.clexrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chexrt" longname="收费兑换比" type="BaseType.U_RATECD" ref="PbDict.Charge.chexrt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgfacd" longname="收费核算业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cgfacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cghacd" longname="收费挂账业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cghacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ldgacn" longname="费用挂账账号 " type="BaseType.U_ACCTNO" ref="PbDict.Charge.ldgacn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ldseno" longname="费用挂账账号子序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.ldseno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cstrfg" longname="现转标志" type="BaseEnumType.E_CSTRFG" ref="BaseDict.Comm.cstrfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="recvfg" longname="收讫标志" type="BaseEnumType.E_GTAMFG" ref="PbDict.Charge.recvfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="modtyp" longname="所属模块" type="PbEnumType.E_MODUTP" ref="PbDict.Charge.modtyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="DpDict.Acct.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acttyp" longname="客户账号类型" type="PbEnumType.E_ACTTYP" ref="PbDict.Charge.acttyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csexfg" longname="钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.csexfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="seqnum" longname="顺序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.seqnum" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sysacn" longname="系统账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.sysacn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acchnm" longname="账户中文名" type="BaseType.U_ACCTNA" ref="PbDict.Charge.acchnm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acusam" longname="账户可用金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.acusam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="blpdno" longname="归属产品号" type="BaseType.U_PRODCD" ref="PbDict.Charge.blpdno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="orbsda" longname="原始业务日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.orbsda" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="orbssn" longname="原始业务流水号" type="BaseType.U_SEQUNO" ref="PbDict.Charge.orbssn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chactp" longname="收费客户账户类型" type="PbEnumType.E_ACTTYP" ref="PbDict.Charge.chactp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chacno" longname="收费客户账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.chacno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chaccy" longname="收费账户币种" type="BaseType.U_CRCYCD" ref="PbDict.Charge.chaccy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chcefg" longname="收费钞汇标志" type="BaseEnumType.E_CSEXTG" ref="PbDict.Charge.chcefg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chsyac" longname="收费系统帐号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.chsyac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chacsq" longname="收费账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.chacsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="diplcd" longname="优惠计划代码" type="BaseType.U_CHAR08" ref="PbDict.Charge.diplcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chevno" longname="收费事件编号" type="PbBaseType.U_CHAR30" ref="PbDict.Charge.chevno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgpd" longname="收费周期" type="PbBaseType.U_WEEKPD" ref="PbDict.Charge.chrgpd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chgdat" longname="收费日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.chgdat" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctbr" longname="记账机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.acctbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="oubrno" longname="转出行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.oubrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inbrno" longname="转入行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.inbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trbrno" longname="交易行机构号" type="BaseType.U_BRCHNO" ref="PbDict.Charge.trbrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgstno" longname="收费明细序号" type="PbBaseType.U_SENOTP" ref="PbDict.Charge.cgstno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chfltm" longname="扣费失败次数" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.chfltm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="argrsn" longname="欠费原因" type="BaseType.U_CHAR200" ref="PbDict.Charge.argrsn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lschda" longname="上次批扣日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.lschda" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trntim" longname="交易时间" type="PbBaseType.U_LONGIN" ref="PbDict.Charge.trntim" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranus" longname="交易柜员" type="PbBaseType.U_USERID" ref="PbDict.Charge.tranus" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="auttel" longname="授权柜员" type="PbBaseType.U_USERID" ref="PbDict.Charge.auttel" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fepecd" longname="滞纳金收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.fepecd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fepefg" longname="是否重复计算滞纳金" type="PbEnumType.E_YES___" ref="PbDict.Charge.fepefg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fepamt" longname="滞纳金金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.fepamt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="febaln" longname="滞纳金余额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.febaln" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fecumu" longname="当期滞纳金累计积数" type="PbBaseType.U_TOTLAM" ref="PbDict.Charge.fecumu" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="fecuda" longname="当期滞纳金累计积数截止日" type="PbBaseType.U_DATE08" ref="PbDict.Charge.fecuda" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="DpDict.Acct.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="负债账号" type="BaseType.U_ACCTNO" ref="DpDict.Acct.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="账户所属机构" type="BaseType.U_BRCHNO" ref="DpDict.Acct.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="upbldt" longname="余额更新日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgGetAccountInf_IN" longname="查询账户信息输入参数" dict="false" abstract="false" introduct="false">
+        <element id="acctno" longname="负债账号" type="BaseType.U_ACCTNO" ref="DpDict.Acct.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="actseq" longname="账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.actseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="DpDict.Acct.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="DpDict.Acct.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csextg" longname="账户钞汇标志" type="BaseEnumType.E_CSEXTG" ref="DpDict.Acct.csextg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgGetAccountInf_OUT" longname="查询账户信息输出参数" dict="false" abstract="false" introduct="false">
+        <element id="acttyp" longname="客户账号类型" type="PbEnumType.E_ACTTYP" ref="PbDict.Charge.acttyp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_CUACNO" ref="DpDict.Acct.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="负债账号" type="BaseType.U_ACCTNO" ref="DpDict.Acct.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="actseq" longname="账户序号" type="BaseType.U_CUACNO" ref="PbDict.Charge.actseq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctna" longname="账户名称" type="BaseType.U_ACCTNA" ref="DpDict.Acct.acctna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custno" longname="客户号" type="BaseType.U_CUSTNO" ref="DpDict.Acct.custno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="module" longname="模块" type="PbEnumType.E_MODULE" ref="PbDict.Charge.module" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="DpDict.Acct.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="csextg" longname="账户钞汇标志" type="BaseEnumType.E_CSEXTG" ref="DpDict.Acct.csextg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="depttm" longname="存期" type="BaseEnumType.E_TERMCD" ref="DpDict.Prod.depttm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="matudt" longname="到期日期 " type="BaseType.U_DATE08" ref="DpDict.Acct.matudt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bgindt" longname="起息日期" type="BaseType.U_DATE08" ref="DpDict.Acct.bgindt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="账户所属机构" type="BaseType.U_BRCHNO" ref="DpDict.Acct.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opendt" longname="开户日期 " type="BaseType.U_DATE08" ref="DpDict.Acct.opendt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opensq" longname="开户流水" type="BaseType.U_SEQUNO" ref="DpDict.Acct.opensq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opmony" longname="开户金额" type="BaseType.U_TRANAM" ref="DpDict.Acct.opmony" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="closdt" longname="销户日期" type="BaseType.U_DATE08" ref="DpDict.Acct.closdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clossq" longname="销户流水" type="BaseType.U_SEQUNO" ref="DpDict.Acct.clossq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="onlnbl" longname="当前账户余额" type="BaseType.U_ACBLTP" ref="DpDict.Acct.onlnbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="adrbal" longname="可支取余额" type="BaseType.U_ACBLTP" ref="PbDict.Charge.adrbal" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lastbl" longname="上日账户余额" type="BaseType.U_ACBLTP" ref="DpDict.Acct.lastbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstrdt" longname="上次交易日期" type="BaseType.U_DATE08" ref="DpDict.Acct.lstrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstrsq" longname="上次交易流水  " type="BaseType.U_SEQUNO" ref="DpDict.Acct.lstrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pddpfg" longname="业务小类" type="DpEnumType.E_FCFLAG" ref="DpDict.Prod.pddpfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hdmxmy" longname="最大留存余额" type="BaseType.U_TRANAM" ref="DpDict.Acct.hdmxmy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hdmimy" longname="最小留存余额 " type="BaseType.U_TRANAM" ref="DpDict.Acct.hdmimy" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trsvtp" longname="转存方式" type="BaseEnumType.E_TRSVTP" ref="DpDict.Acct.trsvtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bkmony" longname="备用金额" type="BaseType.U_TRANAM" ref="DpDict.Acct.bkmony" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="debttp" longname="业务细类" type="BaseEnumType.E_DEBTTP" ref="DpDict.Prod.debttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sleptg" longname="形态转移标志" type="BaseEnumType.E_YES___" ref="DpDict.Acct.sleptg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="spectp" longname="负债账户性质" type="BaseEnumType.E_SPECTP" ref="DpDict.Acct.spectp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accttp" longname="结算账户标志 " type="BaseEnumType.E_YES___" ref="DpDict.Acct.accttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctcd" longname="核算代码" type="BaseType.U_DTITCD" ref="DpDict.Prod.acctcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="drctbl" longname="联机借方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.drctbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crctbl" longname="联机贷方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.crctbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itmcdn" longname="科目方向" type="InEnumType.E_BLNCDN" ref="InDict.inac.itmcdn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pmodtg" longname="透支许可" type="BaseEnumType.E_YES___" ref="InDict.inac.pmodtg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="kpacfg" longname="记账控制" type="InEnumType.E_KPACFG" ref="InDict.inac.kpacfg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hgdram" longname="挂账金额（借方)" type="BaseType.U_ACBLTP" ref="InDict.inac.hgdram" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dredbl" longname="当日借方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.dredbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="credbl" longname="当日贷方余额" type="BaseType.U_ACBLTP" ref="InDict.inac.credbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bzprtp" longname="属性类型" type="BaseType.U_CHAR02" ref="InDict.inac.bzprtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ispaya" longname="是否采用销账管理 " type="InEnumType.E_ISPAYA" ref="InDict.inac.ispaya" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="rlbltg" longname="余额更新方式" type="InEnumType.E_RLBLTG" ref="InDict.inac.rlbltg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totltg" longname="汇总标志" type="InEnumType.E_TOTLTG" ref="InDict.inac.totltg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="kpacbr" longname="核算机构" type="BaseType.U_BRCHNO" ref="InDict.inac.kpacbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctst" longname="账户状态" type="BaseEnumType.E_DPACST" ref="DpDict.Acct.acctst" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgDivideFee_IN" longname="收费分成输入" dict="false" abstract="false" introduct="false">
+        <element id="cgpyrv" longname="费用收付标志" type="PbEnumType.E_CGPYRV" ref="PbDict.Charge.cgpyrv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="账务机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="hangbr" longname="挂账机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.hangbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="efctdt" longname="生效日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.efctdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="PbDict.Charge.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cghacd" longname="收费挂账业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cghacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品编号" type="BaseType.U_PRODCD" ref="DpDict.Prod.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="PbBaseType.U_SMRYCD" ref="PbDict.Charge.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smryds" longname="摘要描述" type="PbBaseType.U_SMRYDS" ref="PbDict.Charge.smryds" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="PbDict.Charge.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgDivideFee_OUT" longname="收费分成输出" dict="false" abstract="false" introduct="false">
+        <element id="hangbr" longname="挂账机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.hangbr" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cghacd" longname="收费挂账业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cghacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="brchno" longname="账务机构" type="BaseType.U_BRCHNO" ref="PbDict.Charge.brchno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cgfacd" longname="收费核算业务编号" type="BaseType.U_BUSINO" ref="PbDict.Charge.cgfacd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctbl" longname="账户余额" type="BaseType.U_ACBLTP" ref="DpDict.Acct.acctbl" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgMaxCgprRate" longname="获取优惠纬度信息" dict="false" abstract="false" introduct="false">
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="wdinfo" longname="维度信息" type="CgComplexType.CgWDInfo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgSfyhbl" longname="收费优惠比例结果信息" dict="false" abstract="false" introduct="false">
+        <element id="favoir" longname="优惠利率" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favoir" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="expmsg" longname="说明信息" type="PbBaseType.U_SHORDS" ref="PbDict.Charge.expmsg" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgLjyhbl" longname="累积优惠比例结果信息" dict="false" abstract="false" introduct="false">
+        <element id="smfacd" longname="累积优惠代码" type="BaseType.U_CHAR08" ref="PbDict.Charge.smfacd" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="expmsg" longname="说明信息" type="PbBaseType.U_SHORDS" ref="PbDict.Charge.expmsg" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="PbDict.Charge.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="favoir" longname="优惠利率" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favoir" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgJhyhbl" longname="计划优惠比例结果信息" dict="false" abstract="false" introduct="false">
+        <element id="diplcd" longname="优惠计划代码" type="BaseType.U_CHAR08" ref="PbDict.Charge.diplcd" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="diplna" longname="优惠计划代码名" type="PbBaseType.U_CHAR5B" ref="PbDict.Charge.diplna" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="货币代号" type="BaseType.U_CRCYCD" ref="PbDict.Charge.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="favoir" longname="优惠利率" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.favoir" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="CgSfctjg" longname="收费套餐结果信息" dict="false" abstract="false" introduct="false">
+        <odbindexes/>
+        <element id="packcd" longname="费用套餐代码" type="PbBaseType.U_PACKCD" ref="PbDict.Charge.packcd" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="packna" longname="费用套餐名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.packna" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="stdamt" longname="标准应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.stdamt" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pkfapc" longname="收费套餐优惠比例" type="PbBaseType.U_INSTRT" ref="PbDict.Charge.pkfapc" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="afpkam" longname="收费套餐后应收金额" type="PbBaseType.U_TRANAM" ref="PbDict.Charge.afpkam" required="false" default="0.0" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="explan" longname="说明" type="BaseType.U_SHORDS" ref="PbDict.Charge.explan" required="false" default="''" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ChargeInfo" longname="汇总销记登记簿明细" dict="false" abstract="false" introduct="false">
+        <element id="chrgsq" longname="序号" type="int" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgcd" longname="收费代码" type="PbBaseType.U_CHRGCD" ref="PbDict.Charge.chrgcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgna" longname="收费代码名称" type="BaseType.U_CHAR80" ref="PbDict.Charge.chrgna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scencd" longname="场景代码" type="PbBaseType.U_SCENCD" ref="PbDict.Charge.scencd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="scends" longname="场景描述" type="PbBaseType.U_LONGDS" ref="PbDict.Charge.scends" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trinfo" longname="交易信息" type="BaseType.U_CHAR10" ref="PbDict.Dcmt.trinfo" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="prodcd" longname="产品代码" type="BaseType.U_CHAR32" ref="PbDict.Dcmt.prodcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="servtp" longname="渠道" type="MsType.U_CHANNEL" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgam" longname="收费金额" type="LnBaseType.U_ACBLTP" ref="LnDict.LNF.chrgam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="trandt" longname="交易日期" type="PbBaseType.U_DATE08" ref="PbDict.Charge.trandt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="PublicCharge_IN" longname="公共收费输入" dict="false" abstract="false" introduct="false">
+        <element id="trantp" longname="交易类别" type="PbEnumType.E_CGTRTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chrgtp" longname="收费类别" type="PbEnumType.E_CHARTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="bgdate" longname="起始日期" type="BaseType.U_DATE08" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="endate" longname="截止日期" type="BaseType.U_DATE08" ref="FnDict.Fnfc.endate" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctno" longname="账号" type="BaseType.U_ACCTNO" ref="PbDict.Charge.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="acctna" longname="账户名称" type="BaseType.U_ACCTNA" ref="DpDict.Acct.acctna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="totlam" longname="总金额" type="PbBaseType.U_DEC212" ref="PbDict.Intr.totlam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="FeDict.Chrg.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chargeInfo" longname="汇总销记登记簿明细" type="CgComplexType.ChargeInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="payaListInfo" longname="挂账明细" type="InacTransComplex.IaPayaDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="paydListInfo" longname="销账明细" type="InacTransComplex.IaPaydDetail" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

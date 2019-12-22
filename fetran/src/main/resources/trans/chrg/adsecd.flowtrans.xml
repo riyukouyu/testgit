@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="adsecd" longname="新增场景计费管理" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="scencd" type="FeBaseType.U_SCENCD" required="false" multi="false" array="false" longname="场景代码" ref="FeDict.Chrg.scencd"/>
+            <field id="remark" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="备注信息" ref="FeDict.Chrg.remark"/>
+            <fields id="secdif" required="false" multi="true" longname="场景计费列表" array="false">
+                <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="adsecd" id="adsecd" test="" longname="新增场景计费管理" desc="新增场景计费管理"/>
+    </flow>
+</flowtran>

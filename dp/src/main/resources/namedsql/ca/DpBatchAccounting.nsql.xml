@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpBatchAccounting" longname="批量记账相关SQL" package="cn.sunline.edsp.busi.dp.namedsql.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectAll" type="sql" id="selectBatchProfitByFilesq" longname="通过文件批次号查询批量分润中间表">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	knb_batch_profit A 
+    	WHERE
+    	    	A.FILeSQ = #filesq#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.knb_batch_profit"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selectBatchPaidByFilesq" longname="通过文件批次号查询批量代发中间表">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	knb_batch_paid A 
+    	WHERE
+    	    	A.FILeSQ = #filesq# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="filesq" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.knb_batch_paid"/>
+    </select>
+</sqls>

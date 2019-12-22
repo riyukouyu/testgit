@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpspuf" longname="强制解冻扣划" kind="maintain" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.custac"/>
+            <field id="tranam" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="PbDict.Charge.tranam"/>
+            <field id="fronsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="前置流水"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="前置日期"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期" ref="DpDict.Acct.keepdt"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="recvac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="收款人账号(银行卡)"/>
+            <field id="recvna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="收款人账户名称(用户名)"/>
+            <field id="tranam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="转账金额"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="remark" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="备注信息"/>
+            <field id="bankcd" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="收款人开户银行"/>
+            <field id="tranno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="交易记录号"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" ref="DpDict.Acct.trandt"/>
+            <field id="trantm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="交易时间" ref="BaseDict.Comm.trantm"/>
+        </output>
+        <property packMode="true">
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="PbDict.Intr.crcycd"/>
+            <!-- <field id="ioflag" type="BaseType.U_CHAR01" required="false" fixed="'O'" multi="false" array="false" longname="出入金标志" desc="默认入"/> -->
+            <field id="ioflag" type="DpEnumType.E_IOFLAG" required="false" fixed="#dict.DpEnumType.E_IOFLAG().OUT" multi="false" array="false" longname="出入金标志"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="true" fixed="'CP3001'" multi="false" array="false" longname="业务编码IA" desc="固定值" ref="InDict.inac.busino"/>
+            <field id="fromtp" type="DpEnumType.E_FROMTP" required="false" fixed="#dict.DpEnumType.E_FROMTP().C" multi="false" array="false" longname="出入金方式" desc="ChinaPay"/>
+            <field id="prcscd" type="BaseType.U_PRCSCD" required="false" fixed="'dpspuf'" multi="false" array="false" longname="处理码" desc="ChinaPay出金" ref="InDict.inac.prcscd"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="凭证号码"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="doUnfrozeAndTransfer" id="doUnfrozeAndTransfer" test="" longname="解冻并转账" desc="针对20151111手工冻结部分账户操作，进行解冻并进行出金操作"/>
+        <service serviceName="IoSaveIoTransBill.SaveIoBill" id="saveIoBill" test="" longname="登记出入金记录" desc="登记出入金记录">
+            <in_mappings by_interface="true">
+                <mapping src="custna" dest="acctnm" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="fromtp" dest="fromtp" by_interface="true" on_top="true"/>
+                <mapping src="frondt" dest="frondt" by_interface="true" on_top="true"/>
+                <mapping src="fronsq" dest="fronsq" by_interface="true" on_top="true"/>
+                <mapping src="prcscd" dest="prcscd" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cuacno" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="ioflag" dest="ioflag" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="keepdt" dest="keepdt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="afterCheck" id="afterCheck" test="" longname="交易后处理" desc="交易后处理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

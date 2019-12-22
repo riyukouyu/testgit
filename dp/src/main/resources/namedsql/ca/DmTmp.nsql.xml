@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DmTmp" longname="分润模块数据迁移命名sql" package="cn.sunline.edsp.busi.dp.namedsql.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="select_dm_icore_open_account_not_by_export_id_01" longname="统计服务商开户信息表按照exportid查找记录">
+        <parameterMap class="java.util.Map">
+            <parameter property="start" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" parameterType="condition"/>
+            <parameter property="end" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.dp_icore_open_account"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from dp_icore_open_account]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="start != null &amp;&amp; start != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[custno  > #start#]]></str>
+                    </if>
+                    <if test="end != null &amp;&amp; end != &quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[custno  <= #end#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[export_status != '1' and usertp in ('01','02')]]></str>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="select_count_dm_icore_open_account_01" longname="统计服务商开户信息中间表记录数">
+        <sql><![CDATA[select count(1) from dp_icore_open_account where export_status= '0' and usertp in ('01','02')]]></sql>
+        <parameterMap class="java.util.Map"/>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="select_dm_icore_open_account_not_export_id_01" longname="统计服务商开户信息表按照exportid拆分">
+        <sql><![CDATA[select rid from (select row_number() over (order by custno)  as seq,custno as rid from dp_icore_open_account where export_status != '1' and usertp in ('01','02')) where mod(seq, #num#)=0]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="num" jdbcType="INTEGER" javaType="BaseType.U_INTEGE" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+    </select>
+    <update method="update" id="updateDmIcoreOpenAccountById" longname="通过导出id更新中间表信息">
+        <sql type="oracle"><![CDATA[UPDATE dp_icore_open_account SET EXPORT_STATUS=#status#,EXPORT_TIME=#time# WHERE EXPORT_ID=#id#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="id" jdbcType="VARCHAR" javaType="BaseType.U_INTEGE" mode="in" longname="导出id" parameterType="condition"/>
+            <parameter property="status" jdbcType="VARCHAR" javaType="DmEnumType.E_EXPSTS" mode="in" longname="导出状态" parameterType="condition"/>
+            <parameter property="time" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="导出时间" parameterType="condition"/>
+        </parameterMap>
+    </update>
+</sqls>

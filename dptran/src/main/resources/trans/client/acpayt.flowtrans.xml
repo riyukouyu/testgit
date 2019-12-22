@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="acpayt" longname="电子账户消费" kind="3" package="cn.sunline.ltts.busi.dptran.trans.client" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.client.intf">
+        <input packMode="true">
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="BaseDict.Comm.smrycd"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户电子帐号"/>
+            <field id="acsetp" type="BaseEnumType.E_ACSETP" required="false" multi="false" array="false" longname="子账号类型" ref="DpDict.Acct.acsetp"/>
+            <field id="acesno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="子账号"/>
+            <field id="acctnm" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="mebrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="商户机构"/>
+            <field id="mecard" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="商户账号/卡号"/>
+            <field id="mercnm" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="商户号"/>
+            <field id="mercsq" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="商户交易流水"/>
+            <field id="mercdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="商户交易日期"/>
+            <field id="merctm" type="BaseType.U_TIME06" required="false" multi="false" array="false" longname="商户交易时间"/>
+            <field id="chckdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="对账日期"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="stady1" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="备用字段1"/>
+            <field id="stady2" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="备用字段2"/>
+            <field id="chkpwd" type="IoDpCapital.chkpwd" required="false" multi="false" array="false" longname="检查验密信息"/>
+            <field id="chkqtn" type="IoDpCapital.chkqtn" required="false" multi="false" array="false" longname="检查额度信息"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrdt" type="PbBaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="交易时间"/>
+        </output>
+        <property packMode="true">
+            <field id="custac" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号" ref="QtDict.Qt.custac"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="acsetp2" type="BaseEnumType.E_ACSETP" required="false" multi="false" array="false" longname="子账号类型"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Intr.brchno"/>
+            <field id="servtp" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="渠道"/>
+            <field id="servsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="渠道流水"/>
+            <field id="servdt" type="PbBaseType.U_DATE08" required="false" multi="false" array="false" longname="渠道交易日期"/>
+            <field id="accttp" type="BaseEnumType.E_ACCATP" required="false" multi="false" array="false" longname="账户分类"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务编号"/>
+            <field id="acctcd" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" fixed="'C'" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+            <field id="spettp" type="DpEnumType.E_SPETTP" required="false" multi="false" array="false" longname="电子账户消费类型" ref="DpDict.Acct.spettp"/>
+            <field id="incorp" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="收款方法人代码"/>
+            <field id="invofg" type="BaseEnumType.E_INSPFG" required="false" multi="false" array="false" longname="转出账号涉案可疑标识"/>
+            <field id="acbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="省级机构号"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号"/>
+            <field id="facesg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="面签标志"/>
+            <field id="custie" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="账户绑定标志"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="chkAcpaytInfo" id="chkAcpaytInfo" longname="检查电子账户消费信息"/>
+        <case id="prcAcpaytAccatp" longname="判断消费账户分类" desc="亲情钱包消费">
+            <when id="prcAcpaytCustac" test="acsetp2 == #dict.BaseEnumType.E_ACSETP().SA || acsetp2 == #dict.BaseEnumType.E_ACSETP().MA" longname="结算户消费" desc="结算户消费">
+                <service serviceName="IoCaSevAccountLimit.IoAcSubQuota" id="chkAndSub" longname="电子账户额度扣减">
+                    <in_mappings by_interface="true">
+                        <mapping src="accttp" dest="accttp" desc="账户分类" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.aclmfg" dest="aclmfg" desc="累计限额标志" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.authtp" dest="authtp" desc="认证方式" by_interface="true" on_top="true"/>
+                        <mapping src="brchno" dest="brchno" desc="机构号" by_interface="true" on_top="true"/>
+                        <mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.custid" dest="custid" desc="客户id" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.custlv" dest="custlv" desc="客户等级" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.acctrt" dest="acctrt" desc="客户类型" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.limttp" dest="limttp" desc="额度类型" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.pytltp" dest="pytltp" desc="支付工具" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.rebktp" dest="rebktp" desc="收款行范围" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.risklv" dest="risklv" desc="风险承受等级" by_interface="true" on_top="true"/>
+                        <mapping src="chkqtn.sbactp" dest="sbactp" desc="子账户类型" by_interface="true" on_top="true"/>
+                        <mapping src="servdt" dest="servdt" desc="渠道交易日期" by_interface="true" on_top="true"/>
+                        <mapping src="servsq" dest="servsq" desc="渠道流水" by_interface="true" on_top="true"/>
+                        <mapping src="servtp" dest="servtp" desc="渠道" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                        <mapping src="custie" dest="custie" desc="账户绑定标志" by_interface="true" on_top="true"/>
+                        <mapping src="facesg" dest="facesg" desc="面签标识" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+            </when>
+        </case>
+        <service serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" longname="电子账户支取">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="cplDrawAcctIn.acctno" desc="负债账号" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cplDrawAcctIn.cardno" desc="卡号" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplDrawAcctIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="mecard" dest="cplDrawAcctIn.toacct" desc="子账号" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplDrawAcctIn.tranam" desc="金额" by_interface="true" on_top="true"/>
+                <mapping src="smrycd" dest="cplDrawAcctIn.smrycd" desc="摘要码" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoInAccount.IoInAccr" id="ioInAccr" longname="内部户贷方记账">
+            <in_mappings by_interface="true">
+                <mapping src="brchno" dest="input.acbrch" by_interface="true" on_top="true"/>
+                <mapping src="mecard" dest="input.acctno" by_interface="true" on_top="true"/>
+                <mapping src="amntcd" dest="input.amntcd" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="input.busino" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="stady1" dest="input.dscrtx" by_interface="true" on_top="true"/>
+                <mapping src="smrycd" dest="input.smrycd" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="input.toacct" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="input.tosbac" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="input.tranam" by_interface="true" on_top="true"/>
+                <mapping src="subsac" dest="input.subsac" desc="子户号" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoSaveIoTransBill.AccConsume" id="accConsume" longname="消费登记薄登记">
+            <in_mappings by_interface="true">
+                <mapping src="acctnm" dest="acctnm" by_interface="true" on_top="true"/>
+                <mapping src="acesno" dest="acesno" by_interface="true" on_top="true"/>
+                <mapping src="acsetp2" dest="acsetp" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="mercdt" dest="mercdt" by_interface="true" on_top="true"/>
+                <mapping src="mercnm" dest="mercnm" by_interface="true" on_top="true"/>
+                <mapping src="mercsq" dest="mercsq" by_interface="true" on_top="true"/>
+                <mapping src="chkqtn.sbactp" dest="sbactp" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="spettp" dest="spettp" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="chkTransAfter" id="chkTransAfter" longname="交易后处理"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="opense" longname="开户登记簿查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[开户登记簿查询]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="orgnbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构码"/>
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期"/>
+            <field id="matudt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="CaDict.Eacct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志" ref="CaDict.Eacct.csextg"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="openqrInfoList" type="IoCaTypGenEAccountInfo.IoCaOpenAccInfo" required="false" multi="true" array="false" longname="登记簿查询"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页码"/>
+            <field id="pageSize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页容量"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qryTranInfo" id="qryTranInfo" longname="交易前处理"/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryOpenAcct" id="IoCaQryOpenAcct" longname="开户登记簿查询">
+            <in_mappings by_interface="true">
+                <mapping src="bgindt" dest="bgindt" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="matudt" dest="matudt" by_interface="true" on_top="true"/>
+                <mapping src="orgnbr" dest="orgnbr" by_interface="true" on_top="true"/>
+                <mapping src="pageSize" dest="pageSize" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="openqrInfoList" dest="openqrInfoList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qydelt" longname="风控强扣明细列表" kind="1" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <field id="aplyno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="申请编号" ref="DpRiskDict.Aply.aplyno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="deduDetalst" type="DpRiskType.RiskDeduDetail" required="false" multi="true" array="false" longname="风控强扣明细"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="DpRiskService.SelRiskDeductDetailList" id="SelRiskDeductDetailList" longname="查询风控强扣明细列表">
+            <in_mappings by_interface="true">
+                <mapping src="aplyno" dest="aplyno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="deduDetalst" dest="deduDetalst" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

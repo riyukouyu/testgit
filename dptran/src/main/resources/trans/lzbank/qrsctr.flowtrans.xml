@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrsctr" longname="本行卡交易查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="fronsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="支付前置流水"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="支付前置日期"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="servsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="渠道流水"/>
+            <field id="servdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="渠道日期"/>
+            <field id="busisq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务跟踪编号"/>
+            <field id="servtp" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="交易渠道"/>
+            <field id="fromtp" type="DpEnumType.E_FROMTP" required="false" multi="false" array="false" longname="出入金方式"/>
+            <field id="capitp" type="DpEnumType.E_CAPITP" required="false" multi="false" array="false" longname="资金交易类型"/>
+            <field id="cardno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="转入方卡号/账号"/>
+            <field id="cuacno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="转入方电子账户"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入方子账号"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转入方账户所属机构"/>
+            <field id="incorp" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="转入方账户所属法人"/>
+            <field id="tocorp" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="转出方账户所属法人"/>
+            <field id="tobrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转出方账号所属机构"/>
+            <field id="toacct" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="转出方账号/卡号"/>
+            <field id="toscac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="转出方电子账户"/>
+            <field id="toacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转出方子账号"/>
+            <field id="tlcgam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="收费总金额"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务编号"/>
+            <field id="ioflag" type="DpEnumType.E_IOFLAG" required="false" multi="false" array="false" longname="出入金标志"/>
+            <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="trantm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="交易时间"/>
+            <field id="transt" type="BaseEnumType.E_TRANST" required="false" multi="false" array="false" longname="交易状态"/>
+            <field id="remark" type="BaseType.U_MIDDDS" required="false" multi="false" array="false" longname="备注信息"/>
+            <field id="keepdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="chckdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="对账日期"/>
+            <field id="revrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="冲正流水"/>
+            <field id="revrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冲正日期"/>
+            <field id="isspan" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否跨法人"/>
+            <field id="iscler" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否已清算"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qrSelfcardTran" id="qrSelfcardTran" longname="本行卡明细查询"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="extose" longname="T1代发预结算单导出" kind="1" package="cn.sunline.edsp.busi.dptran.trans.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.ca.intf">
+        <input packMode="true">
+            <field id="orgaid" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="品牌id"/>
+            <field id="busitp" type="DsEnumType.E_BUSITP" required="false" multi="false" array="false" longname="业务类型"/>
+            <field id="inmeid" type="BaseType.U_CHAR25" required="false" multi="false" array="false" longname="内部商户号"/>
+            <field id="teleno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="手机号"/>
+            <field id="mntrsq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="stardt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="结算开始日期"/>
+            <field id="endtdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="结算结束日期"/>
+            <field id="ordeno" longname="订单号" 	type="BaseType.U_CHAR50" required="false" multi="false" array="false"/>
+			<field id="refeno" longname="参考考" 	type="BaseType.U_CHAR50" required="false" multi="false" array="false"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="list" required="false" multi="true" longname="预结算单列表" array="false">
+                <field id="sbrand" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="pos品牌"/>
+                <field id="busitp" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="业务类型"/>
+                <field id="mercfg" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="商户类型"/>
+                <field id="spcipy" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="特殊优惠"/>
+                <field id="inmeid" type="BaseType.U_CHAR25" required="false" multi="false" array="false" longname="内部商户号"/>
+                <field id="teleno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="手机号"/>
+                <field id="inmena" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="内部商户名称"/>
+                <field id="ordeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="订单号"/>
+                <field id="mntrsq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="主交易流水"/>
+                <field id="refeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="参考号"/>
+                <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+                <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="核心交易时间"/>
+                <field id="psmano" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="psma号"/>
+                <field id="cardtp" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="支付银行卡类型"/>
+                <field id="pabkno" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="支付银行卡账号"/>
+                <field id="inflrt" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="费率比例"/>
+                <field id="scflpo" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="秒到费率每笔金额"/>
+                <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="支付金额"/>
+                <field id="totaam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="总手续费"/>
+                <field id="voucfe" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="活动抵扣"/>
+                <field id="finsty" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="结算类型"/>
+                <field id="regoam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="已退货金额"/>
+                <field id="frozam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冻结金额"/>
+                <field id="toanam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="结算金额"/>
+                <field id="prepsq" type="PbBaseType.U_PREPSQ" required="false" multi="false" array="false" longname="结算单id"/>
+                <field id="tmteleno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="脱敏手机号"/>
+                <field id="tmpabkno" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="脱敏支付银行卡账号"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="exportPreStatements" longname="导出预结算单"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

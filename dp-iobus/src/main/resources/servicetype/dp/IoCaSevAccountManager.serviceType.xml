@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType id="IoCaSevAccountManager" kind="business" longname="电子账户功能管理服务" package="cn.sunline.ltts.busi.iobus.servicetype.dp" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <service id="IoCaAccountUpgrade" name="upgAccount" longname="电子账户客户端升级">
+        <interface>
+            <input packMode="false">
+                <field id="cplAcUpg" type="IoCaTypGenEAccountInfo.IoCaAccountUpIn" required="false" multi="false" array="false" longname="电子账户升级输入接口"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaIncaseAcUpgrade" name="incaseUpgrade" longname="电子账户柜面升级">
+        <interface>
+            <input packMode="false">
+                <field id="custac" type="BaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号ID"/>
+                <field id="idckrt" type="CaEnumType.E_IDCKRT" required="false" multi="false" array="false" longname="身份核查结果" ref="CaDict.Eacct.idckrt"/>
+                <field id="mpckrt" type="CaEnumType.E_MPCKRT" required="false" multi="false" array="false" longname="人脸识别结果" ref="CaDict.Eacct.mpckrt"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaAccQrcqifQuery" name="accQrcqifQuery" longname="查询人工审核信息">
+        <interface>
+            <input packMode="true">
+                <field id="revist" type="CaEnumType.E_MPCKRT" required="false" multi="false" array="false" longname="审核状态"/>
+                <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型"/>
+                <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码"/>
+                <field id="bgindt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="起始日期"/>
+                <field id="endddt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="终止日期"/>
+                <field id="pageno" type="BaseType.U_INTEGE" required="true" multi="false" array="false" longname="起始页码"/>
+                <field id="pgsize" type="BaseType.U_INTEGE" required="true" multi="false" array="false" longname="每页条数"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="qrckifInfoList" type="IoCaTable.IoCaKnaCustQrckif" required="false" multi="true" array="false" longname="查询人工审核信息返回"/>
+                <field id="counts" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="总条数"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaAccDlagnoInsert" name="caAccDlagnoInsert" longname="新增代理单位信息">
+        <interface>
+            <input packMode="true">
+                <field id="agntno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="代理单位编号"/>
+                <field id="agntna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="代理单位名称"/>
+                <field id="agactp" type="BaseEnumType.E_AGACTP" required="false" multi="false" array="false" longname="代理单位账户类型"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaAccDlagnoUpdate" name="caAccDlagnoUpdate" longname="修改代理单位信息">
+        <interface>
+            <input packMode="true">
+                <field id="agntno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="代理单位编号"/>
+                <field id="agntna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="代理单位名称"/>
+                <field id="agactp" type="BaseEnumType.E_AGACTP" required="false" multi="false" array="false" longname="代理单位账户类型"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaAccDlagnoDelete" name="caAccDlagnoDelete" longname="删除代理单位信息">
+        <interface>
+            <input packMode="false">
+                <field id="agntno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="代理单位编号"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaAccDlagnoSelectByBrchno" name="caAccDlagnoSelectByBrchno" longname="根据机构号查询代理单位信息">
+        <interface>
+            <input packMode="true">
+                <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号"/>
+                <field id="pageno" type="BaseType.U_INTEGE" required="true" multi="false" array="false" longname="起始页码"/>
+                <field id="pgsize" type="BaseType.U_INTEGE" required="true" multi="false" array="false" longname="每页条数"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="agntInfoList" type="IoCaTable.IoCaKnaagntinfo" required="false" multi="true" array="false" longname="代理单位信息"/>
+                <field id="counts" type="long" required="false" multi="false" array="false" longname="总记录数"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaAccDlagnoSelectByAgntno" name="caAccDlagnoSelectByAgntno" longname="根据代理单位编号查询代理单位信息">
+        <interface>
+            <input packMode="true">
+                <field id="agntno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="代理单位编号"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="agntno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="代理单位编号"/>
+                <field id="agntna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="代理单位名称"/>
+                <field id="agactp" type="BaseEnumType.E_AGACTP" required="false" multi="false" array="false" longname="代理单位账户类型"/>
+                <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="维护机构"/>
+                <field id="userid" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="维护柜员"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaCheckSqReg" name="caCheckSqReg" longname="身份核查流水登记">
+        <interface>
+            <input packMode="false">
+                <field id="tblKnbCksq" type="IoCaTable.IoCaKnbCksq" required="false" multi="false" array="false" longname="身份核查流水登记簿"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoKnbSlepInsert" name="knbSlepInsert" longname="休眠登记簿登记">
+        <interface>
+            <input packMode="false">
+                <field id="cplKnbSlep" type="IoCaTable.IoCaKnbSlep" required="false" multi="false" array="false" longname="休眠登记簿登记输入"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaKnbCgbrInsert" name="knbCgbrInsert" longname="变更机构登记簿登记">
+        <interface>
+            <input packMode="false">
+                <field id="cplKnbCgbr" type="IoCaTable.IoCaKnbCgbr" required="false" multi="false" array="false" longname="变更机构登记簿登记输入"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="IoCaKnbOpacInsert" name="knbOpacInsert" longname="开户登记簿登记">
+        <interface>
+            <input packMode="false">
+                <field id="cplKnbOpac" type="IoCaTypGenEAccountInfo.IoCaOpenAccInfo" required="false" multi="false" array="false" longname="开户登记簿登记输入"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+</serviceType>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qracsq" longname="查询会计记账流水信息交易" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始交易日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止交易日期"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="记账账号"/>
+            <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" ref="DpDict.Acct.transq"/>
+            <field id="corpno" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="法人代码" ref="ApDict.Aplt.corpno"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+        </input>
+        <output asParm="true" packMode="false">
+            <field id="knsAcsqInfoList" type="IoAccountComplexType.IoKnsAcsqInfo" required="false" multi="true" array="false" longname="会计记账流水信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoAccountSvcType.IoQueryKnsAcsq" id="queryKnsAcsq" longname="查询会计记账流水信息" desc="查询会计记账流水信息">
+            <in_mappings by_interface="true">
+                <mapping src="bgindt" dest="bgindt" by_interface="true" on_top="true"/>
+                <mapping src="corpno" dest="corpno" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="endddt" dest="endddt" by_interface="true" on_top="true"/>
+                <mapping src="#run.page_start" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="#run.page_size" dest="pgsize" by_interface="true" on_top="true"/>
+                <mapping src="transq" dest="transq" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="knsAcsqInfoList" dest="knsAcsqInfoList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

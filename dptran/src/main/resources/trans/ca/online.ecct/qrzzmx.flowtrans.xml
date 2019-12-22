@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrzzmx" longname="电子账号转账交易明细查询" kind="1" package="cn.sunline.ltts.busi.catran.trans.online.ecct" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.online.ecct.intf">
+        <input packMode="true">
+            <field id="ecctno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="CaDict.Eacct.ecctno"/>
+            <field id="corpno" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="法人代码" ref="ApDict.Aplt.corpno"/>
+            <field id="pageno" type="long" required="false" multi="false" array="false" longname="页数"/>
+            <field id="recdct" type="long" required="false" multi="false" array="false" longname="每页容量"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="infos" scope="ServEacctType.EacctTransDetailInfoOut" required="false" multi="true" longname="电子账户明细输出" array="false">
+                <field id="ecctno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号" ref="CaDict.Eacct.ecctno"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="PbDict.Intr.crcycd"/>
+                <field id="tranam" type="PbBaseType.U_DEC172" required="false" multi="false" array="false" longname="交易金额" ref="PbDict.Intr.tranam"/>
+                <field id="corpno" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="法人代码" ref="ApDict.Aplt.corpno"/>
+                <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="交易流水" ref="PbDict.Charge.transq"/>
+                <field id="trandt" type="PbBaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" ref="PbDict.Intr.trandt"/>
+                <field id="trantm" type="BaseType.U_DATELG" required="false" multi="false" array="false" longname="交易时间" ref="DpDict.Acct.trantm"/>
+                <field id="status" type="PbEnumType.E_STATUS" required="false" multi="false" array="false" longname="状态" ref="PbDict.Charge.status"/>
+                <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+                <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号/卡号" ref="PbDict.Cash.toacct"/>
+            </fields>
+            <field id="count" type="long" required="false" multi="false" array="false" longname="总记录数"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="ServEacctSvcType.QryTransferDetail" id="qryEacctTransDetailInfo" test="" longname="电子账户转账交易明细查询" desc="明细查询">
+            <in_mappings by_interface="true">
+                <mapping src="corpno" dest="corpno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="ecctno" dest="ecctno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" desc="" by_interface="true" on_top="true"/>
+                <mapping src="recdct" dest="recdct" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="count" dest="count" desc="" by_interface="true" on_top="true"/>
+                <mapping src="infos" dest="infos" desc="" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

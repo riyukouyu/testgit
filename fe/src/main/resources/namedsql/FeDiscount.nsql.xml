@@ -1,0 +1,1500 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="FeDiscount" longname="计费优惠" package="cn.sunline.ltts.busi.fe.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_spex" longname="收费简单优惠解析表记录条数">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_spex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[chrgcd=#chrgcd#]]></str>
+                    </if>
+                    <if test="brchno !=null and brchno != ''" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                    <if test="crcycd !=null" type="If">
+                        <str type="Str"><![CDATA[crcycd=#crcycd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_spex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[chrgcd=#chrgcd#]]></str>
+                    </if>
+                    <if test="brchno !=null and brchno != ''" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                    <if test="crcycd !=null" type="If">
+                        <str type="Str"><![CDATA[crcycd=#crcycd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_spex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[chrgcd=#chrgcd#]]></str>
+                    </if>
+                    <if test="brchno !=null and brchno != ''" type="If">
+                        <str type="Str"><![CDATA[brchno=#brchno#]]></str>
+                    </if>
+                    <if test="crcycd !=null" type="If">
+                        <str type="Str"><![CDATA[crcycd=#crcycd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_spex" longname="收费简单优惠解析表">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="PbDict.Brch.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="PbDict.Intr.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgSpex"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select  a.chrgcd as chrgcd, a.sbbkcd as sbbkcd, a.brchno as brchno, a.crcycd as crcycd, a.fasttp as fasttp, a.fastam as fastam, a.fatype as fatype, a.favalu as favalu, a.favoir as favoir, a.efctdt as efctdt, a.inefdt as inefdt, b.chrgna as chrgna, c.dimena as dimena, c.expmsg from kcp_favo_spex a left join kcp_chrg b on a.chrgcd = b.chrgcd 
+            left JOIN (select a.dimena, b.expmsg,b.dimevl,a.dimecg from kcp_dime a, kcp_scev_dime b where a.dimecg=b.dimecg and a.waytyp = '02') c on
+								a.fatype = c.dimecg and a.favalu = c.dimevl ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd !=null and chrgcd != ''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like CONCAT('%',#chrgcd#,'%') ]]></str>
+                    </if>
+                    <if test="brchno !=null and brchno != ''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                    <if test="crcycd !=null " type="If">
+                        <str type="Str"><![CDATA[a.crcycd like CONCAT('%',#crcycd#,'%') ]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.chrgcd,a.brchno,a.fasttp,a.fastam,a.fatype,a.favalu desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select  a.chrgcd as chrgcd, a.sbbkcd as sbbkcd, a.brchno as brchno, a.crcycd as crcycd, a.fasttp as fasttp, a.fastam as fastam, a.fatype as fatype, a.favalu as favalu, a.favoir as favoir, a.efctdt as efctdt, a.inefdt as inefdt, b.chrgna as chrgna, c.dimena as dimena, c.expmsg from kcp_favo_spex a left join kcp_chrg b on a.chrgcd = b.chrgcd 
+            left JOIN (select a.dimena, b.expmsg,b.dimevl,a.dimecg from kcp_dime a, kcp_scev_dime b where a.dimecg=b.dimecg and a.waytyp = '02') c on
+								a.fatype = c.dimecg and a.favalu = c.dimevl ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd !=null and chrgcd != ''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like '%' || #chrgcd# || '%']]></str>
+                    </if>
+                    <if test="brchno !=null and brchno != ''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                    <if test="crcycd !=null " type="If">
+                        <str type="Str"><![CDATA[a.crcycd like '%' || #crcycd# || '%']]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.chrgcd,a.brchno,a.fasttp,a.fastam,a.fatype,a.favalu desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select  a.chrgcd as chrgcd, a.sbbkcd as sbbkcd, a.brchno as brchno, a.crcycd as crcycd, a.fasttp as fasttp, a.fastam as fastam, a.fatype as fatype, a.favalu as favalu, a.favoir as favoir, a.efctdt as efctdt, a.inefdt as inefdt, b.chrgna as chrgna, c.dimena as dimena, c.expmsg from kcp_favo_spex a left join kcp_chrg b on a.chrgcd = b.chrgcd 
+            left JOIN (select a.dimena, b.expmsg,b.dimevl,a.dimecg from kcp_dime a, kcp_scev_dime b where a.dimecg=b.dimecg and a.waytyp = '02') c on
+								a.fatype = c.dimecg and a.favalu = c.dimevl ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd !=null and chrgcd != ''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like CONCAT('%',#chrgcd#,'%') ]]></str>
+                    </if>
+                    <if test="brchno !=null and brchno != ''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                    <if test="crcycd !=null " type="If">
+                        <str type="Str"><![CDATA[a.crcycd like CONCAT('%',#crcycd#,'%') ]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.chrgcd,a.brchno,a.fasttp,a.fastam,a.fatype,a.favalu desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_smdf" longname="超额优惠定义查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="FeDict.Chrg.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmdf"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.* from kcp_favo_smdf a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[smfacd like CONCAT('%',#smfacd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno desc, a.smfacd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kcp_favo_smdf a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[smfacd like '%' || #smfacd# || '%']]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno desc, a.smfacd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kcp_favo_smdf a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[smfacd like CONCAT('%',#smfacd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno desc, a.smfacd desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_smdf" longname="超额优惠定义查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smdf u]]></str>
+            <where type="Where">
+                <if test="smfacd!=null and smfacd!=''" type="If"/>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smdf u]]></str>
+            <where type="Where">
+                <if test="smfacd!=null and smfacd!=''" type="If"/>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smdf u]]></str>
+            <where type="Where">
+                <if test="smfacd!=null and smfacd!=''" type="If"/>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_smdl" longname="超额优惠明细查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgCpdt"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.smfacd as smfacd, a.smstrt as smstrt, a.smfapc as smfapc, a.efctdt as efctdt, a.inefdt as inefdt, a.smblup as smblup, a.explan as explan , b.smfana as smfana, b.brchno from kcp_favo_smdl a left join kcp_favo_smdf b on a.smfacd = b.smfacd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd like CONCAT('%', #smfacd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[b.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.brchno desc, a.smfacd,a.smstrt desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.smfacd as smfacd, a.smstrt as smstrt, a.smfapc as smfapc, a.efctdt as efctdt, a.inefdt as inefdt, a.smblup as smblup, a.explan as explan , b.smfana as smfana, b.brchno from kcp_favo_smdl a left join kcp_favo_smdf b on a.smfacd = b.smfacd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd like '%' || #smfacd# || '%']]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[b.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.brchno desc, a.smfacd,a.smstrt desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.smfacd as smfacd, a.smstrt as smstrt, a.smfapc as smfapc, a.efctdt as efctdt, a.inefdt as inefdt, a.smblup as smblup, a.explan as explan , b.smfana as smfana, b.brchno from kcp_favo_smdl a left join kcp_favo_smdf b on a.smfacd = b.smfacd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd like CONCAT('%', #smfacd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[b.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by b.brchno desc, a.smfacd,a.smstrt desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_smdl" longname="超额优惠明细查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+            <parameter property="smstrt" ref="FeDict.Chrg.smstrt" jdbcType="VARCHAR" javaType="BaseType.U_ACBLTP" mode="in" longname="累积起点" default="0.0" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smdl u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[u.smfacd = #smfacd#]]></str>
+                    </if>
+                    <if test="smstrt!=null and smstrt!=''" type="If">
+                        <str type="Str"><![CDATA[u.smstrt = #smstrt#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smdl u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[u.smfacd = #smfacd#]]></str>
+                    </if>
+                    <if test="smstrt!=null and smstrt!=''" type="If">
+                        <str type="Str"><![CDATA[u.smstrt = #smstrt#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smdl u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[u.smfacd = #smfacd#]]></str>
+                    </if>
+                    <if test="smstrt!=null and smstrt!=''" type="If">
+                        <str type="Str"><![CDATA[u.smstrt = #smstrt#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_smex" longname="超额优惠解析查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="fadmtp" ref="FeDict.Chrg.fadmtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="维度类别" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" default="''" parameterType="condition"/>
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgCpal"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.explan, a.chrgcd as chrgcd, a.fadmtp as fadmtp, a.crcycd as crcycd, a.smfacd as smfacd, a.efctdt as efctdt, a.inefdt as inefdt, a.dimevl as dimevl, b.dimena as dimena, c.smfana, d.chrgna as chrgna, c.brchno, f.expmsg from kcp_favo_smex a left join kcp_dime b on b.dimecg = a.fadmtp left JOIN kcp_scev_dime f on a.dimevl = f.dimevl and a.fadmtp = f.dimecg left join kcp_favo_smdf c on c.smfacd = a.smfacd left join kcp_chrg d on a.chrgcd = d.chrgcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like CONCAT('%', #chrgcd#, '%')]]></str>
+                    </if>
+                    <if test="fadmtp!=null and fadmtp!=''" type="If">
+                        <str type="Str"><![CDATA[a.fadmtp = #fadmtp#]]></str>
+                    </if>
+                    <if test="crcycd!=null" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd like CONCAT('%', #smfacd#, '%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[c.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by c.brchno desc, a.chrgcd,a.fadmtp,a.crcycd,a.smfacd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.explan, a.chrgcd as chrgcd, a.fadmtp as fadmtp, a.crcycd as crcycd, a.smfacd as smfacd, a.efctdt as efctdt, a.inefdt as inefdt, a.dimevl as dimevl, b.dimena as dimena, c.smfana, d.chrgna as chrgna, c.brchno, f.expmsg from kcp_favo_smex a left join kcp_dime b on b.dimecg = a.fadmtp left JOIN kcp_scev_dime f on a.dimevl = f.dimevl and a.fadmtp = f.dimecg left join kcp_favo_smdf c on c.smfacd = a.smfacd left join kcp_chrg d on a.chrgcd = d.chrgcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like '%' || #chrgcd# || '%']]></str>
+                    </if>
+                    <if test="fadmtp!=null and fadmtp!=''" type="If">
+                        <str type="Str"><![CDATA[a.fadmtp = #fadmtp#]]></str>
+                    </if>
+                    <if test="crcycd!=null" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd like '%' || #smfacd# || '%']]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[c.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by c.brchno desc, a.chrgcd,a.fadmtp,a.crcycd,a.smfacd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.explan, a.chrgcd as chrgcd, a.fadmtp as fadmtp, a.crcycd as crcycd, a.smfacd as smfacd, a.efctdt as efctdt, a.inefdt as inefdt, a.dimevl as dimevl, b.dimena as dimena, c.smfana, d.chrgna as chrgna, c.brchno, f.expmsg from kcp_favo_smex a left join kcp_dime b on b.dimecg = a.fadmtp left JOIN kcp_scev_dime f on a.dimevl = f.dimevl and a.fadmtp = f.dimecg left join kcp_favo_smdf c on c.smfacd = a.smfacd left join kcp_chrg d on a.chrgcd = d.chrgcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like CONCAT('%', #chrgcd#, '%')]]></str>
+                    </if>
+                    <if test="fadmtp!=null and fadmtp!=''" type="If">
+                        <str type="Str"><![CDATA[a.fadmtp = #fadmtp#]]></str>
+                    </if>
+                    <if test="crcycd!=null" type="If">
+                        <str type="Str"><![CDATA[a.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd like CONCAT('%', #smfacd#, '%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[c.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by c.brchno desc, a.chrgcd,a.fadmtp,a.crcycd,a.smfacd desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_smex" longname="超额优惠解析查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="fadmtp" ref="FeDict.Chrg.fadmtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="维度类别" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[u.chrgcd = #chrgcd#]]></str>
+                    </if>
+                    <if test="fadmtp!=null and fadmtp!=''" type="If">
+                        <str type="Str"><![CDATA[u.fadmtp = #fadmtp#]]></str>
+                    </if>
+                    <if test="crcycd!=null" type="If">
+                        <str type="Str"><![CDATA[u.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[u.smfacd = #smfacd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[u.chrgcd = #chrgcd#]]></str>
+                    </if>
+                    <if test="fadmtp!=null and fadmtp!=''" type="If">
+                        <str type="Str"><![CDATA[u.fadmtp = #fadmtp#]]></str>
+                    </if>
+                    <if test="crcycd!=null" type="If">
+                        <str type="Str"><![CDATA[u.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[u.smfacd = #smfacd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_smex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[u.chrgcd = #chrgcd#]]></str>
+                    </if>
+                    <if test="fadmtp!=null and fadmtp!=''" type="If">
+                        <str type="Str"><![CDATA[u.fadmtp = #fadmtp#]]></str>
+                    </if>
+                    <if test="crcycd!=null" type="If">
+                        <str type="Str"><![CDATA[u.crcycd = #crcycd#]]></str>
+                    </if>
+                    <if test="smfacd!=null and smfacd!=''" type="If">
+                        <str type="Str"><![CDATA[u.smfacd = #smfacd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_pldf" longname="优惠计划定义表查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="int"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_pldf u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like  CONCAT('%',#diplcd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[brchno like  CONCAT('%',#brchno#,'%')]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_pldf u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like '%' || #diplcd# || '%']]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[brchno like '%' || #brchno# || '%']]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_pldf u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like  CONCAT('%',#diplcd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[brchno like  CONCAT('%',#brchno#,'%')]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_pldf" longname="优惠计划定义表查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="FeDict.Chrg.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeConfigTranType.CgKcpFavoPldf"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.* from kcp_favo_pldf a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like  CONCAT('%',#diplcd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno,a.diplcd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kcp_favo_pldf a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like '%' || #diplcd# || '%']]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno,a.diplcd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kcp_favo_pldf a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like  CONCAT('%',#diplcd#,'%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in  (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno,a.diplcd desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_pljo" longname="优惠计划关联维度明细表查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" default="''" parameterType="condition"/>
+            <parameter property="fadmvl" ref="FeDict.Chrg.fadmvl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="优惠计划维度取值" default="''" parameterType="condition"/>
+            <parameter property="ildmdn" ref="FeDict.Chrg.ildmdn" jdbcType="VARCHAR" javaType="BaseType.U_ACBLTP" mode="in" longname="关联维度值下限" default="0.0" parameterType="condition"/>
+            <parameter property="ildmup" ref="FeDict.Chrg.ildmup" jdbcType="VARCHAR" javaType="BaseType.U_ACBLTP" mode="in" longname="关联维度值上限" default="0.0" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_pljo u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd=#diplcd#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="fadmvl!=null and fadmvl!=''" type="If">
+                        <str type="Str"><![CDATA[fadmvl=#fadmvl#]]></str>
+                    </if>
+                    <if test="ildmdn!=null and ildmdn!=''" type="If">
+                        <str type="Str"><![CDATA[ildmdn=#ildmdn#]]></str>
+                    </if>
+                    <if test="ildmup!=null and ildmup!=''" type="If">
+                        <str type="Str"><![CDATA[ildmup=#ildmup#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_pljo u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd=#diplcd#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="fadmvl!=null and fadmvl!=''" type="If">
+                        <str type="Str"><![CDATA[fadmvl=#fadmvl#]]></str>
+                    </if>
+                    <if test="ildmdn!=null and ildmdn!=''" type="If">
+                        <str type="Str"><![CDATA[ildmdn=#ildmdn#]]></str>
+                    </if>
+                    <if test="ildmup!=null and ildmup!=''" type="If">
+                        <str type="Str"><![CDATA[ildmup=#ildmup#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_pljo u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd=#diplcd#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="fadmvl!=null and fadmvl!=''" type="If">
+                        <str type="Str"><![CDATA[fadmvl=#fadmvl#]]></str>
+                    </if>
+                    <if test="ildmdn!=null and ildmdn!=''" type="If">
+                        <str type="Str"><![CDATA[ildmdn=#ildmdn#]]></str>
+                    </if>
+                    <if test="ildmup!=null and ildmup!=''" type="If">
+                        <str type="Str"><![CDATA[ildmup=#ildmup#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_pljo" longname="优惠计划关联维度明细表查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" default="''" parameterType="condition"/>
+            <parameter property="fadmvl" ref="FeDict.Chrg.fadmvl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="优惠计划维度取值" default="''" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgCplj"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.diplcd as diplcd, a.seqnum as seqnum, a.dimecg as dimecg, a.relvfg as relvfg, a.fadmvl as fadmvl, a.ildmdn as ildmdn, a.ildmup as ildmup, a.efctdt as efctdt, a.inefdt as inefdt,
+									b.expmsg as expmsg, b.dimena as dimena, d.planna as planna from kcp_favo_pljo a
+									left join (select a.dimena, b.expmsg, a.dimecg, b.dimevl from kcp_dime a, kcp_scev_dime b where a.dimecg = b.dimecg) b 
+									on a.dimecg = b.dimecg and a.fadmvl = b.dimevl left join kcp_favo_pldf d on d.diplcd = a.diplcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.diplcd=#diplcd#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="fadmvl!=null and fadmvl!=''" type="If">
+                        <str type="Str"><![CDATA[a.fadmvl=#fadmvl#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by diplcd]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.diplcd as diplcd, a.seqnum as seqnum, a.dimecg as dimecg, a.relvfg as relvfg, a.fadmvl as fadmvl, a.ildmdn as ildmdn, a.ildmup as ildmup, a.efctdt as efctdt, a.inefdt as inefdt,
+									b.expmsg as expmsg, b.dimena as dimena, d.planna as planna from kcp_favo_pljo a
+									left join (select a.dimena, b.expmsg, a.dimecg, b.dimevl from kcp_dime a, kcp_scev_dime b where a.dimecg = b.dimecg) b 
+									on a.dimecg = b.dimecg and a.fadmvl = b.dimevl left join kcp_favo_pldf d on d.diplcd = a.diplcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.diplcd=#diplcd#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="fadmvl!=null and fadmvl!=''" type="If">
+                        <str type="Str"><![CDATA[a.fadmvl=#fadmvl#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by diplcd]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.diplcd as diplcd, a.seqnum as seqnum, a.dimecg as dimecg, a.relvfg as relvfg, a.fadmvl as fadmvl, a.ildmdn as ildmdn, a.ildmup as ildmup, a.efctdt as efctdt, a.inefdt as inefdt,
+									b.expmsg as expmsg, b.dimena as dimena, d.planna as planna from kcp_favo_pljo a
+									left join (select a.dimena, b.expmsg, a.dimecg, b.dimevl from kcp_dime a, kcp_scev_dime b where a.dimecg = b.dimecg) b 
+									on a.dimecg = b.dimecg and a.fadmvl = b.dimevl left join kcp_favo_pldf d on d.diplcd = a.diplcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.diplcd=#diplcd#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="fadmvl!=null and fadmvl!=''" type="If">
+                        <str type="Str"><![CDATA[a.fadmvl=#fadmvl#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by diplcd]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_favo_plex" longname="优惠计划解析表查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_plex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[chrgcd like CONCAT('%', #chrgcd#,'%')]]></str>
+                    </if>
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like CONCAT('%', #diplcd#,'%')]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_plex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[chrgcd like '%' || #chrgcd# || '%']]></str>
+                    </if>
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like '%' || #diplcd# || '%']]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_plex u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[chrgcd like CONCAT('%', #chrgcd#,'%')]]></str>
+                    </if>
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[diplcd like CONCAT('%', #diplcd#,'%')]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_favo_plex" longname="优惠计划解析表查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgCple"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.chrgcd as chrgcd, a.crcycd as crcycd, a.diplcd as diplcd, a.brchno as brchno, a.fasttp as fasttp, a. fastam as fastam, a.favoir as  favoir, a.efctdt as efctdt, a.inefdt as inefdt, a.explan as explan, b.chrgna as chrgna, c.planna as planna from kcp_favo_plex a left join kcp_chrg b on b.chrgcd = a.chrgcd left join kcp_favo_pldf c on c.diplcd = a.diplcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like CONCAT('%', #chrgcd#, '%')]]></str>
+                    </if>
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.diplcd like CONCAT('%', #diplcd#, '%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno desc, a.chrgcd,a.diplcd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.chrgcd as chrgcd, a.crcycd as crcycd, a.diplcd as diplcd, a.brchno as brchno, a.fasttp as fasttp, a. fastam as fastam, a.favoir as  favoir, a.efctdt as efctdt, a.inefdt as inefdt, a.explan as explan, b.chrgna as chrgna, c.planna as planna from kcp_favo_plex a left join kcp_chrg b on b.chrgcd = a.chrgcd left join kcp_favo_pldf c on c.diplcd = a.diplcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like '%' || #chrgcd# || '%']]></str>
+                    </if>
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.diplcd like '%' || #diplcd# || '%']]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno desc, a.chrgcd,a.diplcd desc]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.chrgcd as chrgcd, a.crcycd as crcycd, a.diplcd as diplcd, a.brchno as brchno, a.fasttp as fasttp, a. fastam as fastam, a.favoir as  favoir, a.efctdt as efctdt, a.inefdt as inefdt, a.explan as explan, b.chrgna as chrgna, c.planna as planna from kcp_favo_plex a left join kcp_chrg b on b.chrgcd = a.chrgcd left join kcp_favo_pldf c on c.diplcd = a.diplcd]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd!=null and chrgcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd like CONCAT('%', #chrgcd#, '%')]]></str>
+                    </if>
+                    <if test="diplcd!=null and diplcd!=''" type="If">
+                        <str type="Str"><![CDATA[a.diplcd like CONCAT('%', #diplcd#, '%')]]></str>
+                    </if>
+                    <if test="brchno!=null and brchno!=''" type="If">
+                        <str type="Str"><![CDATA[a.brchno in (${brchno})]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by a.brchno desc, a.chrgcd,a.diplcd desc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selFavoSpex" longname="获取满足条件的费用优惠收费信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	fasttp,fastam,fatype,favalu,favoir 
+    	FROM
+    	    	kcp_favo_spex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND brchno in (
+    	    	    	'%', #brchno#
+    	    	) AND crcycd in (
+    	    	    	'99', #crcycd#
+    	    	) 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	ORDER BY
+    	    	favoir DESC
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	fasttp,fastam,fatype,favalu,favoir 
+    	FROM
+    	    	kcp_favo_spex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND brchno in (
+    	    	    	'%', #brchno#
+    	    	) AND crcycd in (
+    	    	    	'99', #crcycd#
+    	    	) 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	ORDER BY
+    	    	favoir DESC
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	fasttp,fastam,fatype,favalu,favoir 
+    	FROM
+    	    	kcp_favo_spex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND brchno in (
+    	    	    	'%', #brchno#
+    	    	) AND crcycd in (
+    	    	    	'99', #crcycd#
+    	    	) 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	ORDER BY
+    	    	favoir DESC
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" default="''" parameterType="condition"/>
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" default="''" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSpex"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFavoSmexByChrgcdCrcycd" longname="根据累计代码和币种获取累积解析表信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND crcycd = #crcycd# AND efctdt <= #trandt# 
+    	    	AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND crcycd = #crcycd# AND efctdt <= #trandt# 
+    	    	AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND crcycd = #crcycd# AND efctdt <= #trandt# 
+    	    	AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" default="''" parameterType="condition"/>
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmex"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFavoSemx" longname="获取收费累积优惠解析表信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND fadmtp = #fadmtp# AND crcycd = #crcycd# 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND fadmtp = #fadmtp# AND crcycd = #crcycd# 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smex 
+    	WHERE
+    	    	corpno = #corpno# AND chrgcd = #chrgcd# 
+    	    	AND fadmtp = #fadmtp# AND crcycd = #crcycd# 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" default="''" parameterType="condition"/>
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="fadmtp" ref="FeDict.Chrg.fadmtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="维度类别" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmex"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFavoSmdl" longname="获取收费累积优惠明细表信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smdl 
+    	WHERE
+    	    	smfacd = #smfacd# AND smstrt <= #smstrt# 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	ORDER BY
+    	    	smstrt desc
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smdl 
+    	WHERE
+    	    	smfacd = #smfacd# AND smstrt <= #smstrt# 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	ORDER BY
+    	    	smstrt desc
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcp_favo_smdl 
+    	WHERE
+    	    	smfacd = #smfacd# AND smstrt <= #smstrt# 
+    	    	AND efctdt <= #trandt# AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	ORDER BY
+    	    	smstrt desc
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" default="''" parameterType="condition"/>
+            <parameter property="smstrt" ref="FeDict.Chrg.smstrt" jdbcType="VARCHAR" javaType="BaseType.U_ACBLTP" mode="in" longname="累积起点" default="0.0" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmdl"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selFavoPldf" longname="获取满足条件的费用优惠计划信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	O.* 
+    	FROM
+    	    	kcp_favo_pldf F, kcp_favo_pljo O 
+    	WHERE
+    	    	F.DIPLCD = O.DIPLCD AND F.EFCTDT <= #trandt# 
+    	    	AND (
+    	    	    	F.INEFDT IS NULL OR F.INEFDT = '' OR F.INEFDT >= #trandt# 
+    	    	) AND F.DIPLCD = #diplcd#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	O.* 
+    	FROM
+    	    	kcp_favo_pldf F, kcp_favo_pljo O 
+    	WHERE
+    	    	F.DIPLCD = O.DIPLCD AND F.EFCTDT <= #trandt# 
+    	    	AND (
+    	    	    	F.INEFDT IS NULL OR F.INEFDT = '' OR F.INEFDT >= #trandt# 
+    	    	) AND F.DIPLCD = #diplcd#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	O.* 
+    	FROM
+    	    	kcp_favo_pldf F, kcp_favo_pljo O 
+    	WHERE
+    	    	F.DIPLCD = O.DIPLCD AND F.EFCTDT <= #trandt# 
+    	    	AND (
+    	    	    	F.INEFDT IS NULL OR F.INEFDT = '' OR F.INEFDT >= #trandt# 
+    	    	) AND F.DIPLCD = #diplcd# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="FeDict.Chrg.trandt" jdbcType="VARCHAR" javaType="FeBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" default="''" parameterType="condition"/>
+            <parameter property="crcycd" ref="FeDict.Chrg.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="货币代号" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" default="''" parameterType="condition"/>
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoPljo"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKubBrchByBrhcno" longname="根据机构号查询机构信息">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoPbTable.IoPbKubBrch"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKubBrchLevel" longname="根据机构号查询机构等级">
+        <sql><![CDATA[
+    	select
+    	    	brchlv 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <sql type="db2"><![CDATA[select brchlv from kub_brch where brchno = #brchno#]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	brchlv 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	brchlv 
+    	from
+    	    	kub_brch 
+    	where
+    	    	brchno = #brchno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.util.Map">
+            <result property="brchlv" javaType="PbEnumType.E_BRCHLV" jdbcType="VARCHAR" column="brchlv" longname="机构级别"/>
+        </resultMap>
+    </select>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selone_kcp_favo_smex" longname="超额优惠解析绑定关系查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" parameterType="condition"/>
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" parameterType="condition"/>
+            <parameter property="dimevl" ref="FeDict.Chrg.dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+            <parameter property="fadmtp" ref="FeDict.Chrg.fadmtp" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="维度类别" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmex"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.* from kcp_favo_smex a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd != null and chrgcd !=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd = #chrgcd#]]></str>
+                    </if>
+                    <if test="smfacd != null and smfacd !=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd = #smfacd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kcp_favo_smex a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd != null and chrgcd !=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd = #chrgcd#]]></str>
+                    </if>
+                    <if test="smfacd != null and smfacd !=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd = #smfacd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kcp_favo_smex a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="chrgcd != null and chrgcd !=''" type="If">
+                        <str type="Str"><![CDATA[a.chrgcd = #chrgcd#]]></str>
+                    </if>
+                    <if test="smfacd != null and smfacd !=''" type="If">
+                        <str type="Str"><![CDATA[a.smfacd = #smfacd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selall_kcp_favo_spex_dimevl" longname="根据维度值查询单一优惠">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_spex a 
+    	where
+    	    	a.favalu = #dimevl# and a.fatype = #dimecg#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_spex a 
+    	where
+    	    	a.favalu = #dimevl# and a.fatype = #dimecg#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_spex a 
+    	where
+    	    	a.favalu = #dimevl# and a.fatype = #dimecg#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimevl" ref="FeDict.Chrg.dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSpex"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selall_kcp_favo_smex_dimevl" longname="根据维度值查询超额优惠解析">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smex a 
+    	where
+    	    	a.dimevl = #dimevl# and a.fadmtp = #dimecg#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smex a 
+    	where
+    	    	a.dimevl = #dimevl# and a.fadmtp = #dimecg#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smex a 
+    	where
+    	    	a.dimevl = #dimevl# and a.fadmtp = #dimecg#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimevl" ref="FeDict.Chrg.dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmex"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selall_kcp_favo_pljo_dimevl" longname="根据维度值查询优惠计划明细">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_pljo a 
+    	where
+    	    	a.fadmvl = #dimevl# and a.dimecg = #dimecg#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_pljo a 
+    	where
+    	    	a.fadmvl = #dimevl# and a.dimecg = #dimecg#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_pljo a 
+    	where
+    	    	a.fadmvl = #dimevl# and a.dimecg = #dimecg#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimevl" ref="FeDict.Chrg.dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoPljo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="sel_all_kcp_favo_smdf" longname="查询超额优惠定义">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smdf a 
+    	where
+    	    	smfacd=#smfacd# and brchno in (
+    	    	    	'999000', #brchno#
+    	    	)
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smdf a 
+    	where
+    	    	smfacd=#smfacd# and brchno in (
+    	    	    	'999000', #brchno#
+    	    	)
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smdf a 
+    	where
+    	    	smfacd=#smfacd# and brchno in (
+    	    	    	'999000', #brchno#
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" parameterType="condition"/>
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmdf"/>
+    </select>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selSpexCntByDip" longname="查询计划代码解析表记录条数">
+        <parameterMap class="java.util.Map">
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_plex ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd !=null and diplcd !=''" type="If">
+                        <str type="Str"><![CDATA[diplcd=#diplcd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_plex ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd !=null and diplcd !=''" type="If">
+                        <str type="Str"><![CDATA[diplcd=#diplcd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_favo_plex ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="diplcd !=null and diplcd !=''" type="If">
+                        <str type="Str"><![CDATA[diplcd=#diplcd#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKcp_favo_smdfOne_odb1" longname="通过超额代码查询超额优惠定义表">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smdf a 
+    	where
+    	    	a.smfacd=#smfacd#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smdf a 
+    	where
+    	    	a.smfacd=#smfacd#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_smdf a 
+    	where
+    	    	a.smfacd=#smfacd#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoSmdf"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKcb_favo_bddlOne_odb1" longname="查询超额优惠累积主体明细">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_favo_bddl a 
+    	where
+    	    	a.chrgcd=#chrgcd# and a.crcycd=#crcycd# 
+    	    	and a.smfacd=#smfacd# and a.smbody=#smbody# 
+    	    	and a.chrgpd=#chrgpd# for update
+    	    	    	
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_favo_bddl a 
+    	where
+    	    	a.chrgcd=#chrgcd# and a.crcycd=#crcycd# 
+    	    	and a.smfacd=#smfacd# and a.smbody=#smbody# 
+    	    	and a.chrgpd=#chrgpd# for update
+    	    	    	
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_favo_bddl a 
+    	where
+    	    	a.chrgcd=#chrgcd# and a.crcycd=#crcycd# 
+    	    	and a.smfacd=#smfacd# and a.smbody=#smbody# 
+    	    	and a.chrgpd=#chrgpd# for update
+    	    	    	
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="smfacd" ref="FeDict.Chrg.smfacd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="超额优惠代码" parameterType="condition"/>
+            <parameter property="smbody" ref="FeDict.Chrg.smbody" jdbcType="VARCHAR" javaType="FeBaseType.U_CUSTNO" mode="in" longname="累积主体" parameterType="condition"/>
+            <parameter property="chrgpd" ref="FeDict.Chrg.chrgpd" jdbcType="VARCHAR" javaType="FeBaseType.U_WEEKPD" mode="in" longname="收费周期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcbFavoBddl"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKcp_favo_plexAll_odb1" longname="查询优惠计划">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_plex a 
+    	where
+    	    	a.brchno = #brchno# and a.chrgcd=#chrgcd# 
+    	    	and a.crcycd=#crcycd# AND efctdt <= #trandt# 
+    	    	AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_plex a 
+    	where
+    	    	a.brchno = #brchno# and a.chrgcd=#chrgcd# 
+    	    	and a.crcycd=#crcycd# AND efctdt <= #trandt# 
+    	    	AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_plex a 
+    	where
+    	    	a.brchno = #brchno# and a.chrgcd=#chrgcd# 
+    	    	and a.crcycd=#crcycd# AND efctdt <= #trandt# 
+    	    	AND (
+    	    	    	inefdt is null or length(inefdt) != 8 or inefdt >= #trandt#
+    	    	) 
+    	order by
+    	    	efctdt
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="brchno" ref="BaseDict.Comm.brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" parameterType="condition"/>
+            <parameter property="crcycd" ref="BaseDict.Comm.crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="trandt" ref="BaseDict.Comm.trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoPlex"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selPldfByPlcd" longname="查询优惠计划代码">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_pldf a 
+    	where
+    	    	a.diplcd =#diplcd#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_pldf a 
+    	where
+    	    	a.diplcd =#diplcd#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_pldf a 
+    	where
+    	    	a.diplcd =#diplcd#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoPldf"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selPlexByPlcd" longname="优惠计划解析表">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_plex a 
+    	where
+    	    	a.chrgcd =#chrgcd# and a.diplcd =#diplcd#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_plex a 
+    	where
+    	    	a.chrgcd =#chrgcd# and a.diplcd =#diplcd#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_favo_plex a 
+    	where
+    	    	a.chrgcd =#chrgcd# and a.diplcd =#diplcd#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="chrgcd" ref="FeDict.Chrg.chrgcd" jdbcType="VARCHAR" javaType="FeBaseType.U_CHRGCD" mode="in" longname="费种代码" parameterType="condition"/>
+            <parameter property="diplcd" ref="FeDict.Chrg.diplcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR08" mode="in" longname="优惠计划代码" default="''" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpFavoPlex"/>
+    </select>
+</sqls>

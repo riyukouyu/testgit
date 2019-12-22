@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="prchck" longname="存款产品配置复核" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="tyinno" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="录入编号"/>
+            <field id="baseInfo" type="IoDpProdParts.IoBasePrdIn" required="false" multi="false" array="false" longname="基础部件集合"/>
+            <field id="brchinfo" type="IoDpProdParts.IoDpBranchIn" required="false" multi="true" array="false" longname="机构部件集合"/>
+            <field id="custInfo" type="IoDpProdParts.IoDpOpenIn" required="false" multi="false" array="false" longname="产品开户控制部件集合"/>
+            <field id="postInfo" type="IoDpProdParts.IoDpPostIn" required="false" multi="false" array="false" longname="产品存入控制部件集合"/>
+            <field id="poplInfo" type="IoDpProdParts.IoDpPlanIn" required="false" multi="false" array="false" longname="存入计划控制部件集合"/>
+            <field id="drawInfo" type="IoDpProdParts.IoDpDrawIn" required="false" multi="false" array="false" longname="产品支取控制部件集合"/>
+            <field id="drplInfo" type="IoDpProdParts.IoDpDrawPlanIn" required="false" multi="false" array="false" longname="产品支取计划控制部件集合"/>
+            <field id="matuInfo" type="IoDpProdParts.IoDpMatuIn" required="false" multi="false" array="false" longname="产品到期控制部件集合"/>
+            <field id="intrInfo" type="IoDpProdParts.IoDpIntrIn" required="false" multi="false" array="false" longname="产品利息利率部件集合"/>
+            <field id="dfirInfo" type="IoDpProdParts.IoDpDfirIn" required="false" multi="true" array="false" longname="产品违约支取利息利率部件集合"/>
+            <field id="acctInfo" type="IoDpProdParts.IoDpCheckPartDetail" required="false" fixed="" default="" multi="false" array="false" longname="产品核算部件集合" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="chkPrdInfo" id="chkPrdInfo" test="" longname="产品配置复核" desc="产品配置复合"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

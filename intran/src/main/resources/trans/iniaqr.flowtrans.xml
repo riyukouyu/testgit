@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="iniaqr" longname="跨机构转入内部户查询" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[跨机构转入内部户查询]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="acctno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="内部户帐号"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="intype" type="ApBaseEnumType.E_INTYPE" required="true" multi="false" array="false" longname="跨机构转入类型" ref="InDict.inac.intype"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="ioInacInfo" type="IoInQueryTypes.IoInacInfo" required="false" multi="false" array="false" longname="内部户信息"/>
+        </output>
+        <property packMode="true">
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务代码" ref="InDict.inac.busino"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="beforeCheck" id="beforeCheck" longname="交易前检查" desc="交易前检查"/>
+        <case id="selAcctInfo" longname="账号信息查询" desc="账号信息查询">
+            <when id="selTorecvAcct" test="intype == #dict.ApBaseEnumType.E_INTYPE().JSZS" longname="结算代收账号查询" desc="结算代收账号查询">
+                <service serviceName="IoInOpenClose.IoQueryAndOpen" id="queryAndOpen" longname="查询结算代收内部户" desc="内部户不存在则自动开户">
+                    <in_mappings by_interface="true">
+                        <mapping src="brchno" dest="acbrch" by_interface="true" on_top="true"/>
+                        <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true">
+                        <mapping src="inacInfo.acctna" dest="ioInacInfo.acctna" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.acctno" dest="ioInacInfo.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.acctst" dest="ioInacInfo.acctst" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.beintp" dest="ioInacInfo.beintp" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.blncdn" dest="ioInacInfo.blncdn" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.brchno" dest="ioInacInfo.brchno" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.busidn" dest="ioInacInfo.busidn" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.busino" dest="ioInacInfo.busino" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.busitp" dest="ioInacInfo.busitp" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.closdt" dest="ioInacInfo.closdt" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.closer" dest="ioInacInfo.closer" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.cltrsq" dest="ioInacInfo.cltrsq" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.cractp" dest="ioInacInfo.cractp" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.crctbl" dest="ioInacInfo.crctbl" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.crcycd" dest="ioInacInfo.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.credbl" dest="ioInacInfo.credbl" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.drctbl" dest="ioInacInfo.drctbl" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.dredbl" dest="ioInacInfo.dredbl" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.inactp" dest="ioInacInfo.inactp" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.inrate" dest="ioInacInfo.inrate" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.ioflag" dest="ioInacInfo.ioflag" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.isbein" dest="ioInacInfo.isbein" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.ispaya" dest="ioInacInfo.ispaya" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.itemcd" dest="ioInacInfo.itemcd" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.kpacbr" dest="ioInacInfo.kpacbr" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.kpacfg" dest="ioInacInfo.kpacfg" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.lastbl" dest="ioInacInfo.lastbl" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.lastdn" dest="ioInacInfo.lastdn" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.lstrdt" dest="ioInacInfo.lstrdt" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.lstrsq" dest="ioInacInfo.lstrsq" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.noacml" dest="ioInacInfo.noacml" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.onlnbl" dest="ioInacInfo.onlnbl" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.onlndn" dest="ioInacInfo.onlndn" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.openbr" dest="ioInacInfo.openbr" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.opendt" dest="ioInacInfo.opendt" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.opener" dest="ioInacInfo.opener" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.optrsq" dest="ioInacInfo.optrsq" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.ovacml" dest="ioInacInfo.ovacml" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.ovmony" dest="ioInacInfo.ovmony" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.ovrate" dest="ioInacInfo.ovrate" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.paymac" dest="ioInacInfo.paymac" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.pmodtg" dest="ioInacInfo.pmodtg" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.reveac" dest="ioInacInfo.reveac" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.rlbltg" dest="ioInacInfo.rlbltg" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.subsac" dest="ioInacInfo.subsac" by_interface="true" on_top="true"/>
+                        <mapping src="inacInfo.totltg" dest="ioInacInfo.totltg" by_interface="true" on_top="true"/>
+                    </out_mappings>
+                </service>
+            </when>
+            <when id="selApntAcct" test="intype == #dict.ApBaseEnumType.E_INTYPE().ZDZH" longname="指定账户信息查询" desc="指定账户信息查询">
+                <service serviceName="IoInQuery.IoInacInfoQuery" id="inacInfoQuery" longname="指定内部户信息查询" desc="指定内部户信息查询">
+                    <in_mappings by_interface="true">
+                        <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true">
+                        <mapping src="cplInacInfo.acctna" dest="ioInacInfo.acctna" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.acctno" dest="ioInacInfo.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.acctst" dest="ioInacInfo.acctst" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.beintp" dest="ioInacInfo.beintp" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.blncdn" dest="ioInacInfo.blncdn" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.brchno" dest="ioInacInfo.brchno" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.busidn" dest="ioInacInfo.busidn" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.busino" dest="ioInacInfo.busino" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.busitp" dest="ioInacInfo.busitp" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.closdt" dest="ioInacInfo.closdt" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.closer" dest="ioInacInfo.closer" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.cltrsq" dest="ioInacInfo.cltrsq" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.cractp" dest="ioInacInfo.cractp" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.crctbl" dest="ioInacInfo.crctbl" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.crcycd" dest="ioInacInfo.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.credbl" dest="ioInacInfo.credbl" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.drctbl" dest="ioInacInfo.drctbl" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.dredbl" dest="ioInacInfo.dredbl" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.inactp" dest="ioInacInfo.inactp" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.inrate" dest="ioInacInfo.inrate" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.ioflag" dest="ioInacInfo.ioflag" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.isbein" dest="ioInacInfo.isbein" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.ispaya" dest="ioInacInfo.ispaya" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.itemcd" dest="ioInacInfo.itemcd" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.kpacbr" dest="ioInacInfo.kpacbr" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.kpacfg" dest="ioInacInfo.kpacfg" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.lastbl" dest="ioInacInfo.lastbl" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.lastdn" dest="ioInacInfo.lastdn" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.lstrdt" dest="ioInacInfo.lstrdt" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.lstrsq" dest="ioInacInfo.lstrsq" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.noacml" dest="ioInacInfo.noacml" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.onlnbl" dest="ioInacInfo.onlnbl" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.onlndn" dest="ioInacInfo.onlndn" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.openbr" dest="ioInacInfo.openbr" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.opendt" dest="ioInacInfo.opendt" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.opener" dest="ioInacInfo.opener" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.optrsq" dest="ioInacInfo.optrsq" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.ovacml" dest="ioInacInfo.ovacml" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.ovmony" dest="ioInacInfo.ovmony" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.ovrate" dest="ioInacInfo.ovrate" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.paymac" dest="ioInacInfo.paymac" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.pmodtg" dest="ioInacInfo.pmodtg" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.reveac" dest="ioInacInfo.reveac" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.rlbltg" dest="ioInacInfo.rlbltg" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.subsac" dest="ioInacInfo.subsac" by_interface="true" on_top="true"/>
+                        <mapping src="cplInacInfo.totltg" dest="ioInacInfo.totltg" by_interface="true" on_top="true"/>
+                    </out_mappings>
+                </service>
+                <method method="acctCheck" id="acctCheck" longname="账户检查" desc="账户检查"/>
+            </when>
+        </case>
+    </flow>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

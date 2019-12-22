@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="addptm" longname="批量增加产品存期控制信息" kind="account" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[批量增加产品存期控制信息]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <fields id="dpterms" alias="产品存期控制信息" scope="DpProdConfType.KupDppbTermList" required="true" multi="false" longname="产品存期控制" array="false">
+                <field id="dpterm" type="DpProdConfType.KupDppbTermInfo" required="true" multi="true" array="false" longname="产品存期控制"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="addKupDppbTerm" id="AddKupDppbTerm" longname="增加产品存期控制" desc="增加产品存期控制"/>
+    </flow>
+</flowtran>

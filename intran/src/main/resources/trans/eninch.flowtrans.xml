@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="eninch" longname="总账内部户调账" kind="1" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[总账内部户调账：调账时交易日期取总账日期]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="PbDict.Intr.crcycd"/>
+            <field id="tranam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="交易金额" ref="InDict.inac.tranam"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方帐号"/>
+            <field id="quotfs" type="BaseEnumType.E_YES___" required="false" default="1" multi="false" array="false" longname="交易金额大于零标志" desc="默认大于零"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="前置日期"/>
+            <field id="fronsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="前置流水"/>
+            <field id="dscrtx" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="描述"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acctno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="账号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="crctbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="贷方余额"/>
+            <field id="drctbl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="借方余额"/>
+            <field id="blncdn" type="InEnumType.E_BLNCDN" required="false" multi="false" array="false" longname="交易后余额方向"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="内部户名称" ref="InDict.inac.acctna"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号" ref="InDict.inac.subsac"/>
+        </output>
+        <property packMode="true">
+            <field id="isinac" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否内部户"/>
+            <field id="toisin" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="对方账户是否内部户"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="凭证号码"/>
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="acesno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号"/>
+            <field id="deptno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="tocardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="凭证号码"/>
+            <field id="tocustac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="toacesno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号"/>
+            <field id="todeptno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号"/>
+            <field id="tocustna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="内部户帐号名称"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号"/>
+            <field id="toacctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="对方账户名"/>
+            <field id="tosubsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="对方子账户"/>
+            <field id="linkno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="连笔号"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="BeforeTransferCheck" id="BeforeTransferCheck" longname="交易前检查" desc="交易前检查： 1、借方贷方账户不能相同 2、判断账户类型"/>
+        <case id="IaacdrCheck" longname="借方账户判断" desc="借方账户判断： 以“9”开头为内部户帐号 其他暂认为存款帐号">
+            <when id="DrIsInac" test="isinac==#dict.BaseEnumType.E_YES___().YES" longname="为内部户" desc="为内部户">
+                <service mappingToProperty="false" serviceName="IoInAccount.IoInAcdr" id="ioinacdr" longname="调账借方交易" desc="调账借方交易">
+                    <in_mappings by_interface="true">
+                        <mapping src="acctno" dest="input.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="toacct" dest="input.toacct" by_interface="true" on_top="true"/>
+                        <mapping src="toacctna" dest="input.toacna" by_interface="true" on_top="true"/>
+                        <mapping src="tosubsac" dest="input.tosbac" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="input.tranam" by_interface="true" on_top="true"/>
+                        <mapping src="acctna" dest="input.acctna" by_interface="true" on_top="true"/>
+                        <mapping src="dscrtx" dest="input.dscrtx" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true">
+                        <mapping src="output.acctno" dest="acctno" by_interface="true" on_top="true"/>
+                        <mapping src="output.blncdn" dest="blncdn" by_interface="true" on_top="true"/>
+                        <mapping src="output.crctbl" dest="crctbl" by_interface="true" on_top="true"/>
+                        <mapping src="output.drctbl" dest="drctbl" by_interface="true" on_top="true"/>
+                        <mapping src="output.tranam" dest="tranam" by_interface="true" on_top="true"/>
+                    </out_mappings>
+                </service>
+            </when>
+            <when id="DrIsNotInac" test="isinac==#dict.BaseEnumType.E_YES___().NO" longname="不为内部户时" desc="不为内部户时">
+                <service mappingToProperty="false" serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" longname="存款支取服务" desc="存款支取服务">
+                    <in_mappings by_interface="true">
+                        <mapping src="linkno" dest="cplDrawAcctIn.linkno" by_interface="true" on_top="true"/>
+                        <mapping src="deptno" dest="cplDrawAcctIn.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="acesno" dest="cplDrawAcctIn.acseno" by_interface="true" on_top="true"/>
+                        <mapping src="cardno" dest="cplDrawAcctIn.cardno" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="acctno" dest="cplDrawAcctIn.custac" by_interface="true" on_top="true"/>
+                        <mapping src="custna" dest="cplDrawAcctIn.opacna" by_interface="true" on_top="true"/>
+                        <mapping src="toacct" dest="cplDrawAcctIn.toacct" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="cplDrawAcctIn.tranam" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+            </when>
+        </case>
+        <case id="IaaccrCheck" longname="贷方帐号检查" desc="贷方交易检查">
+            <when id="CrIsInac" test="toisin==#dict.BaseEnumType.E_YES___().YES" longname="贷方为内部户时" desc="贷方为内部户时">
+                <service serviceName="IoInAccount.IoInAccr" id="IoInAccr" longname="调账贷方交易" desc="调账贷方交易">
+                    <in_mappings by_interface="true">
+                        <mapping src="toacct" dest="input.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="acctno" dest="input.toacct" by_interface="true" on_top="true"/>
+                        <mapping src="acctna" dest="input.tosbac" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="input.tranam" by_interface="true" on_top="true"/>
+                        <mapping src="acctna" dest="input.toacna" desc="description" by_interface="true" on_top="true"/>
+                        <mapping src="subsac" dest="input.tosbac" desc="description" by_interface="true" on_top="true"/>
+                        <mapping src="toacctna" dest="input.acctna" desc="description" by_interface="true" on_top="true"/>
+                        <mapping src="dscrtx" dest="input.dscrtx" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true">
+                        <mapping src="output.acctna" dest="acctna" by_interface="true" on_top="true"/>
+                        <mapping src="output.acctno" dest="acctno" by_interface="true" on_top="true"/>
+                        <mapping src="output.blncdn" dest="blncdn" by_interface="true" on_top="true"/>
+                        <mapping src="output.crctbl" dest="crctbl" by_interface="true" on_top="true"/>
+                        <mapping src="output.drctbl" dest="drctbl" by_interface="true" on_top="true"/>
+                        <mapping src="output.subsac" dest="subsac" by_interface="true" on_top="true"/>
+                        <mapping src="output.tranam" dest="tranam" by_interface="true" on_top="true"/>
+                    </out_mappings>
+                </service>
+            </when>
+            <when id="CrIsNotInac" test="toisin==#dict.BaseEnumType.E_YES___().NO" longname="贷方不为内部户时" desc="贷方不为内部户时">
+                <service mappingToProperty="false" serviceName="DpAcctSvcType.addPostAcctDp" id="addPostAcctDp" longname="存款存入交易" desc="存款存入交易">
+                    <in_mappings by_interface="true">
+                        <mapping src="linkno" dest="cplSaveAcctIn.linkno" by_interface="true" on_top="true"/>
+                        <mapping src="todeptno" dest="cplSaveAcctIn.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="toacesno" dest="cplSaveAcctIn.acseno" by_interface="true" on_top="true"/>
+                        <mapping src="tocardno" dest="cplSaveAcctIn.cardno" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="cplSaveAcctIn.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="toacct" dest="cplSaveAcctIn.custac" by_interface="true" on_top="true"/>
+                        <mapping src="tocustna" dest="cplSaveAcctIn.opacna" by_interface="true" on_top="true"/>
+                        <mapping src="acctno" dest="cplSaveAcctIn.toacct" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="cplSaveAcctIn.tranam" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+            </when>
+        </case>
+        <method method="AfterTransferCheck" id="AfterTransferCheck" longname="交易后检查" desc="交易后检查： 1、检查交易平衡性"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

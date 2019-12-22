@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qryslp" longname="查询电子账户休眠登记薄" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="slepst" type="CaEnumType.E_SLEPST" required="false" multi="false" array="false" longname="休眠状态" ref="CaDict.Eacct.slepst"/>
+            <field id="cardno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="startdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期"/>
+            <field id="stopdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="账户所属机构" ref="DpDict.Acct.brchno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="sleepInfoList" type="IoCaTypGenEAccountInfo.IoCaQrySlepInfo" required="false" multi="true" array="false" longname="电子账户休眠登记簿查询"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoCaSevQryAccout.IoCaQrySlep" id="QrySlep" longname="查询电子账户休眠登记簿列表信息" desc="查询电子账户休眠登记簿列表信息">
+            <in_mappings by_interface="true">
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="#run.pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="#run.pgsize" dest="pagesize" by_interface="true" on_top="true"/>
+                <mapping src="slepst" dest="slepst" by_interface="true" on_top="true"/>
+                <mapping src="startdt" dest="startdt" by_interface="true" on_top="true"/>
+                <mapping src="stopdt" dest="stopdt" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="sleepInfoList" dest="sleepInfoList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceImpl xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="IoInWriteOffImpl" longname="内部户转出及错账管理实现" serviceType="IoInWriteOff" package="cn.sunline.ltts.busi.in.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[内部户转出套平入账冲销
+错账管理记账冲销]]></description>
+</serviceImpl>

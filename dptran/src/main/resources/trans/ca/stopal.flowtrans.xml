@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="stopal" longname="电子账户停用" kind="2" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[电子账户停用]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="bkuprs" type="CaEnumType.E_BKUPRS" required="false" multi="false" array="false" longname="停用原因"/>
+            <field id="dclrna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="声明人姓名"/>
+            <field id="dclrtl" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="声明人联系方式"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="remark" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="备注" ref="DpDict.Acct.remark"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoCaSrvGenEAccountInfo.IoCaStopAc" id="IoCaStopAc" longname="电子账户停用">
+            <in_mappings by_interface="true">
+                <mapping src="bkuprs" dest="bkuprs" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="dclrna" dest="dclrna" by_interface="true" on_top="true"/>
+                <mapping src="dclrtl" dest="dclrtl" by_interface="true" on_top="true"/>
+                <mapping src="remark" dest="remark" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="idtftp" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="idtfno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpsasv" longname="子户存入" kind="account" package="cn.sunline.ltts.busi.dptran.trans.online" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.intf">
+        <input packMode="true">
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称" ref="DpDict.Acct.acctna"/>
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.custac"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号" ref="InDict.inac.toacct"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="dpsasvCheck" id="dpsasvCheck" longname="子户存入检查" desc="子户存入检查"/>
+        <service serviceName="DpAcctSvcType.addDrawAcctDp" id="custacDraw" longname="电子账号支取" desc="电子账号支取">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="cplDrawAcctIn.acctno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cplDrawAcctIn.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplDrawAcctIn.custac" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="cplDrawAcctIn.opacna" by_interface="true" on_top="true"/>
+                <mapping src="toacct" dest="cplDrawAcctIn.toacct" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplDrawAcctIn.tranam" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="DpAcctSvcType.addPostAcctDp" id="dpsasv" longname="子户存入" desc="实现子户存入">
+            <in_mappings by_interface="true">
+                <mapping src="toacct" dest="cplSaveAcctIn.acctno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cplSaveAcctIn.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplSaveAcctIn.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplSaveAcctIn.custac" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="cplSaveAcctIn.opacna" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cplSaveAcctIn.toacct" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplSaveAcctIn.tranam" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

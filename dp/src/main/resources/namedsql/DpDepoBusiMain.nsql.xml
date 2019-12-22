@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpDepoBusiMain" longname="电子子账户复合sql" package="cn.sunline.ltts.busi.dp.tables.online" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="querySubAcctByAcctIdOrCardNo" longname="根据主账户卡号查询电子子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="acctno" ref="DpDict.Acct.acctno" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="负债账号" parameterType="condition"/>
+            <parameter property="custno" ref="DpDict.Acct.custno" jdbcType="VARCHAR" javaType="BaseType.U_CUSTNO" mode="in" longname="客户号" parameterType="condition"/>
+            <parameter property="acctna" ref="DpDict.Acct.acctna" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNA" mode="in" longname="账户名称" parameterType="condition"/>
+            <parameter property="cardno" ref="DpDict.Acct.cardno" jdbcType="VARCHAR" javaType="BaseType.U_CARDNO" mode="in" longname="卡号" parameterType="condition"/>
+            <parameter property="acctid" ref="DpDict.Acct.acctid" jdbcType="VARCHAR" javaType="BaseType.U_CHAR30" mode="in" longname="子账户开户标识" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAcctType.AcctSbad"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select ct.acctno, ct.acsetp, ct.acctna, ct.custno, ct.crcycd, ct.csextg, ct.depttm, ct.matudt,ct.bgindt, ct.brchno, ct.opendt, ct.opensq, ct.closdt, ct.clossq, ct.onlnbl, ct.upbldt, ct.lastbl, ct.lstrdt, ct.lstrsq, ct.prodcd, ct.pddpfg, ct.hdmxmy, ct.hdmimy, ct.custac, ct.trsvtp, ct.bkmony, ct.opmony, ct.debttp, ct.acctst, ct.sleptg, ct.spectp, ct.accttp, ct.acctcd, ct.deptdy, ct.isdrft, ct.corpno, ct.tmstmp,ad.mactid,ad.BRADNA,ad.SBRAND, 
+            ad.acctid ,ka.cardno
+ from kna_acct ct
+ left join kna_sbad ad on ad.acctno=ct.acctno
+LEFT JOIN kna_acdc ka ON ka.CUSTAC = ct.CUSTAC]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="acctno !=null&amp;&amp;acctno !=''" type="If">
+                        <str type="Str"><![CDATA[ct.acctno=#acctno#]]></str>
+                    </if>
+                    <if test="cardno !=null&amp;&amp;cardno !=''" type="If">
+                        <str type="Str"><![CDATA[ka.cardno=#cardno# ]]></str>
+                    </if>
+                    <if test="custno !=null&amp;&amp;custno!=''" type="If">
+                        <str type="Str"><![CDATA[ct.custno=#custno#]]></str>
+                    </if>
+                    <if test="acctna !=null&amp;&amp;acctna !=''" type="If">
+                        <str type="Str"><![CDATA[ct.acctna=#acctna#]]></str>
+                    </if>
+                    <if test="acctid !=null&amp;&amp;acctid !=''" type="If">
+                        <str type="Str"><![CDATA[ad.acctid=#acctid#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="querySubAcctByCardNo" longname="根据主账户卡号查询电子子账户信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="string" mode="in" longname="主电子账号卡号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAcctType.AcctSub"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select ad.cardno,ac.acctno,ac.acctna,sb.acctid from kna_acct ac left join kna_acdc ad ON ac.custac = ad.custac left JOIN kna_sbad sb ON ac.acctno = sb.acctno]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="cardno !=null&amp;&amp;cardno !=''" type="If">
+                        <str type="Str"><![CDATA[ad.cardno=#cardno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="queryAcctOnlnbl" longname="查询子户当前余额">
+        <parameterMap class="java.util.Map">
+            <parameter property="inmeid" jdbcType="VARCHAR" javaType="string" mode="in" longname="内部商户号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.String"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[SELECT ac.ONLNBL FROM kna_acct ac,KNA_SBAD sb]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[ ac.acctno = sb.acctno]]></str>
+                    <if test="inmeid !=null&amp;&amp;inmeid !=''" type="If">
+                        <str type="Str"><![CDATA[sb.ACCTID = #inmeid#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+</sqls>

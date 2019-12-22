@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="selupd" longname="修改登记簿信息查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[修改登记簿信息查询]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.qt.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="bgindt" type="LnBaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期" ref="LnDict.LNF.bgindt"/>
+            <field id="matudt" type="LnBaseType.U_DATE08" required="false" multi="false" array="false" longname="到期日期" ref="LnDict.LNF.matudt"/>
+            <field id="mantwy" type="CaEnumType.E_MANTWY" required="false" multi="false" array="false" longname="维护方式" ref="CaDict.Eacct.mantwy"/>
+            <field id="servtp" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="渠道"/>
+            <field id="orgnbr" type="CcBaseType.U_ORGNBR" required="false" multi="false" array="false" longname="机构号" ref="CcDict.Lion.orgnbr"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="selupdInfoList" type="IoCaTypGenEAccountInfo.IoCaQryModInfoList" required="false" multi="true" array="false" longname="电子账户修改登记簿信息"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pagesize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="每页记录数"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qryModInfo" id="qryModInfo" longname="交易前处理"/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryMod" id="qryModInfo" longname="查询修改登记簿信息">
+            <in_mappings by_interface="true">
+                <mapping src="bgindt" dest="bgindt" desc="起始时间" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" desc="卡号" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="idtfno" desc="证件号码" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="idtftp" desc="证件类型" by_interface="true" on_top="true"/>
+                <mapping src="mantwy" dest="mantwy" desc="维护方式" by_interface="true" on_top="true"/>
+                <mapping src="matudt" dest="matudt" desc="终止日期" by_interface="true" on_top="true"/>
+                <mapping src="orgnbr" dest="orgnbr" desc="操作机构" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" desc="页码" by_interface="true" on_top="true"/>
+                <mapping src="pagesize" dest="pagesize" desc="页容量" by_interface="true" on_top="true"/>
+                <mapping src="servtp" dest="servtp" desc="交易渠道" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="selupdInfoList" dest="selupdInfoList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

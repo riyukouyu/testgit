@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpAccounting" package="cn.sunline.edsp.busi.dp.type.ca" longname="即富通用记账相关复核类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <complexType id="DpCommAcctNormInput" longname="即富存款通用记账标准输入" dict="false" abstract="false" introduct="false">
+        <element id="cltrsq" longname="清结算流水" type="BaseType.U_CHAR32" ref="DpRiskDict.JfDp.cltrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cltrdt" longname="清结算日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cltrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ischck" longname="对账标志" type="BaseEnumType.E_YES___" ref="DpRiskDict.JfDp.ischck" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cktrdt" longname="对账日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cktrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jftrtp" longname="记账交易类型" type="JfDpEnumType.E_JFTRTP" ref="DpRiskDict.JfDp.jftrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clertp" longname="即富清算记账类型" type="JfDpEnumType.E_JFCLTP" ref="DpRiskDict.JfDp.clertp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="posnum" longname="内部终端号码" type="BaseType.U_CHAR30" ref="DpRiskDict.JfDp.posnum" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户号" type="BaseType.U_CHAR25" ref="DpRiskDict.JfDp.inmeid" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ysunam" longname="应收银联待清算交易金额" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.ysunam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="yfmcam" longname="应付商户存款交易金额" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.yfmcam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="divdam" longname="分润费用收入" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.divdam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="divdfe" longname="冲抵分润费用收入（抵用券）" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.divdfe" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="unamfe" longname="冲抵应收账款交易金额（银联手续费）" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.unamfe" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" ref="BaseDict.Comm.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="voucfe" longname="活动抵扣" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.voucfe" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="markfe" longname="总抵扣 |基础抵扣 |D0抵扣 |附加抵扣 " type="BaseType.U_CHAR100" ref="DpRiskDict.JfDp.markfe" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkno" longname="交易对手卡账号" type="BaseType.U_CHAR64" ref="DpRiskDict.JfDp.pabkno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pabkna" longname="交易对手户名" type="BaseType.U_CHAR200" ref="DpRiskDict.JfDp.pabkna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="otbkna" longname="交易对手账户开户行号" type="BaseType.U_CHAR100" ref="DpRiskDict.JfDp.otbkna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pameno" longname="支付商户号" type="BaseType.U_CHAR50" ref="DpRiskDict.JfDp.pameno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="pamena" longname="支付商户号名称" type="BaseType.U_CHAR80" ref="DpRiskDict.JfDp.pamena" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chantp" longname="交易渠道" type="JfDpEnumType.E_CHANTP" ref="DpRiskDict.JfDp.chantp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svcode" longname="服务编码" type="JfDpEnumType.E_SERVCD" ref="DpRiskDict.JfDp.svcode" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算类型" type="JfDpEnumType.E_FINSTY" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="booktp" longname="挂账类型" type="JfDpEnumType.E_JFCPTP" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="BaseType.U_SMRYCD" ref="BaseDict.Comm.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountingInput" longname="通用记账输入类型" dict="false" abstract="false" introduct="false">
+        <element id="accountList" longname="账户记账输入列表" type="DpAccounting.DpAccountInput" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busiList" longname="业务编码记账输入" type="DpAccounting.DpBusiInput" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="summonsInut" longname="登记传票输入" type="DpAccounting.DpInsertSummonsInput" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpBusiInput" longname="业务编码记账输入" dict="false" abstract="false" introduct="false">
+        <element id="acbrch" longname="账户机构" type="BaseType.U_BRCHNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busino" longname="业务编码" type="TaBaseType.U_BYTE32" required="false" desc="业务编码" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" ref="BaseDict.Comm.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jfactp" longname="交易记账方式" type="JfDpEnumType.E_JFACTP" ref="DpRiskDict.JfDp.jfactp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toacna" longname="对方户名" type="BaseType.U_ACCTNA" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="BaseType.U_SMRYCD" ref="BaseDict.Comm.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpInsertSummonsInput" longname="登记传票输入" dict="false" abstract="false" introduct="false">
+        <element id="busidn" longname="业务代码方向" type="InEnumType.E_BLNCDN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="accountingIntf" longname="登记传票信息" type="IoAccountComplexType.IoAccounttingIntf" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountInput" longname="账户记账输入" dict="false" abstract="false" introduct="false">
+        <element id="acctno" longname="负债账号" type="BaseType.U_ACCTNO" ref="DpDict.Acct.acctno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="LnBaseType.U_ACBLTP" ref="LnDict.LNF.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cardno" longname="卡号" type="BaseType.U_CARDNO" ref="DpDict.Acct.cardno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="custac" longname="客户账号" type="BaseType.U_CUACNO" ref="DpDict.Acct.custac" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="toacct" longname="对方账号" type="BaseType.U_ACCTNO" ref="InDict.inac.toacct" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="opacna" longname="对方户名" type="BaseType.U_ACCTNA" ref="DpDict.Acct.opacna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="BaseType.U_SMRYCD" ref="BaseDict.Comm.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="detlsq" longname="明细序号" type="BaseType.U_LONGIN" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jfactp" longname="交易记账方式" type="JfDpEnumType.E_JFACTP" ref="DpRiskDict.JfDp.jfactp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注" type="BaseType.U_SHORDS" ref="DpDict.Acct.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ischck" longname="对账标志" type="BaseEnumType.E_YES___" ref="DpRiskDict.JfDp.ischck" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountingOutput" longname="通用记账输出类型" dict="false" abstract="false" introduct="false">
+        <element id="mntrsq" longname="交易流水" type="BaseType.U_SEQUNO" ref="DpRiskDict.JfDp.mntrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrdt" longname="交易日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.mntrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="mntrtm" longname="交易时间" type="BaseType.U_TRTMCH" ref="DpRiskDict.JfDp.mntrtm" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountBackInput" longname="退单交易输入参数" dict="false" abstract="false" introduct="false">
+        <element id="cltrsq" longname="清结算流水" type="BaseType.U_CHAR32" ref="DpRiskDict.JfDp.cltrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cltrdt" longname="清结算日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cltrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ischck" longname="对账标志" type="BaseEnumType.E_YES___" ref="DpRiskDict.JfDp.ischck" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="smrycd" longname="摘要代码" type="BaseType.U_SMRYCD" ref="BaseDict.Comm.smrycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cktrdt" longname="对账日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cktrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jftrtp" longname="记账交易类型" type="JfDpEnumType.E_JFTRTP" ref="DpRiskDict.JfDp.jftrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chantp" longname="交易渠道" type="JfDpEnumType.E_CHANTP" ref="DpRiskDict.JfDp.chantp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算类型" type="JfDpEnumType.E_FINSTY" ref="DpRiskDict.JfDp.finsty" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstLedger" longname="记账复核类型" type="DpAccounting.DpAccountBackParam" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountBackParam" longname="退单记账复核类型" dict="false" abstract="false" introduct="false">
+        <element id="bigbnd" longname="项目组编号" type="BaseType.U_CHAR40" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="sbrand" longname="品牌" type="BaseType.U_CHAR30" ref="DpDict.Acct.sbrand" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="odfrno" longname="原申请编号" type="BaseType.U_SEQUNO" ref="DpRiskDict.Thaw.odfrno" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户ID" type="BaseType.U_CHAR25" ref="PbDict.JFD.inmeid" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jfcttp" longname="退单记账账户类型" type="JfDpEnumType.E_JFCTTP" ref="DpRiskDict.JfDp.jfcttp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svcode" longname="服务编码" type="JfDpEnumType.E_SERVCD" ref="DpRiskDict.JfDp.svcode" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="amntcd" longname="借贷标志" type="BaseEnumType.E_AMNTCD" ref="BaseDict.Comm.amntcd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="tranam" longname="交易金额" type="BaseType.U_TRANAM" ref="BaseDict.Comm.tranam" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountClearInput" longname="清算记账输入参数" dict="false" abstract="false" introduct="false">
+        <element id="cltrsq" longname="清结算流水" type="BaseType.U_CHAR32" ref="DpRiskDict.JfDp.cltrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cltrdt" longname="清结算日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cltrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ischck" longname="对账标志" type="BaseEnumType.E_YES___" ref="DpRiskDict.JfDp.ischck" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cktrdt" longname="对账日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cktrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jftrtp" longname="记账交易类型" type="JfDpEnumType.E_JFTRTP" ref="DpRiskDict.JfDp.jftrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="chantp" longname="交易渠道" type="JfDpEnumType.E_CHANTP" ref="DpRiskDict.JfDp.chantp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="crcycd" longname="币种" type="BaseType.U_CRCYCD" ref="BaseDict.Comm.crcycd" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="clertp" longname="即富清算记账类型" type="JfDpEnumType.E_JFCLTP" ref="DpRiskDict.JfDp.clertp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="lstLedger" longname="记账复核类型" type="DpAccounting.DpAccountClearParam" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountClearParam" longname="清算记账复核类型" dict="false" abstract="false" introduct="false">
+        <element id="sbrand" longname="品牌" type="BaseType.U_CHAR30" ref="DpDict.Acct.sbrand" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="svcode" longname="服务编码" type="JfDpEnumType.E_SERVCD" ref="DpRiskDict.JfDp.svcode" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ystram" longname="应收账款金额" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.ystram" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cetram" longname="轧差差额金额" type="BaseType.U_TRANAM" ref="DpRiskDict.JfDp.cetram" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="finsty" longname="结算类型" type="JfDpEnumType.E_FINSTY" ref="DpRiskDict.JfDp.finsty" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="DpAccountStrkeInput" longname="即富记账冲正输入参数" dict="false" abstract="false" introduct="false">
+        <element id="cltrsq" longname="清结算流水" type="BaseType.U_CHAR32" ref="DpRiskDict.JfDp.cltrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cltrdt" longname="清结算日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cltrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ischck" longname="对账标志" type="BaseEnumType.E_YES___" ref="DpRiskDict.JfDp.ischck" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="cktrdt" longname="对账日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.cktrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="jftrtp" longname="记账交易类型" type="JfDpEnumType.E_JFTRTP" ref="DpRiskDict.JfDp.jftrtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="inmeid" longname="内部商户号" type="BaseType.U_CHAR25" ref="DpRiskDict.JfDp.inmeid" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ortrsq" longname="原交易流水" type="BaseType.U_CHAR32" ref="DpRiskDict.JfDp.ortrsq" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ortrdt" longname="原交易日期" type="BaseType.U_DATE08" ref="DpRiskDict.JfDp.ortrdt" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="remark" longname="备注信息" type="BaseType.U_LONGDS" ref="BaseDict.Comm.remark" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

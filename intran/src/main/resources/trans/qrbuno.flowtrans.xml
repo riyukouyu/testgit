@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrbuno" longname="分页查询业务代码和名称" kind="1" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务代码" ref="InDict.inac.busino"/>
+        </input>
+        <output asParm="false" packMode="false">
+            <field id="businoInfo" type="IoInQueryTypes.IoBusinoName" required="false" multi="true" array="false" longname="业务代码和名称"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelBusinoAndBusina" id="selBusinoAndBusina" longname="分页查询业务代码和名称">
+            <in_mappings by_interface="true">
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="#run.pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="#run.pgsize" dest="pgsize" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="businoInfo" dest="businoInfo" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdpai" longname="查询电子账户存款类子账户信息(柜面)" kind="1" package="cn.sunline.ltts.busi.catran.trans.online.ecct" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.online.ecct.intf">
+        <input packMode="true">
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="prodtp" type="CaEnumType.E_PRODTP" required="false" multi="false" array="false" longname="产品类型" ref="CaDict.Eacct.prodtp"/>
+            <field id="acctst" type="CaEnumType.E_CUACST" required="false" multi="false" array="false" longname="客户账户状态"/>
+            <field id="qracwy" type="BaseEnumType.E_QRACWY" required="false" multi="false" array="false" longname="查询方式"/>
+            <field id="qractp" type="BaseEnumType.E_QRYCTP" required="false" multi="false" array="false" longname="查询类型"/>
+            <field id="depttm" type="BaseEnumType.E_TERMCD" required="false" multi="false" array="false" longname="存期"/>
+            <field id="astate" type="yht.E_ASTATE" required="false" multi="false" array="false" longname="资产状态"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号"/>
+            <field id="proyht" type="CaEnumType.E_PROYHT" required="false" multi="false" array="false" longname="银户通产品类型"/>
+            <fields id="acctList" scope="YhtComplexType.acctList" required="false" multi="true" longname="账号列表" array="false">
+                <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号"/>
+                <field id="accatp" type="yht.E_ACCATP" required="false" multi="false" array="false" longname="账户类型"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="dpacctInfoList" type="IoCaTypGenEAccountInfo.IoCaDpacctInfo" required="false" multi="true" array="false" longname="存款类子账户信息列表"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="IoCaSevAccountQuery.IoCaQueryDpAcctInfo" id="qryDpacctInfo" longname="查询电子账户存款类子账户信息" desc="查询电子账户存款类子账户信息">
+            <in_mappings by_interface="true">
+                <mapping src="crcycd" dest="cplQracctIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cplQracctIn.cardno" desc="卡号" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="cplQracctIn.idtftp" desc="证件类型" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="cplQracctIn.idtfno" desc="证件号码" by_interface="true" on_top="true"/>
+                <mapping src="prodtp" dest="cplQracctIn.prodtp" desc="查询产品类型" by_interface="true" on_top="true"/>
+                <mapping src="acctst" dest="cplQracctIn.cuacst" desc="电子账户状态" by_interface="true" on_top="true"/>
+                <mapping src="#run.pgsize" dest="cplQracctIn.pgsize" desc="页容量" by_interface="true" on_top="true"/>
+                <mapping src="#run.pageno" dest="cplQracctIn.pageno" desc="页码" by_interface="true" on_top="true"/>
+                <mapping src="qractp" dest="cplQracctIn.qractp" desc="查询类型" by_interface="true" on_top="true"/>
+                <mapping src="qracwy" dest="cplQracctIn.qracwy" desc="查询方式" by_interface="true" on_top="true"/>
+                <mapping src="depttm" dest="cplQracctIn.depttm" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="astate" dest="cplQracctIn.astate" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="cplQracctIn.prodcd" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="acctList" dest="cplQracctIn.acctList" desc="账号列表" by_interface="true" on_top="true"/>
+                <mapping src="proyht" dest="cplQracctIn.proyht" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplDpacctInfos.cplQracctInfo" dest="dpacctInfoList" desc="存款类子账户信息" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

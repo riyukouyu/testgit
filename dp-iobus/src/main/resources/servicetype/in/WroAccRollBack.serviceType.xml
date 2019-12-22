@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="WroAccRollBack" kind="business" longname="错账冲正" package="cn.sunline.ltts.busi.in.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[错账冲正]]></description>
+    <service id="SelNestqr" name="selNestqr" longname="隔日错账冲正信息查询">
+        <interface>
+            <input packMode="false">
+                <field id="prtrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="原交易日期" ref="InDict.wrac.prtrdt"/>
+                <field id="prtrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="原交易流水" ref="InDict.wrac.prtrsq"/>
+                <field id="wronbr" type="BaseType.U_WRONBR" required="false" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="套号"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="prtrdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="原交易日期" ref="InDict.wrac.prtrdt"/>
+                <field id="prtrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="原交易流水" ref="InDict.wrac.prtrsq"/>
+                <field id="wronbr" type="BaseType.U_WRONBR" required="false" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="wronte" type="BaseType.U_USERID" required="false" multi="false" array="false" longname="原错账经办柜员" ref="InDict.wrac.wronte"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+                <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因" ref="InDict.wrac.reason"/>
+                <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号1"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+                <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇属性"/>
+                <field id="rebuwo" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字"/>
+                <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+                <field id="happbl" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额" ref="InDict.wrac.happbl"/>
+                <field id="charlg" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志"/>
+                <field id="paydListInfoFirst" type="InAcctTranOut.PaydListInfo" required="false" multi="true" array="false" longname="销账明细1"/>
+                <field id="payaListInfoFirst" type="InAcctTranOut.PayaListInfo" required="false" multi="true" array="false" longname="挂账明细1"/>
+                <field id="custaa" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="账号2"/>
+                <field id="acctme" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称2"/>
+                <field id="crcyce" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种2"/>
+                <field id="csexte" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇属性2"/>
+                <field id="rebuwa" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字2"/>
+                <field id="amntca" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志2"/>
+                <field id="happba" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额2"/>
+                <field id="charla" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志2"/>
+                <field id="result" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因"/>
+                <field id="trantp" type="BaseEnumType.E_STTRTP" required="false" multi="false" array="false" longname="交易类型"/>
+                <field id="strkst" type="InEnumType.E_STRKST" required="false" multi="false" array="false" longname="错账冲正状态" ref="InDict.wrac.strkst"/>
+                <field id="paydListInfoSecond" type="InAcctTranOut.PaydListSecond" required="false" multi="true" array="false" longname="销账明细2"/>
+                <field id="payaListInfoSecond" type="InAcctTranOut.PayaListSecond" required="false" multi="true" array="false" longname="挂账明细2"/>
+                <field id="tranus" type="PbBaseType.U_USERID" required="false" multi="false" array="false" longname="交易柜员" ref="PbDict.Charge.tranus"/>
+                <field id="chckus" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="复核柜员"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="InsNestbk" name="insNestbk" longname="隔日错账冲正录入或修改">
+        <interface>
+            <input packMode="true">
+                <field id="operwy" type="InEnumType.E_OPERWY" required="true" multi="false" array="false" longname="操作方式" ref="InDict.wrac.operwy"/>
+                <field id="trantp" type="BaseEnumType.E_STTRTP" required="false" multi="false" array="false" longname="交易类型"/>
+                <field id="prtrdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="原交易日期" ref="InDict.wrac.prtrdt"/>
+                <field id="prtrsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="原交易流水" ref="InDict.wrac.prtrsq"/>
+                <field id="wronbr" type="BaseType.U_WRONBR" required="true" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="wronte" type="BaseType.U_USERID" required="true" multi="false" array="false" longname="原错账经办柜员" ref="InDict.wrac.wronte"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+                <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因" ref="InDict.wrac.reason"/>
+                <field id="custac" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="账号1"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+                <field id="csextg" type="BaseEnumType.E_CSEXTG" required="true" multi="false" array="false" longname="钞汇属性"/>
+                <field id="rebuwo" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字"/>
+                <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+                <field id="happbl" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额" ref="InDict.wrac.happbl"/>
+                <field id="charlg" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志"/>
+                <field id="paydListInfoFirst" type="InAcctTranOut.PaydListInfo" required="false" multi="true" array="false" longname="销账明细1"/>
+                <field id="payaListInfoFirst" type="InAcctTranOut.PayaListInfo" required="false" multi="true" array="false" longname="挂账明细1"/>
+                <field id="custaa" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="账号2"/>
+                <field id="acctme" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称2"/>
+                <field id="crcyce" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种2"/>
+                <field id="csexte" type="BaseEnumType.E_CSEXTG" required="true" multi="false" array="false" longname="钞汇属性2"/>
+                <field id="rebuwa" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字2"/>
+                <field id="amntca" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志2"/>
+                <field id="happba" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额2"/>
+                <field id="charla" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志2"/>
+                <field id="paydListInfoSecond" type="InAcctTranOut.PaydListSecond" required="false" multi="true" array="false" longname="销账明细2"/>
+                <field id="payaListInfoSecond" type="InAcctTranOut.PayaListSecond" required="false" multi="true" array="false" longname="挂账明细2"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="acstno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号" ref="InDict.inac.acstno"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="ChkNestck" name="chkNestck" longname="隔日错账冲正复核">
+        <interface>
+            <input packMode="true">
+                <field id="operwy" type="InEnumType.E_OPERWZ" required="true" multi="false" array="false" longname="操作方式"/>
+                <field id="trantp" type="BaseEnumType.E_STTRTP" required="false" multi="false" array="false" longname="交易类型"/>
+                <field id="prtrdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="原交易日期" ref="InDict.wrac.prtrdt"/>
+                <field id="prtrsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="原交易流水" ref="InDict.wrac.prtrsq"/>
+                <field id="wronbr" type="BaseType.U_WRONBR" required="true" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="wronte" type="BaseType.U_USERID" required="true" multi="false" array="false" longname="原错账经办柜员" ref="InDict.wrac.wronte"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+                <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因" ref="InDict.wrac.reason"/>
+                <field id="custac" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="账号1"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+                <field id="csextg" type="BaseEnumType.E_CSEXTG" required="true" multi="false" array="false" longname="钞汇属性"/>
+                <field id="rebuwo" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字"/>
+                <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+                <field id="happbl" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额" ref="InDict.wrac.happbl"/>
+                <field id="charlg" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志"/>
+                <field id="paydListInfoFirst" type="InAcctTranOut.PaydListInfo" required="false" multi="true" array="false" longname="销账明细1"/>
+                <field id="payaListInfoFirst" type="InAcctTranOut.PayaListInfo" required="false" multi="true" array="false" longname="挂账明细1"/>
+                <field id="custaa" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="账号2"/>
+                <field id="acctme" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称2"/>
+                <field id="crcyce" type="BaseType.U_CRCYCD" required="true" multi="false" array="false" longname="币种2"/>
+                <field id="csexte" type="BaseEnumType.E_CSEXTG" required="true" multi="false" array="false" longname="钞汇属性2"/>
+                <field id="rebuwa" type="InEnumType.E_REBUWA" required="true" multi="false" array="false" longname="红蓝字2"/>
+                <field id="amntca" type="BaseEnumType.E_AMNTCD" required="true" multi="false" array="false" longname="借贷标志2"/>
+                <field id="happba" type="BaseType.U_HAPPBL" required="true" multi="false" array="false" longname="发生额2"/>
+                <field id="charla" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志2"/>
+                <field id="paydListInfoSecond" type="InAcctTranOut.PaydListSecond" required="false" multi="true" array="false" longname="销账明细2"/>
+                <field id="payaListInfoSecond" type="InAcctTranOut.PayaListSecond" required="false" multi="true" array="false" longname="挂账明细2"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="AccNestcm" name="accNestcm" longname="隔日错账冲正入账">
+        <interface>
+            <input packMode="true">
+                <field id="prtrdt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="原交易日期" ref="InDict.wrac.prtrdt"/>
+                <field id="prtrsq" type="BaseType.U_SEQUNO" required="true" multi="false" array="false" longname="原交易流水" ref="InDict.wrac.prtrsq"/>
+                <field id="wronbr" type="BaseType.U_WRONBR" required="true" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+                <field id="otacno" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="客户账号1"/>
+                <field id="inacno" type="PbBaseType.U_CUSTAC" required="false" multi="false" array="false" longname="客户账号2"/>
+                <field id="amntcd1" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志1"/>
+                <field id="amntcd2" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志2"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="SelQrstrk" name="selQrstrk" longname="错账冲正查询">
+        <interface>
+            <input packMode="false">
+                <field id="wroAccQueryInput" type="InWroAccManagerType.StrkpsQryIn" required="true" multi="false" array="false" longname="隔日错账查询输入"/>
+            </input>
+            <output asParm="true" packMode="true">
+                <field id="count" type="long" required="false" multi="false" array="false" longname="记录数"/>
+                <field id="strkpsInfoList" type="InWroAccManagerType.StrkpsInfo" required="false" multi="true" array="false" longname="错账冲正详情"/>
+            </output>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="Acctclebr" name="acctclebr" longname="跨系统清算服务">
+        <interface>
+            <input packMode="false">
+                <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+                <field id="tranam" type="PbBaseType.U_DEC172" required="false" multi="false" array="false" longname="交易金额" ref="PbDict.Intr.tranam"/>
+                <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+            </input>
+            <output asParm="true" packMode="true"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+    <service id="InAccNestcm" name="inAccNestcm" longname="内部户隔日错账冲正入账">
+        <interface>
+            <input packMode="true">
+                <field id="wronbr" type="BaseType.U_WRONBR" required="false" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+                <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因" ref="InDict.wrac.reason"/>
+                <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="记账账号"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+                <field id="rebuwo" type="InEnumType.E_REBUWA" required="false" multi="false" array="false" longname="红蓝字"/>
+                <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+                <field id="happbl" type="BaseType.U_HAPPBL" required="false" multi="false" array="false" longname="发生额" ref="InDict.wrac.happbl"/>
+                <field id="charlg" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志"/>
+                <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号"/>
+            </input>
+            <output asParm="true" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="InOutTableAccount" name="InOutTableAccount" longname="内部户错账调整表外记账">
+        <interface>
+            <input packMode="true">
+                <field id="wronbr" type="BaseType.U_WRONBR" required="false" multi="false" array="false" longname="原错账机构" ref="InDict.wrac.wronbr"/>
+                <field id="numbsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="套号"/>
+                <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="错账原因" ref="InDict.wrac.reason"/>
+                <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号1"/>
+                <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+                <field id="rebuwo" type="InEnumType.E_REBUWA" required="false" multi="false" array="false" longname="红蓝字"/>
+                <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志" ref="BaseDict.Comm.amntcd"/>
+                <field id="happbl" type="BaseType.U_HAPPBL" required="false" multi="false" array="false" longname="发生额" ref="InDict.wrac.happbl"/>
+                <field id="charlg" type="InEnumType.E_PAYATP" required="false" multi="false" array="false" longname="挂销账标志"/>
+            </input>
+            <output asParm="true" packMode="true"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

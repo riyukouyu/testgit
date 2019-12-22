@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrytem" longname="查询产品模板" kind="3" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询产品模块]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" fixed="" default="" multi="false" array="false" longname="业务大类" desc="" ref="DpDict.Prod.busibi"/>
+            <field id="modena" type="BaseType.U_CHAR40" required="false" fixed="" default="" multi="false" array="false" longname="模板名称" desc="" ref="DpDict.Prod.modena"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="modeOutput" alias="" type="DpProdType.kupModeqryInfo" required="false" fixed="" default="" multi="true" array="false" longname="查询产品模板输出" desc="" ref=""/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="qrytem" id="qrytem" test="" longname="查询产品模板" desc="查询产品模板"/>
+    </flow>
+</flowtran>

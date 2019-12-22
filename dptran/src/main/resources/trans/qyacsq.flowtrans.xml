@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qyacsq" longname="查询业务流水信息" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始交易日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止交易日期"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" ref="DpDict.Acct.cardno"/>
+            <field id="sortno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="记录序号"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" required="false" multi="false" array="false" longname="借贷标志"/>
+            <field id="atowtp" type="PbEnumType.E_ATOWTP" required="false" multi="false" array="false" longname="会计主体"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="bradna" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="品牌名称"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="ioKnsAcsqInfo" type="IoCaTypGenEAccountInfo.IoKnsAcsqInfoWithBradna" required="false" multi="true" array="false" longname="业务流水信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="IoAccountSvcType.IogetKnsAcsqWithBradna" id="IogetKnsAcsqWithBradna" longname="查询业务流水信息(带品牌名称)">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="bgindt" dest="bgindt" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="endddt" dest="endddt" by_interface="true" on_top="true"/>
+                <mapping src="mntrsq" dest="mntrsq" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="knsAcsqInfoList" dest="ioKnsAcsqInfo" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

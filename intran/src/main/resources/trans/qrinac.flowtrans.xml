@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrinac" longname="根据条件查询内部户列表查询" kind="1" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="内部户账号" ref="InDict.inac.acctno"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="内部户名称" ref="InDict.inac.acctna"/>
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务代码" ref="InDict.inac.busino"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+            <field id="inactp" type="BaseEnumType.E_INACTP" required="false" multi="false" array="false" longname="内部户账户类型" ref="InDict.inac.inactp"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号" ref="InDict.inac.subsac"/>
+            <field id="qurytp" type="BaseEnumType.E_QURYTP" required="false" multi="false" array="false" longname="余额查询方式"/>
+            <field id="isrept" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否报表查询"/>
+        </input>
+        <output asParm="false" packMode="false">
+            <field id="ioInacInfo" type="IoInQueryTypes.IoInacInfo" required="false" multi="true" array="false" longname="内部户信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelInacInfoByConditions" id="IoSelInacInfoByConditions" longname="根据条件查询内部户列表信息">
+            <in_mappings by_interface="true">
+                <mapping src="acctna" dest="acctna" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="brchno" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="inactp" dest="inactp" by_interface="true" on_top="true"/>
+                <mapping src="isrept" dest="isrept" by_interface="true" on_top="true"/>
+                <mapping src="qurytp" dest="qurytp" by_interface="true" on_top="true"/>
+                <mapping src="subsac" dest="subsac" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="ioInacInfo" dest="ioInacInfo" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

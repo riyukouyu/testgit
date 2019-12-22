@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qripsq" longname="查询冲正输入信息" kind="1" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="transq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="交易流水" ref="BaseDict.Comm.transq"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="infoKnsredu" type="CustInfoCountType.InfoKnsredu" required="false" multi="false" array="false" longname="查询冲正输入信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="QryKnsReduInfo" id="qryKnsReduInfo" longname="查询冲正输入信息"/>
+    </flow>
+</flowtran>

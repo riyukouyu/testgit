@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="settdw" longname="T1批量代发扣款" dataItem="EdmAfterDay.ApDataGroupNo" jobDataItem="EdmAfterDay.SettleDrawAccounts" package="cn.sunline.edsp.busi.dptran.batchtran.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.batchtran.ca.intf">
+        <input packMode="true">
+            <field id="taskid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号" ref="ApDict.Aplt.taskid"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="BaseDict.Comm.tranam"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

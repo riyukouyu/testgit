@@ -1,0 +1,1220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="PBChargeRegister" longname="收费登记簿" package="cn.sunline.ltts.busi.cg.namedsql.charg" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[计费登记簿表操作]]></description>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrByTrdtTrsq" longname="根据日期和流水号查询收费登记信息">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno# and trandt = #trandt# 
+    	    	and trnseq = #trnseq# 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno# and trandt = #trandt# 
+    	    	and trnseq = #trnseq# 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno# and trandt = #trandt# 
+    	    	and trnseq = #trnseq# 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="trandt" ref="PbDict.Charge.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrByTrsqRgsq" longname="根据流水号和事件登记序号查询收费登记簿">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	trandt = #trandt# AND trnseq = #trnseq# 
+    	    	AND evrgsq = #evrgsq# 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	trandt = #trandt# AND trnseq = #trnseq# 
+    	    	AND evrgsq = #evrgsq# 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	trandt = #trandt# AND trnseq = #trnseq# 
+    	    	AND evrgsq = #evrgsq# 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="PbDict.Charge.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+            <parameter property="evrgsq" ref="PbDict.Charge.evrgsq" jdbcType="VARCHAR" javaType="PbBaseType.U_SENOTP" mode="in" longname="事件登记序号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrByAppointTrsq" longname="按指定流水号进行收费">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	corpno = #corpno# AND trandt = #trandt# 
+    	    	AND trnseq = #trnseq# AND evrgsq >= #evrgsq# 
+    	    	AND recvfg in (
+    	    	    	'0','2' 
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	corpno = #corpno# AND trandt = #trandt# 
+    	    	AND trnseq = #trnseq# AND evrgsq >= #evrgsq# 
+    	    	AND recvfg in (
+    	    	    	'0','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	corpno = #corpno# AND trandt = #trandt# 
+    	    	AND trnseq = #trnseq# AND evrgsq >= #evrgsq# 
+    	    	AND recvfg in (
+    	    	    	'0','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="trandt" ref="PbDict.Charge.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+            <parameter property="evrgsq" ref="PbDict.Charge.evrgsq" jdbcType="VARCHAR" javaType="PbBaseType.U_SENOTP" mode="in" longname="事件登记序号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrByTrsqRcfg" longname="按流水号和收讫标志查询收费登记簿信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	corpno = #corpno# AND trandt = #trandt# 
+    	    	AND trnseq = #trnseq# AND recvfg in (
+    	    	    	'0','1','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	corpno = #corpno# AND trandt = #trandt# 
+    	    	AND trnseq = #trnseq# AND recvfg in (
+    	    	    	'0','1','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	corpno = #corpno# AND trandt = #trandt# 
+    	    	AND trnseq = #trnseq# AND recvfg in (
+    	    	    	'0','1','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="trandt" ref="PbDict.Charge.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrByTrsqRcfgNoCorp" longname="按流水号和收讫标志查询收费登记簿信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	trandt = #trandt# AND trnseq = #trnseq# 
+    	    	AND recvfg in (
+    	    	    	'0','1','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	trandt = #trandt# AND trnseq = #trnseq# 
+    	    	AND recvfg in (
+    	    	    	'0','1','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	trandt = #trandt# AND trnseq = #trnseq# 
+    	    	AND recvfg in (
+    	    	    	'0','1','2'
+    	    	) 
+    	order by
+    	    	seqnum 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="PbDict.Charge.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selChargeRegistrMaxSeq" longname="获取当前最大的事件登记序号">
+        <sql><![CDATA[
+    	select
+    	    	ifnull(MAX(evrgsq),0) 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	nvl(MAX(evrgsq),0) 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	ifnull(MAX(evrgsq),0) 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="BaseType.U_LONGIN"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selChargeRegistrByCustac" longname="根据客户账户获取登记信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="recvfg" ref="PbDict.Charge.recvfg" jdbcType="VARCHAR" javaType="BaseEnumType.E_GTAMFG" mode="in" longname="收讫标志" parameterType="condition"/>
+            <parameter property="ifflag" ref="PbDict.Charge.ifflag" jdbcType="VARCHAR" javaType="PbEnumType.E_YES___" mode="in" longname="是否标志" parameterType="condition"/>
+            <parameter property="custac" ref="PbDict.Charge.custac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from kcb_chrg_rgst ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[corpno=#corpno#]]></str>
+                    <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    <if test="recvfg != null" type="If">
+                        <str type="Str"><![CDATA[recvfg=#recvfg#]]></str>
+                    </if>
+                    <if test="recvfg == null" type="If">
+                        <str type="Str"><![CDATA[recvfg in ('0','2')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by evrgsq ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kcb_chrg_rgst ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[corpno=#corpno#]]></str>
+                    <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    <if test="recvfg != null" type="If">
+                        <str type="Str"><![CDATA[recvfg=#recvfg#]]></str>
+                    </if>
+                    <if test="recvfg == null" type="If">
+                        <str type="Str"><![CDATA[recvfg in ('0','2')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by evrgsq ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kcb_chrg_rgst ]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[corpno=#corpno#]]></str>
+                    <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    <if test="recvfg != null" type="If">
+                        <str type="Str"><![CDATA[recvfg=#recvfg#]]></str>
+                    </if>
+                    <if test="recvfg == null" type="If">
+                        <str type="Str"><![CDATA[recvfg in ('0','2')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by evrgsq ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPage selectPageWithCount" type="sql" id="selChargeRegistrInfo" longname="获取收费登记信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="custno" ref="PbDict.Teller.custno" jdbcType="VARCHAR" javaType="BaseType.U_CUSTNO" mode="in" longname="客户号" parameterType="condition"/>
+            <parameter property="custac" ref="PbDict.Charge.custac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="客户账号" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+            <parameter property="recvfg" ref="PbDict.Charge.recvfg" jdbcType="VARCHAR" javaType="BaseEnumType.E_GTAMFG" mode="in" longname="收讫标志" parameterType="condition"/>
+            <parameter property="chrgcd" ref="PbDict.Charge.chrgcd" jdbcType="VARCHAR" javaType="PbBaseType.U_CHRGCD" mode="in" longname="收费代码" parameterType="condition"/>
+            <parameter property="stadat" ref="PbDict.Charge.stadat" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="enddat" ref="PbDict.Charge.enddat" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="终止日期" parameterType="condition"/>
+            <parameter property="trandt" ref="PbDict.Charge.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trbrno" ref="PbDict.Charge.trbrno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易行机构号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select * from kcb_chrg_rgst]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[corpno = #corpno#]]></str>
+                    <if test="custno !=''  and custno !=null" type="If">
+                        <str type="Str"><![CDATA[custno=#custno#]]></str>
+                    </if>
+                    <if test="custac !='' and custac !=null" type="If">
+                        <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    </if>
+                    <if test="trnseq !='' and trnseq !=null" type="If">
+                        <str type="Str"><![CDATA[trnseq =#trnseq#]]></str>
+                    </if>
+                    <if test="recvfg != null" type="If">
+                        <str type="Str"><![CDATA[recvfg=#recvfg#]]></str>
+                    </if>
+                    <if test="chrgcd !='' and chrgcd != null" type="If">
+                        <str type="Str"><![CDATA[chrgcd=#chrgcd#]]></str>
+                    </if>
+                    <if test="stadat !='' and stadat != null" type="If">
+                        <str type="Str"><![CDATA[trandt>=#stadat#]]></str>
+                    </if>
+                    <if test="enddat !='' and enddat != null" type="If">
+                        <str type="Str"><![CDATA[trandt <=#enddat#]]></str>
+                    </if>
+                    <if test="stadat !='' and enddat != '' and stadat != null and enddat != null" type="If">
+                        <str type="Str"><![CDATA[trandt <=#trandt#]]></str>
+                    </if>
+                    <if test="trbrno !='' and trbrno !=null" type="If">
+                        <str type="Str"><![CDATA[trbrno=#trbrno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by evrgsq,trandt]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from kcb_chrg_rgst]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[corpno = #corpno#]]></str>
+                    <if test="custno !=''  and custno !=null" type="If">
+                        <str type="Str"><![CDATA[custno=#custno#]]></str>
+                    </if>
+                    <if test="custac !='' and custac !=null" type="If">
+                        <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    </if>
+                    <if test="trnseq !='' and trnseq !=null" type="If">
+                        <str type="Str"><![CDATA[trnseq =#trnseq#]]></str>
+                    </if>
+                    <if test="recvfg != null" type="If">
+                        <str type="Str"><![CDATA[recvfg=#recvfg#]]></str>
+                    </if>
+                    <if test="chrgcd !='' and chrgcd != null" type="If">
+                        <str type="Str"><![CDATA[chrgcd=#chrgcd#]]></str>
+                    </if>
+                    <if test="stadat !='' and stadat != null" type="If">
+                        <str type="Str"><![CDATA[trandt>=#stadat#]]></str>
+                    </if>
+                    <if test="enddat !='' and enddat != null" type="If">
+                        <str type="Str"><![CDATA[trandt <=#enddat#]]></str>
+                    </if>
+                    <if test="stadat !='' and enddat != '' and stadat != null and enddat != null" type="If">
+                        <str type="Str"><![CDATA[trandt <=#trandt#]]></str>
+                    </if>
+                    <if test="trbrno !='' and trbrno !=null" type="If">
+                        <str type="Str"><![CDATA[trbrno=#trbrno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by evrgsq,trandt]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select * from kcb_chrg_rgst]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[corpno = #corpno#]]></str>
+                    <if test="custno !=''  and custno !=null" type="If">
+                        <str type="Str"><![CDATA[custno=#custno#]]></str>
+                    </if>
+                    <if test="custac !='' and custac !=null" type="If">
+                        <str type="Str"><![CDATA[custac=#custac#]]></str>
+                    </if>
+                    <if test="trnseq !='' and trnseq !=null" type="If">
+                        <str type="Str"><![CDATA[trnseq =#trnseq#]]></str>
+                    </if>
+                    <if test="recvfg != null" type="If">
+                        <str type="Str"><![CDATA[recvfg=#recvfg#]]></str>
+                    </if>
+                    <if test="chrgcd !='' and chrgcd != null" type="If">
+                        <str type="Str"><![CDATA[chrgcd=#chrgcd#]]></str>
+                    </if>
+                    <if test="stadat !='' and stadat != null" type="If">
+                        <str type="Str"><![CDATA[trandt>=#stadat#]]></str>
+                    </if>
+                    <if test="enddat !='' and enddat != null" type="If">
+                        <str type="Str"><![CDATA[trandt <=#enddat#]]></str>
+                    </if>
+                    <if test="stadat !='' and enddat != '' and stadat != null and enddat != null" type="If">
+                        <str type="Str"><![CDATA[trandt <=#trandt#]]></str>
+                    </if>
+                    <if test="trbrno !='' and trbrno !=null" type="If">
+                        <str type="Str"><![CDATA[trbrno=#trbrno#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by evrgsq,trandt]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selChargeRegistrArrgam" longname="获取客户账户下的欠费总金额">
+        <sql><![CDATA[
+    	select
+    	    	ifnull(sum(arrgam),0) 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno# and custac = #custac# 
+    	    	and recvfg in (
+    	    	    	'0','2'
+    	    	)
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	ifnull(sum(arrgam),0) 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno# and custac = #custac# 
+    	    	and recvfg in (
+    	    	    	'0','2'
+    	    	)
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	nvl(sum(arrgam),0) 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	corpno = #corpno# and custac = #custac# 
+    	    	and recvfg in (
+    	    	    	'0','2'
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="custac" ref="PbDict.Charge.custac" jdbcType="VARCHAR" javaType="BaseType.U_ACCTNO" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="BaseType.U_TRANAM"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrForBatchCharge" longname="日终批量扣费处理">
+        <sql><![CDATA[
+    	SELECT
+    	    	a.*, b.acctno, b.crcycd,b.brchno,b.upbldt 
+    	FROM
+    	    	kcb_chrg_rgst a,
+    	    	kna_acct b 
+    	where
+    	    	a.arrgam > 0 AND a.recvfg in (
+    	    	    	'0', '2' 
+    	    	) 
+    	    	AND (
+    	    	    	a.chrgpd = '0' OR a.chgdat <= #chgdat# 
+    	    	) AND ifnull(a.sysacn, a.chsyac) = b.acctno 
+    	ORDER BY
+    	    	a.trandt,a.trntim,a.trnseq,a.evrgsq 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	a.*, b.acctno, b.crcycd,b.brchno,b.upbldt 
+    	FROM
+    	    	kcb_chrg_rgst a,
+    	    	kna_acct b 
+    	where
+    	    	a.arrgam > 0 AND a.recvfg in (
+    	    	    	'0', '2'
+    	    	) 
+    	    	AND (
+    	    	    	a.chrgpd = '0' OR a.chgdat <= #chgdat#
+    	    	) AND ifnull(a.sysacn, a.chsyac) = b.acctno 
+    	ORDER BY
+    	    	a.trandt,a.trntim,a.trnseq,a.evrgsq
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	a.*, b.acctno, b.crcycd,b.brchno,b.upbldt 
+    	FROM
+    	    	kcb_chrg_rgst a,
+    	    	kna_acct b 
+    	where
+    	    	a.arrgam > 0 AND a.recvfg in (
+    	    	    	'0', '2', '3'
+    	    	) 
+    	    	AND (
+    	    	    	a.chrgpd = '0' OR a.chgdat <= #chgdat#
+    	    	) AND nvl(a.sysacn, a.chsyac) = b.acctno 
+    	ORDER BY
+    	    	a.trandt,a.trntim,a.trnseq,a.evrgsq
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="chgdat" ref="PbDict.Charge.chgdat" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="收费日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="CgComplexType.CgPlKouf"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selChargeExpenseList" longname="费用清单报表查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="custno" ref="BaseDict.Comm.custno" jdbcType="VARCHAR" javaType="BaseType.U_CUSTNO" mode="in" longname="客户号" parameterType="condition"/>
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="recvfg" jdbcType="VARCHAR" javaType="BaseEnumType.E_GTAMFG" mode="in" longname="收费标志" parameterType="condition"/>
+            <parameter property="bgdate" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endate" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="cgpyrv" jdbcType="VARCHAR" javaType="PbEnumType.E_CGPYRV" mode="in" longname="费用收付标志" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="交易渠道" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.disChargeInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.* from kcb_chrg_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="custno != null and custno !=''" type="If">
+                        <str type="Str"><![CDATA[a.custno = #custno#]]></str>
+                    </if>
+                    <if test="custac != null and custac !=''" type="If">
+                        <str type="Str"><![CDATA[a.custac = #custac#]]></str>
+                    </if>
+                    <if test="brchno != null and brchno !=''" type="If">
+                        <str type="Str"><![CDATA[a.acctbr = #brchno#]]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==0" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='0' or a.recvfg ='2']]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==1" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='1']]></str>
+                    </if>
+                    <if test="bgdate !=null and bgdate !=''" type="If">
+                        <str type="Str"><![CDATA[trandt>= #bgdate#]]></str>
+                    </if>
+                    <if test="endate!='' and endate !=null" type="If">
+                        <str type="Str"><![CDATA[trandt<=#endate#]]></str>
+                    </if>
+                    <if test="cgpyrv!=null" type="If">
+                        <str type="Str"><![CDATA[cgpyrv=#cgpyrv#]]></str>
+                    </if>
+                    <if test="crcycd !=null and crcycd !=''" type="If">
+                        <str type="Str"><![CDATA[trancy=#crcycd#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[trnchl=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc  ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kcb_chrg_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="custno != null and custno !=''" type="If">
+                        <str type="Str"><![CDATA[a.custno = #custno#]]></str>
+                    </if>
+                    <if test="custac != null and custac !=''" type="If">
+                        <str type="Str"><![CDATA[a.custac = #custac#]]></str>
+                    </if>
+                    <if test="brchno != null and brchno !=''" type="If">
+                        <str type="Str"><![CDATA[a.acctbr = #brchno#]]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==0" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='0' or a.recvfg ='2']]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==1" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='1']]></str>
+                    </if>
+                    <if test="bgdate !=null and bgdate !=''" type="If">
+                        <str type="Str"><![CDATA[trandt>= #bgdate#]]></str>
+                    </if>
+                    <if test="endate!='' and endate !=null" type="If">
+                        <str type="Str"><![CDATA[trandt<=#endate#]]></str>
+                    </if>
+                    <if test="cgpyrv!=null" type="If">
+                        <str type="Str"><![CDATA[cgpyrv=#cgpyrv#]]></str>
+                    </if>
+                    <if test="crcycd !=null and crcycd !=''" type="If">
+                        <str type="Str"><![CDATA[trancy=#crcycd#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[trnchl=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc  ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kcb_chrg_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="custno != null and custno !=''" type="If">
+                        <str type="Str"><![CDATA[a.custno = #custno#]]></str>
+                    </if>
+                    <if test="custac != null and custac !=''" type="If">
+                        <str type="Str"><![CDATA[a.custac = #custac#]]></str>
+                    </if>
+                    <if test="brchno != null and brchno !=''" type="If">
+                        <str type="Str"><![CDATA[a.acctbr = #brchno#]]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==0" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='0' or a.recvfg ='2']]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==1" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='1']]></str>
+                    </if>
+                    <if test="bgdate !=null and bgdate !=''" type="If">
+                        <str type="Str"><![CDATA[trandt>= #bgdate#]]></str>
+                    </if>
+                    <if test="endate!='' and endate !=null" type="If">
+                        <str type="Str"><![CDATA[trandt<=#endate#]]></str>
+                    </if>
+                    <if test="cgpyrv!=null" type="If">
+                        <str type="Str"><![CDATA[cgpyrv=#cgpyrv#]]></str>
+                    </if>
+                    <if test="crcycd !=null and crcycd !=''" type="If">
+                        <str type="Str"><![CDATA[trancy=#crcycd#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[trnchl=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt desc  ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrInfoForCharge" longname="获取集中收费登记信息">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.trandt>=#bgdate# and a.trandt<=#endate# 
+    	    	and a.recvfg!='1' and a.custac=#custac#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.trandt>=#bgdate# and a.trandt<=#endate# 
+    	    	and a.recvfg!='1' and a.custac=#custac#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.trandt>=#bgdate# and a.trandt<=#endate# 
+    	    	and a.recvfg!='1' and a.custac=#custac#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="bgdate" ref="BaseDict.Comm.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始时间" parameterType="condition"/>
+            <parameter property="endate" ref="BaseDict.Comm.endate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束时间" parameterType="condition"/>
+            <parameter property="custac" ref="BaseDict.Comm.custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistGroupByTrifno" longname="分组查询未收费记录">
+        <sql><![CDATA[
+    	select
+    	    	a.custac,a.trnchl as servtp,a.chrgcd,a.chrgna,a.prodcd ,
+    	    	a.trinfo,sum(a.arrgam) as chrgam 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.trandt>=#bgdate# and a.trandt<=#endate# 
+    	    	and a.recvfg!='1' and a.custac=#custac# 
+    	group by
+    	    	a.custac,a.trnchl,a.chrgcd,a.chrgna,
+    	    	a.prodcd ,a.trinfo 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.custac,a.trnchl as servtp,a.chrgcd,a.chrgna,a.prodcd ,
+    	    	a.trinfo,sum(a.arrgam) as chrgam 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.trandt>=#bgdate# and a.trandt<=#endate# 
+    	    	and a.recvfg!='1' and a.custac=#custac# 
+    	group by
+    	    	a.custac,a.trnchl,a.chrgcd,a.chrgna,
+    	    	a.prodcd ,a.trinfo 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.custac,a.trnchl as servtp,a.chrgcd,a.chrgna,a.prodcd ,
+    	    	a.trinfo,sum(a.arrgam) as chrgam 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.trandt>=#bgdate# and a.trandt<=#endate# 
+    	    	and a.recvfg!='1' and a.custac=#custac# 
+    	group by
+    	    	a.custac,a.trnchl,a.chrgcd,a.chrgna,
+    	    	a.prodcd ,a.trinfo 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="bgdate" ref="BaseDict.Comm.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始时间" parameterType="condition"/>
+            <parameter property="endate" ref="BaseDict.Comm.endate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束时间" parameterType="condition"/>
+            <parameter property="custac" ref="BaseDict.Comm.custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="CgComplexType.ChargeInfo"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeAcctInfo" longname="查询电子账户收费信息">
+        <sql><![CDATA[
+    	select
+    	    	b.busisq,c.cardno 
+    	from
+    	    	kcb_chrg_rgst a, kns_tran b,kna_acdc c 
+    	where
+    	    	a.trnseq = b.mntrsq and a.custac = c.custac 
+    	    	and a.trandt = #acctdt# and a.prcscd = 'pbchrg' 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	b.busisq,c.cardno 
+    	from
+    	    	kcb_chrg_rgst a, kns_tran b,kna_acdc c 
+    	where
+    	    	a.trnseq = b.mntrsq and a.custac = c.custac 
+    	    	and a.trandt = #acctdt# and a.prcscd = 'pbchrg' 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	b.busisq,c.cardno 
+    	from
+    	    	kcb_chrg_rgst a, kns_tran b,kna_acdc c 
+    	where
+    	    	a.trnseq = b.mntrsq and a.custac = c.custac 
+    	    	and a.trandt = #acctdt# and a.prcscd = 'pbchrg' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.IoChargeAcctInfo"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selChargeAcctCount" longname="查询电子账户收费总笔数">
+        <sql><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	kcb_chrg_rgst a, kns_tran b,kna_acdc c 
+    	where
+    	    	a.trnseq = b.mntrsq and a.custac = c.custac 
+    	    	and a.trandt = #acctdt# and a.prcscd = 'pbchrg'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	kcb_chrg_rgst a, kns_tran b,kna_acdc c 
+    	where
+    	    	a.trnseq = b.mntrsq and a.custac = c.custac 
+    	    	and a.trandt = #acctdt# and a.prcscd = 'pbchrg'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	kcb_chrg_rgst a, kns_tran b,kna_acdc c 
+    	where
+    	    	a.trnseq = b.mntrsq and a.custac = c.custac 
+    	    	and a.trandt = #acctdt# and a.prcscd = 'pbchrg'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKcbChrgDetlByTrdtTrsq" longname="根据日期和流水号、事件登记序号查询收费明细信息">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_detl 
+    	where
+    	    	caldat = #caldat# and calseq = #calseq# 
+    	    	and evrgsq=#evrgsq# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_detl 
+    	where
+    	    	caldat = #caldat# and calseq = #calseq# 
+    	    	and evrgsq=#evrgsq# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_detl 
+    	where
+    	    	caldat = #caldat# and calseq = #calseq# 
+    	    	and evrgsq=#evrgsq# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="caldat" ref="PbDict.Charge.caldat" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="计费发生日期" parameterType="condition"/>
+            <parameter property="calseq" ref="PbDict.Charge.calseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="计费柜员流水" parameterType="condition"/>
+            <parameter property="evrgsq" ref="PbDict.Charge.evrgsq" jdbcType="VARCHAR" javaType="PbBaseType.U_SENOTP" mode="in" longname="事件登记序号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgDetl"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selChargeAdjustRegistrInfo" longname="获取收费调整登记簿信息">
+        <parameterMap class="java.util.Map">
+            <parameter property="bgdate" ref="BaseDict.Comm.bgdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="开始时间" parameterType="condition"/>
+            <parameter property="endate" ref="BaseDict.Comm.endate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="结束时间" parameterType="condition"/>
+            <parameter property="adjttp" ref="PbDict.Charge.adjttp" jdbcType="VARCHAR" javaType="PbEnumType.E_ADJTTP" mode="in" longname="收费调整方式" parameterType="condition"/>
+            <parameter property="cardno" jdbcType="VARCHAR" javaType="BaseType.U_CARDNO" mode="in" longname="卡号" parameterType="condition"/>
+            <parameter property="tranbr" ref="PbDict.Charge.tranbr" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="交易机构" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.IoCgChrgAdjust"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select  a.trandt,a.transq,
+			a.tranbr,a.adjttp,
+			a.cgpyrv,a.adjtsq,
+			a.prodno,a.jtprod,
+			a.chrgno as chrgcd ,a.jtchno as jtchcd,
+			a.trinfo,a.jttrif,
+			a.chnotp,a.acctno,
+			a.crcycd,a.adjtam,
+			a.acctna,a.prtrdt,
+			a.prtrsq,a.evrgsq,
+			a.remark,a.tranus,
+			a.authus,a.status,
+			a.strksq  from kcb_adjt_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.trandt between #bgdate# and #endate#  and a.status ='1' and tranbr=#tranbr# and acctno=#cardno#]]></str>
+                    <if test="adjttp!=null" type="If">
+                        <str type="Str"><![CDATA[adjttp=#adjttp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by tmstmp ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[
+            select 
+            a.trandt,a.transq,
+			a.tranbr,a.adjttp,
+			a.cgpyrv,a.adjtsq,
+			a.prodno,a.jtprod,
+			a.chrgno as chrgcd ,a.jtchno as jtchcd,
+			a.trinfo,a.jttrif,
+			a.chnotp,a.acctno,
+			a.crcycd,a.adjtam,
+			a.acctna,a.prtrdt,
+			a.prtrsq,a.evrgsq,
+			a.remark,a.tranus,
+			a.authus,a.status,
+			a.strksq  
+
+			 from kcb_adjt_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.trandt between #bgdate# and #endate#  and a.status ='1' and tranbr=#tranbr# and acctno=#cardno#]]></str>
+                    <if test="adjttp!=null" type="If">
+                        <str type="Str"><![CDATA[adjttp=#adjttp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by tmstmp ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[
+            select 
+            a.trandt,a.transq,
+			a.tranbr,a.adjttp,
+			a.cgpyrv,a.adjtsq,
+			a.prodno,a.jtprod,
+			a.chrgno as chrgcd ,a.jtchno as jtchcd,
+			a.trinfo,a.jttrif,
+			a.chnotp,a.acctno,
+			a.crcycd,a.adjtam,
+			a.acctna,a.prtrdt,
+			a.prtrsq,a.evrgsq,
+			a.remark,a.tranus,
+			a.authus,a.status,
+			a.strksq  
+
+			 from kcb_adjt_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[a.trandt between #bgdate# and #endate#  and a.status ='1' and tranbr=#tranbr# and acctno=#cardno#]]></str>
+                    <if test="adjttp!=null" type="If">
+                        <str type="Str"><![CDATA[adjttp=#adjttp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by tmstmp ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKcbAdjtRgstByPrtrsq" longname="查询原交易是否已经调整">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_adjt_rgst 
+    	where
+    	    	prtrdt=#prtrdt# and prtrsq =#prtrsq# 
+    	    	and evrgsq=#evrgsq# and status ='1'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_adjt_rgst 
+    	where
+    	    	prtrdt=#prtrdt# and prtrsq =#prtrsq# 
+    	    	and evrgsq=#evrgsq# and status ='1'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_adjt_rgst 
+    	where
+    	    	prtrdt=#prtrdt# and prtrsq =#prtrsq# 
+    	    	and evrgsq=#evrgsq# and status ='1'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prtrdt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="prtrsq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="交易流水" parameterType="condition"/>
+            <parameter property="evrgsq" ref="PbDict.Charge.evrgsq" jdbcType="VARCHAR" javaType="PbBaseType.U_SENOTP" mode="in" longname="事件登记序号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbAdjtRgst"/>
+    </select>
+    <select cache="none" method="selectPageWithCount" type="sql" id="selChargeRegistByPrtrdtAndPrtrsq" longname="根据交易日期和流水查询收费记录">
+        <sql><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	trandt =#trandt# and trnseq =#trnseq#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	trandt =#trandt# and trnseq =#trnseq#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kcb_chrg_rgst 
+    	where
+    	    	trandt =#trandt# and trnseq =#trnseq#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="PbDict.Intr.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="PBCharge.KcbChrgRgst"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selChargeRegistrByTransq" longname="根据柜员流水查询收费登记簿">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.TRNSEQ = #trnseq# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.TRNSEQ = #trnseq# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_chrg_rgst a 
+    	where
+    	    	a.TRNSEQ = #trnseq# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trnseq" ref="PbDict.Charge.trnseq" jdbcType="VARCHAR" javaType="PbBaseType.U_TRNSEQ" mode="in" longname="柜员流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.disChargeInfo"/>
+    </select>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selChargeList" longname="费用清单报表查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="custno" ref="BaseDict.Comm.custno" jdbcType="VARCHAR" javaType="BaseType.U_CUSTNO" mode="in" longname="客户号" parameterType="condition"/>
+            <parameter property="custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="账号" parameterType="condition"/>
+            <parameter property="brchno" jdbcType="VARCHAR" javaType="BaseType.U_BRCHNO" mode="in" longname="机构号" parameterType="condition"/>
+            <parameter property="recvfg" jdbcType="VARCHAR" javaType="BaseEnumType.E_GTAMFG" mode="in" longname="收费标志" parameterType="condition"/>
+            <parameter property="bgdate" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="起始日期" parameterType="condition"/>
+            <parameter property="endate" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="结束日期" parameterType="condition"/>
+            <parameter property="cgpyrv" jdbcType="VARCHAR" javaType="PbEnumType.E_CGPYRV" mode="in" longname="费用收付标志" parameterType="condition"/>
+            <parameter property="crcycd" jdbcType="VARCHAR" javaType="BaseType.U_CRCYCD" mode="in" longname="币种" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="MsType.U_CHANNEL" mode="in" longname="交易渠道" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.disChargeInfo"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.* from kcb_chrg_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="custno != null and custno !=''" type="If">
+                        <str type="Str"><![CDATA[a.custno = #custno#]]></str>
+                    </if>
+                    <if test="custac != null and custac !=''" type="If">
+                        <str type="Str"><![CDATA[a.custac = #custac#]]></str>
+                    </if>
+                    <if test="brchno != null and brchno !=''" type="If">
+                        <str type="Str"><![CDATA[a.acctbr = #brchno#]]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==0" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='0' or a.recvfg ='2']]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==1" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='1']]></str>
+                    </if>
+                    <if test="bgdate !=null and bgdate !=''" type="If">
+                        <str type="Str"><![CDATA[trandt>= #bgdate#]]></str>
+                    </if>
+                    <if test="endate!='' and endate !=null" type="If">
+                        <str type="Str"><![CDATA[trandt<=#endate#]]></str>
+                    </if>
+                    <if test="cgpyrv!=null" type="If">
+                        <str type="Str"><![CDATA[cgpyrv=#cgpyrv#]]></str>
+                    </if>
+                    <if test="crcycd !=null" type="If">
+                        <str type="Str"><![CDATA[trancy=#crcycd#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[trnchl=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt   ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.* from kcb_chrg_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="custno != null and custno !=''" type="If">
+                        <str type="Str"><![CDATA[a.custno = #custno#]]></str>
+                    </if>
+                    <if test="custac != null and custac !=''" type="If">
+                        <str type="Str"><![CDATA[a.custac = #custac#]]></str>
+                    </if>
+                    <if test="brchno != null and brchno !=''" type="If">
+                        <str type="Str"><![CDATA[a.acctbr = #brchno#]]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==0" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='0' or a.recvfg ='2']]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==1" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='1']]></str>
+                    </if>
+                    <if test="bgdate !=null and bgdate !=''" type="If">
+                        <str type="Str"><![CDATA[trandt>= #bgdate#]]></str>
+                    </if>
+                    <if test="endate!='' and endate !=null" type="If">
+                        <str type="Str"><![CDATA[trandt<=#endate#]]></str>
+                    </if>
+                    <if test="cgpyrv!=null" type="If">
+                        <str type="Str"><![CDATA[cgpyrv=#cgpyrv#]]></str>
+                    </if>
+                    <if test="crcycd !=null" type="If">
+                        <str type="Str"><![CDATA[trancy=#crcycd#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[trnchl=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt   ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.* from kcb_chrg_rgst a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="custno != null and custno !=''" type="If">
+                        <str type="Str"><![CDATA[a.custno = #custno#]]></str>
+                    </if>
+                    <if test="custac != null and custac !=''" type="If">
+                        <str type="Str"><![CDATA[a.custac = #custac#]]></str>
+                    </if>
+                    <if test="brchno != null and brchno !=''" type="If">
+                        <str type="Str"><![CDATA[a.acctbr = #brchno#]]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==0" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='0' or a.recvfg ='2']]></str>
+                    </if>
+                    <if test="recvfg != null and recvfg==1" type="If">
+                        <str type="Str"><![CDATA[a.recvfg ='1']]></str>
+                    </if>
+                    <if test="bgdate !=null and bgdate !=''" type="If">
+                        <str type="Str"><![CDATA[trandt>= #bgdate#]]></str>
+                    </if>
+                    <if test="endate!='' and endate !=null" type="If">
+                        <str type="Str"><![CDATA[trandt<=#endate#]]></str>
+                    </if>
+                    <if test="cgpyrv!=null" type="If">
+                        <str type="Str"><![CDATA[cgpyrv=#cgpyrv#]]></str>
+                    </if>
+                    <if test="crcycd !=null" type="If">
+                        <str type="Str"><![CDATA[trancy=#crcycd#]]></str>
+                    </if>
+                    <if test="servtp!=null" type="If">
+                        <str type="Str"><![CDATA[trnchl=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt   ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selNotChargeByCustac" longname="根据电子账号查询未收讫的记录">
+        <sql><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	custac=#custac# and recvfg !='1'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	custac=#custac# and recvfg !='1'
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	SELECT
+    	    	* 
+    	FROM
+    	    	kcb_chrg_rgst 
+    	WHERE
+    	    	custac=#custac# and recvfg !='1'
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="custac" ref="BaseDict.Comm.custac" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="客户账号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.IoCgQrcharInfo"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selChargeAdjustbytransq" longname="根据交易流水及日期查询收费调整登记簿">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_adjt_rgst a 
+    	where
+    	    	a.transq = #transq# and a.trandt = #trandt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_adjt_rgst a 
+    	where
+    	    	a.transq = #transq# and a.trandt = #trandt#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcb_adjt_rgst a 
+    	where
+    	    	a.transq = #transq# and a.trandt = #trandt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" ref="PbDict.Intr.trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="transq" ref="PbDict.Charge.transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="交易流水" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoCgChrg.IoCgChrgAdjust"/>
+    </select>
+</sqls>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdpty" longname="存款类查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询持有中存款类]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="totbal" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="总资产"/>
+            <field id="dpProdInfo" type="IoDpProdQuery.IoDpAcctProdInfo" required="false" multi="true" array="false" longname="存款产品附属信息"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pagesize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="每页记录数"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="DealTranBefore" id="DealTranBefore" longname="交易前处理"/>
+        <service serviceName="DpAcctSvcType.selDpType" id="selDpType" longname="持有中存款类查询">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="pagesize" dest="pagesize" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="dpProdInfo" dest="dpProdInfo" desc="description" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

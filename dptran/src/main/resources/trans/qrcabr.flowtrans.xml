@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrcabr" longname="智能储蓄预期收益查询交易" kind="account" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="acctCabrInfos" scope="DpProdSvc.AcctCabrInfoList" required="false" multi="false" longname="预期收益信息" array="false">
+                <field id="cabrsm" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="预期收益总额"/>
+                <field id="mxdylm" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="最高档期"/>
+                <field id="cabrInfo" type="DpProdSvc.AcctCabrInfo" required="false" multi="true" array="false" longname="预期收益明细信息"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="DpAcctSvcType.SelAcctCabrInfo" id="selAcctCabrInfo" longname="查询智能储蓄预期收益" desc="查询智能储蓄预期收益">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="custac" desc="电子账号" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplCabrInfoList.cabrInfo" dest="acctCabrInfos.cabrInfo" desc="预期收益明显" by_interface="true" on_top="true"/>
+                <mapping src="cplCabrInfoList.cabrsm" dest="acctCabrInfos.cabrsm" desc="预期收益总额" by_interface="true" on_top="true"/>
+                <mapping src="cplCabrInfoList.mxdylm" dest="acctCabrInfos.mxdylm" desc="当前最高档期天数" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

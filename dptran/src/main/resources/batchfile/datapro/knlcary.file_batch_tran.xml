@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knlcary" longname="电子账户转电子账户登记簿表数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knlcary" longname="电子账户转电子账户登记簿数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" mode="fixAndSplitor" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="servsq" type="BaseType.U_SEQUNO" longname="渠道流水" length="64" leftPadding="false" padding=" " ref="DpDict.Acct.servsq"/>
+            <field id="servdt" type="BaseType.U_DATE08" longname="渠道日期" length="16" leftPadding="false" padding=" "/>
+            <field id="busisq" type="BaseType.U_SEQUNO" longname="业务跟踪编号" length="64" leftPadding="false" padding=" "/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="交易渠道" length="4" leftPadding="false" padding=" "/>
+            <field id="fromtp" type="DpEnumType.E_FROMTP" longname="出入金方式" length="2" leftPadding="false" padding=" "/>
+            <field id="capitp" type="DpEnumType.E_CAPITP" longname="资金交易类型" length="6" leftPadding="false" padding=" "/>
+            <field id="cardno" type="BaseType.U_CARDNO" longname="转入方卡号/账号" length="38" leftPadding="false" padding=" " ref="DpDict.Acct.cardno"/>
+            <field id="cuacno" type="BaseType.U_CUACNO" longname="转入方电子账户" length="64" leftPadding="false" padding=" "/>
+            <field id="acctno" type="BaseType.U_ACCTNO" longname="转入方子账号" length="80" leftPadding="false" padding=" "/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="转入方账户所属机构" length="12" leftPadding="false" padding=" "/>
+            <field id="incorp" type="BaseType.U_CORPNO" longname="转入方账户所属法人" length="6" leftPadding="false" padding=" "/>
+            <field id="tocorp" type="BaseType.U_CORPNO" longname="转出方账户所属法人" length="6" leftPadding="false" padding=" "/>
+            <field id="tobrch" type="BaseType.U_BRCHNO" longname="转出方账号所属机构" length="12" leftPadding="false" padding=" "/>
+            <field id="toacct" type="BaseType.U_ACCTNO" longname="转出方账号/卡号" length="80" leftPadding="false" padding=" "/>
+            <field id="toscac" type="BaseType.U_CUACNO" longname="转出方电子账户" length="64" leftPadding="false" padding=" "/>
+            <field id="toacno" type="BaseType.U_ACCTNO" longname="转出方子账号" length="80" leftPadding="false" padding=" "/>
+            <field id="tlcgam" type="BaseType.U_TRANAM" longname="收费总金额" length="17" leftPadding="false" padding=" "/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" length="17" leftPadding="false" padding=" " ref="DpDict.Acct.tranam"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="busino" type="BaseType.U_BUSINO" longname="业务编号" length="60" leftPadding="false" padding=" "/>
+            <field id="ioflag" type="BaseType.U_CHAR01" longname="出入金标志" length="2" leftPadding="false" padding=" "/>
+            <field id="prcscd" type="BaseType.U_PRCSCD" longname="处理码" length="60" leftPadding="false" padding=" " ref="InDict.inac.prcscd"/>
+            <field id="transq" type="BaseType.U_SEQUNO" longname="主交易流水" length="64" leftPadding="false" padding=" " ref="DpDict.Acct.transq"/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="交易日期" length="16" leftPadding="false" padding=" " ref="DpDict.Acct.trandt"/>
+            <field id="trantm" type="BaseType.U_TRTMCH" longname="交易时间" length="42" leftPadding="false" padding=" "/>
+            <field id="acdate" type="BaseType.U_DATE08" longname="到账日期" length="16" leftPadding="false" padding=" "/>
+            <field id="actime" type="BaseType.U_TRTMCH" longname="到账时间" length="42" leftPadding="false" padding=" "/>
+            <field id="actrsq" type="BaseType.U_SEQUNO" longname="延时记账流水" length="64" leftPadding="false" padding=" "/>
+            <field id="status" type="BaseEnumType.E_TRANST" longname="交易状态" length="2" leftPadding="false" padding=" "/>
+            <field id="remark" type="BaseType.U_MIDDDS" longname="备注信息" length="800" leftPadding="false" padding=" "/>
+            <field id="keepdt" type="BaseType.U_DATE08" longname="清算日期" length="16" leftPadding="false" padding=" "/>
+            <field id="chckdt" type="BaseType.U_DATE08" longname="对账日期" length="16" leftPadding="false" padding=" "/>
+            <field id="revrsq" type="BaseType.U_SEQUNO" longname="冲正流水" length="64" leftPadding="false" padding=" "/>
+            <field id="revrdt" type="BaseType.U_DATE08" longname="冲正日期" length="16" leftPadding="false" padding=" "/>
+            <field id="isspan" type="BaseEnumType.E_YES___" longname="是否跨法人" length="2" leftPadding="false" padding=" "/>
+            <field id="iscler" type="BaseEnumType.E_YES___" longname="是否已清算" length="2" leftPadding="false" padding=" "/>
+            <field id="trantp" type="DpEnumType.E_TRNESS" longname="转账时效标志" length="2" leftPadding="false" padding=" "/>
+            <field id="tmstmp" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.tmstmp"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

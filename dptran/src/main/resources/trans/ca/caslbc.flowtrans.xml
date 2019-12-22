@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="caslbc" longname="查询电子账户绑卡" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="cardtp" type="CaEnumType.E_BACATP" required="false" multi="false" array="false" longname="绑定账户类型" ref="CaDict.Eacct.cardtp"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="bicaInfo" type="IoCaTypeGenBindCard.IoCaBindCardInfo" required="false" multi="true" array="false" longname="电子账户绑卡信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoCaSevGenBindCard.IoCaSelBinDCar" id="selBindCarIndo" longname="查询电子账户绑卡" desc="查询电子账户绑卡">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="cardtp" dest="cardtp" desc="绑定账户类型" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="bindCardInfos" dest="bicaInfo" desc="绑定卡信息列表" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

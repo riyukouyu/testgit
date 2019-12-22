@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="mdcplj" longname="修改优惠计划明细" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="diplcd" type="BaseType.U_CHAR08" required="false" default="''" multi="false" array="false" longname="优惠计划代码" ref="FeDict.Chrg.diplcd"/>
+            <field id="seqnum" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="顺序号" ref="FeDict.Chrg.seqnum"/>
+            <field id="dimecg" type="FeBaseType.U_DIMECG" required="false" default="''" multi="false" array="false" longname="维度类别" ref="FeDict.Chrg.dimecg"/>
+            <field id="fadmvl" type="BaseType.U_CHAR32" required="false" default="''" multi="false" array="false" longname="关联维度值"/>
+            <field id="relvfg" type="BaseEnumType.E_RELVFG" required="false" multi="false" array="false" longname="关联标志" ref="FeDict.Chrg.relvfg"/>
+            <field id="ildmdn" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="关联维度值下限" ref="FeDict.Chrg.ildmdn"/>
+            <field id="ildmup" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="关联维度值上限" ref="FeDict.Chrg.ildmup"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="mdcplj" id="mdcplj" longname="修改优惠计划明细" desc="修改优惠计划明细"/>
+    </flow>
+</flowtran>

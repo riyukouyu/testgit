@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="clerckwt" longname="待清算账户核准写文件" kind="write" package="cn.sunline.ltts.busi.inltran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="clerckwt" longname="待清算账户核准写文件" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="InQueryTypes.InClerckInfo" startline="2">
+            <field id="trandt" type="BaseType.U_SEQUNO" longname="交易日期" leftPadding="false" mode="splitor"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" longname="交易流水" leftPadding="false" mode="splitor"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="产品码" leftPadding="false" mode="splitor"/>
+            <field id="clactp" type="BaseEnumType.E_CLACTP" longname="账户类型" leftPadding="false" mode="splitor"/>
+            <field id="acctbr" type="BaseType.U_BRCHNO" longname="账务机构" leftPadding="false" mode="splitor"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" leftPadding="false" mode="splitor"/>
+            <field id="amntcd" type="BaseEnumType.E_AMNTCD" longname="借贷标志" leftPadding="false" mode="splitor"/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" leftPadding="false" mode="splitor"/>
+            <field id="servtp" type="MsType.U_CHANNEL" longname="渠道" leftPadding="false" mode="splitor"/>
+            <field id="clerdt" type="BaseType.U_DATE08" longname="电子账户系统清算日期" leftPadding="false" mode="splitor"/>
+            <field id="clenum" type="BaseType.U_INTEGE" longname="清算场次" leftPadding="false" mode="splitor"/>
+            <field id="status" type="InEnumType.E_CLERST" longname="清算状态" leftPadding="false" mode="splitor"/>
+            <field id="coredt" type="BaseType.U_DATE08" longname="核心清算记账日期" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="文件批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="文件日期"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

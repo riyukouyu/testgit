@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpKnlIoblSql" longname="查询清结算平账详情" package="cn.sunline.ltts.busi.dp.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <select cache="none" method="selectOne" type="sql" id="queryKnlIobl" longname="查询清结算平账详情">
+        <sql><![CDATA[ select kic.flowid,kic.mntrsq,kic.trandt,kic.mntrtm  ,kic.uniseq,kic.unkpdt,kic.untrdt,kic.untrtm,kic.agid01,kic.ad01na,kic.ad01am,kic.refeno, kic.ordeno,kic.tranam ,kic.chrgam,kic.jnanam,
+	 regexp_substr(kic.merate,'[^|]+',1,1) as merate, regexp_substr(kic.merate,'[^|]+',1,6) as onefee,
+        kic.voucfe,kic.prpoin,kic.toanam,kic.inmeid,kic.inmena,kic.teleno,kic.pabkno,kic.cardtp as pycdtp,kic.pameno,kic.pamena,kic.transt   ,kic.spcipy,kic.mercfg,kic.finsty,kic.acfist,kic.sbrand,kic.busitp,
+        kic.tmad01na,kic.tminmena,kic.tmpabkno,kic.tmpamena,kic.tmteleno,
+        kic.cardno,kie.mntrsq as ottrsq,kie.trandt as dfdate,kie.mntrtm as dftime,kie.tranam as dfamt,
+        kie.retrsq as intrsq,kie.retrdt as indate,
+        kie.sacdna,kie.sabkna,kie.sacdno,kie.bankno,kie.transt as dfst,kie.retmsg
+ from knl_iobl_cups    kic
+ left join  knl_iobl_edm_contro kiec on kiec.retrsq=kic.mntrsq
+ 
+ left join  knl_iobl_edm     kie on kie.mntrsq=kiec.mntrsq
+ where kic.mntrsq=#mntrsq# and kic.corpno=#corpno#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+            <parameter property="mntrsq" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpKnlIobl"/>
+    </select>
+</sqls>

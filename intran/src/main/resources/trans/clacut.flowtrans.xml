@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="clacut" longname="清算同步记账" kind="3" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="clerdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期" ref="BaseDict.Comm.clerdt"/>
+            <field id="filena" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="文件名称" ref="BaseDict.Comm.filena"/>
+            <field id="issucs" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否登记明细"/>
+            <field id="bathid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="ioClerAccountList" type="InDayEndTypes.InClerAccountList" required="false" multi="true" array="false" longname="清算记账结果返回"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="clacut" id="clacut" longname="清算同步记账"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

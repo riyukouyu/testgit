@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="getina" longname="根据科目号查询科目名称" kind="query" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[根据科目号查询科目名称]]></description>
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="true" multi="false" array="false" longname="科目号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="itemna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="科目名称" ref="InDict.inac.itemna"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="getItemna" id="GetItemna" longname="获取科目名称" desc="获取科目名称"/>
+    </flow>
+</flowtran>

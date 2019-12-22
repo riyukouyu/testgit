@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qrfrdl" longname="风控冻结明细列表查询" kind="1" package="cn.sunline.edsp.busi.dptran.trans.risk" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.risk.intf">
+        <input packMode="true">
+            <field id="aplyno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="申请编号" ref="DpRiskDict.Aply.aplyno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="detailList" required="false" multi="true" longname="冻结明细列表" array="false">
+                <field id="aplyno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="申请编号" ref="DpRiskDict.FrozDeta.aplyno"/>
+                <field id="frozsq" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="冻结序号" ref="DpRiskDict.FrozDeta.frozsq"/>
+                <field id="bradna" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="品牌名称" ref="DpRiskDict.FrozDeta.bradna"/>
+                <field id="mrchno" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="商户编号" ref="DpRiskDict.FrozDeta.mrchno"/>
+                <field id="frowid" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="冻结主体ID" ref="DpRiskDict.FrozDeta.frowid"/>
+                <field id="frozam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="冻结金额" ref="DpRiskDict.FrozDeta.frozam"/>
+                <field id="frozdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冻结日期" ref="DpRiskDict.FrozDeta.frozdt"/>
+                <field id="froztm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="冻结时间" ref="DpRiskDict.FrozDeta.froztm"/>
+                <field id="frozst" type="DpRiskEnumType.E_FRDEST" required="false" multi="false" array="false" longname="冻结状态" ref="DpRiskDict.FrozDeta.frozst"/>
+                <field id="tdtrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="收单交易日期" ref="DpRiskDict.FrozDeta.tdtrdt"/>
+                <field id="refeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="参考号" ref="DpRiskDict.FrozDeta.refeno"/>
+                <field id="sbrand" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="支付机构号" ref="DpRiskDict.FrozDeta.sbrand"/>
+            </fields>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="DpRiskService.SelFrozenDetailList" id="SelFrozenDetailList" longname="查询风控冻结明细">
+            <in_mappings by_interface="true">
+                <mapping src="aplyno" dest="aplyno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="detailList" dest="detailList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

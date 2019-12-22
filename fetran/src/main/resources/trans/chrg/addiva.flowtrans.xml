@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="addiva" longname="新增维度值管理" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="dimecg" type="FeBaseType.U_DIMECG" required="false" multi="false" array="false" longname="维度类别" ref="FeDict.Chrg.dimecg"/>
+            <fields id="diminf" required="false" multi="true" longname="维度值列表" array="false">
+                <field id="dimevl" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="维度值" ref="FeDict.Chrg.dimevl"/>
+                <field id="expmsg" type="FeBaseType.U_SHORDS" required="false" multi="false" array="false" longname="维度值名称"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="PbDict.Brch.brchno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetCenterBranch" id="IoGetCenterBranch" longname="获取中心机构清算中心" desc="获取中心机构清算中心">
+            <in_mappings by_interface="true">
+                <mapping src="#run.tranbr" dest="brchno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="brchInfo.brchno" dest="brchno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="addiva" id="addiva" longname="新增维度值管理" desc="新增维度值管理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

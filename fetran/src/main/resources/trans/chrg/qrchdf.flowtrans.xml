@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrchdf" longname="查询费种代码定义" kind="1" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+            <field id="chrgna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="费种代码名称" ref="FeDict.Chrg.chrgna"/>
+            <field id="cgpyrv" type="FeEnumType.E_CGPYRV" required="false" multi="false" array="false" longname="费用收付标志" ref="FeDict.Chrg.cgpyrv"/>
+            <field id="fetype" type="FeEnumType.E_FETYPE" required="false" multi="false" array="false" longname="费种大类"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="pinfos" type="FeConfigTranType.CgKcpChrg" required="false" multi="true" array="false" longname="费种代码定义表明细"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qrchdf" id="qrchdf" longname="查询费种代码定义" desc="查询费种代码定义"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

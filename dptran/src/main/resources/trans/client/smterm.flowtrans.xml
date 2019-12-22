@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="smterm" longname="存款产品解约" kind="3" package="cn.sunline.ltts.busi.dptran.trans.client" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[活期智能存款解约]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.client.intf">
+        <input packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="智能存款子账号"/>
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="BaseDict.Comm.smrycd"/>
+            <field id="chkpwd" type="DpAcctType.ChkPwdIN" required="false" multi="false" array="false" longname="验密参数"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="主交易日期"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="主交易时间"/>
+            <field id="transt" type="yht.E_TRANST" required="false" multi="false" array="false" longname="解约交易结果"/>
+        </output>
+        <property packMode="true">
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="acseno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子账号"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号"/>
+            <field id="opacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="对方户名"/>
+            <field id="auacfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="存期标志"/>
+            <field id="linkno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="连笔号"/>
+            <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="signno" type="BaseType.U_SENOTP" required="false" multi="false" array="false" longname="签约号"/>
+            <field id="fcflag" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="业务小类"/>
+            <field id="tobrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="对方机构"/>
+            <field id="unsgtp" type="DpEnumType.E_UNSGTP" required="false" multi="false" array="false" longname="解约销户类型"/>
+            <field id="intxam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="利息税"/>
+            <field id="smrycd1" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要码" desc="利息税用"/>
+            <field id="inspfg" type="BaseEnumType.E_INSPFG" required="false" multi="false" array="false" longname="黑名单类型"/>
+            <field id="frozfl" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="解冻标识"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" desc="冻结日期" ref="DpDict.Acct.trandt"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水" desc="冻结流水" ref="DpDict.Froz.mntrsq"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="DealTransBefore" id="DealTransBefore" longname="交易前处理"/>
+        <service serviceName="IoCaSevQryAccout.IoCaQryInwadeInfo" id="ioCaQryInwadeInfo" longname="恐怖名单检查">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="DealCloseAcctno" id="DealCloseAcctno" longname="活期智能存款子账号销户"/>
+        <service mappingToProperty="true" serviceName="IoCaSevQryAccout.IoCaQryInacInfo" id="ioCaQryInacInfo" longname="涉案可疑查询">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="opacna" dest="custna" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="inspfg" dest="inspfg" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="qryinac" id="qryinac" longname="涉案可疑校验"/>
+        <service serviceName="DpAcctSvcType.addPostAcctDp" id="addPostAcctDp" test="tranam != @java.math.BigDecimal@ZERO" longname="存入记账处理" desc="结算子账户存入记账">
+            <in_mappings by_interface="true">
+                <mapping src="toacct" dest="cplSaveAcctIn.acctno" by_interface="true" on_top="true"/>
+                <mapping src="acseno" dest="cplSaveAcctIn.acseno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cplSaveAcctIn.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplSaveAcctIn.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplSaveAcctIn.custac" by_interface="true" on_top="true"/>
+                <mapping src="linkno" dest="cplSaveAcctIn.linkno" by_interface="true" on_top="true"/>
+                <mapping src="opacna" dest="cplSaveAcctIn.opacna" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cplSaveAcctIn.toacct" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplSaveAcctIn.tranam" by_interface="true" on_top="true"/>
+                <mapping src="smrycd" dest="cplSaveAcctIn.smrycd" desc="摘要码" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" test="intxam &gt; @java.math.BigDecimal@ZERO" longname="利息税支取入账" desc="从客户账扣除利息税">
+            <in_mappings by_interface="true">
+                <mapping src="toacct" dest="cplDrawAcctIn.acctno" by_interface="true" on_top="true"/>
+                <mapping src="acseno" dest="cplDrawAcctIn.acseno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cplDrawAcctIn.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplDrawAcctIn.custac" by_interface="true" on_top="true"/>
+                <mapping src="linkno" dest="cplDrawAcctIn.linkno" by_interface="true" on_top="true"/>
+                <mapping src="opacna" dest="cplDrawAcctIn.opacna" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cplDrawAcctIn.toacct" by_interface="true" on_top="true"/>
+                <mapping src="intxam" dest="cplDrawAcctIn.tranam" by_interface="true" on_top="true"/>
+                <mapping src="smrycd1" dest="cplDrawAcctIn.smrycd" desc="摘要码" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoCaSrvGenEAccountInfo.CustUnSign" id="custUnSign" longname="智能存款解约">
+            <in_mappings by_interface="true">
+                <mapping src="#dict.BaseEnumType.E_YES___().NO" dest="isclos" desc="子账户是否需要销户" by_interface="true" on_top="true"/>
+                <mapping src="signno" dest="signno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoDpFrozSvcType.danBiStUf" id="danBiStUf" test="frozfl==#dict.BaseEnumType.E_YES___().YES" longname="单笔解冻">
+            <in_mappings by_interface="true">
+                <mapping src="trandt" dest="ioDpStUfIn.trandt" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="mntrsq" dest="ioDpStUfIn.mntrsq" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="DealTransAfter" id="DealTransAfter" longname="交易后处理"/>
+        <method method="termmq" id="termmq" test="1==2" longname="存款产品解约通知服务MQ"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

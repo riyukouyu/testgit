@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdime" longname="查询维度类别管理" kind="1" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询维度信息参数表]]></description>
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="waytyp" type="FeEnumType.E_WAYTYP" required="false" multi="false" array="false" longname="维度类型" ref="FeDict.Chrg.waytyp"/>
+            <field id="dimecg" type="FeBaseType.U_DIMECG" required="false" multi="false" array="false" longname="维度类别" ref="FeDict.Chrg.dimecg"/>
+            <field id="dimena" type="FeBaseType.U_CHAR5B" required="false" multi="false" array="false" longname="维度类别名称" ref="FeDict.Chrg.dimena"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="pinfos" type="FeTable.KcpDime" required="false" multi="true" array="false" longname="维度信息参数信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qrdime" id="qrdime" longname="查询维度类别管理" desc="查询维度类别管理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knpbusi" longname="内部户产品表数仓抽数" kind="write" package="cn.sunline.ltts.busi.inltran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knpbusi" longname="内部户产品表数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="busino" type="BaseType.U_BUSINO" longname="业务代码" length="60" leftPadding="false" padding=" " ref="InDict.inac.busino"/>
+            <field id="busina" type="BaseType.U_CHAR80" longname="业务代码中文名称说明" length="160" leftPadding="false" padding=" " ref="InDict.inac.busina"/>
+            <field id="busien" type="BaseType.U_CHAR80" longname="业务代码英文名称" length="160" leftPadding="false" padding=" " ref="InDict.inac.busien"/>
+            <field id="busitp" type="InEnumType.E_BUSITP" longname="核算属性" length="2" leftPadding="false" padding=" " ref="InDict.inac.busitp"/>
+            <field id="ioflag" type="InEnumType.E_IOFLAG" longname="表内外标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.ioflag"/>
+            <field id="blncdn" type="InEnumType.E_BLNCDN" longname="余额方向CDR" length="2" leftPadding="false" padding=" " ref="InDict.inac.blncdn"/>
+            <field id="pmodtg" type="BaseEnumType.E_YES___" longname="透支许可" length="2" leftPadding="false" padding=" " ref="InDict.inac.pmodtg"/>
+            <field id="ispaya" type="InEnumType.E_ISPAYA" longname="是否采用销账管理 " length="2" leftPadding="false" padding=" " ref="InDict.inac.ispaya"/>
+            <field id="rmsign" type="BaseEnumType.E_YES___" longname="人民币专用账户" length="2" leftPadding="false" padding=" " ref="InDict.inac.rmsign"/>
+            <field id="fnsign" type="BaseEnumType.E_YES___" longname="外币专用账户" length="2" leftPadding="false" padding=" " ref="InDict.inac.fnsign"/>
+            <field id="isbein" type="BaseEnumType.E_YES___" longname="计息标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.isbein"/>
+            <field id="beintp" type="InEnumType.E_BEINTP" longname="结清标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.beintp"/>
+            <field id="nobusi" type="BaseType.U_BUSINO" longname="正常利息归属业务代码" length="60" leftPadding="false" padding=" " ref="InDict.inac.nobusi"/>
+            <field id="ovbusi" type="BaseType.U_BUSINO" longname="透支利息归属业务代码" length="60" leftPadding="false" padding=" " ref="InDict.inac.ovbusi"/>
+            <field id="isopen" type="InEnumType.E_ISOPEN" longname="是否允许开内部户" length="2" leftPadding="false" padding=" " ref="InDict.inac.isopen"/>
+            <field id="provop" type="InEnumType.E_AUTOOP" longname="省中心设立标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.provop"/>
+            <field id="counop" type="InEnumType.E_AUTOOP" longname="县中心设立标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.counop"/>
+            <field id="offiop" type="InEnumType.E_AUTOOP" longname="办事处设立标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.offiop"/>
+            <field id="credop" type="InEnumType.E_AUTOOP" longname="信用社设立标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.credop"/>
+            <field id="kpacfg" type="InEnumType.E_KPACFG" longname="记账控制" length="2" leftPadding="false" padding=" " ref="InDict.inac.kpacfg"/>
+            <field id="etactp" type="InEnumType.E_ETACTP" longname="入明细账方式" length="2" leftPadding="false" padding=" " ref="InDict.inac.etactp"/>
+            <field id="rlbltg" type="InEnumType.E_RLBLTG" longname="余额更新方式" length="2" leftPadding="false" padding=" " ref="InDict.inac.rlbltg"/>
+            <field id="cractp" type="InEnumType.E_CRACTP" longname="冲销标志" length="2" leftPadding="false" padding=" " ref="InDict.inac.cractp"/>
+            <field id="itemcd" type="BaseType.U_ITEMCD" longname="科目" length="40" leftPadding="false" padding=" " ref="InDict.inac.itemcd"/>
+            <field id="acbrlv" type="InEnumType.E_ACBRLV" longname="核算机构级别" length="2" leftPadding="false" padding=" " ref="InDict.inac.acbrlv"/>
+            <field id="asgnbr" type="BaseType.U_BRCHNO" longname="参考部门号/特殊部门号" length="12" leftPadding="false" padding=" " ref="InDict.inac.asgnbr"/>
+            <field id="subsac" type="BaseType.U_CUACNO" longname="子户号" length="64" leftPadding="false" padding=" " ref="InDict.inac.subsac"/>
+            <field id="bgdate" type="BaseType.U_DATE08" longname="生效日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.bgdate"/>
+            <field id="eddate" type="BaseType.U_DATE08" longname="失效日期" length="16" leftPadding="false" padding=" " ref="InDict.inac.eddate"/>
+            <field id="busist" type="BaseEnumType.E_PRODST" longname="产品状态" length="2" leftPadding="false" padding=" "/>
+            <field id="tyinno" type="BaseType.U_TYINNO" longname="录入编号" length="30" leftPadding="false" padding=" " ref="DpDict.Prod.tyinno"/>
+            <field id="timetm" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.timetm"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.intran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

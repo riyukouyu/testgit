@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="syncpw" longname="账号密码同步" kind="2" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" fixed="" default="" multi="false" array="false" longname="电子账号" desc="" ref=""/>
+            <field id="accppw" type="BaseType.U_CHAR10" required="false" fixed="" default="" multi="false" array="false" longname="账户密码" desc="" ref="CaDict.AccPw.accppw"/>
+            <field id="accpst" type="BaseType.U_CHAR30" required="false" fixed="" default="" multi="false" array="false" longname="账户密码状态" desc="" ref=""/>
+            <field id="servdt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="维护时间" desc="" ref=""/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" fixed="" default="" multi="false" array="false" longname="用户ID" desc="" ref="BaseDict.Comm.custid"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="prcAcctPassWord" id="prcAcctPassWord" test="" longname="账户密码同步" desc="账户密码同步"/>
+    </flow>
+</flowtran>

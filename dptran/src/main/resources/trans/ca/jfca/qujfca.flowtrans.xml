@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qujfca" longname="查询电子主账户信息" kind="1" package="cn.sunline.edsp.busi.dptran.trans.ca.jfca" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.ca.jfca.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.cardno"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="BaseDict.Comm.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号" ref="BaseDict.Comm.idtfno"/>
+            <field id="tlphno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="手机号码" ref="DpDict.Acct.tlphno"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="DpDict.Acct.custno"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="cardnoInfoList" type="IoCaTypGenEAccountInfo.IoCaMainAcctInfo" required="false" multi="true" array="false" longname="电子主账户信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="IoCaSevQryTableInfo.getMainKnaCustOdb1" id="getMainKnaCustOdb1" longname="根据电子账号查询电子主账户信息">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="custno" dest="custno" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="idtfno" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="idtftp" by_interface="true" on_top="true"/>
+                <mapping src="tlphno" dest="tlphno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cardnoInfoList" dest="cardnoInfoList" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

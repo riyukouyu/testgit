@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrinot" longname="二类户充值/提现结果查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="ordesq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="订单流水"/>
+            <field id="ordetp" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="订单类型"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="ordest" type="BaseEnumType.E_ORDEST" required="false" multi="false" array="false" longname="订单状态"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="交易时间"/>
+            <field id="clerdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="errocd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="原订单错误码"/>
+            <field id="errotx" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="原订单错误描述"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qrinot" id="qrinot" longname="二类户充值/提现结果查询" desc="查询二类户充值/提现交易结果"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

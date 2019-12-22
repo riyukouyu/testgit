@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qracin" longname="客户端电子账户分户账查询" kind="1" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="false">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码"/>
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+        </input>
+        <output asParm="false" packMode="false">
+            <field id="clientLedgerOut" type="IoCaTypGenEAccountInfo.IoCaClientLedgerOut" required="false" multi="false" array="false" longname="客户端分户账查询输出"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="IoCaSevAccountQuery.IoCaClientLedgerQuery" id="clientLedgerQuery" longname="客户端分户账查询">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="idtftp" dest="idtftp" desc="证件类型" by_interface="true" on_top="true"/>
+                <mapping src="idtfno" dest="idtfno" desc="证件号码" by_interface="true" on_top="true"/>
+                <mapping src="custid" dest="custid" desc="用户ID" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cilentLedgerOut.acctInfoList" dest="clientLedgerOut.acctInfoList" desc="电子账户资产信息列表" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.acctam" dest="clientLedgerOut.acctam" desc="总资产" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.acctbl" dest="clientLedgerOut.acctbl" desc="可支取金额" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.acctst" dest="clientLedgerOut.acctst" desc="账户状态" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.accttp" dest="clientLedgerOut.accttp" desc="账户类型" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.acstsz" dest="clientLedgerOut.acstsz" desc="账户状态字" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.brchno" dest="clientLedgerOut.brchno" desc="账户所属机构" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.cardno" dest="clientLedgerOut.cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.crcycd" dest="clientLedgerOut.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.custac" dest="clientLedgerOut.custac" desc="电子账号ID" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.custcd" dest="clientLedgerOut.custcd" desc="客户内码" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.custid" dest="clientLedgerOut.custid" desc="用户ID" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.custna" dest="clientLedgerOut.custna" desc="客户姓名" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.onlnbl" dest="clientLedgerOut.onlnbl" desc="当前余额" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.opendt" dest="clientLedgerOut.opendt" desc="开户日期" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.teleno" dest="clientLedgerOut.teleno" desc="绑定手机号" by_interface="true" on_top="true"/>
+                <mapping src="cilentLedgerOut.facesg" dest="clientLedgerOut.facesg" desc="面签标识" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

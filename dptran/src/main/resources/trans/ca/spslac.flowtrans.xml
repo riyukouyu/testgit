@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="spslac" longname="超网转账查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.ca" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.ca.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="servtp2" type="BaseEnumType.E_CHNLID" required="false" multi="false" array="false" longname="渠道"/>
+            <field id="cardtp" type="CaEnumType.E_BACATP" required="false" multi="false" array="false" longname="绑定账户类型" ref="CaDict.Eacct.cardtp"/>
+            <field id="cdopac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="绑定账户" ref="CaDict.Eacct.cdopac"/>
+            <field id="chkqtn" type="DpAcctType.ChkQtIN" required="false" multi="false" array="false" longname="額度中心参数"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额" ref="DpDict.Acct.tranam"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acctInfosList" type="CaCustInfo.acctAllInfos" required="false" multi="true" array="false" longname="电子账户全部信息输出"/>
+            <field id="isswin" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="转入许可"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="SelAcctAllAndBindInfos" longname="查询电子账户信息及绑定账户关系"/>
+    </flow>
+</flowtran>

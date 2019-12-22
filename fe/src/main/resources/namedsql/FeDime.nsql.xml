@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="FeDime" longname="维度信息" package="cn.sunline.ltts.busi.fe.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_dime" longname="维度信息参数查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="waytyp" ref="FeDict.Chrg.waytyp" jdbcType="VARCHAR" javaType="FeEnumType.E_WAYTYP" mode="in" longname="维度类型" parameterType="condition"/>
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimena" ref="FeDict.Chrg.dimena" jdbcType="VARCHAR" javaType="FeBaseType.U_CHAR5B" mode="in" longname="维度类别名称" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_dime u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="waytyp!=null " type="If">
+                        <str type="Str"><![CDATA[waytyp=#waytyp#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg like #dimecg# ]]></str>
+                    </if>
+                    <if test="dimena!=null and dimena!=''" type="If">
+                        <str type="Str"><![CDATA[dimena like  #dimena# ]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_dime u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="waytyp!=null " type="If">
+                        <str type="Str"><![CDATA[waytyp=#waytyp#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg like #dimecg# ]]></str>
+                    </if>
+                    <if test="dimena!=null and dimena!=''" type="If">
+                        <str type="Str"><![CDATA[dimena like  #dimena# ]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_dime u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="waytyp!=null " type="If">
+                        <str type="Str"><![CDATA[waytyp=#waytyp#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg like #dimecg# ]]></str>
+                    </if>
+                    <if test="dimena!=null and dimena!=''" type="If">
+                        <str type="Str"><![CDATA[dimena like  #dimena# ]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_dime" longname="维度信息参数查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="waytyp" ref="FeDict.Chrg.waytyp" jdbcType="VARCHAR" javaType="FeEnumType.E_WAYTYP" mode="in" longname="维度类型" parameterType="condition"/>
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimena" ref="FeDict.Chrg.dimena" jdbcType="VARCHAR" javaType="FeBaseType.U_CHAR5B" mode="in" longname="维度类别名称" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpDime"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.*  from kcp_dime a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="waytyp!=null " type="If">
+                        <str type="Str"><![CDATA[waytyp=#waytyp#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg like  CONCAT('%',#dimecg# ,'%')]]></str>
+                    </if>
+                    <if test="dimena!=null and dimena!=''" type="If">
+                        <str type="Str"><![CDATA[dimena like CONCAT('%',#dimena#, '%')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by waytyp ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.*  from kcp_dime a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="waytyp!=null " type="If">
+                        <str type="Str"><![CDATA[waytyp=#waytyp#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg like '%' || #dimecg# || '%']]></str>
+                    </if>
+                    <if test="dimena!=null and dimena!=''" type="If">
+                        <str type="Str"><![CDATA[dimena like '%' || #dimena# || '%']]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.*  from kcp_dime a]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="waytyp!=null " type="If">
+                        <str type="Str"><![CDATA[waytyp=#waytyp#]]></str>
+                    </if>
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg like  CONCAT('%',#dimecg# ,'%')]]></str>
+                    </if>
+                    <if test="dimena!=null and dimena!=''" type="If">
+                        <str type="Str"><![CDATA[dimena like CONCAT('%',#dimena#, '%')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by waytyp ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectFirst" type="sql" id="selcnt_kcp_scev_dime" longname="场景事件维度值明细查询记录数">
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimevl" ref="FeDict.Chrg.dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select count(*) as count from kcp_scev_dime u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[dimevl=#dimevl#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_scev_dime u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[dimevl=#dimevl#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select count(*) as count from kcp_scev_dime u]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[dimecg=#dimecg#]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[dimevl=#dimevl#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectPageWithCount" type="sql" id="selall_kcp_scev_dime" longname="场景事件维度值明细查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" jdbcType="VARCHAR" javaType="PbBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+            <parameter property="expmsg" jdbcType="VARCHAR" javaType="FeBaseType.U_SHORDS" mode="in" longname="维度值名称" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgDiva"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.dimecg as dimecg, a.seqnum as seqnum, a.dimevl as dimevl, a.expmsg as expmsg, a.remark as remark, b.dimena as dimena, b.waytyp as waytyp from kcp_scev_dime a left join kcp_dime b on a.dimecg = b.dimecg]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg like CONCAT('%',#dimecg#,'%')]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimevl like CONCAT('%', #dimevl# , '%')]]></str>
+                    </if>
+                    <if test="expmsg!=null and expmsg!=''" type="If">
+                        <str type="Str"><![CDATA[a.expmsg like CONCAT('%',#expmsg#,'%')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by dimecg ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.dimecg as dimecg, a.seqnum as seqnum, a.dimevl as dimevl, a.expmsg as expmsg, a.remark as remark, b.dimena as dimena, b.waytyp as waytyp from kcp_scev_dime a left join kcp_dime b on a.dimecg = b.dimecg]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg like '%' || #dimecg# || '%']]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimevl like '%' || #dimevl# || '%']]></str>
+                    </if>
+                    <if test="expmsg!=null and expmsg!=''" type="If">
+                        <str type="Str"><![CDATA[a.expmsg like '%' || #expmsg# || '%']]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by dimecg ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.dimecg as dimecg, a.seqnum as seqnum, a.dimevl as dimevl, a.expmsg as expmsg, a.remark as remark, b.dimena as dimena, b.waytyp as waytyp from kcp_scev_dime a left join kcp_dime b on a.dimecg = b.dimecg]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg like CONCAT('%',#dimecg#,'%')]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimevl like CONCAT('%', #dimevl# , '%')]]></str>
+                    </if>
+                    <if test="expmsg!=null and expmsg!=''" type="If">
+                        <str type="Str"><![CDATA[a.expmsg like CONCAT('%',#expmsg#,'%')]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by dimecg ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selone_evl_dime" longname="维度值查询">
+        <sql><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_scev_dime 
+    	where
+    	    	dimevl = #dimevl# and dimecg = #dimecg#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_scev_dime 
+    	where
+    	    	dimevl = #dimevl# and dimecg = #dimecg#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_scev_dime 
+    	where
+    	    	dimevl = #dimevl# and dimecg = #dimecg#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimevl" ref="FeDict.Chrg.dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpScevDime"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selone_kcp_dime" longname="查询维度类别名称">
+        <sql><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.dimena = #dimena# and a.waytyp = #waytyp#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.dimena = #dimena# and a.waytyp = #waytyp#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.dimena = #dimena# and a.waytyp = #waytyp#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimena" ref="FeDict.Chrg.dimena" jdbcType="VARCHAR" javaType="FeBaseType.U_CHAR5B" mode="in" longname="维度类别名称" parameterType="condition"/>
+            <parameter property="waytyp" ref="FeDict.Chrg.waytyp" jdbcType="VARCHAR" javaType="FeEnumType.E_WAYTYP" mode="in" longname="维度类型" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpDime"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selone_kcp_dime_cg" longname="查询维度类别">
+        <sql><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.dimecg = #dimecg# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.dimecg = #dimecg# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	*
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.dimecg = #dimecg# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpDime"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selnam_evl_dime" longname="查询维度值名称">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_scev_dime a 
+    	where
+    	    	dimecg = #dimecg# and expmsg = #expmsg#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_scev_dime a 
+    	where
+    	    	dimecg = #dimecg# and expmsg = #expmsg#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_scev_dime a 
+    	where
+    	    	dimecg = #dimecg# and expmsg = #expmsg#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="expmsg" jdbcType="VARCHAR" javaType="FeBaseType.U_SHORDS" mode="in" longname="维度值名称" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpScevDime"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="sel_kcp_scev_dime" longname="维度值查询">
+        <parameterMap class="java.util.Map">
+            <parameter property="dimecg" jdbcType="VARCHAR" javaType="PbBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+            <parameter property="dimevl" jdbcType="VARCHAR" javaType="BaseType.U_CHAR32" mode="in" longname="维度值" parameterType="condition"/>
+            <parameter property="expmsg" jdbcType="VARCHAR" javaType="FeBaseType.U_SHORDS" mode="in" longname="维度值名称" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoFeChrgComplexType.IoCgDiva"/>
+        <dynamicSql>
+            <str type="Str"><![CDATA[select a.dimecg as dimecg, a.seqnum as seqnum, a.dimevl as dimevl, a.expmsg as expmsg, a.remark as remark, b.dimena as dimena, b.waytyp as waytyp from kcp_scev_dime a left join kcp_dime b on a.dimecg = b.dimecg]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg = #dimecg#]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimevl = #dimevl#]]></str>
+                    </if>
+                    <if test="expmsg!=null and expmsg!=''" type="If">
+                        <str type="Str"><![CDATA[a.expmsg = #expmsg#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by dimecg ]]></str>
+        </dynamicSql>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select a.dimecg as dimecg, a.seqnum as seqnum, a.dimevl as dimevl, a.expmsg as expmsg, a.remark as remark, b.dimena as dimena, b.waytyp as waytyp from kcp_scev_dime a left join kcp_dime b on a.dimecg = b.dimecg]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg = #dimecg#]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimevl = #dimevl#]]></str>
+                    </if>
+                    <if test="expmsg!=null and expmsg!=''" type="If">
+                        <str type="Str"><![CDATA[a.expmsg = #expmsg#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by dimecg ]]></str>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select a.dimecg as dimecg, a.seqnum as seqnum, a.dimevl as dimevl, a.expmsg as expmsg, a.remark as remark, b.dimena as dimena, b.waytyp as waytyp from kcp_scev_dime a left join kcp_dime b on a.dimecg = b.dimecg]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="dimecg!=null and dimecg!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimecg = #dimecg#]]></str>
+                    </if>
+                    <if test="dimevl!=null and dimevl!=''" type="If">
+                        <str type="Str"><![CDATA[a.dimevl = #dimevl#]]></str>
+                    </if>
+                    <if test="expmsg!=null and expmsg!=''" type="If">
+                        <str type="Str"><![CDATA[a.expmsg = #expmsg#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by dimecg ]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selkcp_scev_dimeOne_odb1" longname="查询维度值">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.waytyp =#waytyp# and a.dimecg=#dimecg# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.waytyp =#waytyp# and a.dimecg=#dimecg# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kcp_dime a 
+    	where
+    	    	a.waytyp =#waytyp# and a.dimecg=#dimecg# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="waytyp" ref="FeDict.Chrg.waytyp" jdbcType="VARCHAR" javaType="FeEnumType.E_WAYTYP" mode="in" longname="维度类型" parameterType="condition"/>
+            <parameter property="dimecg" ref="FeDict.Chrg.dimecg" jdbcType="VARCHAR" javaType="FeBaseType.U_DIMECG" mode="in" longname="维度类别" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="FeTable.KcpDime"/>
+    </select>
+</sqls>

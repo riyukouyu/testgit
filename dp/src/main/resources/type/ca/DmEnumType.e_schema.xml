@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DmEnumType" package="cn.sunline.edsp.busi.dp.type.ca" longname="分润数据迁移基础限制类型" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <restrictionType id="E_EXPSTS" longname="导出状态" base="string">
+        <enumeration id="WZX" value="0" longname="未执行"/>
+        <enumeration id="SUCESS" value="1" longname="成功"/>
+        <enumeration id="FAIL" value="2" longname="失败"/>
+    </restrictionType>
+</schema>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qritem" longname="查询科目编号信息" kind="query" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false"/>
+        <output asParm="true" packMode="false">
+            <fields id="itemInfos" scope="IoInQueryTypes.IoItemcdInfoList" required="false" multi="false" longname="科目编号集合" array="false">
+                <field id="itemcdInfos" type="IoInQueryTypes.IoItemcdInfo" required="false" multi="true" array="false" longname="科目编号信息"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelItemcdInfoForDict" id="selItemcdInfoForDict" longname="查询科目字典信息" desc="查询科目字典信息">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true">
+                <mapping src="cplItemcdInfos.itemcdInfos" dest="itemInfos.itemcdInfos" desc="科目编号信息" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

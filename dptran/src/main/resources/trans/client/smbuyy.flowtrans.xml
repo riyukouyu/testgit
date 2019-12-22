@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="smbuyy" longname="定期智能存款购买" kind="3" package="cn.sunline.ltts.busi.dptran.trans.client" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.client.intf">
+        <input packMode="true">
+            <field id="tranam" type="BaseType.U_TRANAM" required="true" multi="false" array="false" longname="购买金额"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="钞汇标志"/>
+            <field id="openInfo" type="IoDpProdParts.IoDpOpenSub" required="false" multi="false" array="false" longname="开户参数"/>
+            <field id="chkpwd" type="DpAcctType.ChkPwdIN" required="false" multi="false" array="false" longname="验密参数"/>
+            <field id="cordno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="子订单号"/>
+            <field id="chckdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="对账日期"/>
+            <field id="chcksq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="对账流水"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="会计日期"/>
+            <field id="frondt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="前端交易日期"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="主交易日期"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="主交易时间"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债子账号"/>
+            <field id="endate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="到期日"/>
+            <field id="transt" type="yht.E_TRANST" required="false" multi="false" array="false" longname="订单状态"/>
+        </output>
+        <property packMode="true">
+            <field id="acseno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="子序号"/>
+            <field id="auacfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="存取标志"/>
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="卡号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="结算子账号"/>
+            <field id="linkno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="连笔号"/>
+            <field id="opacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="对方户名"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号"/>
+            <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号ID"/>
+            <field id="fcflag" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="定活标志"/>
+            <field id="prodtp" type="DpEnumType.E_PRODTP" required="false" multi="false" array="false" longname="产品类型"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品号"/>
+            <field id="invofg" type="BaseEnumType.E_INSPFG" required="false" default="'0'" multi="false" array="false" longname="转出账号涉案可疑标识"/>
+            <field id="traype" type="BaseEnumType.E_TRAYPE" required="false" multi="false" array="false" longname="交易类型"/>
+            <field id="isflag" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="子订单号重复标志"/>
+            <field id="remark" type="BaseType.U_MIDDDS" required="false" multi="false" array="false" longname="备注信息"/>
+            <field id="endate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="到期日期"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="DealTransBefore" id="DealTransBefore" longname="交易前处理"/>
+        <case id="prcSmbuyyCordnoTran" longname="处理购买交易订单重复状态">
+            <when id="prcSmbuyyTran" test="isflag != #dict.BaseEnumType.E_YES___().YES" longname="处理定期购买交易" desc="当子订单重复时不执行一下流程">
+                <service serviceName="IoCaOtherService.IoCaChkpassword" id="IoCaChkpassword" test="chkpwd.ispass != #dict.BaseEnumType.E_YES___().YES" longname="统一认证验证密码">
+                    <in_mappings by_interface="true"/>
+                    <out_mappings by_interface="true"/>
+                </service>
+                <service mappingToProperty="true" serviceName="DpAcctSvcType.OpenSubAcct" id="OpenSubAcct" longname="开负债子账户">
+                    <in_mappings by_interface="true">
+                        <mapping src="openInfo.actp.acolfg" dest="openInfo.actp.acolfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.actp.cacttp" dest="openInfo.actp.cacttp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.accatp" dest="openInfo.base.accatp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.acctcd" dest="openInfo.base.acctcd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.acctno" dest="openInfo.base.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.accttp" dest="openInfo.base.accttp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.acsetp" dest="openInfo.base.acsetp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.cacttp" dest="openInfo.base.cacttp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.cardno" dest="openInfo.base.cardno" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.crcycd" dest="openInfo.base.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custac" dest="openInfo.base.custac" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custct" dest="openInfo.base.custct" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.cuslvl" dest="openInfo.base.cuslvl" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custna" dest="openInfo.base.custna" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custno" dest="openInfo.base.custno" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custtp" dest="openInfo.base.custtp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.deptdy" dest="openInfo.base.deptdy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.depttm" dest="openInfo.base.depttm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.emplcu" dest="openInfo.base.emplcu" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custid" dest="openInfo.base.custid" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.gender" dest="openInfo.base.gender" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.opacfg" dest="openInfo.base.opacfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.opintr" dest="openInfo.base.opintr" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="openInfo.base.opmony" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.prodcd" dest="openInfo.base.prodcd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.spectp" dest="openInfo.base.spectp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.sprdid" dest="openInfo.base.sprdid" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.sprdvr" dest="openInfo.base.sprdvr" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.brch" dest="openInfo.brch" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.madtby" dest="openInfo.cust.madtby" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.matudt" dest="openInfo.cust.matudt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.mgindy" dest="openInfo.cust.mgindy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.mginfg" dest="openInfo.cust.mginfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.onlyfg" dest="openInfo.cust.onlyfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.srdpam" dest="openInfo.cust.srdpam" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.stepvl" dest="openInfo.cust.stepvl" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.dfir" dest="openInfo.dfir" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.dppb.brchfg" dest="openInfo.dppb.brchfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.dppb.isdrft" dest="openInfo.dppb.isdrft" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.dppb.prodbt" dest="openInfo.dppb.prodbt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.dppb.prodlt" dest="openInfo.dppb.prodlt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.dppb.prodmt" dest="openInfo.dppb.prodmt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.ctrlwy" dest="openInfo.draw.ctrlwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.dramwy" dest="openInfo.draw.dramwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drawtp" dest="openInfo.draw.drawtp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drmiam" dest="openInfo.draw.drmiam" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drmitm" dest="openInfo.draw.drmitm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drmxam" dest="openInfo.draw.drmxam" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drmxtm" dest="openInfo.draw.drmxtm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drrule" dest="openInfo.draw.drrule" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.drtmwy" dest="openInfo.draw.drtmwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.ismibl" dest="openInfo.draw.ismibl" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.draw.minibl" dest="openInfo.draw.minibl" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.beinfg" dest="openInfo.drawpl.beinfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.dradwy" dest="openInfo.drawpl.dradwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.drcrwy" dest="openInfo.drawpl.drcrwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.drdfsd" dest="openInfo.drawpl.drdfsd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.drdfwy" dest="openInfo.drawpl.drdfwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.gendpd" dest="openInfo.drawpl.gendpd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpl.setpwy" dest="openInfo.drawpl.setpwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.drawpldt" dest="openInfo.drawpldt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.bldyca" dest="openInfo.intr.bldyca" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.cycltp" dest="openInfo.intr.cycltp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.fvrbfg" dest="openInfo.intr.fvrbfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.hutxfg" dest="openInfo.intr.hutxfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.inadlv" dest="openInfo.intr.inadlv" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.inammd" dest="openInfo.intr.inammd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.inbefg" dest="openInfo.intr.inbefg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.incdtp" dest="openInfo.intr.incdtp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.inclfg" dest="openInfo.intr.inclfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.inprwy" dest="openInfo.intr.inprwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.intrcd" dest="openInfo.intr.intrcd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.intrtp" dest="openInfo.intr.intrtp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.intrdt" dest="openInfo.intr.intrdt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.levety" dest="openInfo.intr.levety" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.intrwy" dest="openInfo.intr.intrwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.isrgdt" dest="openInfo.intr.isrgdt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.lydttp" dest="openInfo.intr.lydttp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.lyinwy" dest="openInfo.intr.lyinwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.reprwy" dest="openInfo.intr.reprwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.speday" dest="openInfo.intr.speday" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.taxecd" dest="openInfo.intr.taxecd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.tebehz" dest="openInfo.intr.tebehz" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.txbebs" dest="openInfo.intr.txbebs" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.txbefg" dest="openInfo.intr.txbefg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.intr.txbefr" dest="openInfo.intr.txbefr" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.delyfg" dest="openInfo.matu.delyfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.festdl" dest="openInfo.matu.festdl" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.matupd" dest="openInfo.matu.matupd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trdpfg" dest="openInfo.matu.trdpfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trdptm" dest="openInfo.matu.trdptm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trintm" dest="openInfo.matu.trintm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trinwy" dest="openInfo.matu.trinwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trpdfg" dest="openInfo.matu.trpdfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trprod" dest="openInfo.matu.trprod" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.matu.trsvtp" dest="openInfo.matu.trsvtp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.amntwy" dest="openInfo.post.amntwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.detlfg" dest="openInfo.post.detlfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.maxiam" dest="openInfo.post.maxiam" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.maxibl" dest="openInfo.post.maxibl" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.maxitm" dest="openInfo.post.maxitm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.miniam" dest="openInfo.post.miniam" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.minitm" dest="openInfo.post.minitm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.posttp" dest="openInfo.post.posttp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.postwy" dest="openInfo.post.postwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.post.timewy" dest="openInfo.post.timewy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.dfltsd" dest="openInfo.postpl.dfltsd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.dfltwy" dest="openInfo.postpl.dfltwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.gentwy" dest="openInfo.postpl.gentwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.maxisp" dest="openInfo.postpl.maxisp" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.planfg" dest="openInfo.postpl.planfg" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.planpd" dest="openInfo.postpl.planpd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.pscrwy" dest="openInfo.postpl.pscrwy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.svlepd" dest="openInfo.postpl.svlepd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.svletm" dest="openInfo.postpl.svletm" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.svlewy" dest="openInfo.postpl.svlewy" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpl.psamtp" dest="openInfo.postpl.psamtp" desc="description" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.postpldt" dest="openInfo.postpldt" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.sprdna" dest="openInfo.base.sprdna" desc="description" by_interface="true" on_top="true"/>
+                        <mapping src="csextg" dest="openInfo.base.csextg" desc="钞汇标志" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true">
+                        <mapping src="openOut.acctno" dest="toacct" by_interface="true" on_top="true"/>
+                        <mapping src="openOut.endate" dest="endate" desc="description" by_interface="true" on_top="true"/>
+                    </out_mappings>
+                </service>
+                <service serviceName="IoCaSrvGenEAccountInfo.IoCaAddEARela" id="IoCaAddEARela" longname="建立负债账号与电子账号的对应关系">
+                    <in_mappings by_interface="true">
+                        <mapping src="toacct" dest="cplAddEARelaIn.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="crcycd" dest="cplAddEARelaIn.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="csextg" dest="cplAddEARelaIn.csextg" by_interface="true" on_top="true"/>
+                        <mapping src="custac" dest="cplAddEARelaIn.custac" by_interface="true" on_top="true"/>
+                        <mapping src="fcflag" dest="cplAddEARelaIn.fcflag" by_interface="true" on_top="true"/>
+                        <mapping src="prodcd" dest="cplAddEARelaIn.prodcd" by_interface="true" on_top="true"/>
+                        <mapping src="prodtp" dest="cplAddEARelaIn.prodtp" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+                <service serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" longname="支取记账处理" desc="结算子账户支出">
+                    <in_mappings by_interface="true">
+                        <mapping src="acctno" dest="cplDrawAcctIn.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="acseno" dest="cplDrawAcctIn.acseno" by_interface="true" on_top="true"/>
+                        <mapping src="auacfg" dest="cplDrawAcctIn.auacfg" by_interface="true" on_top="true"/>
+                        <mapping src="cardno" dest="cplDrawAcctIn.cardno" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.crcycd" dest="cplDrawAcctIn.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custac" dest="cplDrawAcctIn.custac" by_interface="true" on_top="true"/>
+                        <mapping src="linkno" dest="cplDrawAcctIn.linkno" by_interface="true" on_top="true"/>
+                        <mapping src="opacna" dest="cplDrawAcctIn.opacna" by_interface="true" on_top="true"/>
+                        <mapping src="toacct" dest="cplDrawAcctIn.toacct" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="cplDrawAcctIn.tranam" by_interface="true" on_top="true"/>
+                        <mapping src="remark" dest="cplDrawAcctIn.remark" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+                <service serviceName="DpAcctSvcType.addPostAcctDp" id="addPostAcctDp" longname="存入记账处理" desc="存款子账户存入记账">
+                    <in_mappings by_interface="true">
+                        <mapping src="toacct" dest="cplSaveAcctIn.acctno" by_interface="true" on_top="true"/>
+                        <mapping src="acseno" dest="cplSaveAcctIn.acseno" by_interface="true" on_top="true"/>
+                        <mapping src="cardno" dest="cplSaveAcctIn.cardno" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.crcycd" dest="cplSaveAcctIn.crcycd" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.custac" dest="cplSaveAcctIn.custac" by_interface="true" on_top="true"/>
+                        <mapping src="linkno" dest="cplSaveAcctIn.linkno" by_interface="true" on_top="true"/>
+                        <mapping src="opacna" dest="cplSaveAcctIn.opacna" by_interface="true" on_top="true"/>
+                        <mapping src="acctno" dest="cplSaveAcctIn.toacct" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="cplSaveAcctIn.tranam" by_interface="true" on_top="true"/>
+                        <mapping src="remark" dest="cplSaveAcctIn.remark" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+                <service serviceName="IoSaveIoTransBill.AccRegister" id="AccRegister" longname="登记订单" desc="登记订单">
+                    <in_mappings by_interface="true">
+                        <mapping src="chckdt" dest="chckdt" by_interface="true" on_top="true"/>
+                        <mapping src="chcksq" dest="chcksq" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.cust.matudt" dest="cocrdt" by_interface="true" on_top="true"/>
+                        <mapping src="cordno" dest="cordno" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.opmony" dest="sbtram" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.opmony" dest="signam" by_interface="true" on_top="true"/>
+                        <mapping src="tranam" dest="tranam" by_interface="true" on_top="true"/>
+                        <mapping src="traype" dest="traype" desc="交易类型" by_interface="true" on_top="true"/>
+                        <mapping src="openInfo.base.cardno" dest="cardno" desc="description" by_interface="true" on_top="true"/>
+                        <mapping src="prodcd" dest="prodcd" desc="description" by_interface="true" on_top="true"/>
+                    </in_mappings>
+                    <out_mappings by_interface="true"/>
+                </service>
+                <method method="DealTransAfter" id="DealTransAfter" longname="交易后处理"/>
+            </when>
+        </case>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="uptitm" longname="科目维护" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false">
+            <field id="itemcd" type="BaseType.U_ITEMCD" required="true" multi="false" array="false" longname="科目" ref="InDict.inac.itemcd"/>
+            <field id="itemna" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="科目名称" ref="InDict.inac.itemna"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="ItemType.UptItemInfo" id="updateItemInfo" longname="科目维护" desc="科目维护">
+            <in_mappings by_interface="true">
+                <mapping src="itemcd" dest="itemcd" by_interface="true" on_top="true"/>
+                <mapping src="itemna" dest="itemna" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

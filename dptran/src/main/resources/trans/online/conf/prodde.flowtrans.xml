@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="prodde" longname="产品删除" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[产品删除]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" fixed="" default="" multi="false" array="false" longname="产品编号" desc="" ref="DpDict.Prod.prodcd"/>
+            <field id="busibi" type="DpEnumType.E_BUSIBI" required="false" fixed="" default="" multi="false" array="false" longname="业务大类" desc="" ref="DpDict.Prod.busibi"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="DpProdSvcType.DelProdByProdcd" id="DelProdByProdcd" test="" longname="产品删除" desc="产品删除">
+            <in_mappings by_interface="true">
+                <mapping src="busibi" dest="busibi" desc="" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="prodcd" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+    </flow>
+</flowtran>

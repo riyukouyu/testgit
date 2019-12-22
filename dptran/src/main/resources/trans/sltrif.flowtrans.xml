@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="sltrif" longname="根据账号查询账号交易明细" kind="maintain" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[根据账号查询账号交易明细
+账号可以是内部户账号或者电子账户]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始交易日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止交易日期"/>
+            <field id="cuacno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="账号"/>
+            <field id="startx" type="int" required="false" multi="false" array="false" longname="起始记录"/>
+            <field id="pgsize" type="int" required="false" multi="false" array="false" longname="页容量"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="traifs" alias="" scope="DpAcctType.AcctTransInfoForSumpList" required="false" multi="false" longname="交易信息" desc="" array="false">
+                <field id="counts" type="int" required="false" multi="false" array="false" longname="记录数" ref=""/>
+                <field id="tranif" type="DpAcctType.AcctTransInfoForSump" required="false" multi="true" array="false" longname="集合" ref=""/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="qryTransInfoSump" id="QryTransInfoSump" test="" longname="查询交易信息" desc="查询交易信息"/>
+    </flow>
+</flowtran>

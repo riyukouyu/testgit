@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls id="Route" longname="交易路由" package="cn.sunline.ltts.busi.ca.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dynamicSelect cache="none" method="selectOne" type="sql" id="selRouteMapping" longname="精确路由匹配">
+        <parameterMap class="java.util.Map">
+            <parameter property="promcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="活动号" parameterType="condition"/>
+            <parameter property="projcd" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="商户号" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="BaseType.U_SERVTP" mode="in" longname="渠道类型" parameterType="condition"/>
+            <parameter property="servno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR50" mode="in" longname="渠道号" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TransRoute.KnpRoutMtch"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select promcd,projcd,servtp,servno,prodtp,prodcd  from knp_rout_mtch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="promcd != null" type="If">
+                        <str type="Str"><![CDATA[promcd = #promcd#]]></str>
+                    </if>
+                    <if test="projcd != null" type="If">
+                        <str type="Str"><![CDATA[projcd = #projcd#]]></str>
+                    </if>
+                    <if test="servtp != null" type="If">
+                        <str type="Str"><![CDATA[servtp = #servtp#]]></str>
+                    </if>
+                    <if test="servno != null" type="If">
+                        <str type="Str"><![CDATA[servno = #servno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+        <dynamicSql type="mysql">
+            <str type="Str"><![CDATA[select promcd,projcd,servtp,servno,prodtp,prodcd  from knp_rout_mtch]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="promcd != null" type="If">
+                        <str type="Str"><![CDATA[promcd = #promcd#]]></str>
+                    </if>
+                    <if test="projcd != null" type="If">
+                        <str type="Str"><![CDATA[projcd = #projcd#]]></str>
+                    </if>
+                    <if test="servtp != null" type="If">
+                        <str type="Str"><![CDATA[servtp = #servtp#]]></str>
+                    </if>
+                    <if test="servno != null" type="If">
+                        <str type="Str"><![CDATA[servno = #servno#]]></str>
+                    </if>
+                </and>
+            </where>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectAll" type="sql" id="selRoutePrcscd" longname="交易码处理路由">
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	sortno,prcscd,prodtp,priosq 
+    	from
+    	    	knp_rout_prio 
+    	where
+    	    	prcscd = #prcscd# 
+    	order by
+    	    	priosq 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	sortno,prcscd,prodtp,priosq 
+    	from
+    	    	knp_rout_prio 
+    	where
+    	    	prcscd = #prcscd# 
+    	order by
+    	    	priosq ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prcscd" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易处理码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="TransRoute.KnpRoutPrio"/>
+    </select>
+</sqls>

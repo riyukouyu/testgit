@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="queryp" longname="查询用户签约购买产品是否提前解约支取" dataItem="BaseType.U_CHAR16" jobDataItem="RpMgr.knbQeryBach" package="cn.sunline.ltts.busi.dptran.batchtran" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.intf">
+        <input packMode="true">
+        <field id="filesq" type="BaseType.U_CHAR32" required="false" fixed="" default="" multi="false" array="false" longname="文件批次号" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true">
+        <field id="sourdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="业务日期"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

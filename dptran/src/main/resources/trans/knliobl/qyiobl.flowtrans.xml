@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qyiobl" longname="清结算平账详情查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="mntrsq" type="PbBaseType.U_TRNSEQ" required="true" multi="false" array="false" longname="交易流水"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="iobl" type="DpTransfer.DpKnlIobl" required="false" multi="false" array="false" longname="清结算平账详情"/>
+            <field id="flowid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="交易自增id"/>
+            <field id="mntrsq" type="PbBaseType.U_TRNSEQ" required="true" multi="false" array="false" longname="主交易流水"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="true" multi="false" array="false" longname="交易日期"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="核心交易时间"/>
+            <field id="uniseq" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="银联流水"/>
+            <field id="unkpdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="银联清算日期"/>
+            <field id="untrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="银联交易日期"/>
+            <field id="untrtm" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="银联交易时间"/>
+            <field id="agid01" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="一级服务商"/>
+            <field id="ad01na" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="一级服务商名称"/>
+            <field id="ad01am" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="一级服务商分润金额"/>
+            <field id="merate" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="商户费率"/>
+            <field id="onefee" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="秒到费"/>
+            <field id="refeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="参考号"/>
+            <field id="ordeno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="订单号"/>
+            <field id="buodno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="商户订单号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="刷卡总金额"/>
+            <field id="toanam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="商户存入金额"/>
+            <field id="chrgam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="银联成本手续费"/>
+            <field id="jnanam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="分润费用（包含D0提现费用）"/>
+            <field id="cardno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="inmeid" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="内部商户号"/>
+            <field id="inmena" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="内部商户名称"/>
+            <field id="tminmena" type="BaseType.U_CHAR180" required="false" multi="false" array="false" longname="内部商户名称"/>
+            <field id="teleno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="手机号"/>
+            <field id="tmteleno" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="手机号"/>
+            <field id="pabkno" type="BaseType.U_CHAR64" required="false" multi="false" array="false" longname="支付银行卡账号"/>
+            <field id="tmpabkno" type="BaseType.U_CHAR64" required="false" multi="false" array="false" longname="支付银行卡账号"/>
+            <field id="pycdtp" type="DsEnumType.E_CARDTP" required="false" multi="false" array="false" longname="支付银行卡类型"/>
+            <field id="pameno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="支付商户号"/>
+            <field id="pamena" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="支付商户号名称"/>
+            <field id="tmpamena" type="BaseType.U_CHAR180" required="false" multi="false" array="false" longname="支付商户号名称"/>
+            <field id="transt" type="JfDpEnumType.E_CUPSST" required="false" multi="false" array="false" longname="核心交易状态"/>
+            <field id="prpoin" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="赠送积分"/>
+            <field id="spcipy" type="JfDpEnumType.E_SPCIPY" required="false" multi="false" array="false" longname="特殊优惠"/>
+            <field id="mercfg" type="JfDpEnumType.E_MERCFG" required="false" multi="false" array="false" longname="商户类型"/>
+            <field id="voucfe" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="活动抵扣"/>
+            <field id="acfist" type="JfDpEnumType.E_FINSTY" required="false" multi="false" array="false" longname="实际结算类型"/>
+            <field id="sbrand" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="pos品牌"/>
+            <field id="busitp" type="DsEnumType.E_BUSITP" required="false" multi="false" array="false" longname="业务类型" ref="DsDict.Ds.busitp"/>
+            <field id="ottrsq" type="PbBaseType.U_TRNSEQ" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="dfdate" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="dftime" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="核心交易时间"/>
+            <field id="intrsq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="原收单交易流水"/>
+            <field id="indate" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="原收单交易日期"/>
+            <field id="retmsg" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="应答描述"/>
+            <field id="dfamt" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="代发金额"/>
+            <field id="dfst" type="JfDpEnumType.E_CUPSST" required="false" multi="false" array="false" longname="核心交易状态"/>
+            <field id="finsty" type="JfDpEnumType.E_FINSTY" required="false" multi="false" array="false" longname="结算方式"/>
+            <field id="sabkna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="结算卡银行名称"/>
+            <field id="sacdno" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="结算卡账号"/>
+            <field id="tmsacdno" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="结算卡账号"/>
+            <field id="sacdna" type="BaseType.U_CHAR180" required="false" multi="false" array="false" longname="结算卡账号名称"/>
+            <field id="tmsacdna" type="BaseType.U_CHAR180" required="false" multi="false" array="false" longname="结算卡账号名称"/>
+            <field id="cardtp" type="CaEnumType.E_BACATP" required="false" multi="false" array="false" longname="结算卡类型" ref="DpDict.Acct.cardtp"/>
+            <field id="bankno" type="BaseType.U_CHAR50" required="false" multi="false" array="false" longname="联行号"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <service serviceName="KnlIoblService.queryKnlIobl" id="queryKnlIobl" longname="清结算平账详情">
+            <in_mappings by_interface="true">
+                <mapping src="mntrsq" dest="mntrsq" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="iobl.acfist" dest="iobl.acfist" by_interface="true" on_top="true"/>
+                <mapping src="iobl.ad01am" dest="iobl.ad01am" by_interface="true" on_top="true"/>
+                <mapping src="iobl.ad01na" dest="iobl.ad01na" by_interface="true" on_top="true"/>
+                <mapping src="iobl.agid01" dest="iobl.agid01" by_interface="true" on_top="true"/>
+                <mapping src="iobl.bankno" dest="iobl.bankno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.buodno" dest="iobl.buodno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.busitp" dest="iobl.busitp" by_interface="true" on_top="true"/>
+                <mapping src="iobl.cardno" dest="iobl.cardno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.cardtp" dest="iobl.cardtp" by_interface="true" on_top="true"/>
+                <mapping src="iobl.chrgam" dest="iobl.chrgam" by_interface="true" on_top="true"/>
+                <mapping src="iobl.dfamt" dest="iobl.dfamt" by_interface="true" on_top="true"/>
+                <mapping src="iobl.dfdate" dest="iobl.dfdate" by_interface="true" on_top="true"/>
+                <mapping src="iobl.dfst" dest="iobl.dfst" by_interface="true" on_top="true"/>
+                <mapping src="iobl.dftime" dest="iobl.dftime" by_interface="true" on_top="true"/>
+                <mapping src="iobl.finsty" dest="iobl.finsty" by_interface="true" on_top="true"/>
+                <mapping src="iobl.flowid" dest="iobl.flowid" by_interface="true" on_top="true"/>
+                <mapping src="iobl.indate" dest="iobl.indate" by_interface="true" on_top="true"/>
+                <mapping src="iobl.inmeid" dest="iobl.inmeid" by_interface="true" on_top="true"/>
+                <mapping src="iobl.inmena" dest="iobl.inmena" by_interface="true" on_top="true"/>
+                <mapping src="iobl.intrsq" dest="iobl.intrsq" by_interface="true" on_top="true"/>
+                <mapping src="iobl.jnanam" dest="iobl.jnanam" by_interface="true" on_top="true"/>
+                <mapping src="iobl.merate" dest="iobl.merate" by_interface="true" on_top="true"/>
+                <mapping src="iobl.mercfg" dest="iobl.mercfg" by_interface="true" on_top="true"/>
+                <mapping src="iobl.mntrsq" dest="iobl.mntrsq" by_interface="true" on_top="true"/>
+                <mapping src="iobl.mntrtm" dest="iobl.mntrtm" by_interface="true" on_top="true"/>
+                <mapping src="iobl.onefee" dest="iobl.onefee" by_interface="true" on_top="true"/>
+                <mapping src="iobl.ordeno" dest="iobl.ordeno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.ottrsq" dest="iobl.ottrsq" by_interface="true" on_top="true"/>
+                <mapping src="iobl.pabkno" dest="iobl.pabkno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.pamena" dest="iobl.pamena" by_interface="true" on_top="true"/>
+                <mapping src="iobl.pameno" dest="iobl.pameno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.prpoin" dest="iobl.prpoin" by_interface="true" on_top="true"/>
+                <mapping src="iobl.pycdtp" dest="iobl.pycdtp" by_interface="true" on_top="true"/>
+                <mapping src="iobl.refeno" dest="iobl.refeno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.retmsg" dest="iobl.retmsg" by_interface="true" on_top="true"/>
+                <mapping src="iobl.sabkna" dest="iobl.sabkna" by_interface="true" on_top="true"/>
+                <mapping src="iobl.sacdna" dest="iobl.sacdna" by_interface="true" on_top="true"/>
+                <mapping src="iobl.sacdno" dest="iobl.sacdno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.sbrand" dest="iobl.sbrand" by_interface="true" on_top="true"/>
+                <mapping src="iobl.spcipy" dest="iobl.spcipy" by_interface="true" on_top="true"/>
+                <mapping src="iobl.teleno" dest="iobl.teleno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tminmena" dest="iobl.tminmena" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tmpabkno" dest="iobl.tmpabkno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tmpamena" dest="iobl.tmpamena" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tmsacdna" dest="iobl.tmsacdna" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tmsacdno" dest="iobl.tmsacdno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tmteleno" dest="iobl.tmteleno" by_interface="true" on_top="true"/>
+                <mapping src="iobl.toanam" dest="iobl.toanam" by_interface="true" on_top="true"/>
+                <mapping src="iobl.tranam" dest="iobl.tranam" by_interface="true" on_top="true"/>
+                <mapping src="iobl.trandt" dest="iobl.trandt" by_interface="true" on_top="true"/>
+                <mapping src="iobl.transt" dest="iobl.transt" by_interface="true" on_top="true"/>
+                <mapping src="iobl.uniseq" dest="iobl.uniseq" by_interface="true" on_top="true"/>
+                <mapping src="iobl.unkpdt" dest="iobl.unkpdt" by_interface="true" on_top="true"/>
+                <mapping src="iobl.untrdt" dest="iobl.untrdt" by_interface="true" on_top="true"/>
+                <mapping src="iobl.untrtm" dest="iobl.untrtm" by_interface="true" on_top="true"/>
+                <mapping src="iobl.voucfe" dest="iobl.voucfe" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

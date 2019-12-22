@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="addwpl" longname="批量增加产品支取计划信息" kind="account" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[批量增加产品支取计划信息]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <fields id="dpdwpls" scope="DpProdConfType.KupDppbDrawPlanList" required="true" multi="false" longname="产品支取计划" array="false">
+                <field id="dpdwpl" type="DpProdConfType.KupDppbDrawPlanInfo" required="true" multi="true" array="false" longname="产品支取计划集合"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="addKupDppbDrawPlan" id="AddKupDppbDrawPlan" longname="增加产品支取计划" desc="增加产品支取计划"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="clacin" longname="存款收益试算" kind="3" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUSTAC" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款子账号"/>
+            <field id="isdraw" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否做支取试算"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="支取金额"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="calmon" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="支取试算利息"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pagesize" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="每页记录数"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="proCalAcin" id="proCalAcin" longname="试算收益处理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

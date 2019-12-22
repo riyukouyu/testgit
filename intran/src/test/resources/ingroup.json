@@ -1,0 +1,15 @@
+{
+ "input":{
+  "filesq":"1"
+ },
+ "comm_req":{
+  "jiaoyirq":"20170814"
+ },
+ "sys":{  
+  "corpno":"999",
+  "groupId":"CE370",
+  "flowId":"hx_dayend",
+  "tdcnno":"AA0",
+  "prcscd":"hx_dayend"
+ }
+}

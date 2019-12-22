@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rpwais" longname="可入账账户信息同步反盘文件" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.redpck" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="rpwais" longname="rpwais" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" mapping="RpMgr.KnbRptrCbai" startline="2">
+            <field id="ccstid" type="BaseType.U_CHAR20" longname="渠道用户ID" leftPadding="false" mode="splitor"/>
+            <field id="acstid" type="BaseType.U_CHAR20" longname="账户用户ID" leftPadding="false" mode="splitor"/>
+            <field id="cardno" type="BaseType.U_CARDNO" longname="电子账户" leftPadding="false" mode="splitor"/>
+            <field id="custna" type="BaseType.U_CUSTNA" longname="户名" leftPadding="false" mode="splitor"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" longname="机构号" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.redpck.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="neibjlid" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="内部处理ID"/>
+            <field id="taskid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号" ref="ApDict.Aplt.taskid"/>
+            <field id="fhwjmche" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="回盘文件名称"/>
+            <field id="fhwjbdlj" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="回盘文件目录"/>
+            <field id="shujubsid" type="ApBaseType.U_LEIXIN80" required="false" multi="false" array="false" longname="数据标识ID" />
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

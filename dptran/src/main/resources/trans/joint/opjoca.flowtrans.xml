@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="opjoca" longname="联名账户开户" kind="3" package="cn.sunline.ltts.busi.dptran.trans.joint" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.joint.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="交易卡号" ref="BaseDict.Comm.cardno"/>
+            <field id="joinna" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="联名账户名称"/>
+            <field id="platno" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="平台编号"/>
+            <field id="sginam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="转入单笔限额"/>
+            <field id="sgouam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="转出单笔限额"/>
+            <field id="sgspam" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="消费单笔限额"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="joinac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="联名账户"/>
+        </output>
+        <property packMode="true">
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="BaseDict.Comm.custno"/>
+            <field id="custac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="客户账号" ref="BaseDict.Comm.custac"/>
+            <field id="joinac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="联名账号"/>
+            <field id="fcflag" type="DpEnumType.E_FCFLAG" required="false" multi="false" array="false" longname="活定标志"/>
+            <field id="prodtp" type="DpEnumType.E_PRODTP" required="false" multi="false" array="false" longname="产品类型"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" default="11111" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="beforeMethod" id="beforeMethod" longname="交易前处理" desc="对输入的数据进行验证"/>
+        <service mappingToProperty="true" serviceName="IoDpJointSvc.AddJointAccount" id="addJointAccount" longname="新增联名账户">
+            <in_mappings by_interface="true">
+                <mapping src="sgspam" dest="jointa.custno" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="jointa.custac" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="joinna" dest="jointa.joinna" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="platno" dest="jointa.platno" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="custno" dest="jointa.custno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="joinac" dest="joinac" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="fcflag" dest="fcflag" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="prodtp" dest="prodtp" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" desc="description" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service serviceName="IoCaSrvGenEAccountInfo.IoCaAddEARela" id="addEARelation" longname="建立电子账号与联名账号关联" desc="建立电子账号与结算负债账号关联">
+            <in_mappings by_interface="true">
+                <mapping src="joinac" dest="cplAddEARelaIn.acctno" desc="负债账号" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplAddEARelaIn.custac" desc="电子账户" by_interface="true" on_top="true"/>
+                <mapping src="fcflag" dest="cplAddEARelaIn.fcflag" desc="定活标志" by_interface="true" on_top="true"/>
+                <mapping src="prodtp" dest="cplAddEARelaIn.prodtp" desc="产品类型" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplAddEARelaIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="cplAddEARelaIn.prodcd" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <service serviceName="IoDpJointSvc.AddJointLimit" id="addJointLimit" longname="新增联名账户额度信息">
+            <in_mappings by_interface="true">
+                <mapping src="joinac" dest="joinli.joinac" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="sginam" dest="joinli.sginam" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="sgouam" dest="joinli.sgouam" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="sgspam" dest="joinli.sgspam" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="afterMethod" id="afterMethod" longname="交易后处理"/>
+    </flow>
+</flowtran>

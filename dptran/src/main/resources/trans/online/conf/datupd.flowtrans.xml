@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="datupd" longname="修改产品核算定义配置交易" kind="maintain" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[修改产品核算定义配置交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="depttm" type="BaseEnumType.E_TERMCD" required="false" multi="false" array="false" longname="存期" ref="DpDict.Prod.depttm"/>
+            <field id="acctcd" type="BaseType.U_DTITCD" required="false" multi="false" array="false" longname="核算代码" ref="DpDict.Prod.acctcd"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="updDat" id="updDat" longname="修改产品核算定义配置" desc="修改产品核算定义配置"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rpchozwt" longname="红包批量冲正反盘文件" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.redpck" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="rpchozwt" longname="红包批量挂账交易回传文件" mode="splitor" splitor="|@|" encoding="UTF-8">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1">
+            <field id="zongbish" type="ApBaseType.U_CHANZXLX" longname="总笔数" leftPadding="false" mode="splitor"/>
+            <field id="chulizbs" type="ApBaseType.U_CHANZXLX" longname="处理总笔数" leftPadding="false" mode="splitor"/>
+            <field id="chenggbs" type="ApBaseType.U_CHANZXLX" longname="成功数" leftPadding="false" mode="splitor"/>
+            <field id="shibaibs" type="ApBaseType.U_CHANZXLX" longname="失败数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="RpMgr.KnbRptrBach" startline="2">
+            <field id="soursq" type="BaseType.U_SEQUNO" longname="来源方交易流水" leftPadding="false" mode="splitor"/>
+            <field id="sourdt" type="BaseType.U_DATE08" longname="来源方交易日期" leftPadding="false" mode="splitor"/>
+            <field id="rptrtp" type="DpEnumType.E_RPTRTP" longname="红包交易类型" leftPadding="false" mode="splitor"/>
+            <field id="rptype" type="DpEnumType.E_RPTRTP" longname="红包类型" leftPadding="false" mode="splitor"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" longname="摘要码" leftPadding="false" ref="BaseDict.Comm.smrycd" mode="splitor"/>
+            <field id="debact" type="BaseType.U_CUSTAC" longname="借方账号" leftPadding="false" mode="splitor"/>
+            <field id="decstp" type="BaseEnumType.E_ACSETP" longname="借方子账户类型" leftPadding="false" mode="splitor"/>
+            <field id="deborg" type="BaseType.U_BRCHNO" longname="借方机构" leftPadding="false" mode="splitor"/>
+            <field id="debnam" type="BaseType.U_ACCTNA" longname="借方户名" leftPadding="false" mode="splitor"/>
+            <field id="userid" type="BaseType.U_SEQUNO" longname="用户ID" leftPadding="false" mode="splitor"/>
+            <field id="rpcode" type="BaseType.U_SEQUNO" longname="红包编号" leftPadding="false" mode="splitor"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="货币代号" leftPadding="false" ref="DpDict.Acct.crcycd" mode="splitor"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" longname="钞汇标志" leftPadding="false" mode="splitor"/>
+            <field id="tranam" type="BaseType.U_TRANAM" longname="交易金额" leftPadding="false" ref="DpDict.Acct.tranam" mode="splitor"/>
+            <field id="oriseq" type="BaseType.U_SEQUNO" longname="原交易流水" leftPadding="false" mode="splitor"/>
+            <field id="oridat" type="BaseType.U_DATE08" longname="原交易日期" leftPadding="false" mode="splitor"/>
+            <field id="stady1" type="BaseType.U_SHORDS" longname="备用字段1" leftPadding="false" mode="splitor"/>
+            <field id="stady2" type="BaseType.U_SHORDS" longname="备用字段2" leftPadding="false" mode="splitor"/>
+            <field id="stady3" type="BaseType.U_SHORDS" longname="备用字段3" leftPadding="false" mode="splitor"/>
+            <field id="transq" type="BaseType.U_SEQUNO" longname="主交易流水" leftPadding="false" mode="splitor"/>
+            <field id="trandt" type="BaseType.U_DATE08" longname="主交易日期" leftPadding="false" mode="splitor"/>
+            <field id="transt" type="BaseEnumType.E_TRANST" longname="交易状态" leftPadding="false" mode="splitor"/>
+            <field id="descrb" type="LnBaseType.U_SHORDS" longname="交易描述" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.redpck.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="true" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="neibjlid" type="long" required="false" multi="false" array="false" longname="内部处理ID"/>
+            <field id="taskid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号" ref="ApDict.Aplt.taskid"/>
+            <field id="fhwjmche" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="回盘文件名称"/>
+            <field id="fhwjbdlj" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="回盘文件目录"/>
+            <field id="shujubsid" type="ApBaseType.U_LEIXIN80" required="false" multi="false" array="false" longname="数据标识ID"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

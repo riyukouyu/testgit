@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="repswd" longname="重置密码" kind="2" package="cn.sunline.ltts.busi.catran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.catran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="true" multi="false" array="false" longname="电子账号"/>
+            <field id="nwpswd" type="BaseType.U_TRANPW" required="true" multi="false" array="false" longname="新交易密码"/>
+            <field id="acctrt" type="BaseEnumType.E_ACCTROUTTYPE" required="true" multi="false" array="false" longname="账号类型"/>
+            <field id="authif" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="加密因子"/>
+            <field id="idtftp" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="证件类型" ref="DpDict.Acct.idtftp"/>
+            <field id="idtfno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="证件号码" ref="DpDict.Acct.idtfno"/>
+            <field id="teleno" type="BaseType.U_TELENO" required="false" multi="false" array="false" longname="电话号码" ref="DpDict.Acct.teleno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="mntrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="主交易流水"/>
+            <field id="mntrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="主交易日期"/>
+            <field id="mntrtm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="主交易时间"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="darRepswd" id="darRepswd" longname="交易前检查" desc="交易前检查"/>
+        <service serviceName="IoSrvDpPasswd.ResetPasswdComm" id="ResetPasswdComm" longname="重置密码" desc="重置电子账户密码">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="acctrt" dest="acctrt" by_interface="true" on_top="true"/>
+                <mapping src="nwpswd" dest="passwd" by_interface="true" on_top="true"/>
+                <mapping src="authif" dest="authif" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="aftRepswd" id="aftRepswd" longname="输出参数设置" desc="输出参数设置"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

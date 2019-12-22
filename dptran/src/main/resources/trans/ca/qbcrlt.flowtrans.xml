@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="qbcrlt" longname="电子账户绑卡结果查询" kind="1" package="cn.sunline.edsp.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="账号"/>
+            <field id="cdopac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="绑定账户" ref="CaDict.Eacct.cdopac"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="isbdcd" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="绑卡结果"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoCaSevGenBindCard.IoCaSelBindCardResult" id="IoCaSelBindCardResult" longname="电子账户绑卡结果查询">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="cdopac" dest="cdopac" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="isbdcd" dest="isbdcd" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

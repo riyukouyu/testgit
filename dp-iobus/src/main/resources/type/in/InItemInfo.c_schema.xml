@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema id="InItemInfo" package="cn.sunline.ltts.busi.in.type" longname="科目信息" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[科目信息]]></description>
+    <complexType id="ItemInfo" longname="科目信息" dict="false" abstract="false" introduct="false">
+        <odbindexes/>
+        <element id="itemcd" longname="科目" type="BaseType.U_ITEMCD" ref="InDict.inac.itemcd" required="true" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itemna" longname="科目名称" type="BaseType.U_CHAR200" ref="InDict.inac.itemna" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itemlv" longname="科目层次" type="BaseType.U_CHAR01" ref="InDict.inac.itemlv" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="dtittg" longname="是否明细科目" type="BaseEnumType.E_YES___" ref="InDict.inac.dtittg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="blncdn" longname="余额方向CDR" type="InEnumType.E_BLNCDN" ref="InDict.inac.blncdn" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ioflag" longname="表内外标志" type="InEnumType.E_IOFLAG" ref="InDict.inac.ioflag" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="upitem" longname="上级科目号" type="BaseType.U_ITEMCD" ref="InDict.inac.upitem" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itemtp" longname="科目项目类型" type="InEnumType.E_ITEMTP" ref="InDict.inac.itemtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="aslbtp" longname="资产负债类型" type="InEnumType.E_ASLBTP" ref="InDict.inac.aslbtp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itemrg" longname="科目来源分类" type="InEnumType.E_ITEMRG" ref="InDict.inac.itemrg" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="ittype" longname="科目类别" type="InEnumType.E_ITTYPE" ref="InDict.inac.ittype" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="proftp" longname="损益类别" type="InEnumType.E_PROFTP" ref="InDict.inac.proftp" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="busino" longname="业务代码" type="BaseType.U_BUSINO" ref="InDict.inac.busino" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+    <complexType id="ItemInfos" longname="科目信息集合" dict="false" abstract="false" introduct="false">
+        <element id="count" longname="总记录数 " type="integer" required="false" multi="false" range="false" array="false" final="false" override="false" allowSubType="true"/>
+        <element id="itinfo" longname="科目信息集合" type="InItemInfo.ItemInfo" required="false" multi="true" range="false" array="false" final="false" override="false" allowSubType="true"/>
+    </complexType>
+</schema>

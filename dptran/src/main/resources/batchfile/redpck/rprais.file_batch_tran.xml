@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rprais" longname="可入账账户信息同步上送文件" kind="read" package="cn.sunline.ltts.busi.dptran.batchfile.redpck" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="rprais" longname="可入账账户信息同步上送文件" mode="splitor" splitor="|" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1"/>
+        <body id="Body" longname="文件体" startline="1">
+            <field id="ccstid" type="BaseType.U_CHAR20" longname="渠道用户ID" leftPadding="false" mode="splitor"/>
+            <field id="acstid" type="BaseType.U_CHAR20" longname="账户用户ID" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.redpck.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="文件批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="dwpath" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="文件路径"/>
+            <field id="dwname" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="文件名"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

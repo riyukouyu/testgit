@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="erorhd" longname="差错处理（补入帐）" kind="3" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.edsp.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="inmeid" type="BaseType.U_CHAR25" required="false" multi="false" array="false" longname="内部商户号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="flowid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="交易自增id"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="flowid" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="流水唯一id"/>
+            <field id="status" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="状态"/>
+            <field id="mesage" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="返回信息"/>
+        </output>
+        <property packMode="true">
+            <field id="busino" type="BaseType.U_CHAR16" required="false" multi="false" array="false" longname="待清算业务编码"/>
+            <field id="reanam" type="BaseType.U_TRANAM" required="false" default="0.00" multi="false" array="false" longname="银联手续费金额"/>
+            <field id="amanam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="分润金额"/>
+            <field id="jnanam" type="BaseType.U_TRANAM" required="false" default="0.00" multi="false" array="false" longname="商户手续费"/>
+            <field id="cuanam" type="BaseType.U_TRANAM" required="false" default="0.00" multi="false" array="false" longname="商户存入金额"/>
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="交易机构"/>
+            <field id="detlsq" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="明细序号"/>
+            <field id="ischck" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否检查标志"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" default="'CX'" multi="false" array="false" longname="摘要代码"/>
+            <field id="isexit" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否存在交易"/>
+            <field id="cardno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="交易卡号"/>
+            <field id="custac" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="frstbi" type="BaseType.U_CHAR16" required="false" multi="false" array="false" longname="服务费收入业务编码"/>
+            <field id="inacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入账号"/>
+            <field id="inacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="转入户名"/>
+            <field id="busidn" type="InEnumType.E_BLNCDN" required="false" multi="false" array="false" longname="业务代码方向"/>
+            <field id="corpno" type="BaseType.U_CORPNO" required="false" multi="false" array="false" longname="法人代码"/>
+            <field id="sechke" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="搜索键"/>
+            <field id="atsvpr" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="归属服务商"/>
+            <field id="atsvna" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="归属服务商名称"/>
+            <field id="ad01na" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="一级服务商名称"/>
+            <field id="agid01" type="BaseType.U_CHAR35" required="false" multi="false" array="false" longname="一级服务商"/>
+            <field id="sbrand" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="pos品牌"/>
+            <field id="busitp" type="DsEnumType.E_BUSITP" required="false" multi="false" array="false" longname="业务类型" ref="DsDict.Ds.busitp"/>
+            <field id="clerinfo" type="IoAccountComplexType.IoAccounttingIntf" required="false" multi="false" array="false" longname="流水信息登记"/>
+            <field id="rgflfg" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否只登记流水标志"/>
+            <field id="knlioblcups" type="DpDepoBusiMain.KnlIoblCups" required="false" multi="false" array="false" longname="原交易流水实体"/>
+            <field id="prcsfg" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="交易中流水是否存在"/>
+            <field id="dtrsnt" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否D0转T1"/>
+            <field id="edflge" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否允许代发"/>
+            <field id="edbino" type="BaseType.U_CHAR16" required="false" multi="false" array="false" longname="代发业务编码"/>
+            <field id="trantm" type="BaseType.U_TRTMCH" required="false" multi="false" array="false" longname="交易时间" ref="BaseDict.Comm.trantm"/>
+            <field id="bindfg" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否有默认绑定卡"/>
+            <field id="knaCacd" type="ElectronicAccount.KnaCacd" required="false" multi="false" array="false" longname="绑卡信息"/>
+            <field id="merate" type="BaseType.U_CHAR100" required="false" default="''" multi="false" array="false" longname="商户费率"/>
+            <field id="remark" type="BaseType.U_CHAR50" required="false" default="''" multi="false" array="false" longname="摘要"/>
+            <field id="coupon" type="BaseType.U_TRANAM" required="false" default="0.00" multi="false" array="false" longname="实际活动抵扣"/>
+            <field id="servtp" type="JfDpEnumType.E_RETYPE" required="false" multi="false" array="false" longname="支付渠道"/>
+            <field id="unionCastInfo" type="DpdebitAcctnos.UnionCastInfo" required="false" multi="false" array="false" longname="银联成本信息"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" fixed="'CNY'" default="'CNY'" multi="false" array="false" longname="币种"/>
+            <field id="frodfg" type="BaseEnumType.E_YES___" required="false" default="'0'" multi="false" array="false" longname="是否押金"/>
+        </property>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="dealErorhd" id="dealErorhd" longname="交易前检查"/>
+        <block>
+            <service serviceName="IoInAccount.IoInAcdr" id="IoInAcdr" longname="待清算户口转出" desc="待清算户口转出">
+                <in_mappings by_interface="true">
+                    <mapping src="brchno" dest="input.acbrch" by_interface="true" on_top="true"/>
+                    <mapping src="busino" dest="input.busino" by_interface="true" on_top="true"/>
+                    <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                    <mapping src="tranam" dest="input.tranam" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="true"/>
+            </service>
+            <method method="unionPayDeal" id="unionPayDeal" longname="银联手续费处理" desc="银联手续费处理"/>
+            <service serviceName="IoInAccount.IoInAccr" id="IoInAccr" longname="银联手续费扣除" desc="银联手续费扣除">
+                <in_mappings by_interface="true">
+                    <mapping src="brchno" dest="input.acbrch" by_interface="true" on_top="true"/>
+                    <mapping src="busino" dest="input.busino" by_interface="true" on_top="true"/>
+                    <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                    <mapping src="reanam" dest="input.tranam" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="true"/>
+            </service>
+            <method method="shareBenefitDeal" id="shareBenefitDeal" test="frodfg==#dict.BaseEnumType.E_YES___().NO" longname="分润处理调用" desc="分润处理调用"/>
+            <method method="custDeptDeal" id="custDeptDeal" longname="客户入账处理" desc="客户入账处理"/>
+            <case id="businessPostDp" longname="存入记账处理">
+                <when id="businessAcctPost" test="frodfg==#dict.BaseEnumType.E_YES___().NO" longname="商户存款入账处理">
+                    <method method="shareBenefitPostDeal" id="shareBenefitPostDeal" test="amanam!=@java.math.BigDecimal@ZERO" longname="分润费用登记会计流水（损益类科目不允许记账只能登记流水）"/>
+                    <method method="voucfePostDeal" id="voucfePostDeal" test="coupon!=@java.math.BigDecimal@ZERO &amp;&amp; (dtrsnt==#dict.BaseEnumType.E_YES___().NO || bindfg==#dict.BaseEnumType.E_YES___().YES)" longname="抵扣金额处理（损益类科目不允许记账只能登记流水）"/>
+                    <service mappingToProperty="false" serviceName="DpAcctSvcType.addPostAcctDp" id="addPostAcctDp" test="cuanam!=@java.math.BigDecimal@ZERO" longname="存入记账处理">
+                        <in_mappings by_interface="true">
+                            <mapping src="cardno" dest="cplSaveAcctIn.cardno" by_interface="true" on_top="true"/>
+                            <mapping src="crcycd" dest="cplSaveAcctIn.crcycd" by_interface="true" on_top="true"/>
+                            <mapping src="remark" dest="cplSaveAcctIn.remark" by_interface="true" on_top="true"/>
+                            <mapping src="cuanam" dest="cplSaveAcctIn.tranam" by_interface="true" on_top="true"/>
+                            <mapping src="inacct" dest="cplSaveAcctIn.acctno" by_interface="true" on_top="true"/>
+                            <mapping src="detlsq" dest="cplSaveAcctIn.detlsq" by_interface="true" on_top="true"/>
+                            <mapping src="ischck" dest="cplSaveAcctIn.ischck" by_interface="true" on_top="true"/>
+                            <mapping src="smrycd" dest="cplSaveAcctIn.smrycd" by_interface="true" on_top="true"/>
+                            <mapping src="custac" dest="cplSaveAcctIn.custac" desc="description" by_interface="true" on_top="true"/>
+                        </in_mappings>
+                        <out_mappings by_interface="true"/>
+                    </service>
+                </when>
+                <when id="hangAcctPost" test="frodfg==#dict.BaseEnumType.E_YES___().YES" longname="服务费入账处理">
+                    <method method="cashPledgePostDeal" id="cashPledgePostDeal" test="cuanam!=@java.math.BigDecimal@ZERO" longname="服务费收入处理"/>
+                </when>
+            </case>
+            <method method="checkBalance" id="afterTranDeal" longname="平衡性检查" desc="平衡性检查"/>
+        </block>
+        <method method="afterTranDeal" id="afterTranDeal" test="isexit==#dict.BaseEnumType.E_YES___().YES" longname="存入交易后处理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

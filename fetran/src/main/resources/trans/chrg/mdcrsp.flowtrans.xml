@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="mdcrsp" longname="修改分润管理" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.transdef.chrg">
+        <input packMode="true">
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="true" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="indvrt" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方一比例"/>
+            <field id="oudvrt" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方二比例"/>
+            <field id="trdvrt" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方三比例"/>
+            <field id="spavrt" type="BaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方四比例"/>
+            <field id="efctdt" type="FeBaseType.U_DATE08" required="true" multi="false" array="false" longname="生效日期" ref="FeDict.Chrg.efctdt"/>
+            <field id="inefdt" type="FeBaseType.U_DATE08" required="true" multi="false" array="false" longname="失效日期" ref="FeDict.Chrg.inefdt"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetCenterBranch" id="IoGetCenterBranch" longname="获取中心机构清算中心">
+            <in_mappings by_interface="true">
+                <mapping src="#run.tranbr" dest="brchno" desc="description" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="brchInfo.brchno" dest="brchno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="mdcrsp" id="mdcrsp" longname="修改分润管理" desc="修改分润管理"/>
+    </flow>
+</flowtran>

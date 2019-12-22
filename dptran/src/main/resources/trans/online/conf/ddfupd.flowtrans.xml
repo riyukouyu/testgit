@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="ddfupd" longname="修改产品违约支取利息定义配置交易" kind="1" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[修改产品违约支取利息定义配置交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="drintp" type="DpEnumType.E_DRINTP" required="false" multi="false" array="false" longname="支取利息类型" ref="DpDict.Prod.drintp"/>
+            <field id="ingpcd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="利息组代码" ref="DpDict.Prod.ingpcd"/>
+            <field id="intrtp" type="DpEnumType.E_INTRTP" required="false" multi="false" array="false" longname="利息类型" ref="DpDict.Prod.intrtp"/>
+            <field id="drintx" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="利息支付方法说明" ref="DpDict.Prod.drintx"/>
+            <field id="inadtp" type="DpEnumType.E_INADTP" required="false" multi="false" array="false" longname="利息调整类型" ref="DpDict.Prod.inadtp"/>
+            <field id="sminad" type="DpEnumType.E_SMINAD" required="false" multi="false" array="false" longname="同时段多组利息调整选项" ref="DpDict.Prod.sminad"/>
+            <field id="adincd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="被调整利率编号" ref="DpDict.Prod.adincd"/>
+            <field id="insrwy" type="BaseEnumType.E_IRAFBY" required="false" multi="false" array="false" longname="利率确定方式"/>
+            <field id="inclfg" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="利率靠挡标志" ref="DpDict.Prod.inclfg"/>
+            <field id="bsinam" type="DpEnumType.E_BSINAM" required="false" multi="false" array="false" longname="基准结息金额来源" ref="DpDict.Prod.bsinam"/>
+            <field id="bsindt" type="DpEnumType.E_BSINDT" required="false" multi="false" array="false" longname="基准结息起始日来源" ref="DpDict.Prod.bsindt"/>
+            <field id="inedsc" type="DpEnumType.E_INEDSC" required="false" multi="false" array="false" longname="结息终止日来源" ref="DpDict.Prod.inedsc"/>
+            <field id="bsincd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="基准结息利率编号" ref="DpDict.Prod.bsincd"/>
+            <field id="bsinrl" type="DpEnumType.E_INBEBS" required="false" multi="false" array="false" longname="基准计息规则" ref="DpDict.Prod.bsinrl"/>
+            <field id="bsinef" type="BaseType.U_CHAR01" required="false" multi="false" array="false" longname="基准利率生效日选项" ref="DpDict.Prod.bsinef"/>
+            <field id="dtlvsr" type="DpEnumType.E_DTLVSR" required="false" multi="false" array="false" longname="日期分层日来源" ref="DpDict.Prod.dtlvsr"/>
+            <field id="dtsrcd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="日期分层利率编号" ref="DpDict.Prod.dtsrcd"/>
+            <field id="dtlvrl" type="DpEnumType.E_INBEBS" required="false" multi="false" array="false" longname="日期分层计息规则" ref="DpDict.Prod.dtlvrl"/>
+            <field id="dtlvef" type="BaseEnumType.E_INTREF" required="false" multi="false" array="false" longname="日期分层利率生效日选项" ref="DpDict.Prod.dtlvef"/>
+            <field id="amlvsr" type="DpEnumType.E_AMLVSR" required="false" multi="false" array="false" longname="金额分层来源" ref="DpDict.Prod.amlvsr"/>
+            <field id="amlvcd" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="金额分层利率编号" ref="DpDict.Prod.amlvcd"/>
+            <field id="amlvrl" type="DpEnumType.E_INBEBS" required="false" multi="false" array="false" longname="金额分层计息规则" ref="DpDict.Prod.amlvrl"/>
+            <field id="amlvef" type="BaseEnumType.E_INTREF" required="false" multi="false" array="false" longname="金额分层利率生效日选项" ref="DpDict.Prod.amlvef"/>
+            <field id="drinsc" type="DpEnumType.E_DRINSC" required="false" multi="false" array="false" longname="支取利息范围" ref="DpDict.Prod.drinsc"/>
+            <field id="drdein" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="支取是否扣除已付利息"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="updDdf" id="updDdf" longname="修改产品违约支取利息定义配置" desc="修改产品违约支取利息定义配置"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

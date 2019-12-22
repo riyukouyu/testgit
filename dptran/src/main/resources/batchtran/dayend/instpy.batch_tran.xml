@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="instpy" longname="日终结息" dataItem="DpDayEndType.InBeinTranData" package="cn.sunline.ltts.busi.dptran.batchtran.dayend" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.dayend.intf">
+        <input packMode="true"/>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="结息日期"/>
+            <field id="seq" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="批次序号"/>
+            <field id="sum" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="批次内账号总数量"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</batch_transaction>

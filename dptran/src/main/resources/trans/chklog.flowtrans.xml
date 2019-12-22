@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="chklog" longname="登录后校验并返回提示信息" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="交易卡号" ref="BaseDict.Comm.cardno"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="contxt" type="BaseType.U_CHAR1000" required="false" multi="false" array="false" longname="提示信息"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="checkLogin" id="checkLogin" longname="登录后提示信息校验"/>
+    </flow>
+</flowtran>

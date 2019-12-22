@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<batch_transaction id="rdcrfi" longname="对账差错文件读取" package="cn.sunline.ltts.busi.dptran.batchtran.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.batchtran.lzbank.intf">
+        <input packMode="true">
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="文件日期"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+</batch_transaction>

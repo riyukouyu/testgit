@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dptrtl" longname="查询电子账户活期账户交易明细（客户端）" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[查询电子账户活期账户交易明细（客户端）]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账户ID"/>
+            <field id="qractp" type="BaseEnumType.E_QRACTP" required="false" multi="false" array="false" longname="查询账户类型"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+            <field id="bgindt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期"/>
+            <field id="endddt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="BaseDict.Comm.smrycd"/>
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="onlnbl" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="当前账户余额" ref="DpDict.Acct.onlnbl"/>
+            <field id="cardno" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="tranno" type="BaseType.U_CHAR05" required="false" multi="false" array="false" longname="交易总笔数"/>
+            <field id="totalo" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="总支出"/>
+            <field id="totali" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="总收入"/>
+            <field id="pageno" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="页码"/>
+            <field id="acctblList" type="IoDpTable.IoDpTranDetlHqQryAcct" required="false" multi="true" array="false" longname="活期账户交易明细"/>
+        </output>
+        <property packMode="true">
+            <field id="pageno" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="当前页数"/>
+            <field id="pagesz" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="页容量"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="qryTranInfo" id="qryTranInfo" longname="交易前处理"/>
+        <service serviceName="DpAcctSvcType.selHqTranDetlAcc" id="selHqTranDetlAcc" longname="查询电子账户活期账户交易明细（客户端）">
+            <in_mappings by_interface="true">
+                <mapping src="bgindt" dest="bgindt" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="endddt" dest="endddt" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="pagesz" dest="pagesz" by_interface="true" on_top="true"/>
+                <mapping src="qractp" dest="qractp" by_interface="true" on_top="true"/>
+                <mapping src="smrycd" dest="smrycd" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="hatrdt" dest="acctblList" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="acctno" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="onlnbl" dest="onlnbl" by_interface="true" on_top="true"/>
+                <mapping src="pageno" dest="pageno" by_interface="true" on_top="true"/>
+                <mapping src="totali" dest="totali" by_interface="true" on_top="true"/>
+                <mapping src="totalo" dest="totalo" by_interface="true" on_top="true"/>
+                <mapping src="tranno" dest="tranno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

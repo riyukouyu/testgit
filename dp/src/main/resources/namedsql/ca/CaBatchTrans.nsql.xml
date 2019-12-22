@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<sqls xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="CaBatchTrans" longname="电子账户批量交易SQL" package="cn.sunline.ltts.busi.ca.namedsql" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <description><![CDATA[电子账户批量交易SQL]]></description>
+    <select cache="none" method="selectOne" type="sql" id="selBtchOpenacCountByBtchno" longname="根据批次号查询批量开户记录数">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	count(1) 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="btchno" jdbcType="VARCHAR" javaType="ApBaseType.U_PILJYLSH" mode="in" longname="批量交易批次号" parameterType="condition"/>
+            <parameter property="acctdt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="java.lang.Long"/>
+    </select>
+    <select cache="none" method="selectFirst" type="sql" id="selKnbOpbtFirstByBtchno" longname="根据批次号查询批量开户明细第一条记录">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="btchno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="当前批次号" parameterType="condition"/>
+            <parameter property="acctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="批次日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnbOpbt"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbOpbtAllByBtchno" longname="根据批次号查询批量开户结果">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt# ]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and acctdt = #acctdt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="btchno" ref="BaseDict.Comm.btchno" jdbcType="VARCHAR" javaType="BaseType.U_CHAR40" mode="in" longname="批量交易批次号" parameterType="condition"/>
+            <parameter property="acctdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="批次日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnbOpbt"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbOpbtNormalByBtchno" longname="根据批次号查询批量开户正常记录">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and corpno=#corpno# 
+    	    	and acctdt = #acctdt# and (
+    	    	    	openrt in (
+    	    	    	    	'1','3'
+    	    	    	) or openrt is null
+    	    	)
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and corpno=#corpno# 
+    	    	and acctdt = #acctdt# and (
+    	    	    	openrt in (
+    	    	    	    	'1','3'
+    	    	    	) or openrt is null
+    	    	)
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	knb_opbt 
+    	where
+    	    	btchno = #btchno# and corpno=#corpno# 
+    	    	and acctdt = #acctdt# and (
+    	    	    	openrt in (
+    	    	    	    	'1','3'
+    	    	    	) or openrt is null
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="btchno" jdbcType="VARCHAR" javaType="ApBaseType.U_PILJYLSH" mode="in" longname="批量交易批次号" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="acctdt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnbOpbt"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAcInvalidInfos" longname="电子账户作废">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_cust a 
+    	where
+    	    	a.acctst = #acctst# and a.cuacst = #cuacst# 
+    	    	and a.corpno = #corpno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_cust a 
+    	where
+    	    	a.acctst = #acctst# and a.cuacst = #cuacst# 
+    	    	and a.corpno = #corpno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	* 
+    	from
+    	    	kna_cust a 
+    	where
+    	    	a.acctst = #acctst# and a.cuacst = #cuacst# 
+    	    	and a.corpno = #corpno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acctst" jdbcType="VARCHAR" javaType="BaseEnumType.E_ACCTST" mode="in" longname="账户状态" parameterType="condition"/>
+            <parameter property="cuacst" jdbcType="VARCHAR" javaType="CaEnumType.E_CUACST" mode="in" longname="客户账户状态" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnaCust"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbPromCleanInfo" longname="查找电子账户升级登记簿">
+        <sql><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	knb_prom a 
+    	where
+    	    	a.aplydt <= #trandt# and a.promsv = #promsv# 
+    	    	and a.promst = #promst#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	knb_prom a 
+    	where
+    	    	a.aplydt <= #trandt# and a.promsv = #promsv# 
+    	    	and a.promst = #promst#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	knb_prom a 
+    	where
+    	    	a.aplydt <= #trandt# and a.promsv = #promsv# 
+    	    	and a.promst = #promst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="PbBaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="promsv" jdbcType="VARCHAR" javaType="CaEnumType.E_PROMSV" mode="in" longname="升级渠道" parameterType="condition"/>
+            <parameter property="promst" jdbcType="VARCHAR" javaType="CaEnumType.E_PROMST" mode="in" longname="升级状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnbProm"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnaCustIdckrtInfos" longname="查找电子账户表身份核查记录为核查中的记录">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kna_cust a 
+    	where
+    	    	a.corpno=#corpno# and a.idckrt = #idckrt# or a.mpckrt = #mpckrt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kna_cust a 
+    	where
+    	    	a.corpno=#corpno# and a.idckrt = #idckrt# or a.mpckrt = #mpckrt#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kna_cust a 
+    	where
+    	    	a.corpno=#corpno# and a.idckrt = #idckrt# or a.mpckrt = #mpckrt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="idckrt" ref="CaDict.Eacct.idckrt" jdbcType="VARCHAR" javaType="CaEnumType.E_IDCKRT" mode="in" longname="身份核查结果" parameterType="condition"/>
+            <parameter property="mpckrt" ref="CaDict.Eacct.mpckrt" jdbcType="VARCHAR" javaType="CaEnumType.E_MPCKRT" mode="in" longname="人脸识别结果" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnaCust"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnbPromIdckrtInfos" longname="查找升级登记簿身份核查记录为核查中的记录">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	knb_prom a 
+    	where
+    	    	(
+    	    	    	a.idckrt = #idckrt# or a.mpckrt = #mpckrt#
+    	    	) and a.promst = #promst# 
+    	    	and a.corpno=#corpno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	knb_prom a 
+    	where
+    	    	(
+    	    	    	a.idckrt = #idckrt# or a.mpckrt = #mpckrt#
+    	    	) and a.promst = #promst# 
+    	    	and a.corpno=#corpno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	knb_prom a 
+    	where
+    	    	(
+    	    	    	a.idckrt = #idckrt# or a.mpckrt = #mpckrt#
+    	    	) and a.promst = #promst# 
+    	    	and a.corpno=#corpno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="idckrt" ref="CaDict.Eacct.idckrt" jdbcType="VARCHAR" javaType="CaEnumType.E_IDCKRT" mode="in" longname="身份核查结果" parameterType="condition"/>
+            <parameter property="mpckrt" ref="CaDict.Eacct.mpckrt" jdbcType="VARCHAR" javaType="CaEnumType.E_MPCKRT" mode="in" longname="人脸识别结果" parameterType="condition"/>
+            <parameter property="promst" ref="CaDict.Eacct.promst" jdbcType="VARCHAR" javaType="CaEnumType.E_PROMST" mode="in" longname="升级状态" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="ElectronicAccount.KnbProm"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnaReltIdckrtInfos" longname="查找亲情钱包关联关系表身份核查记录为核查中的记录">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kna_relt a 
+    	where
+    	    	a.idckrt = #idckrt#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kna_relt a 
+    	where
+    	    	a.idckrt = #idckrt#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kna_relt a 
+    	where
+    	    	a.idckrt = #idckrt#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="idckrt" ref="WaDict.WaAcc.idckrt" jdbcType="VARCHAR" javaType="CaEnumType.E_IDCKRT" mode="in" longname="身份联网核查结果" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="WaAcctType.IoWaKnaRelt"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupDppbForEfctdt" longname="查询产品基础属性表待启用的产品信息">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kup_dppb a 
+    	where
+    	    	a.efctdt <= #trandt# and a.prodst in(
+    	    	    	'3','6'
+    	    	)
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kup_dppb a 
+    	where
+    	    	a.efctdt <= #trandt# and a.prodst in(
+    	    	    	'3','6'
+    	    	)
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kup_dppb a 
+    	where
+    	    	a.efctdt <= #trandt# and a.prodst in(
+    	    	    	'3','6'
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoDpTable.IoDpKupDppb"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKupDppbForInefdt" longname="查询产品基础属性表待停用的产品信息">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kup_dppb a 
+    	where
+    	    	a.inefdt <= #trandt# and a.prodst = #prodst#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kup_dppb a 
+    	where
+    	    	a.inefdt <= #trandt# and a.prodst = #prodst#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	kup_dppb a 
+    	where
+    	    	a.inefdt <= #trandt# and a.prodst = #prodst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoDpTable.IoDpKupDppb"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGlKnpBusiForBgdate" longname="查询内部户产品基础属性表待启用的产品信息">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	gl_knp_busi a 
+    	where
+    	    	a.bgdate <= #trandt# and a.busist in(
+    	    	    	'3','6'
+    	    	)
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	gl_knp_busi a 
+    	where
+    	    	a.bgdate <= #trandt# and a.busist in(
+    	    	    	'3','6'
+    	    	)
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	gl_knp_busi a 
+    	where
+    	    	a.bgdate <= #trandt# and a.busist in(
+    	    	    	'3','6'
+    	    	)
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInTable.IoGlKnpBusi"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selGlKnpBusiForEddate" longname="查询内部户产品基础属性表待停用的产品信息">
+        <sql type="db2"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	gl_knp_busi a 
+    	where
+    	    	a.eddate <= #trandt# and a.busist = #prodst#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	gl_knp_busi a 
+    	where
+    	    	a.eddate <= #trandt# and a.busist = #prodst#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	a.* 
+    	from
+    	    	gl_knp_busi a 
+    	where
+    	    	a.eddate <= #trandt# and a.busist = #prodst#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="IoInTable.IoGlKnpBusi"/>
+    </select>
+    <update method="update" id="updKupDppbProdst" longname="更新产品基础属性表状态">
+        <sql type="db2"><![CDATA[
+    	update
+    	    	kup_dppb a 
+    	set
+    	    	a.prodst = #prodst#,a.tmstmp =#tmstmp# 
+    	where
+    	    	a.corpno = #corpno# and a.prodcd = #prodcd#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	kup_dppb a 
+    	set
+    	    	a.prodst = #prodst#,a.tmstmp =#tmstmp# 
+    	where
+    	    	a.corpno = #corpno# and a.prodcd = #prodcd#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	kup_dppb a 
+    	set
+    	    	a.prodst = #prodst#,a.tmstmp =#tmstmp# 
+    	where
+    	    	a.corpno = #corpno# and a.prodcd = #prodcd#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="prodst" ref="DpDict.Prod.prodst" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="tmstmp" ref="ApDict.Aplt.tmstmp" jdbcType="VARCHAR" javaType="ApBaseType.U_TMSTMP" mode="in" longname="时间戳" parameterType="condition"/>
+            <parameter property="corpno" ref="ApDict.Aplt.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+            <parameter property="prodcd" ref="DpDict.Prod.prodcd" jdbcType="VARCHAR" javaType="BaseType.U_PRODCD" mode="in" longname="产品编号" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updGlKnpBusiBusist" longname="更新内部户产品基础属性表状态">
+        <sql type="db2"><![CDATA[
+    	update
+    	    	gl_knp_busi a 
+    	set
+    	    	a.busist = #busist# 
+    	where
+    	    	a.busino = #busino# and a.corpno = #corpno#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	gl_knp_busi a 
+    	set
+    	    	a.busist = #busist# 
+    	where
+    	    	a.busino = #busino# and a.corpno = #corpno#
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	gl_knp_busi a 
+    	set
+    	    	a.busist = #busist# 
+    	where
+    	    	a.busino = #busino# and a.corpno = #corpno#
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="busist" jdbcType="VARCHAR" javaType="BaseEnumType.E_PRODST" mode="in" longname="产品状态" parameterType="condition"/>
+            <parameter property="busino" ref="InDict.inac.busino" jdbcType="VARCHAR" javaType="BaseType.U_BUSINO" mode="in" longname="业务代码" parameterType="condition"/>
+            <parameter property="corpno" ref="BaseDict.Comm.corpno" jdbcType="VARCHAR" javaType="BaseType.U_CORPNO" mode="in" longname="法人代码" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <update method="update" id="updKnbPromStatus" longname="更新电子账户升级登记簿升级记录作废">
+        <sql type="db2"><![CDATA[
+    	update
+    	    	knb_prom 
+    	set
+    	    	promst = #promst# 
+    	where
+    	    	custac =#custac# and promsv = #promsv# 
+    	    	and promst = #odpmst# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	knb_prom 
+    	set
+    	    	promst = #promst# 
+    	where
+    	    	custac =#custac# and promsv = #promsv# 
+    	    	and promst = #odpmst# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	knb_prom 
+    	set
+    	    	promst = #promst# 
+    	where
+    	    	custac =#custac# and promsv = #promsv# 
+    	    	and promst = #odpmst# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="promst" ref="CaDict.Eacct.promst" jdbcType="VARCHAR" javaType="CaEnumType.E_PROMST" mode="in" longname="升级状态" parameterType="condition"/>
+            <parameter property="custac" ref="CaDict.Eacct.custac" jdbcType="VARCHAR" javaType="BaseType.U_CUACNO" mode="in" longname="电子账号" parameterType="condition"/>
+            <parameter property="promsv" ref="CaDict.Eacct.promsv" jdbcType="VARCHAR" javaType="CaEnumType.E_PROMSV" mode="in" longname="升级渠道" parameterType="condition"/>
+            <parameter property="odpmst" jdbcType="VARCHAR" javaType="CaEnumType.E_PROMST" mode="in" longname="原升级状态" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectOne" type="sql" id="selGroupCountSign" longname="查询签约明细交易当日的交易记录数">
+        <sql><![CDATA[
+    	select
+    	    	sum(c.cnt) 
+    	from
+    	    	( select
+    	    	    	count(1) cnt 
+    	    	from
+    	    	    	kna_sign_detl a 
+    	    	where
+    	    	    	a.signdt = #trandt# and a.signst = #signst1# 
+    	    	union
+    	    	select
+    	    	    	count(1) cnt 
+    	    	from
+    	    	    	kna_sign_detl b 
+    	    	where
+    	    	    	b.cncldt = #trandt# 
+    	    	    	and b.signst = #signst2# 
+    	) c
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	sum(c.cnt) 
+    	from
+    	    	( select
+    	    	    	count(1) cnt 
+    	    	from
+    	    	    	kna_sign_detl a 
+    	    	where
+    	    	    	a.signdt = #trandt# and a.signst = #signst1# 
+    	    	union
+    	    	select
+    	    	    	count(1) cnt 
+    	    	from
+    	    	    	kna_sign_detl b 
+    	    	where
+    	    	    	b.cncldt = #trandt# 
+    	    	    	and b.signst = #signst2# 
+    	) c]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	sum(c.cnt) 
+    	from
+    	    	( select
+    	    	    	count(1) cnt 
+    	    	from
+    	    	    	kna_sign_detl a 
+    	    	where
+    	    	    	a.signdt = #trandt# and a.signst = #signst1# 
+    	    	union
+    	    	select
+    	    	    	count(1) cnt 
+    	    	from
+    	    	    	kna_sign_detl b 
+    	    	where
+    	    	    	b.cncldt = #trandt# 
+    	    	    	and b.signst = #signst2# 
+    	) c]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="signst1" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+            <parameter property="signst2" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="long"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selAllSignDetail" longname="查询签约明细交易当日的交易记录明细">
+        <sql><![CDATA[
+    	select
+    	    	S.signst, S.custno, D.cardno,D.status, B.custna,
+    	    	S.fxacct, B.brchno, '' brchna,S.trprod prodcd, '' prodna ,
+    	    	S.keepam, S.trmiam, S.tmstmp, '' trandt, S.signdt,
+    	    	S.effedt, B.brchno, '' servtp 
+    	from
+    	    	kna_sign_detl S 
+    	left join
+    	    	kna_cust B 
+    	    	    	on S.custac = B.custac 
+    	left join
+    	    	kna_acdc D 
+    	    	    	on S.custac = D.custac 
+    	where
+    	    	S.signdt = #trandt# and S.signst = #signst1# 
+    	union
+    	select
+    	    	S.signst, S.custno, D.cardno,
+    	    	D.status, B.custna, S.fxacct, B.brchno, '' brchna,
+    	    	S.trprod prodcd, '' prodna , S.keepam, S.trmiam, S.tmstmp,
+    	    	'' trandt, S.signdt, S.effedt, B.brchno, '' servtp 
+    	from
+    	    	kna_sign_detl S 
+    	left join
+    	    	kna_cust B 
+    	    	    	on S.custac = B.custac 
+    	left join
+    	    	kna_acdc D 
+    	    	    	on S.custac = D.custac 
+    	where
+    	    	S.cncldt = #trandt# 
+    	    	and S.signst = #signst2# 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	S.signst, S.custno, D.cardno,D.status, B.custna,
+    	    	S.fxacct, B.brchno, '' brchna,S.trprod prodcd, '' prodna ,
+    	    	S.keepam, S.trmiam, S.tmstmp, '' trandt, S.signdt,
+    	    	S.effedt, B.brchno, '' servtp 
+    	from
+    	    	kna_sign_detl S 
+    	left join
+    	    	kna_cust B 
+    	    	    	on S.custac = B.custac 
+    	left join
+    	    	kna_acdc D 
+    	    	    	on S.custac = D.custac 
+    	where
+    	    	S.signdt = #trandt# and S.signst = #signst1# 
+    	union
+    	select
+    	    	S.signst, S.custno, D.cardno,
+    	    	D.status, B.custna, S.fxacct, B.brchno, '' brchna,
+    	    	S.trprod prodcd, '' prodna , S.keepam, S.trmiam, S.tmstmp,
+    	    	'' trandt, S.signdt, S.effedt, B.brchno, '' servtp 
+    	from
+    	    	kna_sign_detl S 
+    	left join
+    	    	kna_cust B 
+    	    	    	on S.custac = B.custac 
+    	left join
+    	    	kna_acdc D 
+    	    	    	on S.custac = D.custac 
+    	where
+    	    	S.cncldt = #trandt# 
+    	    	and S.signst = #signst2# 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	S.signst, S.custno, D.cardno,D.status, B.custna,
+    	    	S.fxacct, B.brchno, '' brchna,S.trprod prodcd, '' prodna ,
+    	    	S.keepam, S.trmiam, S.tmstmp, '' trandt, S.signdt,
+    	    	S.effedt, B.brchno, '' servtp 
+    	from
+    	    	kna_sign_detl S 
+    	left join
+    	    	kna_cust B 
+    	    	    	on S.custac = B.custac 
+    	left join
+    	    	kna_acdc D 
+    	    	    	on S.custac = D.custac 
+    	where
+    	    	S.signdt = #trandt# and S.signst = #signst1# 
+    	union
+    	select
+    	    	S.signst, S.custno, D.cardno,
+    	    	D.status, B.custna, S.fxacct, B.brchno, '' brchna,
+    	    	S.trprod prodcd, '' prodna , S.keepam, S.trmiam, S.tmstmp,
+    	    	'' trandt, S.signdt, S.effedt, B.brchno, '' servtp 
+    	from
+    	    	kna_sign_detl S 
+    	left join
+    	    	kna_cust B 
+    	    	    	on S.custac = B.custac 
+    	left join
+    	    	kna_acdc D 
+    	    	    	on S.custac = D.custac 
+    	where
+    	    	S.cncldt = #trandt# 
+    	    	and S.signst = #signst2# 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+            <parameter property="signst1" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+            <parameter property="signst2" jdbcType="VARCHAR" javaType="CaEnumType.E_SIGNST" mode="in" longname="签约状态" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="CaCustInfo.CntrwtDetail"/>
+    </select>
+    <update method="update" id="updCusAcmsMesgst" longname="更新接收消息表中的消息状态">
+        <sql type="db2"><![CDATA[
+    	update
+    	    	cus_acms 
+    	set
+    	    	mesgst = '0',errinf = '' 
+    	where
+    	    	mesgst = '3' and servid = 'AS_NAS_ACC_CKRTAC' 
+    	    	and exectm = '1'
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	cus_acms 
+    	set
+    	    	mesgst = '0',errinf = '' 
+    	where
+    	    	mesgst = '3' and servid = 'AS_NAS_ACC_CKRTAC' 
+    	    	and exectm = '1']]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	cus_acms 
+    	set
+    	    	mesgst = '0',errinf = '' 
+    	where
+    	    	mesgst = '3' and servid = 'AS_NAS_ACC_CKRTAC' 
+    	    	and exectm = '1']]></sql>
+        <parameterMap class="java.util.Map"/>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selKnaDelayMessgst" longname="查询延迟转账批量定时任务">
+        <sql><![CDATA[
+    	select
+    	    	transq,capitp,cardno,cuacno,acctno,
+    	    	brchno,incorp,tocorp,tobrch,toacct,
+    	    	toscac,toacno,crcycd,tranam,tlcgam,
+		servtp,inacna,otacna,acdate,trantp,trandt
+    	from
+    	    	kna_delay 
+    	where
+    	    	((acdate = #acdate# and actime <= #actime# ) or  acdate <#acdate# )
+    	    	and delayt = '0' 
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	select
+    	    	transq,capitp,cardno,cuacno,acctno,
+    	    	brchno,incorp,tocorp,tobrch,toacct,
+    	    	toscac,toacno,crcycd,tranam,tlcgam,
+		servtp,inacna,otacna,acdate,trantp,trandt
+    	from
+    	    	kna_delay 
+    	where
+    	    	((acdate = #acdate# and actime <= #actime# ) or  acdate <#acdate# )
+    	    	and delayt = '0' 
+    	]]></sql>
+        <sql type="mysql"><![CDATA[
+    	select
+    	    	transq,capitp,cardno,cuacno,acctno,
+    	    	brchno,incorp,tocorp,tobrch,toacct,
+    	    	toscac,toacno,crcycd,tranam,tlcgam,
+		servtp,inacna,otacna,acdate,trantp,trandt
+    	from
+    	    	kna_delay 
+    	where
+    	    	((acdate = #acdate# and actime <= #actime# ) or  acdate <#acdate# )
+    	    	and delayt = '0' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="acdate" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="到账日期" parameterType="condition"/>
+            <parameter property="actime" jdbcType="VARCHAR" javaType="BaseType.U_TRTMCH" mode="in" longname="到账时间" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpknaDelayBatch"/>
+    </select>
+    <update method="update" id="updKnaDelay" longname="更新延迟转账批量定时任务">
+        <sql><![CDATA[
+    	update
+    	    	kna_delay 
+    	set
+    	    	delayt = #delayt# 
+    	where
+    	    	transq = #transq#
+    	]]></sql>
+        <sql type="oracle"><![CDATA[
+    	update
+    	    	kna_delay 
+    	set
+    	    	delayt = #delayt# 
+    	where
+    	    	transq = #transq#]]></sql>
+        <sql type="mysql"><![CDATA[
+    	update
+    	    	kna_delay 
+    	set
+    	    	delayt = #delayt# 
+    	where
+    	    	transq = #transq#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="delayt" jdbcType="VARCHAR" javaType="DpEnumType.E_DELAYT" mode="in" longname="转账状态" parameterType="condition"/>
+            <parameter property="transq" ref="DpDict.Acct.transq" jdbcType="VARCHAR" javaType="BaseType.U_SEQUNO" mode="in" longname="主交易流水" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <select cache="none" method="selectAll" type="sql" id="selAcctClerFromKnsAcsqCler" longname="汇总来往账清算数据">
+        <sql type="oracle" desc="扎差汇总未冲账并且数据未同步的会计流水清算表记录，方向为借为正金额，方向为贷为负金额 "><![CDATA[select a.acctno,
+       a.acctna,
+       a.acctbr,
+       a.crcycd,
+       a.prodcd,
+       a.clactp,
+       a.toacct,
+       sum(case a.amntcd
+             when 'D' then
+              tranam
+             when 'C' then
+              -tranam
+           end) sumamt
+  from kns_acsq_cler a
+ where a.trandt = #trandt#
+  and a.transt = 2 
+  and a.clerst = 0
+ group by a.acctno,
+          a.acctna,
+          a.acctbr,
+          a.crcycd,
+          a.prodcd,
+          a.clactp,
+          a.toacct]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAcctType.AcctClerInfos"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKnlIobl" longname="根据对账日期查询出入金登记薄">
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIobl"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knl_iobl]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[status!=5]]></str>
+                    <if test="trandt!=null&amp;&amp;trandt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[servdt=#trandt#]]></str>
+                    </if>
+                    <if test="servtp!=null&amp;&amp;servtp!=''" type="If">
+                        <str type="Str"><![CDATA[servtp=#servtp#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trantm asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKnlCnapot" longname="根据对账日期查询大小额来往账明细">
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+            <parameter property="subsys" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlCnapot"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knl_cnapot]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trandt!=null&amp;&amp;trandt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[servdt=#trandt#]]></str>
+                    </if>
+                    <if test="subsys!=null&amp;&amp;subsys!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[subsys=#subsys#]]></str>
+                    </if>
+                    <str type="Str"><![CDATA[status!=5]]></str>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by  trantm asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKnlIoblAll" longname="根据对账日期查询总金额及总条数">
+        <sql type="oracle"><![CDATA[select count(1) as counts,sum(tranam) as tranam from 
+(select a.tranam from knl_iobl a where a.servdt=#trandt# 
+and a.status!=5 and a.servtp=#servtp# union all select b.tranam from knb_rptr_detl b where b.chckdt=#trandt# and transt!=5 and stady1!='S')]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" parameterType="condition"/>
+            <parameter property="servtp" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpCount"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnlCnapotAll" longname="根据对账日期查询来往账明细总金额及总记录数">
+        <sql type="oracle"><![CDATA[select count(1) as counts,sum(tranam) as tranam from knl_cnapot where servdt=#trandt# and subsys=#subsys# and status!=5]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" parameterType="condition"/>
+            <parameter property="subsys" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpCount"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnlIoblCupsAll" longname="根据对账日期查询银联CUPS总金额及总记录数">
+        <sql type="oracle"><![CDATA[select count(1) as counts,sum(tranam) as tranam from knl_iobl_cups  where unkpdt=#trandt#]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpCount"/>
+    </select>
+    <update method="update" id="updClerstFromKnsAcsqCler" longname="更新清算明细的同步状态">
+        <sql type="oracle" desc="清算明细汇总后，更新清算明细的同步状态为已同步"><![CDATA[  update kns_acsq_cler a set a.clerst = '1' 
+  where  a.trandt =#trandt#
+  and a.transt = 2 and a.clerst = 0]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+    </update>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKnbRptrDetl" longname="根据对账日期查询红包系统交易明细表">
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="交易日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="RpMgr.KnbRptrDetl"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from knb_rptr_detl]]></str>
+            <where type="Where">
+                <and type="And">
+                    <str type="Str"><![CDATA[transt!=5]]></str>
+                    <if test="trandt!=null&amp;&amp;trandt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[chckdt=#trandt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by trandt]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKnlIoblEdmAll" longname="根据对账日期查询代发总金额及总记录数">
+        <sql type="oracle"><![CDATA[select count(1) as counts,sum(tranam) as tranam from Knl_Iobl_Edm where trandt=#trandt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpCount"/>
+    </select>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKnlIoblEdm" longname="根据对账日期查询代发转账登记薄">
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+            <parameter property="djtype" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblEdm"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from Knl_Iobl_Edm]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trandt!=null&amp;&amp;trandt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt=#trandt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by mntrsq asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <dynamicSelect cache="none" method="selectAll" type="sql" id="selKnlIoblEdmContro" longname="根据对账日期查询代发转账登记薄控制表">
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpDepoBusiMain.KnlIoblEdmContro"/>
+        <dynamicSql type="oracle">
+            <str type="Str"><![CDATA[select * from Knl_Iobl_Edm_Contro]]></str>
+            <where type="Where">
+                <and type="And">
+                    <if test="trandt!=null&amp;&amp;trandt!=&quot;&quot;" type="If">
+                        <str type="Str"><![CDATA[trandt=#trandt#]]></str>
+                    </if>
+                </and>
+            </where>
+            <str type="Str"><![CDATA[order by mntrsq asc]]></str>
+        </dynamicSql>
+    </dynamicSelect>
+    <select cache="none" method="selectOne" type="sql" id="selKnlIoblEdmControALL" longname="根据对账日期查询代发防重复控制表">
+        <sql><![CDATA[select count(1) as counts from Knl_Iobl_Edm_Contro where trandt=#trandt# 
+]]></sql>
+        <sql type="oracle"><![CDATA[select count(1) as counts from Knl_Iobl_Edm_Contro where trandt=#trandt# 
+]]></sql>
+        <sql type="mysql"><![CDATA[select count(1) as counts from Knl_Iobl_Edm_Contro where trandt=#trandt# and transt!=2]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpCount"/>
+    </select>
+    <select cache="none" method="selectOne" type="sql" id="selKnlIoblCupsReAll" longname="查询收单反交易金额及数量">
+        <sql><![CDATA[select count(1) as counts  from knl_iobl_cups_re  where unkpdt=#trandt# ]]></sql>
+        <sql type="oracle"><![CDATA[select count(1) as counts  from knl_iobl_cups_re  where unkpdt=#trandt# ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="LnBaseType.U_DATE08" mode="in" longname="银联清算日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpTransfer.DpCount"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selKnlIoblCups" longname="根据对账日期查询银联CUPS转账登记薄">
+        <sql type="oracle"><![CDATA[ select
+            flowid , servtp, uniseq, unkpdt, messtp,
+            tranam, refeno, ordeno, cardno, inmeid,
+            inmena, transt, mntrsq, trandt, mntrtm,
+            prepsq, prepdt, preptm, sbrand, busitp,
+            teleno, tmteleno, '' as cardtp, '' as merate, jnanam,
+            voucfe, toanam, '' as finsty, '' as acfist, chrgam,
+            CAST(0.00 AS NUMBER (10, 2) ) as ad01am, reflid, '' as signim, fiel0, fiel03 ,
+           CAST(0.00 AS NUMBER (10, 2) ) as bscdam , CAST(0.00 AS NUMBER (10, 2) ) as svntam, CAST(0.00 AS NUMBER (10, 2) ) as unbdam
+      from
+            knl_iobl_cups_re a  where a.unkpdt=#trandt#
+      union
+      select
+            flowid ,
+            servtp, uniseq, unkpdt, messtp, tranam,
+            refeno, ordeno, cardno, inmeid, inmena,
+            transt, mntrsq, trandt, mntrtm, prepsq,
+            prepdt, preptm, sbrand, busitp, teleno,
+            tmteleno, cardtp, merate, jnanam, voucfe,
+            toanam, finsty, acfist, chrgam, CAST(ad01am AS NUMBER (10, 2) ) as  ad01am,
+            reflid, signim, fiel0, fiel03 , CAST(bscdam AS NUMBER (10, 2) ) as bscdam,
+           CAST(svntam AS NUMBER (10, 2) ) as svntam , CAST(unbdam AS NUMBER (10, 2) ) as unbdam
+      from
+            knl_iobl_cups b 
+      where
+           b.unkpdt=#trandt#
+      order by
+            mntrsq asc
+      ]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="trandt" jdbcType="VARCHAR" javaType="string" mode="in" longname="银联清算日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="CaCustInfo.CoresdList"/>
+    </select>
+    <select cache="none" method="selectAll" type="sql" id="selectAcsqRgstByCktrdt" longname="通过对账日期取对账信息">
+        <sql><![CDATA[
+    	SELECT
+    	    	a.CLTRSQ, a.CLTRDT, a.ISCHCK, a.CKTRDT, a.JFTRTP,
+    	    	a.CLERTP, a.POSNUM, a.INMEID, a.YSUNAM, a.YFMCAM,
+    	    	a.DIVDAM, a.DIVDFE, a.UNAMFE, a.TRANAM, a.VOUCFE,
+    	    	a.MARKFE, a.CRCYCD, a.PABKNO, a.OTBKNA, a.PAMENO,
+    	    	a.PAMENA, a.REMARK, a.CHANTP, a.SVCODE, a.MNTRSQ,
+    	    	a.MNTRDT, a.MNTRTM, a.STRKSQ, a.STRKDT, a.STRKTM,
+    	    	a.TRANST 
+    	FROM
+    	    	kns_acsq_rgst a 
+    	WHERE
+    	    	a.ISCHCK = '1' AND a.transt = '9' 
+    	    	AND a.cktrdt = '#cktrdt#' 
+    	]]></sql>
+        <parameterMap class="java.util.Map">
+            <parameter property="ischck" ref="DpRiskDict.JfDp.ischck" jdbcType="VARCHAR" javaType="BaseEnumType.E_YES___" mode="in" longname="对账标志" parameterType="condition"/>
+            <parameter property="transt" ref="PbDict.Cash.transt" jdbcType="VARCHAR" javaType="BaseEnumType.E_TRANST" mode="in" longname="交易状态" parameterType="condition"/>
+            <parameter property="cktrdt" ref="DpRiskDict.JfDp.cktrdt" jdbcType="VARCHAR" javaType="BaseType.U_DATE08" mode="in" longname="对账日期" parameterType="condition"/>
+        </parameterMap>
+        <resultMap class="DpAccount.KnsAcsqRgst"/>
+    </select>
+</sqls>

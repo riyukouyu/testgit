@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrdpir" longname="查询存款利率信息" kind="query" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号" />
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="cplIntr" type="DpProdSvc.DpIntrvlInfo" required="false" multi="false" array="false" longname="存款利率信息"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="DpAcctSvcType.SelIntrvlByAcctno" id="selIntrvlByAcctno" longname="查询存款利率信息" desc="查询存款利率信息">
+            <in_mappings by_interface="true">
+                <mapping src="acctno" dest="acctno" desc="负债账户" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplInrt.cuinrt" dest="cplIntr.cuinrt" desc="当前利率" by_interface="true" on_top="true"/>
+                <mapping src="cplInrt.cuusin" dest="cplIntr.cuusin" desc="账户利率" by_interface="true" on_top="true"/>
+                <mapping src="cplInrt.bgindt" dest="cplIntr.bgindt" desc="起始日期" by_interface="true" on_top="true"/>
+                <mapping src="cplInrt.matudt" dest="cplIntr.matudt" desc="到期日期" by_interface="true" on_top="true"/>
+                <mapping src="cplInrt.trandt" dest="cplIntr.trandt" desc="当前日期" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

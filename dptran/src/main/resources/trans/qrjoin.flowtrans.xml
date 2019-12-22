@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrjoin" longname="查询联名账户信息" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="交易卡号" ref="BaseDict.Comm.cardno"/>
+            <field id="platno" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="平台编号"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="joinac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="联名账户"/>
+            <field id="lmacbl" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="联名账户余额"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="qrJointInfo" id="qrJointInfo" longname="查询联名账户信息"/>
+    </flow>
+</flowtran>

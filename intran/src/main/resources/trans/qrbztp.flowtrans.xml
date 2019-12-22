@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrbztp" longname="查询属性类型信息" kind="account" package="cn.sunline.ltts.busi.intran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.intran.trans.intf">
+        <input packMode="false"/>
+        <output asParm="true" packMode="false">
+            <fields id="bztpInfos" scope="IoInQueryTypes.IoBzprtpInfoList" required="false" multi="false" longname="属性类型信息集合" array="false">
+                <field id="bzprtpInfo" type="IoInQueryTypes.IoBzprtpInfo" required="false" multi="true" array="false" longname="属性类型信息"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service serviceName="IoInQuery.IoSelBzprtpInfoForDict" id="selBzprtpInfoForDict" longname="查询属性类型信息" desc="查询属性类型信息">
+            <in_mappings by_interface="true"/>
+            <out_mappings by_interface="true">
+                <mapping src="cplBzprtpInfos.bzprtpInfo" dest="bztpInfos.bzprtpInfo" desc="属性类型信息" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

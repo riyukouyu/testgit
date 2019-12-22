@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="knbdeprown" longname="存款证明主体登记簿数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="knbdeprowne" longname="存款证明主体登记簿数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="deprsq" type="BaseType.U_ACCTNO" longname="存款证明流水号" length="80" leftPadding="false" padding=" " ref="DpDict.Depr.deprsq"/>
+            <field id="deprnm" type="BaseType.U_ACCTNO" longname="存款证明书编号" length="80" leftPadding="false" padding=" " ref="DpDict.Depr.deprnm"/>
+            <field id="custac" type="BaseType.U_ACCTNO" longname="客户账号" length="80" leftPadding="false" padding=" " ref="PbDict.Charge.custac"/>
+            <field id="number" type="BaseType.U_LONGIN" longname="凭证使用份数" length="19" leftPadding="false" padding=" "/>
+            <field id="retnum" type="BaseType.U_LONGIN" longname="凭证回收份数" length="19" leftPadding="false" padding=" "/>
+            <field id="frozno" type="BaseType.U_SEQUNO" longname="冻结编号" length="64" leftPadding="false" padding=" " ref="DpDict.Froz.frozno"/>
+            <field id="frozdt" type="BaseType.U_DATE08" longname="冻结日期" length="16" leftPadding="false" padding=" " ref="DpDict.Froz.frozdt"/>
+            <field id="froztm" type="BaseType.U_TIME06" longname="冻结时间" length="12" leftPadding="false" padding=" "/>
+            <field id="unfrdt" type="BaseType.U_DATE08" longname="解冻日期" length="16" leftPadding="false" padding=" " ref="DpDict.Froz.unfrdt"/>
+            <field id="unfrtm" type="BaseType.U_TIME06" longname="解冻时间" length="12" leftPadding="false" padding=" "/>
+            <field id="frozam" type="BaseType.U_TRANAM" longname="冻结金额" length="17" leftPadding="false" padding=" " ref="DpDict.Froz.frozam"/>
+            <field id="frbgdt" type="BaseType.U_DATE08" longname="冻结起始日期" length="16" leftPadding="false" padding=" " ref="DpDict.Froz.frbgdt"/>
+            <field id="freddt" type="BaseType.U_DATE08" longname="冻结终止日期" length="16" leftPadding="false" padding=" " ref="DpDict.Froz.freddt"/>
+            <field id="isrecy" type="BaseEnumType.E_DPRECY" longname="是否回收" length="2" leftPadding="false" padding=" " ref="DpDict.Depr.isrecy"/>
+            <field id="undobr" type="BaseType.U_USERID" longname="撤销柜员" length="14" leftPadding="false" padding=" " ref="DpDict.Froz.undobr"/>
+            <field id="undois" type="BaseType.U_BRCHNO" longname="撤销机构" length="12" leftPadding="false" padding=" " ref="DpDict.Froz.undois"/>
+            <field id="tmstmp" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.tmstmp"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

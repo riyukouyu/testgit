@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="ciuncg" longname="按费种代码统一计费" kind="3" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="chrgcd" type="FeBaseType.U_CHRGCD" required="false" multi="false" array="false" longname="费种代码" ref="FeDict.Chrg.chrgcd"/>
+            <field id="custno" type="BaseType.U_CHAR14" required="false" multi="false" array="false" longname="用户ID"/>
+            <field id="predim" type="IoFeChrgComplexType.CgPreDiInfo" required="false" multi="true" array="false" longname="优惠维度列表"/>
+            <field id="custac" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="客户账号"/>
+            <field id="tranbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="交易机构" ref="FeDict.Chrg.tranbr"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+            <field id="amount" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="数量"/>
+            <field id="isdivi" type="FeEnumType.E_ISDIVI" required="false" multi="false" array="false" longname="是否分润"/>
+            <field id="dioage" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="分润方一机构号"/>
+            <field id="diwage" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="分润方二机构号"/>
+            <field id="ditage" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="分润方三机构号"/>
+            <field id="difage" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="分润方四机构号"/>
+            <field id="diopro" type="FeBaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方一比例"/>
+            <field id="diwpro" type="FeBaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方二比例"/>
+            <field id="ditpro" type="FeBaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方三比例"/>
+            <field id="difpro" type="FeBaseType.U_INSTRT" required="false" multi="false" array="false" longname="分润方四比例"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="BaseDict.Comm.custno"/>
+            <field id="custac" type="BaseType.U_CHAR32" required="false" multi="false" array="false" longname="账号"/>
+            <field id="listnm" type="FeComplexType.listnm" required="false" multi="true" array="false" longname="计费结果"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="false" serviceName="IoFeChrgSvcType.IoCalCharge" id="IoCalCharge" longname="统一计费">
+            <in_mappings by_interface="true">
+                <mapping src="amount" dest="in.amount" by_interface="true" on_top="true"/>
+                <mapping src="chrgcd" dest="in.chrgcd" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="in.cplKfzhu.custac" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="in.custac" by_interface="true" on_top="true"/>
+                <mapping src="custno" dest="in.custno" by_interface="true" on_top="true"/>
+                <mapping src="difage" dest="in.difage" by_interface="true" on_top="true"/>
+                <mapping src="difpro" dest="in.difpro" by_interface="true" on_top="true"/>
+                <mapping src="dioage" dest="in.dioage" by_interface="true" on_top="true"/>
+                <mapping src="diopro" dest="in.diopro" by_interface="true" on_top="true"/>
+                <mapping src="ditage" dest="in.ditage" by_interface="true" on_top="true"/>
+                <mapping src="ditpro" dest="in.ditpro" by_interface="true" on_top="true"/>
+                <mapping src="diwage" dest="in.diwage" by_interface="true" on_top="true"/>
+                <mapping src="diwpro" dest="in.diwpro" by_interface="true" on_top="true"/>
+                <mapping src="tranbr" dest="in.inbrno" by_interface="true" on_top="true"/>
+                <mapping src="isdivi" dest="in.isdivi" by_interface="true" on_top="true"/>
+                <mapping src="tranbr" dest="in.oubrno" by_interface="true" on_top="true"/>
+                <mapping src="predim" dest="in.predim" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="in.tranam" by_interface="true" on_top="true"/>
+                <mapping src="tranbr" dest="in.tranbr" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="out.custac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="out.custno" dest="custno" by_interface="true" on_top="true"/>
+                <mapping src="out.listnm" dest="listnm" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

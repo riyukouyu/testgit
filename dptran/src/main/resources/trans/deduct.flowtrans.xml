@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="deduct" longname="扣划" kind="3" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="客户账号"/>
+            <field id="dedutp" type="DpEnumType.E_DEDUTP" required="false" multi="false" array="false" longname="扣划类型" ref="DpDict.Froz.dedutp"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="deduam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="扣划金额" ref="DpDict.Froz.deduam"/>
+            <field id="trantp" type="BaseEnumType.E_TRANTP" required="false" multi="false" array="false" longname="交易类别"/>
+            <field id="frozno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="冻结编号" ref="DpDict.Froz.frozno"/>
+            <field id="frozdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="冻结日期" ref="DpDict.Froz.frozdt"/>
+            <field id="ufctno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="解冻通知书编号" ref="DpDict.Froz.ufctno"/>
+            <field id="dectno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="扣划通知书编号" ref="DpDict.Froz.dectno"/>
+            <field id="deogtp" type="BaseEnumType.E_LAWCOP" required="false" multi="false" array="false" longname="有权机构类型" ref="DpDict.Froz.deogtp"/>
+            <field id="deogna" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="有权机构名称" ref="DpDict.Froz.deogna"/>
+            <field id="opna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人1姓名" ref="DpDict.Froz.opna01"/>
+            <field id="optp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="经办人1证件种类"/>
+            <field id="opno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人1证件号码" ref="DpDict.Froz.opno01"/>
+            <field id="optp02" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="经办人2证件种类"/>
+            <field id="opno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人2证件号码" ref="DpDict.Froz.opno02"/>
+            <field id="opna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人2姓名" ref="DpDict.Froz.opna02"/>
+            <field id="monyto" type="DpEnumType.E_MONYTO" required="false" multi="false" array="false" longname="资金去向" ref="DpDict.Froz.monyto"/>
+            <field id="otheac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="对方账号" ref="DpDict.Froz.otheac"/>
+            <field id="othena" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="对方户名" ref="DpDict.Froz.othena"/>
+            <field id="othebk" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="对方行名" ref="DpDict.Froz.othebk"/>
+            <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="执法事由" ref="DpDict.Froz.reason"/>
+            <field id="remark" type="BaseType.U_SHORTS" required="false" multi="false" array="false" longname="备注" ref="DpDict.Froz.remark"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期" ref="DpDict.Froz.trandt"/>
+            <field id="tranbr" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="交易机构" ref="DpDict.Froz.tranbr"/>
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="客户账号" ref="DpDict.Acct.custac"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="DpDict.Acct.custno"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="frozno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="冻结编号" ref="DpDict.Froz.frozno"/>
+            <field id="dectno" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="扣划通知书编号" ref="DpDict.Froz.dectno"/>
+            <field id="deduno" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="扣划编号" ref="DpDict.Froz.deduno"/>
+            <field id="deduam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="扣划金额" ref="DpDict.Froz.deduam"/>
+            <field id="otheac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="对方账号" ref="DpDict.Froz.otheac"/>
+            <field id="othena" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="对方户名" ref="DpDict.Froz.othena"/>
+            <field id="deogna" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="有权机构名称" ref="DpDict.Froz.deogna"/>
+            <field id="opna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人1姓名" ref="DpDict.Froz.opna01"/>
+            <field id="opno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人1证件号码" ref="DpDict.Froz.opno01"/>
+            <field id="opna02" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人2姓名" ref="DpDict.Froz.opna02"/>
+            <field id="opno02" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人2证件号码" ref="DpDict.Froz.opno02"/>
+            <field id="reason" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="执法事由" ref="DpDict.Froz.reason"/>
+            <field id="remark" type="BaseType.U_SHORTS" required="false" multi="false" array="false" longname="备注" ref="DpDict.Froz.remark"/>
+            <field id="otacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转出方子账号"/>
+            <field id="otacna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="转出方户名"/>
+            <field id="inacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入方子账号"/>
+            <field id="otbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转入方子账号"/>
+        </output>
+        <property packMode="true">
+            <field id="busino" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务编码IA"/>
+            <field id="subsac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="子户号"/>
+            <field id="smrycd" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码" ref="BaseDict.Comm.smrycd"/>
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转出方子账号"/>
+            <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="转出方户名"/>
+            <field id="capitp" type="DpEnumType.E_CAPITP" required="false" multi="false" array="false" longname="资金交易类型"/>
+            <field id="inacno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="转入方子账号"/>
+            <field id="ioflag" type="DpEnumType.E_IOFLAG" required="false" multi="false" array="false" longname="出入金标识"/>
+            <field id="otbrch" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转出方机构号"/>
+            <field id="transt" type="BaseEnumType.E_TRANST" required="false" multi="false" array="false" longname="交易状态"/>
+            <field id="brch01" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="转入方机构号"/>
+            <field id="smry01" type="BaseType.U_SMRYCD" required="false" multi="false" array="false" longname="摘要代码"/>
+            <field id="brch02" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="内部户记账机构"/>            
+            <field id="busi02" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务跟踪编号"/>
+            <field id="prcs02" type="BaseType.U_PRCSCD" required="false" multi="false" array="false" longname="交易码"/>
+            <field id="kpdt02" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="清算日期"/>
+            <field id="frdt02" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="渠道流水"/>
+            <field id="frsq02" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="渠道日期"/>
+			<field id="srtp02" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="交易渠道"/>
+			<field id="crcy02" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="DealTransBefore" id="DealTransBefore" longname="扣划前处理"/>
+        <service serviceName="IoDpFrozSvcType.IoDeduct" id="IoDeduct" longname="扣划" desc="扣划">
+            <in_mappings by_interface="true">
+                <mapping src="cardno" dest="deductin.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="deductin.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="deductin.csextg" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="deductin.custna" by_interface="true" on_top="true"/>
+                <mapping src="dectno" dest="deductin.dectno" by_interface="true" on_top="true"/>
+                <mapping src="deduam" dest="deductin.deduam" by_interface="true" on_top="true"/>
+                <mapping src="dedutp" dest="deductin.dedutp" by_interface="true" on_top="true"/>
+                <mapping src="deogna" dest="deductin.deogna" by_interface="true" on_top="true"/>
+                <mapping src="deogtp" dest="deductin.deogtp" by_interface="true" on_top="true"/>
+                <mapping src="frozdt" dest="deductin.frozdt" by_interface="true" on_top="true"/>
+                <mapping src="frozno" dest="deductin.frozno" by_interface="true" on_top="true"/>
+                <mapping src="monyto" dest="deductin.monyto" by_interface="true" on_top="true"/>
+                <mapping src="opna01" dest="deductin.opna01" by_interface="true" on_top="true"/>
+                <mapping src="opna02" dest="deductin.opna02" by_interface="true" on_top="true"/>
+                <mapping src="opno01" dest="deductin.opno01" by_interface="true" on_top="true"/>
+                <mapping src="opno02" dest="deductin.opno02" by_interface="true" on_top="true"/>
+                <mapping src="optp01" dest="deductin.optp01" by_interface="true" on_top="true"/>
+                <mapping src="optp02" dest="deductin.optp02" by_interface="true" on_top="true"/>
+                <mapping src="otheac" dest="deductin.otheac" by_interface="true" on_top="true"/>
+                <mapping src="othebk" dest="deductin.othebk" by_interface="true" on_top="true"/>
+                <mapping src="othena" dest="deductin.othena" by_interface="true" on_top="true"/>
+                <mapping src="reason" dest="deductin.reason" by_interface="true" on_top="true"/>
+                <mapping src="remark" dest="deductin.remark" by_interface="true" on_top="true"/>
+                <mapping src="trantp" dest="deductin.trantp" by_interface="true" on_top="true"/>
+                <mapping src="ufctno" dest="deductin.ufctno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="deductot.crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="deductot.csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="deductot.otheac" dest="custac" by_interface="true" on_top="true"/>
+                <mapping src="deductot.custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="deductot.custno" dest="custno" by_interface="true" on_top="true"/>
+                <mapping src="deductot.dectno" dest="dectno" by_interface="true" on_top="true"/>
+                <mapping src="deductot.deduam" dest="deduam" by_interface="true" on_top="true"/>
+                <mapping src="deductot.deduno" dest="deduno" by_interface="true" on_top="true"/>
+                <mapping src="deductot.deogna" dest="deogna" by_interface="true" on_top="true"/>
+                <mapping src="deductot.frozno" dest="frozno" by_interface="true" on_top="true"/>
+                <mapping src="deductot.opna01" dest="opna01" by_interface="true" on_top="true"/>
+                <mapping src="deductot.opna02" dest="opna02" by_interface="true" on_top="true"/>
+                <mapping src="deductot.opno01" dest="opno01" by_interface="true" on_top="true"/>
+                <mapping src="deductot.opno02" dest="opno02" by_interface="true" on_top="true"/>
+                <mapping src="deductot.otheac" dest="otheac" by_interface="true" on_top="true"/>
+                <mapping src="deductot.othena" dest="othena" by_interface="true" on_top="true"/>
+                <mapping src="deductot.reason" dest="reason" by_interface="true" on_top="true"/>
+                <mapping src="deductot.remark" dest="remark" by_interface="true" on_top="true"/>
+                <mapping src="deductot.tranbr" dest="tranbr" by_interface="true" on_top="true"/>
+                <mapping src="deductot.trandt" dest="trandt" by_interface="true" on_top="true"/>
+                <mapping src="deductot.acctno" dest="otacno" by_interface="true" on_top="true"/>
+                <mapping src="deductot.acctna" dest="otacna" by_interface="true" on_top="true"/>
+                <mapping src="deductot.brchno" dest="otbrch" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="DealEvaluate" id="DealEvaluate" longname="贷方服务记账前处理"/>
+        <service serviceName="IoInAccount.IoInAccrAdm" id="IoInAccr" longname="内部户贷方记账服务">
+            <in_mappings by_interface="true">
+                <mapping src="brch01" dest="input.acbrch" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="input.busino" by_interface="true" on_top="true"/>
+                <mapping src="subsac" dest="input.subsac" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="input.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="smry01" dest="input.smrycd" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="input.toacct" by_interface="true" on_top="true"/>
+                <mapping src="acctna" dest="input.toacna" desc="description" by_interface="true" on_top="true"/>
+                <mapping src="deduam" dest="input.tranam" by_interface="true" on_top="true"/>
+                <mapping src="trantp" dest="input.trantp" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="output.acctno" dest="inacno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="DealEvaluateBill" id="DealEvaluateBill" longname="出入金登记前处理"/>
+        <service serviceName="IoSaveIoTransBill.SaveIoBill" id="SaveIoBill" longname="登记出入金登记簿">
+            <in_mappings by_interface="true">
+                <mapping src="brch02" dest="brchno" by_interface="true" on_top="true"/>
+                <mapping src="busino" dest="busino" by_interface="true" on_top="true"/>
+                <mapping src="busi02" dest="busisq" by_interface="true" on_top="true"/>
+                <mapping src="capitp" dest="capitp" by_interface="true" on_top="true"/>
+                <mapping src="inacno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcy02" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="frdt02" dest="frondt" by_interface="true" on_top="true"/>
+                <mapping src="frsq02" dest="fronsq" by_interface="true" on_top="true"/>
+                <mapping src="ioflag" dest="ioflag" by_interface="true" on_top="true"/>
+                <mapping src="kpdt02" dest="keepdt" by_interface="true" on_top="true"/>
+                <mapping src="prcs02" dest="prcscd" by_interface="true" on_top="true"/>
+                <mapping src="srtp02" dest="servtp" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="toacct" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="toacno" by_interface="true" on_top="true"/>
+                <mapping src="otbrch" dest="tobrch" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="toscac" by_interface="true" on_top="true"/>
+                <mapping src="deduam" dest="tranam" by_interface="true" on_top="true"/>
+                <mapping src="transt" dest="transt" by_interface="true" on_top="true"/>                                                                 
+            <field id="busi02" type="BaseType.U_BUSINO" required="false" multi="false" array="false" longname="业务编码IA"/>
+    
+
+			<field id="srtp02" type="MsType.U_CHANNEL" required="false" multi="false" array="false" longname="交易渠道"/>	   
+                
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="DealTransAfter" id="DealTransAfter" longname="交易后处理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

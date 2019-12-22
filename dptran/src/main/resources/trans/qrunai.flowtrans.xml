@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrunai" longname="客户端查询电子账户不可用余额信息" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUSTAC" required="false" fixed="" default="" multi="false" array="false" longname="电子账号ID" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" fixed="" default="" multi="false" array="false" longname="电子账号" desc="" ref=""/>
+            <field id="onlnbl" type="BaseType.U_ACBLTP" required="false" fixed="" default="" multi="false" array="false" longname="当前余额" desc="" ref=""/>
+            <field id="acctbl" type="BaseType.U_ACBLTP" required="false" fixed="" default="" multi="false" array="false" longname="可支取余额" desc="" ref=""/>
+            <field id="unavbl" type="BaseType.U_ACBLTP" required="false" fixed="" default="" multi="false" array="false" longname="不可用余额" desc="" ref=""/>
+            <field id="unavaiInfoList" type="IoDpFrozComplexType.IoDpQryUnBalList" required="false" fixed="" default="" multi="true" array="false" longname="不可用余额信息列表" desc="" ref=""/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="IoDpFrozSvcType.IoDpQryUnBalance" id="qryUnBalance" test="" longname="查询电子账户不可用余额" desc="查询电子账户不可用余额">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="custac" desc="电子账号ID" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="acctbl" dest="acctbl" desc="可支取余额" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="cardno" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="onlnbl" dest="onlnbl" desc="当前余额" by_interface="true" on_top="true"/>
+                <mapping src="unavaiInfoList" dest="unavaiInfoList" desc="不可用余额列表" by_interface="true" on_top="true"/>
+                <mapping src="unavbl" dest="unavbl" desc="不可用余额" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+</flowtran>

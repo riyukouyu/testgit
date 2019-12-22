@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qrissv" longname="电子账户转入校验" kind="1" package="cn.sunline.ltts.busi.dptran.trans.client" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.client.intf">
+        <input packMode="true">
+            <field id="cardno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" default="0.00" multi="false" array="false" longname="交易金额"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号/卡号"/>
+            <field id="trantp" type="CaEnumType.E_CKTRTP" required="true" multi="false" array="false" longname="交易类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="isable" type="CaEnumType.E_CKTRIF" required="false" multi="false" array="false" longname="校验结果"/>
+            <field id="remark" type="PbBaseType.U_SHORDS" required="false" multi="false" array="false" longname="描述信息"/>
+            <field id="custnm" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称"/>
+        </output>
+        <property packMode="true">
+            <field id="ischck" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否校验"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="checkAcctno" id="checkAcctno" longname="判断是否执行账户校验" desc="内部户不进行校验"/>
+        <block id="block_1" test="ischck != #dict.BaseEnumType.E_YES___().NO" longname="是否执行">
+            <service serviceName="IoDpStaPublic.IoDpCheckAcCarry" id="IoDpCheckAcCarry" longname="电子账户转入校验">
+                <in_mappings by_interface="true">
+                    <mapping src="cardno" dest="cardno" desc="电子账户" by_interface="true" on_top="true"/>
+                    <mapping src="toacct" dest="toacct" desc="对方账号" by_interface="true" on_top="true"/>
+                    <mapping src="tranam" dest="tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                    <mapping src="trantp" dest="trantp" desc="交易类型" by_interface="true" on_top="true"/>
+                </in_mappings>
+                <out_mappings by_interface="true">
+                    <mapping src="custnm" dest="custnm" by_interface="true" on_top="true"/>
+                    <mapping src="isable" dest="isable" by_interface="true" on_top="true"/>
+                    <mapping src="remark" dest="remark" by_interface="true" on_top="true"/>
+                </out_mappings>
+            </service>
+        </block>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="dlcrif" longname="差错信息处理" kind="3" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="rdtrsq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="差错读取流水"/>
+            <field id="rdtrdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="差错读取日期"/>
+            <field id="cprsty" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="对账渠道类型"/>
+            <field id="cprsst" type="BaseEnumType.E_CPRSST" required="false" multi="false" array="false" longname="对账结果"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+        </input>
+        <output asParm="true" packMode="true"/>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="dealDlcrif" id="dealDlcrif" longname="差错交易前处理"/>
+    </flow>
+</flowtran>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="AgentRelation" package="cn.sunline.edsp.busi.dp.tables.agent" longname="代理商关系表" classgen="normal" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <table id="knb_agent" name="knb_agent" longname="代理商层级管理表" tableType="ORDINARY" virtual="false" abstract="false">
+        <fields>
+            <field id="mechid" longname="商户ID" type="BaseType.U_CHAR25" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="agntid" longname="代理商ID" type="BaseType.U_CHAR25" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+            <field id="creadt" longname="创建日期" type="CcBaseType.U_CREADT" ref="CcDict.Lion.creadt" primarykey="false" final="false" nullable="true" identity="false" allowSubType="true"/>
+        </fields>
+        <ddls/>
+    </table>
+</schema>

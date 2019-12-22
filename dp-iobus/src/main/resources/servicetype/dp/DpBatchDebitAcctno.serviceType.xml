@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpBatchDebitAcctno" kind="business" longname="赊销贷相关批量处理服务" package="cn.sunline.edsp.busi.dp.iobus.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="addDrawAcctsDp" name="addDrawAcctsDp" longname="批量扣款记账处理">
+        <interface>
+            <input packMode="true">
+                <field id="cplDrawAcctsIn" type="DpdebitAcctnos.DpdebitAcctnosIn" required="true" multi="true" array="false" longname="扣款记账处理输入"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="batchNoParmentIn" name="batchNoParmentIn" longname="批量止付处理">
+        <interface>
+            <input packMode="true">
+                <field id="batchNoParmentIn" type="DpdebitAcctnos.BatchNoParmentIn" required="true" multi="true" array="false" longname="批量止付处理输入"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="false"/>
+        </interface>
+    </service>
+    <service id="passivePayBackCorrect" name="passivePayBackCorrect" longname="被动还款冲正交易">
+        <interface>
+            <input packMode="true">
+                <field id="drawAcctsIn" type="DpdebitAcctnos.DpdebitAcctnosIn" required="true" multi="true" array="false" longname="被动还款冲正交易对象"/>
+                <field id="orderDate" type="CnBaseType.U_CHAR8" required="false" multi="false" array="false" longname="原订单日期"/>
+            </input>
+            <output asParm="false" packMode="false"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

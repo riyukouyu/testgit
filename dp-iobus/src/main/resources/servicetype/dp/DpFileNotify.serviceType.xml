@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceType xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="DpFileNotify" kind="business" longname="文件生成通知" package="cn.sunline.ltts.busi.dp.servicetype" xsi:noNamespaceSchemaLocation="ltts-model.xsd">
+    <service id="grfileNotifyInfo" name="grfileNotifyImpl" longname="存款产品支取对账文件生成结果通知">
+        <interface>
+            <input packMode="true">
+                <field id="fileType" type="BaseType.U_CHAR02" required="false" multi="false" array="false" longname="文件类型"/>
+                <field id="fileUrl" type="BaseType.U_CHAR30" required="false" multi="false" array="false" longname="文件路径"/>
+                <field id="transTime" type="BaseType.U_CHAR06" required="false" multi="false" array="false" longname="交易时间"/>
+                <field id="prcscd" type="BaseType.U_CHAR08" required="false" multi="false" array="false" longname="交易码"/>
+                <field id="attachments" type="DpYhtType.Attachments" required="true" multi="true" array="false" longname="文件附件区"/>
+            </input>
+            <output asParm="true" packMode="true"/>
+            <property packMode="false"/>
+            <printer packMode="true"/>
+        </interface>
+    </service>
+</serviceType>

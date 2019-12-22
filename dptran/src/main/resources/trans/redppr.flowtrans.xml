@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="redppr" longname="补打存款证明" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="deprtp" type="BaseEnumType.E_DEPRTP" required="false" multi="false" array="false" longname="存款证明书类型" ref="DpDict.Depr.deprtp"/>
+            <field id="deprbp" type="BaseEnumType.E_DEPRBP" required="false" multi="false" array="false" longname="存款证明交易类型" ref="DpDict.Depr.deprbp"/>
+            <field id="deprnm" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款证明书编号" ref="DpDict.Depr.deprnm"/>
+            <field id="ischge" type="BaseEnumType.E_DPCGFG" required="false" multi="false" array="false" longname="是否收费" ref="DpDict.Depr.ischge"/>
+            <field id="feeamt" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="手续费金额" ref="PbDict.Charge.feeamt"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="custna" type="BaseType.U_CHINNA" required="false" multi="false" array="false" longname="客户名" ref="PbDict.Charge.custna"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+            <field id="depram" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="证明金额" ref=""/>
+            <field id="stcenm" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="起始凭证号" ref=""/>
+            <field id="encenm" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="终止凭证号" ref=""/>
+            <field id="number" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="份数"/>
+            <field id="begndt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期" ref="DpDict.Depr.begndt"/>
+            <field id="enddat" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期" ref="DpDict.Depr.enddat"/>
+            <field id="opna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人1姓名" ref="DpDict.Froz.opna01"/>
+            <field id="optp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="经办人1证件种类" ref="DpDict.Froz.optp01"/>
+            <field id="opno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人1证件号码" ref="DpDict.Froz.opno01"/>
+            <field id="fretxt" type="IoDpFrozComplexType.freeOfDeposit" required="false" multi="true" array="false" longname="费用信息"/>
+        </input>
+        <output asParm="false" packMode="true">
+            <field id="deprtp" type="BaseEnumType.E_DEPRTP" required="false" multi="false" array="false" longname="存款证明书类型" ref="DpDict.Depr.deprtp"/>
+            <field id="deprbp" type="BaseEnumType.E_DEPRBP" required="false" multi="false" array="false" longname="存款证明交易类型" ref="DpDict.Depr.deprbp"/>
+            <field id="deprnm" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="存款证明书编号" ref="DpDict.Depr.deprnm"/>
+            <field id="ischge" type="BaseEnumType.E_DPCGFG" required="false" multi="false" array="false" longname="是否收费" ref="DpDict.Depr.ischge"/>
+            <field id="cardno" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="depram" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="证明金额" ref="DpDict.Depr.depram"/>
+            <field id="stcenm" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="起始凭证号" ref=""/>
+            <field id="encenm" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="终止凭证号" ref=""/>
+            <field id="number" type="BaseType.U_LONGIN" required="false" multi="false" array="false" longname="份数"/>
+            <field id="begndt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="起始日期" ref="DpDict.Depr.begndt"/>
+            <field id="enddat" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="终止日期" ref="DpDict.Depr.enddat"/>
+            <field id="opna01" type="BaseType.U_CUSTNA" required="false" multi="false" array="false" longname="经办人1姓名" ref="DpDict.Froz.opna01"/>
+            <field id="optp01" type="BaseEnumType.E_IDTFTP" required="false" multi="false" array="false" longname="经办人1证件种类" ref="DpDict.Froz.optp01"/>
+            <field id="opno01" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="经办人1证件号码" ref="DpDict.Froz.opno01"/>
+            <field id="custna" type="BaseType.U_CHINNA" required="false" multi="false" array="false" longname="客户名" ref="PbDict.Charge.custna"/>
+            <field id="tranbl" type="PbBaseType.U_TRANAM" required="false" multi="false" array="false" longname="余额" ref="PbDict.Charge.tranbl"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="csextg" type="BaseEnumType.E_CSEXTG" required="false" multi="false" array="false" longname="账户钞汇标志" ref="DpDict.Acct.csextg"/>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="IoDpFrozSvcType.IoReDpprov" id="IoReDpprov" test="" longname="补打存款证明" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="begndt" dest="reDpprIn.begndt" by_interface="true" on_top="true"/>
+                <mapping src="cardno" dest="reDpprIn.cardno" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="reDpprIn.crcycd" by_interface="true" on_top="true"/>
+                <mapping src="csextg" dest="reDpprIn.csextg" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="reDpprIn.custna" by_interface="true" on_top="true"/>
+                <mapping src="depram" dest="reDpprIn.depram" by_interface="true" on_top="true"/>
+                <mapping src="deprbp" dest="reDpprIn.deprbp" by_interface="true" on_top="true"/>
+                <mapping src="deprnm" dest="reDpprIn.deprnm" by_interface="true" on_top="true"/>
+                <mapping src="deprtp" dest="reDpprIn.deprtp" by_interface="true" on_top="true"/>
+                <mapping src="encenm" dest="reDpprIn.encenm" by_interface="true" on_top="true"/>
+                <mapping src="enddat" dest="reDpprIn.enddat" by_interface="true" on_top="true"/>
+                <mapping src="feeamt" dest="reDpprIn.feeamt" by_interface="true" on_top="true"/>
+                <mapping src="fretxt" dest="reDpprIn.fretxt" by_interface="true" on_top="true"/>
+                <mapping src="ischge" dest="reDpprIn.ischge" by_interface="true" on_top="true"/>
+                <mapping src="number" dest="reDpprIn.number" by_interface="true" on_top="true"/>
+                <mapping src="opna01" dest="reDpprIn.opna01" by_interface="true" on_top="true"/>
+                <mapping src="opno01" dest="reDpprIn.opno01" by_interface="true" on_top="true"/>
+                <mapping src="optp01" dest="reDpprIn.optp01" by_interface="true" on_top="true"/>
+                <mapping src="stcenm" dest="reDpprIn.stcenm" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="reDpprOut.begndt" dest="begndt" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.cardno" dest="cardno" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.crcycd" dest="crcycd" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.csextg" dest="csextg" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.custna" dest="custna" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.depram" dest="depram" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.deprbp" dest="deprbp" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.deprnm" dest="deprnm" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.deprtp" dest="deprtp" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.encenm" dest="encenm" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.enddat" dest="enddat" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.ischge" dest="ischge" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.number" dest="number" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.opna01" dest="opna01" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.opno01" dest="opno01" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.optp01" dest="optp01" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.stcenm" dest="stcenm" by_interface="true" on_top="true"/>
+                <mapping src="reDpprOut.tranbl" dest="tranbl" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

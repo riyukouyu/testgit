@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="selpay" longname="支付方式查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID" ref="BaseDict.Comm.custid"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="paylist" scope="IoDpProdQuery.IoEacctSelpayInfo" required="false" multi="true" longname="支付方式信息列表" array="false">
+                <field id="cardno" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+                <field id="acount" type="BaseType.U_CARDNO" required="false" multi="false" array="false" longname="卡号"/>
+                <field id="isbkca" type="PbEnumType.E_YES___" required="false" multi="false" array="false" longname="是否本行卡"/>
+                <field id="cardtp" type="CaEnumType.E_BACATP" required="false" multi="false" array="false" longname="卡类型"/>
+                <field id="acoutp" type="BaseType.U_CSACTP" required="false" multi="false" array="false" longname="账号类型"/>
+                <field id="acsetp" type="BaseType.U_CSACTP" required="false" multi="false" array="false" longname="客户账号类型"/>
+                <field id="acctno" type="BaseType.U_IDTFNO" required="false" multi="false" array="false" longname="子账号"/>
+                <field id="acctna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="账户名称" ref="DpDict.Acct.acctna"/>
+                <field id="brchna" type="BaseType.U_CHAR80" required="false" multi="false" array="false" longname="账户开户行名称" ref="CaDict.Eacct.brchna"/>
+                <field id="brchno" type="BaseType.U_CHAR10" required="false" multi="false" array="false" longname="账户开户行号"/>
+                <field id="usebal" type="BaseType.U_ACBLTP" required="false" multi="false" array="false" longname="可用余额"/>
+                <field id="status" type="BaseEnumType.E_DPACST" required="false" multi="false" array="false" longname="状态"/>
+                <field id="custid" type="BaseType.U_CUSTID" required="false" multi="false" array="false" longname="用户ID"/>
+            </fields>
+        </output>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <service serviceName="DpAcctSvcType.QryEacctSelpay" id="qryEacctSelpay" test="" longname="查询电子账号支付方式" desc="">
+            <in_mappings by_interface="true">
+                <mapping src="custid" dest="custid" desc="" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="paylist" dest="paylist" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

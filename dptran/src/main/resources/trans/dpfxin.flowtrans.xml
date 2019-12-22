@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dpfxin" longname="存款定期存入" kind="account" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="true">
+            <field id="custac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="电子账号"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="货币代号" ref="DpDict.Acct.crcycd"/>
+            <field id="depttm" type="BaseEnumType.E_TERMCD" required="false" multi="false" array="false" longname="存期" ref="DpDict.Prod.depttm"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="tranam" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="交易金额"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="matudt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="到期日期 " ref="DpDict.Acct.matudt"/>
+        </output>
+        <property packMode="true">
+            <field id="acctno" type="BaseType.U_ACCTNO" required="true" multi="false" array="false" longname="负债账号" ref="DpDict.Acct.acctno"/>
+            <field id="custna" type="BaseType.U_ACCTNA" required="false" multi="false" array="false" longname="客户名称" ref="DpDict.Acct.custna"/>
+            <field id="custno" type="BaseType.U_CUSTNO" required="false" multi="false" array="false" longname="客户号" ref="DpDict.Acct.custno"/>
+            <field id="toacct" type="BaseType.U_ACCTNO" required="false" multi="false" array="false" longname="对方账号"/>
+            <field id="tosbac" type="BaseType.U_CUACNO" required="false" multi="false" array="false" longname="对方子户号"/>
+            <field id="custtp" type="BaseEnumType.E_CUSTTP" required="false" default="'11'" multi="false" array="false" longname="客户类型" desc="客户类型暂时默认为个人"/>
+            <field id="signtp" type="DpEnumType.E_SIGNTP" required="false" default="'1'" multi="false" array="false" longname="签约类型" desc="默认为“1-到期转存”"/>
+            <field id="trdptp" type="DpEnumType.E_TRDPTP" required="false" default="'2'" multi="false" array="false" longname="转存类型" desc="默认为“2-转入活期”"/>
+            <field id="matudt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="到期日期 " ref="DpDict.Acct.matudt"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <method method="chkTransBefore" id="chkTransBefore" longname="交易前处理" desc="交易前处理"/>
+        <service mappingToProperty="true" serviceName="DpAcctSvcType.DpOpenSbacPost" id="prcDpOpsbPost" longname="定期存款开户并存入服务" desc="定期存款开户并存入服务">
+            <in_mappings by_interface="true">
+                <mapping src="custac" dest="cplDpopin.custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="prodcd" dest="cplDpopin.prodcd" desc="产品编号" by_interface="true" on_top="true"/>
+                <mapping src="depttm" dest="cplDpopin.depttm" desc="存期" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDpopin.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplDpopin.tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                <mapping src="custtp" dest="cplDpopin.custtp" desc="客户类型" by_interface="true" on_top="true"/>
+                <mapping src="signtp" dest="cplDpopin.signtp" desc="签约类型" by_interface="true" on_top="true"/>
+                <mapping src="trdptp" dest="cplDpopin.trdptp" desc="转存类型" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true">
+                <mapping src="cplDpopou.acctno" dest="acctno" desc="定期账号" by_interface="true" on_top="true"/>
+                <mapping src="cplDpopou.custna" dest="custna" desc="客户名称" by_interface="true" on_top="true"/>
+                <mapping src="cplDpopou.custno" dest="custno" desc="客户号" by_interface="true" on_top="true"/>
+                <mapping src="cplDpopou.toacct" dest="toacct" desc="对方账号" by_interface="true" on_top="true"/>
+                <mapping src="cplDpopou.matudt" dest="matudt" desc="到期日期" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <service serviceName="DpAcctSvcType.addDrawAcctDp" id="addDrawAcctDp" test="tranam!=@java.math.BigDecimal@ZERO" longname="存款支取服务" desc="存款支取服务，电子账户默认活期支取">
+            <in_mappings by_interface="true">
+                <mapping src="toacct" dest="cplDrawAcctIn.acctno" desc="负债账号" by_interface="true" on_top="true"/>
+                <mapping src="tranam" dest="cplDrawAcctIn.tranam" desc="交易金额" by_interface="true" on_top="true"/>
+                <mapping src="crcycd" dest="cplDrawAcctIn.crcycd" desc="币种" by_interface="true" on_top="true"/>
+                <mapping src="custac" dest="cplDrawAcctIn.custac" desc="电子账号" by_interface="true" on_top="true"/>
+                <mapping src="tosbac" dest="cplDrawAcctIn.acseno" desc="子户号" by_interface="true" on_top="true"/>
+                <mapping src="acctno" dest="cplDrawAcctIn.toacct" desc="对方账号" by_interface="true" on_top="true"/>
+                <mapping src="custna" dest="cplDrawAcctIn.opacna" desc="客户名称" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="true"/>
+        </service>
+        <method method="chkTransAfter" id="chkTransAfter" longname="交易后处理" desc="交易后处理"/>
+    </flow>
+</flowtran>

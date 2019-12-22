@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<serviceImpl id="IoInAccountImpl" longname="内部户记账相关服务实现" serviceType="IoInAccount" package="cn.sunline.ltts.busi.in.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[内部户记账相关服务实现]]></description>
+</serviceImpl>

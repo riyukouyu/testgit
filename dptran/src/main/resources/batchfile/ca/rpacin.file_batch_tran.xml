@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rpacin" longname="电子账户当日开户信息反盘文件" kind="write" package="cn.sunline.ltts.busi.catran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[返回当日符合相关活动条件的电子账户开户记录，按开户时间升序排序]]></description>
+    <fileTemplate id="accinf" longname="电子账户当日翻盘文件" mode="splitor" splitor="|" encoding="UTF-8" package="">
+        <description><![CDATA[]]></description>
+        <header id="Header" longname="文件头" mapping="" prefix="" suffix="" startline="1">
+            <description><![CDATA[]]></description>
+            <field id="maxnum" type="BaseType.U_INTEGE" longname="最大记录数" leftPadding="false" mode="splitor"/>
+            <field id="reltid" type="BaseType.U_CHAR20" longname="关联id" leftPadding="false" mode="splitor"/>
+            <field id="relnum" type="ApBaseType.U_CHANZXLX" longname="实际条数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" mapping="IoCaTypGenEAccountInfo.IoCaAccOpenInfo" prefix="" suffix="" startline="2">
+            <description><![CDATA[]]></description>
+            <field id="custid" type="BaseType.U_CUSTID" longname="用户ID" leftPadding="false" ref="BaseDict.Comm.custid" mode="splitor"/>
+            <field id="custna" type="BaseType.U_ACCTNA" longname="客户名称" leftPadding="false" ref="BaseDict.Comm.custna" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" mapping="" prefix="" suffix="" startline="1">
+            <description><![CDATA[]]></description>
+        </foot>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.intf">
+        <input packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="开户机构"/>
+            <field id="maxnum" type="BaseType.U_INTEGE" required="false" multi="false" array="false" longname="最大记录数"/>
+            <field id="reltid" type="BaseType.U_CHAR20" required="false" multi="false" array="false" longname="活动ID"/>
+            <field id="opendt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="开户日期" ref="CaDict.Eacct.opendt"/>
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+            <field id="trandt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="业务日期" ref=""/>
+            <field id="upfeph" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="返回文件路径"/>
+            <field id="upfena" type="BaseType.U_FILENA" required="false" multi="false" array="false" longname="返回文件名"/>
+            <field id="locaph" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="文件本地路径"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

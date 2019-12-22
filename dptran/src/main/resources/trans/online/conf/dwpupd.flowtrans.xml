@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="dwpupd" longname="修改产品支取计划表配置交易" kind="maintain" package="cn.sunline.ltts.busi.dptran.trans.online.conf" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[修改产品支取计划表配置交易]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.online.conf.intf">
+        <input packMode="true">
+            <field id="prodcd" type="BaseType.U_PRODCD" required="false" multi="false" array="false" longname="产品编号" ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" required="false" multi="false" array="false" longname="币种" ref="BaseDict.Comm.crcycd"/>
+            <field id="setpwy" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="是否设置支取计划" ref="DpDict.Prod.setpwy"/>
+            <field id="termwy" type="DpEnumType.E_DWPLAJ" required="false" multi="false" array="false" longname="支取计划调整周期方式" ref="DpDict.Prod.termwy"/>
+            <field id="dradpd" type="BaseType.U_PERIOD" required="false" multi="false" array="false" longname="支取计划调整周期" ref="DpDict.Prod.dradpd"/>
+            <field id="dredwy" type="DpEnumType.E_ENDTWY" required="false" multi="false" array="false" longname="支取计划结束日期方式" ref="DpDict.Prod.dredwy"/>
+            <field id="drcrwy" type="BaseEnumType.E_SVPLFG" required="false" multi="false" array="false" longname="支取计划控制方式" ref="DpDict.Prod.drcrwy"/>
+            <field id="drdfsd" type="BaseEnumType.E_DWBKLI" required="false" multi="false" array="false" longname="支取违约标准" ref="DpDict.Prod.drdfsd"/>
+            <field id="drdfwy" type="BaseEnumType.E_DWBKDL" required="false" multi="false" array="false" longname="支取违约处理方式" ref="DpDict.Prod.drdfwy"/>
+            <field id="minibl" type="BaseType.U_TRANAM" required="false" multi="false" array="false" longname="账户留存最小余额" ref="DpDict.Prod.minibl"/>
+            <field id="beinfg" type="DpEnumType.E_BEINFG" required="false" multi="false" array="false" longname="支取时结息处理标志" ref="DpDict.Prod.beinfg"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="false"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="updDwp" id="updDwp" test="" longname="修改产品支取计划表配置" desc="修改产品支取计划表配置"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

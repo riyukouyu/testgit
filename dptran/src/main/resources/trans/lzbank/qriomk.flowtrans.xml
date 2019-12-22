@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="qriomk" longname="对账文件结果生成查询" kind="1" package="cn.sunline.ltts.busi.dptran.trans.lzbank" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.dptran.trans.lzbank.intf">
+        <input packMode="true">
+            <field id="rqfisq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="原请求流水"/>
+            <field id="rqfidt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="原请求日期"/>
+            <field id="rqfity" type="JfDpEnumType.E_VAFITY" required="false" multi="false" array="false" longname="文件类型"/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="rqfisq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="原请求流水"/>
+            <field id="rqfidt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="原请求日期"/>
+            <field id="rqfity" type="JfDpEnumType.E_VAFITY" required="false" multi="false" array="false" longname="文件类型"/>
+            <field id="ismkfi" type="BaseEnumType.E_YES___" required="false" multi="false" array="false" longname="文件是否生成"/>
+            <field id="fimkdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="文件生成日期"/>
+            <field id="fipath" type="BaseType.U_CHAR200" required="false" multi="false" array="false" longname="文件路径"/>
+            <field id="finame" type="BaseType.U_CHAR100" required="false" multi="false" array="false" longname="文件名称"/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="true"/>
+    </interface>
+    <flow>
+        <method method="dealQriomk" id="dealQriomk" longname="电子账户对账文件生成结果查询"/>
+    </flow>
+</flowtran>

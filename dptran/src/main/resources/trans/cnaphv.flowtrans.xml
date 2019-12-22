@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="cnaphv" longname="大小额对账文件下载" kind="2" package="cn.sunline.ltts.busi.dptran.trans" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[]]></description>
+    <interface package="cn.sunline.ltts.busi.dptran.trans.intf">
+        <input packMode="false">
+            <field id="subsys" type="BaseType.U_CHAR01" required="false" fixed="" default="" multi="false" array="false" longname="清算渠道" desc="" ref=""/>
+            <field id="chfcnb" type="KBaseType.U_LEIXIN15" required="false" fixed="" default="" multi="false" array="false" longname="对账分类编号" desc="" ref=""/>
+        </input>
+        <output asParm="true" packMode="true">
+            <field id="trandt" type="BaseType.U_DATE08" required="false" fixed="" default="" multi="false" array="false" longname="电子账户日期" desc="" ref=""/>
+            <field id="trsnsq" type="BaseType.U_CHAR20" required="false" fixed="" default="" multi="false" array="false" longname="电子账户流水" desc="" ref=""/>
+            <field id="filena" type="BaseType.U_CHAR30" required="false" fixed="" default="" multi="false" array="false" longname="对账文件名称" desc="" ref=""/>
+        </output>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+    <flow id="" test="" longname="" desc="">
+        <method method="wtcnaphv" id="wtcnaphv" test="" longname="大小额对账文件下载" desc=""/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

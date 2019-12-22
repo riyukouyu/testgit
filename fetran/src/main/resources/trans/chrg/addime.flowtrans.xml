@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<flowtran id="addime" longname="新增维度类别管理" kind="2" package="cn.sunline.ltts.busi.fetran.trans.chrg" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <interface package="cn.sunline.ltts.busi.fetran.trans.chrg.intf">
+        <input packMode="true">
+            <field id="dimena" type="FeBaseType.U_CHAR5B" required="true" multi="false" array="false" longname="维度类别名称" ref="FeDict.Chrg.dimena"/>
+            <fields id="waylst" required="false" multi="true" longname="维度类型列表" array="false">
+                <field id="waytyp" type="FeEnumType.E_WAYTYP" required="false" multi="false" array="false" longname="维度类型" ref="FeDict.Chrg.waytyp"/>
+            </fields>
+        </input>
+        <output asParm="true" packMode="true">
+            <fields id="dimlst" required="false" multi="true" longname="维度类别列表" array="false">
+                <field id="dimecg" type="FeBaseType.U_DIMECG" required="false" multi="false" array="false" longname="维度类别" ref="FeDict.Chrg.dimecg"/>
+            </fields>
+        </output>
+        <property packMode="true">
+            <field id="brchno" type="BaseType.U_BRCHNO" required="false" multi="false" array="false" longname="机构号" ref="BaseDict.Comm.brchno"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+    <flow>
+        <service mappingToProperty="true" serviceName="IoSrvPbBranch.IoGetCenterBranch" id="IoGetCenterBranch" longname="获取中心机构清算中心" desc="获取中心机构清算中心">
+            <in_mappings by_interface="true">
+                <mapping src="#run.tranbr" dest="brchno" by_interface="true" on_top="true"/>
+            </in_mappings>
+            <out_mappings by_interface="false">
+                <mapping src="brchInfo.brchno" dest="brchno" by_interface="true" on_top="true"/>
+            </out_mappings>
+        </service>
+        <method method="addime" id="addime" longname="新增维度类别管理" desc="新增维度类别管理"/>
+    </flow>
+    <outMapping/>
+    <propertyToPrinterMapping/>
+    <outToPrinterMapping/>
+</flowtran>

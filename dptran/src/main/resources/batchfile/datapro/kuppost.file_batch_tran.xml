@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="kuppost" longname="产品存入计划数仓抽数" kind="write" package="cn.sunline.ltts.busi.dptran.batchfile.datapro" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <fileTemplate id="kuppost" longname="产品存入计划数仓抽数" mode="fixAndSplitor" splitor="&amp;" splitorAsEnd="true" encoding="GBK">
+        <header id="Header" longname="文件头" mapping="SysFileTables.kapb_wjplxxb" startline="1"/>
+        <body id="Body" longname="文件体" mapping="java.util.Map" mode="fixAndSplitor" splitor="&amp;" startline="1">
+            <field id="corpno" type="BaseType.U_CORPNO" longname="法人代码" length="6" leftPadding="false" padding=" " ref="ApDict.Aplt.corpno"/>
+            <field id="prodcd" type="BaseType.U_PRODCD" longname="产品编号" length="36" leftPadding="false" padding=" " ref="DpDict.Prod.prodcd"/>
+            <field id="crcycd" type="BaseType.U_CRCYCD" longname="币种" length="6" leftPadding="false" padding=" " ref="BaseDict.Comm.crcycd"/>
+            <field id="planfg" type="DpEnumType.E_PLANFG" longname="设置存入计划标志" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.planfg"/>
+            <field id="planwy" type="BaseEnumType.E_SVPLAJ" longname="存入计划调整方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.planwy"/>
+            <field id="adjtpd" type="BaseType.U_PERIOD" longname="存入计划调整周期" length="16" leftPadding="false" padding=" " ref="DpDict.Prod.adjtpd"/>
+            <field id="endtwy" type="DpEnumType.E_ENDTWY" longname="存入计划结束日期方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.endtwy"/>
+            <field id="gentwy" type="BaseEnumType.E_SVPLGN" longname="存入计划生成方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.gentwy"/>
+            <field id="planpd" type="BaseType.U_PERIOD" longname="计划生成周期" length="16" leftPadding="false" padding=" " ref="DpDict.Acct.planpd"/>
+            <field id="svlepd" type="BaseType.U_PERIOD" longname="漏存补足宽限期" length="16" leftPadding="false" padding=" " ref="DpDict.Prod.svlepd"/>
+            <field id="svlewy" type="BaseEnumType.E_SVBKAD" longname="存入漏补方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.svlewy"/>
+            <field id="maxisp" type="BaseType.U_LONGIN" longname="最大补足次数" length="19" leftPadding="false" padding=" " ref="DpDict.Prod.maxisp"/>
+            <field id="dfltsd" type="BaseEnumType.E_SVBKLI" longname="存入违约标准" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.dfltsd"/>
+            <field id="svletm" type="BaseType.U_LONGIN" longname="漏存次数" length="19" leftPadding="false" padding=" " ref="DpDict.Prod.svletm"/>
+            <field id="dfltwy" type="BaseEnumType.E_SVBKDL" longname="存入违约处理方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.dfltwy"/>
+            <field id="pscrwy" type="BaseEnumType.E_SVPLFG" longname="存入计划控制方式" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.pscrwy"/>
+            <field id="maxibl" type="BaseType.U_ACBLTP" longname="账户留存最大余额" length="17" leftPadding="false" padding=" " ref="DpDict.Prod.maxibl"/>
+            <field id="psamtp" type="DpEnumType.E_PSAMTP" longname="计划金额类型" length="2" leftPadding="false" padding=" " ref="DpDict.Prod.psamtp"/>
+            <field id="tmstmp" type="ApBaseType.U_TMSTMP" longname="时间戳" length="42" leftPadding="false" padding=" " ref="ApDict.Aplt.tmstmp"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.dptran.batchfile.datapro.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="批量交易批次号"/>
+            <field id="acctdt" type="BaseType.U_DATE08" required="false" multi="false" array="false" longname="交易日期"/>
+            <field id="busseq" type="BaseType.U_SEQUNO" required="false" multi="false" array="false" longname="业务流水"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true"/>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>

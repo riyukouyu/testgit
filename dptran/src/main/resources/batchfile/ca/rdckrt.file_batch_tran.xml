@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<file_batch_transaction id="rdckrt" longname="读取身份核查对账文件" kind="read" package="cn.sunline.ltts.busi.catran.batchfile" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <description><![CDATA[读取身份核查对账文件]]></description>
+    <fileTemplate id="rdckrt" longname="读取身份核查对账文件" mode="splitor" splitor="|+|" encoding="UTF-8">
+        <header id="Header" longname="文件头" startline="1">
+            <field id="counts" type="BaseType.U_LONGIN" longname="总记录数" leftPadding="false" mode="splitor"/>
+        </header>
+        <body id="Body" longname="文件体" startline="2">
+            <field id="mesgid" type="string" longname="消息ID" length="100" leftPadding="false" mode="splitor"/>
+            <field id="mesgct" type="string" longname="消息内容" length="1024" leftPadding="false" mode="splitor"/>
+            <field id="servid" type="string" longname="交易服务id" length="100" leftPadding="false" mode="splitor"/>
+        </body>
+        <foot id="Foot" longname="文件尾" startline="1"/>
+    </fileTemplate>
+    <interface package="cn.sunline.ltts.busi.catran.batchfile.intf">
+        <input packMode="true">
+            <field id="filesq" type="BaseType.U_CHAR40" required="false" multi="false" array="false" longname="当前批次号"/>
+        </input>
+        <output asParm="true" packMode="false"/>
+        <property packMode="true">
+            <field id="filena" type="BaseType.U_SHORDS" required="false" multi="false" array="false" longname="文件名称"/>
+            <field id="flpath" type="BaseType.U_LONGDS" required="false" multi="false" array="false" longname="文件路径"/>
+        </property>
+        <printer packMode="false"/>
+    </interface>
+</file_batch_transaction>
