@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<serviceImpl id="IoCaStaPublicImpl" longname="电子账户对外提供方法实现" serviceType="IoCaStaPublic" package="cn.sunline.ltts.busi.ca.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <description><![CDATA[]]></description>
-</serviceImpl>

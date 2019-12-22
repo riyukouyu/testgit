@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<serviceImpl id="IoChngbrSvcTypeImpl" longname="电子账户变更服务实现" serviceType="IoAccChngbrSvc" package="cn.sunline.ltts.busi.dp.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <description><![CDATA[]]></description>
-</serviceImpl>

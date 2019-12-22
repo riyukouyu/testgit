@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<serviceImpl id="DpProdSvcImpl" longname="负债产品服务实现" serviceType="DpProdSvcType" package="cn.sunline.ltts.busi.dp.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>

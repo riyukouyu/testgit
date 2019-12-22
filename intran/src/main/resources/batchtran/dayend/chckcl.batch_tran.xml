@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<batch_transaction id="chckcl" longname="清算并账异常情况预警" package="cn.sunline.ltts.busi.intran.batchtran.dayend" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <interface package="cn.sunline.ltts.busi.intran.batchtran.dayend.intf">
-        <input packMode="true"/>
-        <output asParm="true" packMode="false"/>
-        <property packMode="true"/>
-        <printer packMode="false"/>
-    </interface>
-</batch_transaction>

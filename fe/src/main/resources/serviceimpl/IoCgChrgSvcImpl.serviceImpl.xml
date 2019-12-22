@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<serviceImpl id="IoCgChrgSvcImpl" longname="公共收费外部服务实现" serviceType="IoCgChrgSvcType" package="cn.sunline.ltts.busi.cg.serviceimpl" xsi:noNamespaceSchemaLocation="ltts-model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
